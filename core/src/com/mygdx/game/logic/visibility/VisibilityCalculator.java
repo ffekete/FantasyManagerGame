@@ -9,6 +9,7 @@ import java.util.List;
 
 public class VisibilityCalculator {
 
+    public static final int FLOOR_TILE = 1;
     public final int width;
     public final int height;
 
@@ -116,7 +117,7 @@ public class VisibilityCalculator {
             y = Math.min(y, height-1);
 
             visibilityMask.setValue(x, y);
-            if (map.getTile(x,y) == 1) break;
+            if (map.getTile(x,y) > FLOOR_TILE) break;
 
 
             numerator += shortest ;

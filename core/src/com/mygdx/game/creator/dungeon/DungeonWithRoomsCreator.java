@@ -16,7 +16,8 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
     private static final int ROOM_MAX_HEIGHT = Config.DungeonConfig.DUNGEON_HEIGHT / NR_OF_SEGMENTS;
     private static final int ROOM_MIN_HEIGHT = 5;
     private static final int ROOM_APPEARANCE_CHANCE = 60;
-    public static final int CORRIDOR_WALL = 1;
+    private static final int CORRIDOR_WALL = 2;
+    public static final int FLOOR = 1;
 
 
     @Override
@@ -25,7 +26,7 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
 
         for(int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
             for(int j = 0; j < Config.DungeonConfig.DUNGEON_HEIGHT; j++) {
-                map.setTile(i, j, 0);
+                map.setTile(i, j, FLOOR);
             }
         }
         placeRooms(map);
@@ -47,8 +48,8 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
             int end_x = room2.getX() + Math.abs(room2.getX() - room2.getMaxX()) / 2;
             int end_y = room2.getMaxY();
 
-            map.setTile(start_x, start_y, 0);
-            map.setTile(end_x, end_y, 0);
+            map.setTile(start_x, start_y, FLOOR);
+            map.setTile(end_x, end_y, FLOOR);
 
             int symbol = CORRIDOR_WALL;
 
@@ -62,7 +63,7 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
                 map.setTile(i, start_y+1, symbol);
 
                 if(i > end_x)
-                    map.setTile(i, start_y, 0);
+                    map.setTile(i, start_y, FLOOR);
 
                 if(invert) {
                     symbol = invert(symbol);
@@ -76,7 +77,7 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
                 map.setTile(end_x-1, i, symbol);
 
                 if(i < start_y)
-                    map.setTile(end_x, i, 0);
+                    map.setTile(end_x, i, FLOOR);
 
                 if(i < start_y)
                     map.setTile(end_x+1, i, symbol);
@@ -85,7 +86,7 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
     }
 
     private int invert(int i) {
-        return i == 0 ? CORRIDOR_WALL : 0;
+        return i == FLOOR ? CORRIDOR_WALL : FLOOR;
     }
 
     private void placeRooms(Dungeon map) {
@@ -117,13 +118,13 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
             int y_end = room.getMaxY();
 
             for (int i = x_start; i <= x_end; i++) {
-                map.setTile(i, y_start, 1);
-                map.setTile(i, y_end, 1);
+                map.setTile(i, y_start, CORRIDOR_WALL);
+                map.setTile(i, y_end, CORRIDOR_WALL);
             }
 
             for (int i = y_start; i <= y_end; i++) {
-                map.setTile(x_start, i, 1);
-                map.setTile(x_end, i, 1);
+                map.setTile(x_start, i, CORRIDOR_WALL);
+                map.setTile(x_end, i, CORRIDOR_WALL);
             }
         }
 

@@ -2,7 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,7 +9,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.creator.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.dungeon.DungeonCreator;
 import com.mygdx.game.creator.dungeon.DungeonWithRoomsCreator;
 import com.mygdx.game.dto.Dungeon;
@@ -27,8 +25,9 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     private OrthographicCamera camera;
     private Viewport viewPort;
     private SpriteBatch spriteBatch;
-    private Texture texture;
+    private Texture wallTexture;
     private Texture floorTexture;
+    private Texture playerTexture;
 
     DungeonCreator dungeonCreator = new DungeonWithRoomsCreator();
     Dungeon dungeon;
@@ -40,8 +39,9 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
         camera = new OrthographicCamera();
         viewPort = new FitViewport(Config.DungeonConfig.DUNGEON_WIDTH, Config.DungeonConfig.DUNGEON_HEIGHT, camera);
         spriteBatch = new SpriteBatch();
-        texture = new Texture(Gdx.files.internal("wall.jpg"));
-        floorTexture = new Texture(Gdx.files.internal("floor.jpg"));
+        wallTexture = new Texture(Gdx.files.internal("wall.jpg"));
+        floorTexture = new Texture(Gdx.files.internal("sand.jpg"));
+        playerTexture = new Texture(Gdx.files.internal("badlogic.jpg"));
         dungeon = dungeonCreator.create();
         Gdx.input.setInputProcessor(this);
     }
@@ -65,13 +65,16 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
         VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 100,  new Point(px,py));
         int[][] drawMap = visibilityMask.mask(dungeon);
 
-        drawMap[px][py] = 2;
+        drawMap[px][py] = 3;
 
         for(int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
             for (int j = 0; j < Config.DungeonConfig.DUNGEON_HEIGHT; j++) {
-                if(drawMap[i][j] == 1) {
-                    spriteBatch.draw(texture, i,j, 0,0,1,1,1,1,0,0,0,texture.getWidth(), texture.getHeight(), false, false);
-                } else if(drawMap[i][j] == 2) {
+                if(drawMap[i][j] == 3) {
+                    spriteBatch.draw(playerTexture, i,j, 0,0,1,1,1,1,0,0,0, wallTexture.getWidth(), wallTexture.getHeight(), false, false);
+                }
+                if(drawMap[i][j] == 2) {
+                    spriteBatch.draw(wallTexture, i,j, 0,0,1,1,1,1,0,0,0, wallTexture.getWidth(), wallTexture.getHeight(), false, false);
+                } else if(drawMap[i][j] == 1) {
                     spriteBatch.draw(floorTexture, i,j, 0,0,1,1,1,1,0,0,0,floorTexture.getWidth(), floorTexture.getHeight(), false, false);
                 }
             }
@@ -88,8 +91,9 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     @Override
     public void dispose() {
         spriteBatch.dispose();
-        texture.dispose();
+        wallTexture.dispose();
         floorTexture.dispose();
+        playerTexture.dispose();
     }
 
     @Override
