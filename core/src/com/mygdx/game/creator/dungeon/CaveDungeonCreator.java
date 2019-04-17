@@ -22,13 +22,6 @@ public class CaveDungeonCreator implements DungeonCreator {
         //Set up the map with random values
         cellmap = initialiseMap(cellmap);
 
-        for(int i = 0; i < cellmap.getWidth(); i++) {
-            for(int j = 0; j < cellmap.getHeight(); j++) {
-                System.out.print(cellmap.getTile(i,j));
-            }
-            System.out.println("");
-        }
-
         //And now run the simulation for a set number of steps
         for(int i=0; i<numberOfSteps; i++){
             cellmap = doSimulationStep(cellmap);

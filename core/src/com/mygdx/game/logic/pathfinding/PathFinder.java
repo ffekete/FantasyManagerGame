@@ -1,4 +1,187 @@
 package com.mygdx.game.logic.pathfinding;
 
+import com.mygdx.game.logic.Point;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class PathFinder {
+
+    private final int width;
+    private final int height;
+
+    private Node[][] nodes;
+
+    public PathFinder(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Node[][] getNodes() {
+        return nodes;
+    }
+
+    public void addObstacle(int x, int y, int value) {
+        nodes[x][y].cost = value;
+    }
+
+    public List<Node> findAStar(Point start, Point target, Node[][] map) {
+
+        List<Node> openNodes = new ArrayList<>();
+        List<Node> closedNodes = new ArrayList<>();
+        List<Node> path = new ArrayList<>();
+
+        Node startNode = new Node(map[start.getX()][start.getY()].cost, start.getX(), start.getY());
+        startNode.g = startNode.f = startNode.h = 0;
+        startNode.parent = null;
+
+        Node end = new Node(map[target.getX()][target.getY()].cost, target.getX(), target.getY());
+        end.g = end.h = end.f = 0;
+        end.parent = null;
+
+        openNodes.add(startNode);
+
+        long counter = 0;
+        while(!openNodes.isEmpty()) {
+
+            counter++;
+            Node current = openNodes.get(0);
+
+            for(int i = 0; i < openNodes.size(); i++) {
+                if(openNodes.get(i).f < current.f) {
+                    current = openNodes.get(i);
+                }
+            }
+
+            openNodes.remove(current);
+            closedNodes.add(current);
+
+            if((current.x == target.getX() && current.y == target.getY())
+                    || counter == width * height
+            ) {
+                // hurra
+                Node c = current;
+                while(c != null) {
+                    path.add(c);
+                    c = c.parent;
+                }
+                break;
+            }
+
+            List<Node> children = new ArrayList<>();
+            // add children
+            for(int i = -1; i <= 1; i++) {
+                for(int j = -1; j <= 1; j++) {
+                    if(i != 0 && j != 0) { // skip current node
+                        int x = current.x - i;
+                        int y = current.y - j;
+
+
+
+                        if(x >= 0 && x < width && y >= 0 && y < height) {
+
+                            if(map[x][y].cost != 0) {
+                                continue;
+                            }
+
+                            Node child = new Node(map[x][y].cost, x, y);
+                            child.parent = current;
+
+                            children.add(child);
+                        }
+                    }
+                }
+            }
+
+            // calculate f,g,h
+            for(Node child : children) {
+                if (closedNodes.contains(child))
+                    continue;
+                child.g = current.g + 1;
+                child.h = distance(child, end);
+                child.f = child.g + child.h;
+
+                if(openNodes.contains(child)) {
+                    if(child.g > openNodes.get(openNodes.indexOf(child)).g) continue;
+                }
+                openNodes.add(child);
+            }
+
+        }
+
+        return path;
+    }
+
+    public static void main(String[] args) {
+        PathFinder pathFinder = new PathFinder(100, 100);
+        int[][] obstacleMap = new int[pathFinder.getWidth()][pathFinder.getHeight()];
+        pathFinder.init(obstacleMap);
+
+        pathFinder.addObstacle(98,98,1);
+        int[][] resultMap = new int[pathFinder.getWidth()][pathFinder.getHeight()];
+
+        long start = System.currentTimeMillis();
+        List<Node> path = pathFinder.findAStar(new Point(0,0), new Point(98,99), pathFinder.getNodes());
+        System.out.println(System.currentTimeMillis() - start);
+
+        int i = 1;
+        for(Node node: path) {
+            resultMap[node.x][node.y] = i;
+            i++;
+        }
+
+        pathFinder.print(resultMap);
+    }
+
+    private void print(int[][] resultMap) {
+
+        for(int k = 0; k < width; k++) {
+            for(int l = 0; l < height; l++) {
+                System.out.print(resultMap[k][l]);
+            }
+            System.out.println("");
+        }
+    }
+
+    private void init(int[][] map) {
+        nodes = new Node[width][height];
+        for(int i = 0; i < width; i++) {
+            for(int j = 0; j < height; j++) {
+                nodes[i][j] = new Node(map[i][j], i,j);
+            }
+        }
+    }
+
+    private static int distance(Node n1, Node n2) {
+        int a = Math.abs(n2.x - n1.x);
+        int b = Math.abs(n2.y - n1.y);
+        return a*a + b*b;
+    }
+
+    public static class Node {
+        private final int x;
+        private final int y;
+        private Node parent;
+        private int cost;
+
+        int f,g,h;
+
+        public Node(int cost, int x, int y) {
+            this.cost = cost;
+            this.x = x;
+            this.y = y;
+        }
+
+        public int getCost() {
+            return cost;
+        }
+    }
 }
