@@ -11,6 +11,7 @@ import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.dungeon.DungeonCreator;
+import com.mygdx.game.dto.Dungeon;
 import com.mygdx.game.utils.GdxUtils;
 
 
@@ -25,7 +26,7 @@ public class DungeonRendererSample extends SampleBase {
     private Texture floorTexture;
 
     DungeonCreator dungeonCreator = new CaveDungeonCreator();
-    int[][] dungeon;
+    Dungeon dungeon;
 
     @Override
     public void create() {
@@ -55,9 +56,9 @@ public class DungeonRendererSample extends SampleBase {
     public void draw() {
         for(int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
             for (int j = 0; j < Config.DungeonConfig.DUNGEON_HEIGHT; j++) {
-                if(dungeon[i][j] == 1) {
+                if(dungeon.getTile(i, j) == 1) {
                     spriteBatch.draw(texture, i,j, 0,0,1,1,1,1,0,0,0,texture.getWidth(), texture.getHeight(), false, false);
-                } else if(dungeon[i][j] == 2) {
+                } else if(dungeon.getTile(i, j) == 2) {
                     spriteBatch.draw(floorTexture, i,j, 0,0,1,1,1,1,0,0,0,floorTexture.getWidth(), floorTexture.getHeight(), false, false);
                 }
             }

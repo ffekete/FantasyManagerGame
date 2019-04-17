@@ -1,6 +1,7 @@
 package com.mygdx.game.creator.dungeon;
 
 import com.mygdx.game.Config;
+import com.mygdx.game.dto.Dungeon;
 import com.mygdx.game.dto.Room;
 
 import java.util.ArrayList;
@@ -19,24 +20,24 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
 
 
     @Override
-    public int[][] create() {
-        int[][] map = new int[Config.DungeonConfig.DUNGEON_WIDTH][Config.DungeonConfig.DUNGEON_HEIGHT];
+    public Dungeon create() {
+        Dungeon map = new Dungeon(Config.DungeonConfig.DUNGEON_WIDTH, Config.DungeonConfig.DUNGEON_HEIGHT);
 
         for(int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
             for(int j = 0; j < Config.DungeonConfig.DUNGEON_HEIGHT; j++) {
-                map[i][j] = 0;
+                map.setTile(i, j, 0);
             }
         }
         placeRooms(map);
 
-        return  map;
+        return map;
     }
 
     public static void main(String[] args) {
         new DungeonWithRoomsCreator().create();
     }
 
-    private void connectRooms(int[][] map, Room room1, Room room2) {
+    private void connectRooms(Dungeon map, Room room1, Room room2) {
 
         if(room1.getX() > room2.getMaxX() && room1.getY() > room2.getMaxY()) {
             System.out.println("Connecting " + room1 +" " +  room2);
@@ -46,22 +47,22 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
             int end_x = room2.getX() + Math.abs(room2.getX() - room2.getMaxX()) / 2;
             int end_y = room2.getMaxY();
 
-            map[start_x][start_y] = 0;
-            map[end_x][end_y] = 0;
+            map.setTile(start_x, start_y, 0);
+            map.setTile(end_x, end_y, 0);
 
             int symbol = CORRIDOR_WALL;
 
             for(int i = start_x; i >= end_x ; i--) {
 
                 boolean invert = false;
-                if(map[i][start_y-1] == CORRIDOR_WALL && i < start_x) invert = true;
+                if(map.getTile(i, start_y-1) == CORRIDOR_WALL && i < start_x) invert = true;
                 if(i > end_x)
-                    map[i][start_y-1] = symbol;
+                    map.setTile(i, start_y-1, symbol);
 
-                map[i][start_y+1] = symbol;
+                map.setTile(i, start_y+1, symbol);
 
                 if(i > end_x)
-                    map[i][start_y] = 0;
+                    map.setTile(i, start_y, 0);
 
                 if(invert) {
                     symbol = invert(symbol);
@@ -70,15 +71,15 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
 
             for(int i = start_y + 1; i > end_y; i--) {
 
-                if(map[end_x+1][i] == CORRIDOR_WALL && i <  start_y-1) symbol = invert(symbol);
+                if(map.getTile(end_x+1, i) == CORRIDOR_WALL && i <  start_y-1) symbol = invert(symbol);
 
-                map[end_x-1][i] = symbol;
-
-                if(i < start_y)
-                    map[end_x][i] = 0;
+                map.setTile(end_x-1, i, symbol);
 
                 if(i < start_y)
-                    map[end_x+1][i] = symbol;
+                    map.setTile(end_x, i, 0);
+
+                if(i < start_y)
+                    map.setTile(end_x+1, i, symbol);
             }
         }
     }
@@ -87,7 +88,7 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
         return i == 0 ? CORRIDOR_WALL : 0;
     }
 
-    private void placeRooms(int[][] map) {
+    private void placeRooms(Dungeon map) {
         List<Room> rooms = new ArrayList<>();
 
         Room[][] roomLayout = new Room[NR_OF_SEGMENTS][NR_OF_SEGMENTS];
@@ -116,13 +117,13 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
             int y_end = room.getMaxY();
 
             for (int i = x_start; i <= x_end; i++) {
-                map[i][y_start] = 1;
-                map[i][y_end] = 1;
+                map.setTile(i, y_start, 1);
+                map.setTile(i, y_end, 1);
             }
 
             for (int i = y_start; i <= y_end; i++) {
-                map[x_start][i] = 1;
-                map[x_end][i] = 1;
+                map.setTile(x_start, i, 1);
+                map.setTile(x_end, i, 1);
             }
         }
 
