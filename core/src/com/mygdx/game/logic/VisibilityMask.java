@@ -1,5 +1,7 @@
 package com.mygdx.game.logic;
 
+import com.mygdx.game.dto.Dungeon;
+
 public class VisibilityMask {
 
     private static final int DEFAULT_VALE = 0;
@@ -13,6 +15,20 @@ public class VisibilityMask {
         this.width = width;
         this.height = height;
         mask = new int[width][height];
+    }
+
+    public int[][] mask(Dungeon map) {
+        if(width != map.getWidth() || height != map.getHeight())
+            throw new IllegalArgumentException("Map sizes are not matching with mask!");
+        int[][] newMap = new int[map.getWidth()][map.getHeight()];
+
+        for(int i = 0; i < width; i++) {
+            for(int j = 0; j < height; j++) {
+                newMap[i][j] = mask[i][j] == 0 ? 0 : map.getTile(i,j);
+            }
+        }
+
+        return newMap;
     }
 
     public void reset() {

@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,6 +14,9 @@ import com.mygdx.game.creator.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.dungeon.DungeonCreator;
 import com.mygdx.game.creator.dungeon.DungeonWithRoomsCreator;
 import com.mygdx.game.dto.Dungeon;
+import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.VisibilityMask;
+import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.utils.GdxUtils;
 
 
@@ -28,6 +32,8 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
 
     DungeonCreator dungeonCreator = new DungeonWithRoomsCreator();
     Dungeon dungeon;
+
+    int px = 1, py = 1;
 
     @Override
     public void create() {
@@ -55,15 +61,23 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     }
 
     public void draw() {
+        VisibilityCalculator visibilityCalculator = new VisibilityCalculator(dungeon.getWidth(), dungeon.getHeight());
+        VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 100,  new Point(px,py));
+        int[][] drawMap = visibilityMask.mask(dungeon);
+
+        drawMap[px][py] = 2;
+
         for(int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
             for (int j = 0; j < Config.DungeonConfig.DUNGEON_HEIGHT; j++) {
-                if(dungeon.getTile(i, j) == 1) {
+                if(drawMap[i][j] == 1) {
                     spriteBatch.draw(texture, i,j, 0,0,1,1,1,1,0,0,0,texture.getWidth(), texture.getHeight(), false, false);
-                } else if(dungeon.getTile(i, j) == 2) {
+                } else if(drawMap[i][j] == 2) {
                     spriteBatch.draw(floorTexture, i,j, 0,0,1,1,1,1,0,0,0,floorTexture.getWidth(), floorTexture.getHeight(), false, false);
                 }
             }
         }
+
+
     }
 
     @Override
@@ -99,10 +113,26 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
         System.out.println("Key pressed " + keycode);
 
         if (keycode == Input.Keys.LEFT) {
-            camera.position.x -= 10.0 * delta;
+            //camera.position.x -= 10.0 *
+            px--;
+            if(px < 0)
+                px = 0;
         }
         if (keycode == Input.Keys.RIGHT) {
-            camera.position.x += 10.0 * delta;
+            //camera.position.x += 10.0 * delta;
+            px++;
+            if(px >= Config.DungeonConfig.DUNGEON_WIDTH)
+                px = Config.DungeonConfig.DUNGEON_WIDTH -1;
+        }
+        if(keycode == Input.Keys.DOWN) {
+            py--;
+            if(py < 0)
+                py = 0;
+        }
+        if(keycode == Input.Keys.UP) {
+            py++;
+            if(py >= Config.DungeonConfig.DUNGEON_HEIGHT)
+                py = Config.DungeonConfig.DUNGEON_HEIGHT -1;
         }
 
         camera.update();
