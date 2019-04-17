@@ -23,6 +23,10 @@ public class VisibilityMask {
         }
     }
 
+    public void setValue(int x, int y) {
+        mask[x][y] = 1;
+    }
+
     public int getValue(int x, int y) {
         return mask[x][y];
     }

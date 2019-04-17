@@ -1,18 +1,24 @@
 package com.mygdx.game.logic.visibility;
 
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.VisibilityMask;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VisibilityCalculator {
 
-    public static final int WIDTH = 100;
-    public static final int HEIGHT = 100;
+    public final int width;
+    public final int height;
     public static final int VISIBILITY_RANGE = 15;
 
-    public static int[][] generateMask(int[][] map, Point... points) {
-        int[][] mask = new int[WIDTH][HEIGHT];
+    public VisibilityCalculator(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public VisibilityMask generateMask(int[][] map, Point... points) {
+        VisibilityMask mask = new VisibilityMask(width, height);
         for(Point point : points) {
             calculateFor(point.getX(), point.getY(), VISIBILITY_RANGE, mask, map);
         }
@@ -22,7 +28,7 @@ public class VisibilityCalculator {
         return mask;
     }
 
-    private static List<Integer[]> midPointCircleDraw(int x_centre,
+    private List<Integer[]> midPointCircleDraw(int x_centre,
                                                       int y_centre, int r) {
 
         List<Integer[]> points = new ArrayList<>();
@@ -85,7 +91,7 @@ public class VisibilityCalculator {
         return points;
     }
 
-    private static void line(int x,int y,int x2, int y2, int color, int[][] visibilityMask, int[][] map) {
+    private void line(int x,int y,int x2, int y2, VisibilityMask visibilityMask, int[][] map) {
         int w = x2 - x ;
         int h = y2 - y ;
         int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0 ;
@@ -106,11 +112,11 @@ public class VisibilityCalculator {
 
             x = Math.max(x, 0);
             y = Math.max(y, 0);
-            x = Math.min(x, WIDTH-1);
-            y = Math.min(y, HEIGHT-1);
+            x = Math.min(x, width-1);
+            y = Math.min(y, height-1);
 
             if (map[x][y] == 1) break;
-            visibilityMask[x][y] = color;
+            visibilityMask.setValue(x, y);
 
 
             numerator += shortest ;
@@ -125,12 +131,12 @@ public class VisibilityCalculator {
         }
     }
 
-    private static void refine(int[][] mask) {
-        for(int i = 1; i < WIDTH-1; i++) {
-            for(int j = 1; j < HEIGHT-1; j++) {
-                int sum =  mask[i-1][j] + mask[i+1][j] + mask[i][j-1] + mask[i][j+1];
-                if(mask[i][j] == 0 && sum >= 3) {
-                    mask[i][j] = 1;
+    private void refine(VisibilityMask mask) {
+        for(int i = 1; i < width-1; i++) {
+            for(int j = 1; j < height-1; j++) {
+                int sum =  mask.getValue(i-1, j) + mask.getValue(i+1, j) + mask.getValue(i, j-1) + mask.getValue(i, j+1);
+                if(mask.getValue(i, j) == 0 && sum >= 3) {
+                    mask.setValue(i,j);
                 }
             }
         }
@@ -138,29 +144,30 @@ public class VisibilityCalculator {
 
     public static void main(String[] args) {
 
+        VisibilityCalculator visibilityCalculator = new VisibilityCalculator(100, 100);
+
         long start = System.currentTimeMillis();
 
-        int[][] visibilityMask;
-        int[][] map = new int[WIDTH][HEIGHT];
+        VisibilityMask visibilityMask;
+        int[][] map = new int[100][100];
 
         for(int i = 0; i < 20; i++) {
             map[11][i+5] = 1;
             map[11+i][5] = 1;
             map[11+i][25] = 1;
             map[30][5+i] = 1;
-
         }
 
-        visibilityMask = generateMask(map, new Point(35, 10), new Point(0,0));
+        visibilityMask = visibilityCalculator.generateMask(map, new Point(35, 10), new Point(0,0));
 
         System.out.println(System.currentTimeMillis() - start);
 
-        print(visibilityMask, map);
+        visibilityCalculator.print(visibilityMask, map);
     }
 
-    private static void print(int[][] visibilityMask, int[][] map) {
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
+    private void print(VisibilityMask visibilityMask, int[][] map) {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
                 System.out.print(map[i][j]);
             }
             System.out.println("");
@@ -170,19 +177,19 @@ public class VisibilityCalculator {
         System.out.println(" ----------------------- ");
         System.out.println("");
 
-        for (int i = 0; i < WIDTH; i++) {
-            for (int j = 0; j < HEIGHT; j++) {
-                System.out.print(visibilityMask[i][j]);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                System.out.print(visibilityMask.getValue(i, j));
             }
             System.out.println("");
         }
     }
 
-    private static void calculateFor(int x, int y, int range, int[][] visibilityMask, int[][] map) {
+    private void calculateFor(int x, int y, int range, VisibilityMask visibilityMask, int[][] map) {
         List<Integer[]> points = midPointCircleDraw(x, y, range);
 
         for (Integer[] point : points) {
-            line(x, y, point[0], point[1],1, visibilityMask, map);
+            line(x, y, point[0], point[1], visibilityMask, map);
         }
     }
 }
