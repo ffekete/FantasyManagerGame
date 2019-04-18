@@ -8,10 +8,11 @@ import java.util.Random;
 
 public class CaveDungeonCreator implements DungeonCreator {
 
-    public static final int FLOOR_VALUE = 1;
+    private static final int FLOOR_VALUE = 1;
     public static final int EMPTY_SPACE = 0;
-    public static final int WALL_VALUE = 2;
-    public static final int FILL_VALUE = 4;
+    private static final int WALL_VALUE = 2;
+    private static final int FILL_VALUE = 4;
+    private final static boolean DEBUG = false;
     private int deathLimit = 4;
     private int birthLimit = 4;
     private int numberOfSteps = 3;
@@ -35,12 +36,20 @@ public class CaveDungeonCreator implements DungeonCreator {
 
         int[] coord = findFirstFloor(cellmap);
         if(coord == null) return null;
-        //int allArea = countTraversableArea(cellmap, EMPTY_SPACE);
-        //fill(coord[0],coord[1], cellmap, FILL_VALUE);
-        //int traversable = countTraversableArea(cellmap, FILL_VALUE);
-
-        //System.out.println(1.0f * traversable / allArea * 100.f);
+        if(DEBUG) {
+            int allArea = countTraversableArea(cellmap, FLOOR_VALUE);
+            fill(coord[0],coord[1], cellmap, FLOOR_VALUE, FILL_VALUE);
+            int traversable = countTraversableArea(cellmap, FILL_VALUE);
+            System.out.println(1.0f * traversable / allArea * 100.f);
+            for(int i = 0; i < cellmap.getWidth(); i++) {
+                for(int j = 0; j < cellmap.getHeight(); j++) {
+                    System.out.print(cellmap.getTile(i,j));
+                }
+                System.out.println();
+            }
+        }
         System.out.println("Elapsed: " + (System.currentTimeMillis() - start) + " ms");
+
         return cellmap;
     }
 
@@ -74,7 +83,6 @@ public class CaveDungeonCreator implements DungeonCreator {
             map.setTile(0, i, WALL_VALUE);
             map.setTile(Config.DungeonConfig.DUNGEON_WIDTH - 1, i, WALL_VALUE);
         }
-
     }
 
     private Dungeon initialiseMap(Dungeon map){
@@ -140,20 +148,20 @@ public class CaveDungeonCreator implements DungeonCreator {
         return newMap;
     }
 
-    private void fill(int x, int y, Dungeon oldmap, int value) {
-        if(x >= oldmap.getWidth() || y >= oldmap.getHeight() || x < 0 || y < 0 || oldmap.getTile(x, y) == 1 || oldmap.getTile(x,y) == 2) {
+    private void fill(int x, int y, Dungeon oldmap, int originalValue, int value) {
+        if(x >= oldmap.getWidth() || y >= oldmap.getHeight() || x < 0 || y < 0 || oldmap.getTile(x, y) != originalValue || oldmap.getTile(x,y) == FILL_VALUE) {
             return;
         }
 
         oldmap.setTile(x, y, value);
 
-        fill(x-1, y, oldmap, value);
-        fill(x-1, y-1, oldmap, value);
-        fill(x-1, y+1, oldmap, value);
-        fill(x, y-1, oldmap, value);
-        fill(x, y+1, oldmap, value);
-        fill(x+1, y-1, oldmap, value);
-        fill(x+1, y, oldmap, value);
-        fill(x+1, y+1, oldmap, value);
+        fill(x-1, y, oldmap, originalValue, value);
+        fill(x-1, y-1, oldmap, originalValue, value);
+        fill(x-1, y+1, oldmap, originalValue, value);
+        fill(x, y-1, oldmap, originalValue, value);
+        fill(x, y+1, oldmap, originalValue, value);
+        fill(x+1, y-1, oldmap, originalValue, value);
+        fill(x+1, y, oldmap, originalValue, value);
+        fill(x+1, y+1, oldmap, originalValue, value);
     }
 }
