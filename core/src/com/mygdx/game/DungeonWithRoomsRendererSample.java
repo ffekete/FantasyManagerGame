@@ -40,7 +40,7 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
         viewPort = new FitViewport(Config.DungeonConfig.DUNGEON_WIDTH, Config.DungeonConfig.DUNGEON_HEIGHT, camera);
         spriteBatch = new SpriteBatch();
         wallTexture = new Texture(Gdx.files.internal("wall.jpg"));
-        floorTexture = new Texture(Gdx.files.internal("sand.jpg"));
+        floorTexture = new Texture(Gdx.files.internal("terrain.jpg"));
         playerTexture = new Texture(Gdx.files.internal("badlogic.jpg"));
         dungeon = dungeonCreator.create();
         Gdx.input.setInputProcessor(this);

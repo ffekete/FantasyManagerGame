@@ -8,6 +8,10 @@ import java.util.Random;
 
 public class CaveDungeonCreator implements DungeonCreator {
 
+    public static final int FLOOR_VALUE = 1;
+    public static final int EMPTY_SPACE = 0;
+    public static final int WALL_VALUE = 2;
+    public static final int FILL_VALUE = 4;
     private int deathLimit = 4;
     private int birthLimit = 4;
     private int numberOfSteps = 3;
@@ -31,11 +35,11 @@ public class CaveDungeonCreator implements DungeonCreator {
 
         int[] coord = findFirstFloor(cellmap);
         if(coord == null) return null;
-        int allArea = countTraversableArea(cellmap, 0);
-        fill(coord[0],coord[1], cellmap, 2);
-        int traversable = countTraversableArea(cellmap, 2);
+        //int allArea = countTraversableArea(cellmap, EMPTY_SPACE);
+        //fill(coord[0],coord[1], cellmap, FILL_VALUE);
+        //int traversable = countTraversableArea(cellmap, FILL_VALUE);
 
-        System.out.println(1.0f * traversable / allArea * 100.f);
+        //System.out.println(1.0f * traversable / allArea * 100.f);
         System.out.println("Elapsed: " + (System.currentTimeMillis() - start) + " ms");
         return cellmap;
     }
@@ -54,7 +58,7 @@ public class CaveDungeonCreator implements DungeonCreator {
     private int[] findFirstFloor(Dungeon map) {
         for(int i = 0; i < map.getWidth(); i++) {
             for(int j = 0; j < map.getHeight(); j++) {
-                if (map.getTile(i,j) == 0) return new int[] {i,j};
+                if (map.getTile(i,j) == FLOOR_VALUE) return new int[] {i,j};
             }
         }
         return null;
@@ -62,13 +66,13 @@ public class CaveDungeonCreator implements DungeonCreator {
 
     private void addFrame(Dungeon map) {
         for(int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
-            map.setTile(i, 0, 0);
-            map.setTile(i, Config.DungeonConfig.DUNGEON_HEIGHT - 1, 1);
+            map.setTile(i, 0, WALL_VALUE);
+            map.setTile(i, Config.DungeonConfig.DUNGEON_HEIGHT - 1, WALL_VALUE);
         }
 
         for(int i = 0; i < Config.DungeonConfig.DUNGEON_HEIGHT; i++) {
-            map.setTile(0, i, 0);
-            map.setTile(Config.DungeonConfig.DUNGEON_WIDTH - 1, i, 1);
+            map.setTile(0, i, WALL_VALUE);
+            map.setTile(Config.DungeonConfig.DUNGEON_WIDTH - 1, i, WALL_VALUE);
         }
 
     }
@@ -77,7 +81,7 @@ public class CaveDungeonCreator implements DungeonCreator {
         for(int x = 0; x< Config.DungeonConfig.DUNGEON_WIDTH; x++){
             for(int y = 0; y< Config.DungeonConfig.DUNGEON_HEIGHT; y++){
                 if(new Random().nextInt(100) < chanceToStartAlive){
-                    map.setTile(x, y, 1);
+                    map.setTile(x, y, WALL_VALUE);
                 }
             }
         }
@@ -99,7 +103,7 @@ public class CaveDungeonCreator implements DungeonCreator {
                     count = count + 1;
                 }
                 //Otherwise, a normal check of the neighbour
-                else if(map.getTile(neighbour_x, neighbour_y) == 1){
+                else if(map.getTile(neighbour_x, neighbour_y) == WALL_VALUE){
                     count = count + 1;
                 }
             }
@@ -117,18 +121,18 @@ public class CaveDungeonCreator implements DungeonCreator {
                 //First, if a cell is alive but has too few neighbours, kill it.
                 if(oldMap.getTile(x, y) == 1){
                     if(nbs < deathLimit){
-                        newMap.setTile(x, y, 0);
+                        newMap.setTile(x, y, FLOOR_VALUE);
                     }
                     else{
-                        newMap.setTile(x, y, 1);
+                        newMap.setTile(x, y, WALL_VALUE);
                     }
                 } //Otherwise, if the cell is dead now, check if it has the right number of neighbours to be 'born'
                 else{
                     if(nbs > birthLimit){
-                        newMap.setTile(x, y, 1);
+                        newMap.setTile(x, y, WALL_VALUE);
                     }
                     else{
-                        newMap.setTile(x, y, 0);
+                        newMap.setTile(x, y, FLOOR_VALUE);
                     }
                 }
             }
