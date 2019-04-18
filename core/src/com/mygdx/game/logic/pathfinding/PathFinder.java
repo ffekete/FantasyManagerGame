@@ -1,5 +1,6 @@
 package com.mygdx.game.logic.pathfinding;
 
+import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.logic.Point;
 
 import java.util.ArrayList;
@@ -7,13 +8,21 @@ import java.util.List;
 
 public class PathFinder {
 
-    private final int width;
-    private final int height;
+    private int width;
+    private int height;
 
-    private Node[][] nodes;
+    private Node[][] obstacleMap;
 
     public PathFinder(int width, int height) {
         this.width = width;
+        this.height = height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
         this.height = height;
     }
 
@@ -25,16 +34,16 @@ public class PathFinder {
         return height;
     }
 
-    public Node[][] getNodes() {
-        return nodes;
+    public Node[][] getObstacleMap() {
+        return obstacleMap;
     }
 
     public void addObstacle(int x, int y, int value) {
-        nodes[x][y].cost = value;
+        obstacleMap[x][y].cost = value;
     }
 
-    public List<Node> findAStar(Point start, Point target, Node[][] map) {
-
+    public List<Node> findAStar(Point start, Point target) {
+        Node[][] map = getObstacleMap();
         List<Node> openNodes = new ArrayList<>();
         List<Node> closedNodes = new ArrayList<>();
         List<Node> path = new ArrayList<>();
@@ -88,7 +97,7 @@ public class PathFinder {
 
                         if(x >= 0 && x < width && y >= 0 && y < height) {
 
-                            if(map[x][y].cost != 0) {
+                            if(map[x][y].cost != 1) {
                                 continue;
                             }
 
@@ -129,7 +138,7 @@ public class PathFinder {
         int[][] resultMap = new int[pathFinder.getWidth()][pathFinder.getHeight()];
 
         long start = System.currentTimeMillis();
-        List<Node> path = pathFinder.findAStar(new Point(0,0), new Point(98,99), pathFinder.getNodes());
+        List<Node> path = pathFinder.findAStar(new Point(0,0), new Point(98,99));
         System.out.println(System.currentTimeMillis() - start);
 
         int i = 1;
@@ -151,11 +160,20 @@ public class PathFinder {
         }
     }
 
-    private void init(int[][] map) {
-        nodes = new Node[width][height];
+    public void init(Map2D map) {
+        obstacleMap = new Node[width][height];
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                nodes[i][j] = new Node(map[i][j], i,j);
+                obstacleMap[i][j] = new Node(map.getTile(i,j), i,j);
+            }
+        }
+    }
+
+    public void init(int[][] map) {
+        obstacleMap = new Node[width][height];
+        for(int i = 0; i < width; i++) {
+            for(int j = 0; j < height; j++) {
+                obstacleMap[i][j] = new Node(map[i][j], i,j);
             }
         }
     }
@@ -178,6 +196,14 @@ public class PathFinder {
             this.cost = cost;
             this.x = x;
             this.y = y;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
         }
 
         public int getCost() {

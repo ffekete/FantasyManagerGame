@@ -9,13 +9,15 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.creator.dungeon.DungeonCreator;
-import com.mygdx.game.creator.dungeon.DungeonWithRoomsCreator;
-import com.mygdx.game.dto.Dungeon;
+import com.mygdx.game.creator.map.dungeon.DungeonCreator;
+import com.mygdx.game.creator.map.dungeon.DungeonWithRoomsCreator;
+import com.mygdx.game.creator.map.dungeon.Dungeon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.utils.GdxUtils;
+
+import java.util.Arrays;
 
 
 public class DungeonWithRoomsRendererSample extends SampleBase {
@@ -62,7 +64,7 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
 
     public void draw() {
         VisibilityCalculator visibilityCalculator = new VisibilityCalculator(dungeon.getWidth(), dungeon.getHeight());
-        VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 100,  new Point(px,py));
+        VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 100, Arrays.asList(new Point(px,py)));
         int[][] drawMap = visibilityMask.mask(dungeon);
 
         drawMap[px][py] = 3;

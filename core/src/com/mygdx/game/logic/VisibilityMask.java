@@ -1,6 +1,6 @@
 package com.mygdx.game.logic;
 
-import com.mygdx.game.dto.Dungeon;
+import com.mygdx.game.creator.map.dungeon.Dungeon;
 
 public class VisibilityMask {
 

@@ -1,6 +1,8 @@
-package com.mygdx.game.dto;
+package com.mygdx.game.creator.map.dungeon;
 
-public class Dungeon {
+import com.mygdx.game.creator.map.Map2D;
+
+public class Dungeon implements Map2D {
     private int[][] dungeon;
     private final int height;
     private final int width;

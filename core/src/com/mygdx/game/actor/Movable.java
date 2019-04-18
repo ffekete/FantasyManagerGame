@@ -1,4 +1,6 @@
 package com.mygdx.game.actor;
 
-public class Movable {
+public interface Movable {
+    void setCoordinates(int x, int y);
+    void moveToNextPathPoint();
 }

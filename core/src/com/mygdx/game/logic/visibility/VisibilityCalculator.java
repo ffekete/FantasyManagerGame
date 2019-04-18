@@ -1,10 +1,11 @@
 package com.mygdx.game.logic.visibility;
 
-import com.mygdx.game.dto.Dungeon;
+import com.mygdx.game.creator.map.dungeon.Dungeon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.VisibilityMask;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class VisibilityCalculator {
@@ -18,7 +19,7 @@ public class VisibilityCalculator {
         this.height = height;
     }
     
-    public VisibilityMask generateMask(Dungeon map, int range, Point... points) {
+    public VisibilityMask generateMask(Dungeon map, int range, List<Point> points) {
         VisibilityMask mask = new VisibilityMask(width, height);
         for(Point point : points) {
             calculateFor(point.getX(), point.getY(), range, mask, map);
@@ -159,7 +160,7 @@ public class VisibilityCalculator {
             map.setTile(30, 5+i, 1);
         }
 
-        visibilityMask = visibilityCalculator.generateMask(map, 15, new Point(35, 10), new Point(0,0));
+        visibilityMask = visibilityCalculator.generateMask(map, 15, Arrays.asList(new Point(35, 10), new Point(0,0)));
 
         System.out.println(System.currentTimeMillis() - start);
 

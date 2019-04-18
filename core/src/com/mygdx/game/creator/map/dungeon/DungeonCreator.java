@@ -1,6 +1,4 @@
-package com.mygdx.game.creator.dungeon;
-
-import com.mygdx.game.dto.Dungeon;
+package com.mygdx.game.creator.map.dungeon;
 
 public interface DungeonCreator {
     Dungeon create();

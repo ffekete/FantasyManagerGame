@@ -7,15 +7,26 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.actor.hero.Hero;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.creator.dungeon.CaveDungeonCreator;
-import com.mygdx.game.creator.dungeon.DungeonCreator;
-import com.mygdx.game.dto.Dungeon;
+import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
+import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
+import com.mygdx.game.creator.map.dungeon.DungeonCreator;
+import com.mygdx.game.creator.map.dungeon.Dungeon;
+import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.VisibilityMask;
+import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.logic.activity.MovementActivity;
+import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
+import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.utils.GdxUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 public class DungeonRendererSample extends SampleBase {
@@ -33,8 +44,11 @@ public class DungeonRendererSample extends SampleBase {
     private Texture grassVisitedTexture;
     private Texture playerTexture;
 
-    DungeonCreator dungeonCreator = new CaveDungeonCreator();
+    DungeonCreator dungeonCreator = new DummyDungeonCreator();
     Dungeon dungeon;
+    ActorRegistry actorRegistry = new ActorRegistry();
+    GameLogicController gameLogicController = new GameLogicController(actorRegistry);
+    PathFinder pathFinder;
 
     @Override
     public void create() {
@@ -46,7 +60,69 @@ public class DungeonRendererSample extends SampleBase {
         grassVisitedTexture = new Texture(Gdx.files.internal("grass_visited.jpg"));
         playerTexture = new Texture(Gdx.files.internal("badlogic.jpg"));
         dungeon = dungeonCreator.create();
+        pathFinder = new PathFinder(dungeon.getWidth(), dungeon.getHeight());
         Gdx.input.setInputProcessor(this);
+
+
+
+        Hero hero = new Hero();
+
+        int x = 0;
+        int y = 0;
+
+        do {
+            x = new Random().nextInt(dungeon.getWidth());
+            y = new Random().nextInt(dungeon.getHeight());
+        } while(dungeon.getTile(x,y) != 1);
+        hero.setCoordinates(x, y);
+
+        do {
+            x = new Random().nextInt(dungeon.getWidth());
+            y = new Random().nextInt(dungeon.getHeight());
+        } while(dungeon.getTile(x,y) != 1);
+
+        Activity activity = new MovementActivity(hero, x, y, pathFinder);
+
+        do {
+            x = new Random().nextInt(dungeon.getWidth());
+            y = new Random().nextInt(dungeon.getHeight());
+        } while(dungeon.getTile(x,y) != 1);
+
+        Activity activity2 = new MovementActivity(hero, x, y, pathFinder);
+        hero.getActivityStack().add(activity);
+        hero.getActivityStack().add(activity2);
+
+
+
+
+
+        Hero hero2 = new Hero();
+
+        do {
+            x = new Random().nextInt(dungeon.getWidth());
+            y = new Random().nextInt(dungeon.getHeight());
+        } while(dungeon.getTile(x,y) != 1);
+        hero2.setCoordinates(x, y);
+
+        do {
+            x = new Random().nextInt(dungeon.getWidth());
+            y = new Random().nextInt(dungeon.getHeight());
+        } while(dungeon.getTile(x,y) != 1);
+
+        Activity activity3 = new MovementActivity(hero2, x, y, pathFinder);
+
+        do {
+            x = new Random().nextInt(dungeon.getWidth());
+            y = new Random().nextInt(dungeon.getHeight());
+        } while(dungeon.getTile(x,y) != 1);
+
+        Activity activity4 = new MovementActivity(hero2, x, y, pathFinder);
+        hero2.getActivityStack().add(activity3);
+        hero2.getActivityStack().add(activity4);
+
+        actorRegistry.add(hero);
+        actorRegistry.add(hero2);
+        pathFinder.init(dungeon);
     }
 
     @Override
@@ -57,6 +133,7 @@ public class DungeonRendererSample extends SampleBase {
         spriteBatch.begin();
 
         GdxUtils.clearScreen();
+        gameLogicController.update();
         draw();
 
         spriteBatch.end();
@@ -65,23 +142,33 @@ public class DungeonRendererSample extends SampleBase {
 
     public void draw() {
         VisibilityCalculator visibilityCalculator = new VisibilityCalculator(dungeon.getWidth(), dungeon.getHeight());
-        VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 100,  new Point(px,py));
+
+        List<Point> coordinatesForVisibilityCalculation = new ArrayList<>();
+        actorRegistry.getActors().forEach(actor -> {
+                    coordinatesForVisibilityCalculation.add(new Point(actor.getX(), actor.getY()));
+                }
+        );
+
+        VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 10, coordinatesForVisibilityCalculation);
         int[][] drawMap = visibilityMask.mask(dungeon);
 
-        drawMap[px][py] = 3;
-
-        for(int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
-            for (int j = 0; j < Config.DungeonConfig.DUNGEON_HEIGHT; j++) {
-                if(drawMap[i][j] == 3) {
-                    spriteBatch.draw(playerTexture, i,j, 0,0,1,1,1,1,0,0,0, playerTexture.getWidth(), playerTexture.getHeight(), false, false);
+        actorRegistry.getActors().forEach(actor -> {
+            drawMap[actor.getX()][actor.getY()] = 3;
                 }
-                if(drawMap[i][j] == 4) {
+        );
+
+        for (int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
+            for (int j = 0; j < Config.DungeonConfig.DUNGEON_HEIGHT; j++) {
+                if (drawMap[i][j] == 3) {
+                    spriteBatch.draw(playerTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, playerTexture.getWidth(), playerTexture.getHeight(), false, false);
+                }
+                if (drawMap[i][j] == 4) {
                     spriteBatch.draw(grassVisitedTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, grassVisitedTexture.getWidth(), grassVisitedTexture.getHeight(), false, false);
                 }
-                if(drawMap[i][j] == 2) {
-                    spriteBatch.draw(wallTexture, i,j, 0,0,1,1,1,1,0,0,0, wallTexture.getWidth(), wallTexture.getHeight(), false, false);
-                } else if(drawMap[i][j] == 1) {
-                    spriteBatch.draw(floorTexture, i,j, 0,0,1,1,1,1,0,0,0,floorTexture.getWidth(), floorTexture.getHeight(), false, false);
+                if (drawMap[i][j] == 2) {
+                    spriteBatch.draw(wallTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, wallTexture.getWidth(), wallTexture.getHeight(), false, false);
+                } else if (drawMap[i][j] == 1) {
+                    spriteBatch.draw(floorTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, floorTexture.getWidth(), floorTexture.getHeight(), false, false);
                 }
             }
         }
@@ -119,29 +206,27 @@ public class DungeonRendererSample extends SampleBase {
     public boolean keyDown(int keycode) {
         float delta = Gdx.graphics.getDeltaTime();
 
-        System.out.println("Key pressed " + keycode);
-
         if (keycode == Input.Keys.LEFT) {
             //camera.position.x -= 10.0 *
             px--;
-            if(px < 0)
+            if (px < 0)
                 px = 0;
         }
         if (keycode == Input.Keys.RIGHT) {
             //camera.position.x += 10.0 * delta;
             px++;
-            if(px >= Config.DungeonConfig.DUNGEON_WIDTH)
-                px = Config.DungeonConfig.DUNGEON_WIDTH -1;
+            if (px >= Config.DungeonConfig.DUNGEON_WIDTH)
+                px = Config.DungeonConfig.DUNGEON_WIDTH - 1;
         }
-        if(keycode == Input.Keys.DOWN) {
+        if (keycode == Input.Keys.DOWN) {
             py--;
-            if(py < 0)
+            if (py < 0)
                 py = 0;
         }
-        if(keycode == Input.Keys.UP) {
+        if (keycode == Input.Keys.UP) {
             py++;
-            if(py >= Config.DungeonConfig.DUNGEON_HEIGHT)
-                py = Config.DungeonConfig.DUNGEON_HEIGHT -1;
+            if (py >= Config.DungeonConfig.DUNGEON_HEIGHT)
+                py = Config.DungeonConfig.DUNGEON_HEIGHT - 1;
         }
 
         camera.update();

@@ -1,8 +1,6 @@
-package com.mygdx.game.creator.dungeon;
+package com.mygdx.game.creator.map.dungeon;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.dto.Dungeon;
-import com.sun.javafx.image.IntPixelGetter;
 
 import java.util.Random;
 
