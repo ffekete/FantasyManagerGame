@@ -45,7 +45,7 @@ public class DungeonRendererSample extends SampleBase {
     private Texture grassVisitedTexture;
     private Texture playerTexture;
 
-    DungeonCreator dungeonCreator = new CaveDungeonCreator();
+    DungeonCreator dungeonCreator = new DummyDungeonCreator();
     Dungeon dungeon;
     ActorRegistry actorRegistry = new ActorRegistry();
     GameLogicController gameLogicController = new GameLogicController(actorRegistry);
@@ -117,14 +117,11 @@ public class DungeonRendererSample extends SampleBase {
         hero2.getActivityStack().add(activity3);
         hero2.getActivityStack().add(activity4);
 
-        ((MovementActivity) activity).setLimit(50);
-        ((MovementActivity) activity2).setLimit(10);
-        ((MovementActivity) activity3).setLimit(10);
-        ((MovementActivity) activity4).setLimit(10);
+        hero.setCurrentMap(dungeon);
+        hero2.setCurrentMap(dungeon);
 
         actorRegistry.add(hero);
         actorRegistry.add(hero2);
-        pathFinder.init(dungeon);
     }
 
     @Override

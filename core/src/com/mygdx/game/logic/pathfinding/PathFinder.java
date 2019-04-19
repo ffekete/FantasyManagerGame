@@ -13,6 +13,9 @@ public class PathFinder {
 
     private Node[][] obstacleMap;
 
+    public PathFinder() {
+    }
+
     public PathFinder(int width, int height) {
         this.width = width;
         this.height = height;
@@ -159,6 +162,8 @@ public class PathFinder {
     }
 
     public void init(Map2D map) {
+        width = map.getWidth();
+        height = map.getHeight();
         obstacleMap = new Node[width][height];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {

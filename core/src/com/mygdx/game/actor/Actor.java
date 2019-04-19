@@ -1,5 +1,6 @@
 package com.mygdx.game.actor;
 
+import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.logic.activity.ActivityStack;
 
 public interface Actor {
@@ -8,5 +9,6 @@ public interface Actor {
     int getY();
 
     ActivityStack getActivityStack();
-    int getMovementSpeed();
+    Map2D getCurrentMap();
+    void setCurrentMap(Map2D map);
 }

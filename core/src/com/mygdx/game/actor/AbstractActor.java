@@ -52,30 +52,21 @@ public class AbstractActor implements MovableActor {
         this.y = y;
     }
 
-    @Override
-    public void moveToNextPathPoint() {
-        if(path != null && !path.isEmpty()) {
-            PathFinder.Node next = path.remove(path.size()-1);
-            System.out.println(path.size());
-            setCoordinates(next.getX(), next.getY());
-        }
-    }
-
-    @Override
-    public boolean hasPathPointsLeft() {
-        return path.isEmpty();
-    }
-
-    @Override
-    public void setPath(List<PathFinder.Node> nodes) {
-        this.path = nodes;
-    }
-
     public Integer getattribute(Attributes a) {
         return baseAttributes.get(a);
     }
 
     public int getMovementSpeed() {
-        return 30;
+        return 50 - getattribute(Attributes.Dexterity);
+    }
+
+    @Override
+    public Map2D getCurrentMap() {
+        return currentMap;
+    }
+
+    @Override
+    public void setCurrentMap(Map2D map) {
+        this.currentMap = map;
     }
 }
