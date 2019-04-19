@@ -1,7 +1,6 @@
 package com.mygdx.game.logic.pathfinding;
 
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.logic.Point;
 
 import java.util.ArrayList;
@@ -60,13 +59,13 @@ public class PathFinder {
         openNodes.add(startNode);
 
         long counter = 0;
-        while(!openNodes.isEmpty()) {
+        while (!openNodes.isEmpty()) {
 
             counter++;
             Node current = openNodes.get(0);
 
-            for(int i = 0; i < openNodes.size(); i++) {
-                if(openNodes.get(i).f < current.f) {
+            for (int i = 0; i < openNodes.size(); i++) {
+                if (openNodes.get(i).f < current.f) {
                     current = openNodes.get(i);
                 }
             }
@@ -74,12 +73,12 @@ public class PathFinder {
             openNodes.remove(current);
             closedNodes.add(current);
 
-            if((current.x == target.getX() && current.y == target.getY())
+            if ((current.x == target.getX() && current.y == target.getY())
                     || counter == width * height
             ) {
                 // hurra
                 Node c = current;
-                while(c != null) {
+                while (c != null) {
                     path.add(c);
                     c = c.parent;
                 }
@@ -88,39 +87,33 @@ public class PathFinder {
 
             List<Node> children = new ArrayList<>();
             // add children
-            for(int i = -1; i <= 1; i++) {
-                for(int j = -1; j <= 1; j++) {
-                    if(i != 0 && j != 0) { // skip current node
-                        int x = current.x - i;
-                        int y = current.y - j;
+            for (int[] i : new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}}) {
+                int x = current.x - i[0];
+                int y = current.y - i[1];
 
+                if (x >= 0 && x < width && y >= 0 && y < height) {
 
-
-                        if(x >= 0 && x < width && y >= 0 && y < height) {
-
-                            if(map[x][y].tile == 1) {
-                                continue;
-                            }
-
-                            Node child = new Node(map[x][y].tile, x, y);
-                            child.parent = current;
-
-                            children.add(child);
-                        }
+                    if (map[x][y].tile == 1) {
+                        continue;
                     }
+
+                    Node child = new Node(map[x][y].tile, x, y);
+                    child.parent = current;
+
+                    children.add(child);
                 }
             }
 
             // calculate f,g,h
-            for(Node child : children) {
+            for (Node child : children) {
                 if (closedNodes.contains(child))
                     continue;
                 child.g = current.g + 1;
                 child.h = distance(child, end);
                 child.f = child.g + child.h;
 
-                if(openNodes.contains(child)) {
-                    if(child.g > openNodes.get(openNodes.indexOf(child)).g) continue;
+                if (openNodes.contains(child)) {
+                    if (child.g > openNodes.get(openNodes.indexOf(child)).g) continue;
                 }
                 openNodes.add(child);
             }
@@ -135,15 +128,15 @@ public class PathFinder {
         int[][] obstacleMap = new int[pathFinder.getWidth()][pathFinder.getHeight()];
         pathFinder.init(obstacleMap);
 
-        pathFinder.addObstacle(98,98,1);
+        pathFinder.addObstacle(98, 98, 1);
         int[][] resultMap = new int[pathFinder.getWidth()][pathFinder.getHeight()];
 
         long start = System.currentTimeMillis();
-        List<Node> path = pathFinder.findAStar(new Point(0,0), new Point(98,99));
+        List<Node> path = pathFinder.findAStar(new Point(0, 0), new Point(98, 99));
         System.out.println(System.currentTimeMillis() - start);
 
         int i = 1;
-        for(Node node: path) {
+        for (Node node : path) {
             resultMap[node.x][node.y] = i;
             i++;
         }
@@ -153,8 +146,8 @@ public class PathFinder {
 
     private void print(int[][] resultMap) {
 
-        for(int k = 0; k < width; k++) {
-            for(int l = 0; l < height; l++) {
+        for (int k = 0; k < width; k++) {
+            for (int l = 0; l < height; l++) {
                 System.out.print(resultMap[k][l]);
             }
             System.out.println("");
@@ -163,18 +156,18 @@ public class PathFinder {
 
     public void init(Map2D map) {
         obstacleMap = new Node[width][height];
-        for(int i = 0; i < width; i++) {
-            for(int j = 0; j < height; j++) {
-                obstacleMap[i][j] = new Node(map.getTile(i,j).isObstacle() ? 1 : 0, i,j);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                obstacleMap[i][j] = new Node(map.getTile(i, j).isObstacle() ? 1 : 0, i, j);
             }
         }
     }
 
     public void init(int[][] map) {
         obstacleMap = new Node[width][height];
-        for(int i = 0; i < width; i++) {
-            for(int j = 0; j < height; j++) {
-                obstacleMap[i][j] = new Node(map[i][j]!= 1 ? 1 : 0, i,j);
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                obstacleMap[i][j] = new Node(map[i][j] != 1 ? 1 : 0, i, j);
             }
         }
     }
@@ -182,7 +175,7 @@ public class PathFinder {
     private static int distance(Node n1, Node n2) {
         int a = Math.abs(n2.x - n1.x);
         int b = Math.abs(n2.y - n1.y);
-        return a*a + b*b;
+        return a * a + b * b;
     }
 
     public static class Node {
@@ -191,7 +184,7 @@ public class PathFinder {
         private Node parent;
         private int tile;
 
-        int f,g,h;
+        int f, g, h;
 
         public Node(int tile, int x, int y) {
             this.tile = tile;
