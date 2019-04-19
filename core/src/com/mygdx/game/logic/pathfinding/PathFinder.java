@@ -73,6 +73,10 @@ public class PathFinder {
             openNodes.remove(current);
             closedNodes.add(current);
 
+            if ((counter == width * height && (current.x != target.getX() || current.y != target.getY()))) {
+                return new ArrayList<>();
+            }
+
             if ((current.x == target.getX() && current.y == target.getY())
                     || counter == width * height
             ) {

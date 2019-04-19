@@ -45,7 +45,7 @@ public class DungeonRendererSample extends SampleBase {
     private Texture grassVisitedTexture;
     private Texture playerTexture;
 
-    DungeonCreator dungeonCreator = new DummyDungeonCreator();
+    DungeonCreator dungeonCreator = new CaveDungeonCreator();
     Dungeon dungeon;
     ActorRegistry actorRegistry = new ActorRegistry();
     GameLogicController gameLogicController = new GameLogicController(actorRegistry);

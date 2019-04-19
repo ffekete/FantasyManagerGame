@@ -85,6 +85,8 @@ public class CaveDungeonCreator implements DungeonCreator {
             for(int y = 0; y< Config.DungeonConfig.DUNGEON_HEIGHT; y++){
                 if(new Random().nextInt(100) < chanceToStartAlive){
                     map.setTile(x, y, Tile.STONE_WALL);
+                } else {
+                    map.setTile(x,y,Tile.FLOOR);
                 }
             }
         }
