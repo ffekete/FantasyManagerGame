@@ -1,6 +1,6 @@
 package com.mygdx.game.logic.activity;
 
-import com.mygdx.game.actor.MovableActor;
+import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MovementActivity implements Activity {
 
-    private final MovableActor actor;
+    private final Actor actor;
     private int targetX;
     private int targetY;
     private PathFinder pathFinder;
@@ -19,7 +19,7 @@ public class MovementActivity implements Activity {
     private boolean done = false;
     private ActorMovementHandler actorMovementHandler;
 
-    public MovementActivity(MovableActor actor, int targetX, int targetY, PathFinder pathFinder) {
+    public MovementActivity(Actor actor, int targetX, int targetY, PathFinder pathFinder) {
         this.actor = actor;
         this.targetX = targetX;
         this.targetY = targetY;

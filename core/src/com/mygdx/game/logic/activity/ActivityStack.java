@@ -10,6 +10,10 @@ public class ActivityStack {
         this.activities = activities;
     }
 
+    public boolean isEmpty() {
+        return activities.isEmpty();
+    }
+
     public void performNext() {
         if (activities.isEmpty()) {
             return;

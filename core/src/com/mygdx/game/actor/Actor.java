@@ -11,4 +11,7 @@ public interface Actor {
     ActivityStack getActivityStack();
     Map2D getCurrentMap();
     void setCurrentMap(Map2D map);
+
+    int getMovementSpeed();
+    void setCoordinates(int x, int y);
 }

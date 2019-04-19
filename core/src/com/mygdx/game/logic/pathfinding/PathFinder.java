@@ -124,7 +124,6 @@ public class PathFinder {
                 }
                 openNodes.add(child);
             }
-
         }
 
         return path;

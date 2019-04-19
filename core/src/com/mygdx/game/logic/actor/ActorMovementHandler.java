@@ -1,6 +1,6 @@
 package com.mygdx.game.logic.actor;
 
-import com.mygdx.game.actor.MovableActor;
+import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 
@@ -11,18 +11,18 @@ import java.util.Map;
 public class ActorMovementHandler {
 
     private final PathFinder pathFinder;
-    private final Map<MovableActor, List<PathFinder.Node>> paths;
+    private final Map<Actor, List<PathFinder.Node>> paths;
 
     public ActorMovementHandler() {
         this.pathFinder = new PathFinder();
         this.paths = new HashMap<>();
     }
 
-    public void registerActorPath(MovableActor actor, List<PathFinder.Node> path) {
+    public void registerActorPath(Actor actor, List<PathFinder.Node> path) {
         paths.put(actor, path);
     }
 
-    public boolean moveToNextPathPoint(MovableActor movableActor) {
+    public boolean moveToNextPathPoint(Actor movableActor) {
         List<PathFinder.Node> path =  paths.get(movableActor);
         if(path == null || path.isEmpty()) {
             return false;

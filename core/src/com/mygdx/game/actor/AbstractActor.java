@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class AbstractActor implements MovableActor {
+public class AbstractActor implements Actor {
 
     private Map<Attributes, Integer> baseAttributes;
 
@@ -20,9 +20,6 @@ public class AbstractActor implements MovableActor {
     private ActivityStack activityStack = new ActivityStack(new PriorityQueue<>());
 
     private Map2D currentMap;
-
-    List<PathFinder.Node> path;
-
 
     public AbstractActor() {
         this.baseAttributes = new HashMap<>();

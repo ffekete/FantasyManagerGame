@@ -77,22 +77,6 @@ public class DungeonRendererSample extends SampleBase {
         } while(dungeon.getTile(x,y).isObstacle());
         hero.setCoordinates(x, y);
 
-        do {
-            x = new Random().nextInt(dungeon.getWidth());
-            y = new Random().nextInt(dungeon.getHeight());
-        } while(dungeon.getTile(x,y).isObstacle());
-
-        Activity activity = new MovementActivity(hero, x, y, pathFinder);
-
-        do {
-            x = new Random().nextInt(dungeon.getWidth());
-            y = new Random().nextInt(dungeon.getHeight());
-        } while(dungeon.getTile(x,y).isObstacle());
-
-        Activity activity2 = new MovementActivity(hero, x, y, pathFinder);
-        hero.getActivityStack().add(activity);
-        hero.getActivityStack().add(activity2);
-
         Hero hero2 = new Hero();
 
         do {
@@ -100,22 +84,6 @@ public class DungeonRendererSample extends SampleBase {
             y = new Random().nextInt(dungeon.getHeight());
         } while(dungeon.getTile(x,y).isObstacle());
         hero2.setCoordinates(x, y);
-
-        do {
-            x = new Random().nextInt(dungeon.getWidth());
-            y = new Random().nextInt(dungeon.getHeight());
-        } while(dungeon.getTile(x,y).isObstacle());
-
-        Activity activity3 = new MovementActivity(hero2, x, y, pathFinder);
-
-        do {
-            x = new Random().nextInt(dungeon.getWidth());
-            y = new Random().nextInt(dungeon.getHeight());
-        } while(dungeon.getTile(x,y).isObstacle());
-
-        Activity activity4 = new MovementActivity(hero2, x, y, pathFinder);
-        hero2.getActivityStack().add(activity3);
-        hero2.getActivityStack().add(activity4);
 
         hero.setCurrentMap(dungeon);
         hero2.setCurrentMap(dungeon);
