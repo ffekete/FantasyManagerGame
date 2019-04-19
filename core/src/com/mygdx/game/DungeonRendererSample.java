@@ -92,11 +92,6 @@ public class DungeonRendererSample extends SampleBase {
         Activity activity2 = new MovementActivity(hero, x, y, pathFinder);
         hero.getActivityStack().add(activity);
         hero.getActivityStack().add(activity2);
-        hero.setMovementSpeed(50);
-
-
-
-
 
         Hero hero2 = new Hero();
 
@@ -121,7 +116,6 @@ public class DungeonRendererSample extends SampleBase {
         Activity activity4 = new MovementActivity(hero2, x, y, pathFinder);
         hero2.getActivityStack().add(activity3);
         hero2.getActivityStack().add(activity4);
-        hero2.setMovementSpeed(50);
 
         ((MovementActivity) activity).setLimit(50);
         ((MovementActivity) activity2).setLimit(10);
