@@ -11,19 +11,24 @@ public class ActivityStack {
     }
 
     public void performNext() {
-        if(activities.isEmpty()) {
+        if (activities.isEmpty()) {
             return;
         }
         Activity activity = activities.peek();
-        if(activity.isFirstRun()) {
+        if (activity.isFirstRun()) {
             activity.init();
         }
-        if(activity.isDone()) {
+        activity.countDown();
+
+        if (activity.isDone()) {
             activities.remove(activity);
             System.out.println("activity cleared + " + activities.size());
         } else {
-            activity.update();
+            if (activity.isTriggered()) {
+                activity.update();
+            }
         }
+
     }
 
     public void add(Activity activity) {

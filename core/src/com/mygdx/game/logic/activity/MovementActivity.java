@@ -12,6 +12,8 @@ public class MovementActivity implements Activity {
     private PathFinder pathFinder;
     private int priorityModifier = 0;
     private boolean firstRun = true;
+    private Integer counter = 0;
+    private Integer limit = 1;
 
     public MovementActivity(MovableActor actor, int targetX, int targetY, PathFinder pathFinder) {
         this.actor = actor;
@@ -58,5 +60,21 @@ public class MovementActivity implements Activity {
     @Override
     public int compareTo(Activity o) {
         return Integer.compare(getPriority(), o.getPriority());
+    }
+
+    @Override
+    public void countDown() {
+        counter = (counter + 1) % actor.getMovementSpeed();
+        if(counter < 0)
+            counter = 0;
+    }
+
+    @Override
+    public boolean isTriggered() {
+        return counter == actor.getMovementSpeed() -1;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
     }
 }

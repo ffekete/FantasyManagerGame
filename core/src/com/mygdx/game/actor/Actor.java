@@ -8,4 +8,5 @@ public interface Actor {
     int getY();
 
     ActivityStack getActivityStack();
+    int getMovementSpeed();
 }
