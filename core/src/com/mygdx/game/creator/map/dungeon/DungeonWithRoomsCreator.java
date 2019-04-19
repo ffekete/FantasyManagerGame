@@ -1,6 +1,7 @@
 package com.mygdx.game.creator.map.dungeon;
 
 import com.mygdx.game.Config;
+import com.mygdx.game.creator.map.Tile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +15,6 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
     private static final int ROOM_MAX_HEIGHT = Config.DungeonConfig.DUNGEON_HEIGHT / NR_OF_SEGMENTS;
     private static final int ROOM_MIN_HEIGHT = 5;
     private static final int ROOM_APPEARANCE_CHANCE = 60;
-    private static final int CORRIDOR_WALL = 2;
-    public static final int FLOOR = 1;
-
 
     @Override
     public Dungeon create() {
@@ -24,7 +22,7 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
 
         for(int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
             for(int j = 0; j < Config.DungeonConfig.DUNGEON_HEIGHT; j++) {
-                map.setTile(i, j, FLOOR);
+                map.setTile(i, j, Tile.FLOOR);
             }
         }
         placeRooms(map);
@@ -46,22 +44,22 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
             int end_x = room2.getX() + Math.abs(room2.getX() - room2.getMaxX()) / 2;
             int end_y = room2.getMaxY();
 
-            map.setTile(start_x, start_y, FLOOR);
-            map.setTile(end_x, end_y, FLOOR);
+            map.setTile(start_x, start_y, Tile.FLOOR);
+            map.setTile(end_x, end_y, Tile.FLOOR);
 
-            int symbol = CORRIDOR_WALL;
+            Tile symbol = Tile.STONE_WALL;
 
             for(int i = start_x; i >= end_x ; i--) {
 
                 boolean invert = false;
-                if(map.getTile(i, start_y-1) == CORRIDOR_WALL && i < start_x) invert = true;
+                if(map.getTile(i, start_y-1).equals(Tile.STONE_WALL) && i < start_x) invert = true;
                 if(i > end_x)
                     map.setTile(i, start_y-1, symbol);
 
                 map.setTile(i, start_y+1, symbol);
 
                 if(i > end_x)
-                    map.setTile(i, start_y, FLOOR);
+                    map.setTile(i, start_y, Tile.FLOOR);
 
                 if(invert) {
                     symbol = invert(symbol);
@@ -70,12 +68,12 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
 
             for(int i = start_y + 1; i > end_y; i--) {
 
-                if(map.getTile(end_x+1, i) == CORRIDOR_WALL && i <  start_y-1) symbol = invert(symbol);
+                if(map.getTile(end_x+1, i) == Tile.STONE_WALL && i <  start_y-1) symbol = invert(symbol);
 
                 map.setTile(end_x-1, i, symbol);
 
                 if(i < start_y)
-                    map.setTile(end_x, i, FLOOR);
+                    map.setTile(end_x, i, Tile.FLOOR);
 
                 if(i < start_y)
                     map.setTile(end_x+1, i, symbol);
@@ -83,8 +81,8 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
         }
     }
 
-    private int invert(int i) {
-        return i == FLOOR ? CORRIDOR_WALL : FLOOR;
+    private Tile invert(Tile i) {
+        return i.equals(Tile.FLOOR) ? Tile.STONE_WALL : Tile.FLOOR;
     }
 
     private void placeRooms(Dungeon map) {
@@ -116,13 +114,13 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
             int y_end = room.getMaxY();
 
             for (int i = x_start; i <= x_end; i++) {
-                map.setTile(i, y_start, CORRIDOR_WALL);
-                map.setTile(i, y_end, CORRIDOR_WALL);
+                map.setTile(i, y_start, Tile.STONE_WALL);
+                map.setTile(i, y_end, Tile.STONE_WALL);
             }
 
             for (int i = y_start; i <= y_end; i++) {
-                map.setTile(x_start, i, CORRIDOR_WALL);
-                map.setTile(x_end, i, CORRIDOR_WALL);
+                map.setTile(x_start, i, Tile.STONE_WALL);
+                map.setTile(x_end, i, Tile.STONE_WALL);
             }
         }
 

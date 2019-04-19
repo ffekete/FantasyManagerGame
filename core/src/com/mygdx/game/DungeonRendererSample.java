@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.hero.Hero;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonCreator;
@@ -73,20 +74,20 @@ public class DungeonRendererSample extends SampleBase {
         do {
             x = new Random().nextInt(dungeon.getWidth());
             y = new Random().nextInt(dungeon.getHeight());
-        } while(dungeon.getTile(x,y) != 1);
+        } while(dungeon.getTile(x,y).isObstacle());
         hero.setCoordinates(x, y);
 
         do {
             x = new Random().nextInt(dungeon.getWidth());
             y = new Random().nextInt(dungeon.getHeight());
-        } while(dungeon.getTile(x,y) != 1);
+        } while(dungeon.getTile(x,y).isObstacle());
 
         Activity activity = new MovementActivity(hero, x, y, pathFinder);
 
         do {
             x = new Random().nextInt(dungeon.getWidth());
             y = new Random().nextInt(dungeon.getHeight());
-        } while(dungeon.getTile(x,y) != 1);
+        } while(dungeon.getTile(x,y).isObstacle());
 
         Activity activity2 = new MovementActivity(hero, x, y, pathFinder);
         hero.getActivityStack().add(activity);
@@ -101,20 +102,20 @@ public class DungeonRendererSample extends SampleBase {
         do {
             x = new Random().nextInt(dungeon.getWidth());
             y = new Random().nextInt(dungeon.getHeight());
-        } while(dungeon.getTile(x,y) != 1);
+        } while(dungeon.getTile(x,y).isObstacle());
         hero2.setCoordinates(x, y);
 
         do {
             x = new Random().nextInt(dungeon.getWidth());
             y = new Random().nextInt(dungeon.getHeight());
-        } while(dungeon.getTile(x,y) != 1);
+        } while(dungeon.getTile(x,y).isObstacle());
 
         Activity activity3 = new MovementActivity(hero2, x, y, pathFinder);
 
         do {
             x = new Random().nextInt(dungeon.getWidth());
             y = new Random().nextInt(dungeon.getHeight());
-        } while(dungeon.getTile(x,y) != 1);
+        } while(dungeon.getTile(x,y).isObstacle());
 
         Activity activity4 = new MovementActivity(hero2, x, y, pathFinder);
         hero2.getActivityStack().add(activity3);
@@ -150,24 +151,18 @@ public class DungeonRendererSample extends SampleBase {
         );
 
         VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 10, coordinatesForVisibilityCalculation);
-        int[][] drawMap = visibilityMask.mask(dungeon);
+        Tile[][] drawMap = visibilityMask.mask(dungeon);
 
         actorRegistry.getActors().forEach(actor -> {
-            drawMap[actor.getX()][actor.getY()] = 3;
+            //drawMap[actor.getX()][actor.getY()] = 3;
                 }
         );
 
         for (int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
             for (int j = 0; j < Config.DungeonConfig.DUNGEON_HEIGHT; j++) {
-                if (drawMap[i][j] == 3) {
-                    spriteBatch.draw(playerTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, playerTexture.getWidth(), playerTexture.getHeight(), false, false);
-                }
-                if (drawMap[i][j] == 4) {
-                    spriteBatch.draw(grassVisitedTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, grassVisitedTexture.getWidth(), grassVisitedTexture.getHeight(), false, false);
-                }
-                if (drawMap[i][j] == 2) {
+                if (drawMap[i][j].equals(Tile.STONE_WALL)) {
                     spriteBatch.draw(wallTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, wallTexture.getWidth(), wallTexture.getHeight(), false, false);
-                } else if (drawMap[i][j] == 1) {
+                } else if (drawMap[i][j].equals(Tile.FLOOR)) {
                     spriteBatch.draw(floorTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, floorTexture.getWidth(), floorTexture.getHeight(), false, false);
                 }
             }

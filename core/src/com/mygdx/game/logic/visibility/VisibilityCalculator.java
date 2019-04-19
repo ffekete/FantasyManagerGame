@@ -1,5 +1,6 @@
 package com.mygdx.game.logic.visibility;
 
+import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.creator.map.dungeon.Dungeon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.VisibilityMask;
@@ -118,7 +119,7 @@ public class VisibilityCalculator {
             y = Math.min(y, height-1);
 
             visibilityMask.setValue(x, y);
-            if (map.getTile(x,y) > FLOOR_TILE) break;
+            if (map.getTile(x,y).isObstacle()) break;
 
 
             numerator += shortest ;
@@ -154,10 +155,10 @@ public class VisibilityCalculator {
         Dungeon map = new Dungeon(100, 100);
 
         for(int i = 0; i < 20; i++) {
-            map.setTile(11, i+5,  1);
-            map.setTile(11+i, 5, 1);
-            map.setTile(11+i, 25, 1);
-            map.setTile(30, 5+i, 1);
+            map.setTile(11, i+5, Tile.FLOOR);
+            map.setTile(11+i, 5, Tile.FLOOR);
+            map.setTile(11+i, 25, Tile.FLOOR);
+            map.setTile(30, 5+i, Tile.FLOOR);
         }
 
         visibilityMask = visibilityCalculator.generateMask(map, 15, Arrays.asList(new Point(35, 10), new Point(0,0)));

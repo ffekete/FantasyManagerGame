@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.creator.map.dungeon.DungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonWithRoomsCreator;
 import com.mygdx.game.creator.map.dungeon.Dungeon;
@@ -65,18 +66,15 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     public void draw() {
         VisibilityCalculator visibilityCalculator = new VisibilityCalculator(dungeon.getWidth(), dungeon.getHeight());
         VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 100, Arrays.asList(new Point(px,py)));
-        int[][] drawMap = visibilityMask.mask(dungeon);
+        Tile[][] drawMap = visibilityMask.mask(dungeon);
 
-        drawMap[px][py] = 3;
+        //drawMap[px][py] = 3;
 
         for(int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
             for (int j = 0; j < Config.DungeonConfig.DUNGEON_HEIGHT; j++) {
-                if(drawMap[i][j] == 3) {
-                    spriteBatch.draw(playerTexture, i,j, 0,0,1,1,1,1,0,0,0, wallTexture.getWidth(), wallTexture.getHeight(), false, false);
-                }
-                if(drawMap[i][j] == 2) {
+                if(drawMap[i][j].equals(Tile.STONE_WALL)) {
                     spriteBatch.draw(wallTexture, i,j, 0,0,1,1,1,1,0,0,0, wallTexture.getWidth(), wallTexture.getHeight(), false, false);
-                } else if(drawMap[i][j] == 1) {
+                } else if(drawMap[i][j].equals(Tile.FLOOR)) {
                     spriteBatch.draw(floorTexture, i,j, 0,0,1,1,1,1,0,0,0,floorTexture.getWidth(), floorTexture.getHeight(), false, false);
                 }
             }

@@ -1,9 +1,10 @@
 package com.mygdx.game.creator.map.dungeon;
 
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.creator.map.Tile;
 
 public class Dungeon implements Map2D {
-    private int[][] dungeon;
+    private Tile[][] dungeon;
     private final int height;
     private final int width;
 
@@ -11,16 +12,16 @@ public class Dungeon implements Map2D {
         this.height = height;
         this.width = width;
 
-        this.dungeon = new int[width][height];
+        this.dungeon = new Tile[width][height];
     }
 
-    public int getTile(int x, int y) {
+    public Tile getTile(int x, int y) {
         if(x < 0 || x > width -1 || y < 0 || y > width -1)
-            return 0;
+            return Tile.EMPTY;
         return dungeon[x][y];
     }
 
-    public void setTile(int x, int y, int value) {
+    public void setTile(int x, int y, Tile value) {
         if(x < 0 || x > width -1 || y < 0 || y > width -1)
             return;
 

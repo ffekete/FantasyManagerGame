@@ -1,6 +1,7 @@
 package com.mygdx.game.logic.pathfinding;
 
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.logic.Point;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class PathFinder {
     }
 
     public void addObstacle(int x, int y, int value) {
-        obstacleMap[x][y].cost = value;
+        obstacleMap[x][y].tile = value;
     }
 
     public List<Node> findAStar(Point start, Point target) {
@@ -48,11 +49,11 @@ public class PathFinder {
         List<Node> closedNodes = new ArrayList<>();
         List<Node> path = new ArrayList<>();
 
-        Node startNode = new Node(map[start.getX()][start.getY()].cost, start.getX(), start.getY());
+        Node startNode = new Node(map[start.getX()][start.getY()].tile, start.getX(), start.getY());
         startNode.g = startNode.f = startNode.h = 0;
         startNode.parent = null;
 
-        Node end = new Node(map[target.getX()][target.getY()].cost, target.getX(), target.getY());
+        Node end = new Node(map[target.getX()][target.getY()].tile, target.getX(), target.getY());
         end.g = end.h = end.f = 0;
         end.parent = null;
 
@@ -97,11 +98,11 @@ public class PathFinder {
 
                         if(x >= 0 && x < width && y >= 0 && y < height) {
 
-                            if(map[x][y].cost != 1) {
+                            if(map[x][y].tile == 1) {
                                 continue;
                             }
 
-                            Node child = new Node(map[x][y].cost, x, y);
+                            Node child = new Node(map[x][y].tile, x, y);
                             child.parent = current;
 
                             children.add(child);
@@ -164,7 +165,7 @@ public class PathFinder {
         obstacleMap = new Node[width][height];
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                obstacleMap[i][j] = new Node(map.getTile(i,j), i,j);
+                obstacleMap[i][j] = new Node(map.getTile(i,j).isObstacle() ? 1 : 0, i,j);
             }
         }
     }
@@ -173,7 +174,7 @@ public class PathFinder {
         obstacleMap = new Node[width][height];
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                obstacleMap[i][j] = new Node(map[i][j], i,j);
+                obstacleMap[i][j] = new Node(map[i][j]!= 1 ? 1 : 0, i,j);
             }
         }
     }
@@ -188,12 +189,12 @@ public class PathFinder {
         private final int x;
         private final int y;
         private Node parent;
-        private int cost;
+        private int tile;
 
         int f,g,h;
 
-        public Node(int cost, int x, int y) {
-            this.cost = cost;
+        public Node(int tile, int x, int y) {
+            this.tile = tile;
             this.x = x;
             this.y = y;
         }
@@ -206,8 +207,8 @@ public class PathFinder {
             return y;
         }
 
-        public int getCost() {
-            return cost;
+        public int getTile() {
+            return tile;
         }
     }
 }

@@ -1,15 +1,12 @@
 package com.mygdx.game.creator.map.dungeon;
 
 import com.mygdx.game.Config;
+import com.mygdx.game.creator.map.Tile;
 
 import java.util.Random;
 
 public class CaveDungeonCreator implements DungeonCreator {
 
-    private static final int FLOOR_VALUE = 1;
-    public static final int EMPTY_SPACE = 0;
-    private static final int WALL_VALUE = 2;
-    private static final int FILL_VALUE = 4;
     private final static boolean DEBUG = false;
     private int deathLimit = 4;
     private int birthLimit = 4;
@@ -35,9 +32,9 @@ public class CaveDungeonCreator implements DungeonCreator {
         int[] coord = findFirstFloor(cellmap);
         if(coord == null) return null;
         if(DEBUG) {
-            int allArea = countTraversableArea(cellmap, FLOOR_VALUE);
-            fill(coord[0],coord[1], cellmap, FLOOR_VALUE, FILL_VALUE);
-            int traversable = countTraversableArea(cellmap, FILL_VALUE);
+            int allArea = countTraversableArea(cellmap, Tile.FLOOR);
+            fill(coord[0],coord[1], cellmap, Tile.FLOOR, Tile.EMPTY);
+            int traversable = countTraversableArea(cellmap, Tile.EMPTY);
             System.out.println(1.0f * traversable / allArea * 100.f);
             for(int i = 0; i < cellmap.getWidth(); i++) {
                 for(int j = 0; j < cellmap.getHeight(); j++) {
@@ -51,12 +48,12 @@ public class CaveDungeonCreator implements DungeonCreator {
         return cellmap;
     }
 
-    private int countTraversableArea(Dungeon map, int value) {
+    private int countTraversableArea(Dungeon map, Tile value) {
         int count = 0;
 
         for(int i = 0; i < map.getWidth(); i++) {
             for(int j = 0; j < map.getHeight(); j++) {
-                if (map.getTile(i,j) == value) count++;
+                if (map.getTile(i,j).equals(value)) count++;
             }
         }
         return count;
@@ -65,7 +62,7 @@ public class CaveDungeonCreator implements DungeonCreator {
     private int[] findFirstFloor(Dungeon map) {
         for(int i = 0; i < map.getWidth(); i++) {
             for(int j = 0; j < map.getHeight(); j++) {
-                if (map.getTile(i,j) == FLOOR_VALUE) return new int[] {i,j};
+                if (map.getTile(i,j).equals(Tile.FLOOR)) return new int[] {i,j};
             }
         }
         return null;
@@ -73,13 +70,13 @@ public class CaveDungeonCreator implements DungeonCreator {
 
     private void addFrame(Dungeon map) {
         for(int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
-            map.setTile(i, 0, WALL_VALUE);
-            map.setTile(i, Config.DungeonConfig.DUNGEON_HEIGHT - 1, WALL_VALUE);
+            map.setTile(i, 0, Tile.STONE_WALL);
+            map.setTile(i, Config.DungeonConfig.DUNGEON_HEIGHT - 1, Tile.STONE_WALL);
         }
 
         for(int i = 0; i < Config.DungeonConfig.DUNGEON_HEIGHT; i++) {
-            map.setTile(0, i, WALL_VALUE);
-            map.setTile(Config.DungeonConfig.DUNGEON_WIDTH - 1, i, WALL_VALUE);
+            map.setTile(0, i, Tile.STONE_WALL);
+            map.setTile(Config.DungeonConfig.DUNGEON_WIDTH - 1, i, Tile.STONE_WALL);
         }
     }
 
@@ -87,7 +84,7 @@ public class CaveDungeonCreator implements DungeonCreator {
         for(int x = 0; x< Config.DungeonConfig.DUNGEON_WIDTH; x++){
             for(int y = 0; y< Config.DungeonConfig.DUNGEON_HEIGHT; y++){
                 if(new Random().nextInt(100) < chanceToStartAlive){
-                    map.setTile(x, y, WALL_VALUE);
+                    map.setTile(x, y, Tile.STONE_WALL);
                 }
             }
         }
@@ -109,7 +106,7 @@ public class CaveDungeonCreator implements DungeonCreator {
                     count = count + 1;
                 }
                 //Otherwise, a normal check of the neighbour
-                else if(map.getTile(neighbour_x, neighbour_y) == WALL_VALUE){
+                else if(map.getTile(neighbour_x, neighbour_y) == Tile.STONE_WALL){
                     count = count + 1;
                 }
             }
@@ -125,20 +122,20 @@ public class CaveDungeonCreator implements DungeonCreator {
                 int nbs = countAliveNeighbours(oldMap, x, y);
                 //The new value is based on our simulation rules
                 //First, if a cell is alive but has too few neighbours, kill it.
-                if(oldMap.getTile(x, y) == 1){
+                if(oldMap.getTile(x, y).equals(Tile.FLOOR)){
                     if(nbs < deathLimit){
-                        newMap.setTile(x, y, FLOOR_VALUE);
+                        newMap.setTile(x, y, Tile.FLOOR);
                     }
                     else{
-                        newMap.setTile(x, y, WALL_VALUE);
+                        newMap.setTile(x, y, Tile.STONE_WALL);
                     }
                 } //Otherwise, if the cell is dead now, check if it has the right number of neighbours to be 'born'
                 else{
                     if(nbs > birthLimit){
-                        newMap.setTile(x, y, WALL_VALUE);
+                        newMap.setTile(x, y, Tile.STONE_WALL);
                     }
                     else{
-                        newMap.setTile(x, y, FLOOR_VALUE);
+                        newMap.setTile(x, y, Tile.FLOOR);
                     }
                 }
             }
@@ -146,8 +143,8 @@ public class CaveDungeonCreator implements DungeonCreator {
         return newMap;
     }
 
-    private void fill(int x, int y, Dungeon oldmap, int originalValue, int value) {
-        if(x >= oldmap.getWidth() || y >= oldmap.getHeight() || x < 0 || y < 0 || oldmap.getTile(x, y) != originalValue || oldmap.getTile(x,y) == FILL_VALUE) {
+    private void fill(int x, int y, Dungeon oldmap, Tile originalValue, Tile value) {
+        if(x >= oldmap.getWidth() || y >= oldmap.getHeight() || x < 0 || y < 0 || oldmap.getTile(x, y) != originalValue || oldmap.getTile(x,y) == value) {
             return;
         }
 
