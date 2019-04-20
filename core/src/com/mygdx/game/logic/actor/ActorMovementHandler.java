@@ -36,7 +36,6 @@ public class ActorMovementHandler {
 
         if(path != null && !path.isEmpty()) {
             PathFinder.Node next = path.remove(path.size()-1);
-            System.out.println(path.size());
             movableActor.setCoordinates(next.getX(), next.getY());
         }
         return true;

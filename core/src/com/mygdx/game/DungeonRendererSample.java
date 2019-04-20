@@ -11,22 +11,24 @@ import com.mygdx.game.actor.hero.Hero;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Tile;
-import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonCreator;
-import com.mygdx.game.creator.map.dungeon.Dungeon;
+import com.mygdx.game.item.Bread;
+import com.mygdx.game.item.Food;
+import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.VisibilityMask;
-import com.mygdx.game.logic.activity.Activity;
-import com.mygdx.game.logic.activity.MovementActivity;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.registry.ActorRegistry;
+import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.utils.GdxUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -44,22 +46,26 @@ public class DungeonRendererSample extends SampleBase {
     private Texture floorTexture;
     private Texture grassVisitedTexture;
     private Texture playerTexture;
+    private Texture breadTexture;
 
     DungeonCreator dungeonCreator = new DummyDungeonCreator();
-    Dungeon dungeon;
-    ActorRegistry actorRegistry = new ActorRegistry();
+    com.mygdx.game.creator.map.dungeon.Dungeon dungeon;
+    ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
+    ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
     GameLogicController gameLogicController = new GameLogicController(actorRegistry);
     PathFinder pathFinder;
+    Map<Item, Texture> itemTextures = new HashMap<>();
 
     @Override
     public void create() {
         camera = new OrthographicCamera();
-        viewPort = new FitViewport(Config.DungeonConfig.DUNGEON_WIDTH, Config.DungeonConfig.DUNGEON_HEIGHT, camera);
+        viewPort = new FitViewport(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT, camera);
         spriteBatch = new SpriteBatch();
         wallTexture = new Texture(Gdx.files.internal("wall.jpg"));
         floorTexture = new Texture(Gdx.files.internal("terrain.jpg"));
         grassVisitedTexture = new Texture(Gdx.files.internal("grass_visited.jpg"));
         playerTexture = new Texture(Gdx.files.internal("badlogic.jpg"));
+        breadTexture = new Texture(Gdx.files.internal("bread.png"));
         dungeon = dungeonCreator.create();
         pathFinder = new PathFinder(dungeon.getWidth(), dungeon.getHeight());
         Gdx.input.setInputProcessor(this);
@@ -88,8 +94,19 @@ public class DungeonRendererSample extends SampleBase {
         hero.setCurrentMap(dungeon);
         hero2.setCurrentMap(dungeon);
 
+        Bread bread = new Bread();
+        bread.setCoordinates(10, 10);
+
+        Bread bread2 = new Bread();
+        bread2.setCoordinates(80, 80);
+
+        itemRegistry.add(dungeon, bread);
+        itemRegistry.add(dungeon, bread2);
+        itemTextures.put(bread, breadTexture);
+
         actorRegistry.add(hero);
         actorRegistry.add(hero2);
+
     }
 
     @Override
@@ -124,14 +141,18 @@ public class DungeonRendererSample extends SampleBase {
                 }
         );
 
-        for (int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
-            for (int j = 0; j < Config.DungeonConfig.DUNGEON_HEIGHT; j++) {
+        for (int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
+            for (int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {
                 if (drawMap[i][j].equals(Tile.STONE_WALL)) {
                     spriteBatch.draw(wallTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, wallTexture.getWidth(), wallTexture.getHeight(), false, false);
                 } else if (drawMap[i][j].equals(Tile.FLOOR)) {
                     spriteBatch.draw(floorTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, floorTexture.getWidth(), floorTexture.getHeight(), false, false);
                 }
             }
+        }
+
+        for(Item item : itemRegistry.getAllItems(dungeon)) {
+            spriteBatch.draw(breadTexture, item.getX(), item.getY(), 0,0,1,1,1,1,0, 0,0,breadTexture.getWidth(), breadTexture.getHeight(), false, false);
         }
     }
 
@@ -176,8 +197,8 @@ public class DungeonRendererSample extends SampleBase {
         if (keycode == Input.Keys.RIGHT) {
             //camera.position.x += 10.0 * delta;
             px++;
-            if (px >= Config.DungeonConfig.DUNGEON_WIDTH)
-                px = Config.DungeonConfig.DUNGEON_WIDTH - 1;
+            if (px >= Config.Dungeon.DUNGEON_WIDTH)
+                px = Config.Dungeon.DUNGEON_WIDTH - 1;
         }
         if (keycode == Input.Keys.DOWN) {
             py--;
@@ -186,8 +207,8 @@ public class DungeonRendererSample extends SampleBase {
         }
         if (keycode == Input.Keys.UP) {
             py++;
-            if (py >= Config.DungeonConfig.DUNGEON_HEIGHT)
-                py = Config.DungeonConfig.DUNGEON_HEIGHT - 1;
+            if (py >= Config.Dungeon.DUNGEON_HEIGHT)
+                py = Config.Dungeon.DUNGEON_HEIGHT - 1;
         }
 
         camera.update();

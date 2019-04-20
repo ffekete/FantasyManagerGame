@@ -10,6 +10,14 @@ public class ActivityStack {
         this.activities = activities;
     }
 
+    public void suspendAll() {
+        activities.forEach(Activity::suspend);
+    }
+
+    public boolean contains(Class clazz) {
+        return activities.stream().filter(activity -> activity.getClass().isAssignableFrom(clazz)).count() == 1;
+    }
+
     public boolean isEmpty() {
         return activities.isEmpty();
     }
@@ -19,20 +27,29 @@ public class ActivityStack {
             return;
         }
         Activity activity = activities.peek();
-        if (activity.isFirstRun()) {
-            activity.init();
-        }
-        activity.countDown();
-
-        if (activity.isDone()) {
+        if(activity.isCancellable()) {
+            activity.cancel();
             activities.remove(activity);
-            System.out.println("activity cleared + " + activities.size());
         } else {
-            if (activity.isTriggered()) {
-                activity.update();
+            if (activity.isFirstRun()) {
+                activity.init();
+            }
+            if (activity.isSuspended()) {
+                activity.resume();
+            }
+
+            activity.countDown();
+
+            if (activity.isDone()) {
+                activity.clear();
+                activities.remove(activity);
+                System.out.println("activity cleared + " + activities.size());
+            } else {
+                if (activity.isTriggered()) {
+                    activity.update();
+                }
             }
         }
-
     }
 
     public void add(Activity activity) {

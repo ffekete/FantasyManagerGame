@@ -10,18 +10,18 @@ import java.util.Random;
 public class DungeonWithRoomsCreator implements DungeonCreator {
 
     private static final int NR_OF_SEGMENTS = 5;
-    private static final int ROOM_MAX_WIDTH = Config.DungeonConfig.DUNGEON_WIDTH / NR_OF_SEGMENTS;
+    private static final int ROOM_MAX_WIDTH = Config.Dungeon.DUNGEON_WIDTH / NR_OF_SEGMENTS;
     private static final int ROOM_MIN_WIDTH = 5;
-    private static final int ROOM_MAX_HEIGHT = Config.DungeonConfig.DUNGEON_HEIGHT / NR_OF_SEGMENTS;
+    private static final int ROOM_MAX_HEIGHT = Config.Dungeon.DUNGEON_HEIGHT / NR_OF_SEGMENTS;
     private static final int ROOM_MIN_HEIGHT = 5;
     private static final int ROOM_APPEARANCE_CHANCE = 60;
 
     @Override
     public Dungeon create() {
-        Dungeon map = new Dungeon(Config.DungeonConfig.DUNGEON_WIDTH, Config.DungeonConfig.DUNGEON_HEIGHT);
+        Dungeon map = new Dungeon(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT);
 
-        for(int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
-            for(int j = 0; j < Config.DungeonConfig.DUNGEON_HEIGHT; j++) {
+        for(int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
+            for(int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {
                 map.setTile(i, j, Tile.FLOOR);
             }
         }
@@ -96,8 +96,8 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
 
                 //if(i == 0 && j == 0 || i == 3 && j == 3) {
                 if(new Random().nextInt(100) < ROOM_APPEARANCE_CHANCE) {
-                    Room room = new Room(i * ((Config.DungeonConfig.DUNGEON_WIDTH / NR_OF_SEGMENTS)-1),
-                            j * ((Config.DungeonConfig.DUNGEON_HEIGHT / NR_OF_SEGMENTS)-1),
+                    Room room = new Room(i * ((Config.Dungeon.DUNGEON_WIDTH / NR_OF_SEGMENTS)-1),
+                            j * ((Config.Dungeon.DUNGEON_HEIGHT / NR_OF_SEGMENTS)-1),
                             ROOM_MIN_WIDTH + new Random().nextInt(ROOM_MAX_WIDTH - ROOM_MIN_WIDTH),
                             ROOM_MIN_HEIGHT + new Random().nextInt(ROOM_MAX_HEIGHT - ROOM_MIN_HEIGHT));
                     rooms.add(room);

@@ -7,7 +7,15 @@ public class Config {
     public static final int SCREEN_WIDTH = 1024;
     public static final int SCREEN_HEIGHT = 768;
 
-    public static class DungeonConfig {
+    public static final int BASE_HUNGER_LEVEL = 0;
+    public static final int BASE_HUNGER_LIMIT = 1000;
+
+
+    public static class Item {
+        public static final int BREAD_HUNGER_LEVEL = 100;
+    }
+
+    public static class Dungeon {
         public static final int DUNGEON_WIDTH = 100;
         public static final int DUNGEON_HEIGHT = 100;
     }

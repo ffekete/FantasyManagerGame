@@ -7,6 +7,8 @@ import java.util.List;
 
 public class ActorRegistry {
 
+    public static final ActorRegistry INSTANCE = new ActorRegistry();
+
     private List<Actor> actors = new ArrayList<>();
 
     public void add(Actor actor) {

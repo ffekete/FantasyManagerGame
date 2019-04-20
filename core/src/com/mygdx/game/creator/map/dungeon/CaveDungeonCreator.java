@@ -18,7 +18,7 @@ public class CaveDungeonCreator implements DungeonCreator {
 
         long start = System.currentTimeMillis();
         //Create a new map
-        Dungeon cellmap = new Dungeon(Config.DungeonConfig.DUNGEON_WIDTH, Config.DungeonConfig.DUNGEON_HEIGHT);
+        Dungeon cellmap = new Dungeon(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT);
         //Set up the map with random values
         cellmap = initialiseMap(cellmap);
 
@@ -69,20 +69,20 @@ public class CaveDungeonCreator implements DungeonCreator {
     }
 
     private void addFrame(Dungeon map) {
-        for(int i = 0; i < Config.DungeonConfig.DUNGEON_WIDTH; i++) {
+        for(int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
             map.setTile(i, 0, Tile.STONE_WALL);
-            map.setTile(i, Config.DungeonConfig.DUNGEON_HEIGHT - 1, Tile.STONE_WALL);
+            map.setTile(i, Config.Dungeon.DUNGEON_HEIGHT - 1, Tile.STONE_WALL);
         }
 
-        for(int i = 0; i < Config.DungeonConfig.DUNGEON_HEIGHT; i++) {
+        for(int i = 0; i < Config.Dungeon.DUNGEON_HEIGHT; i++) {
             map.setTile(0, i, Tile.STONE_WALL);
-            map.setTile(Config.DungeonConfig.DUNGEON_WIDTH - 1, i, Tile.STONE_WALL);
+            map.setTile(Config.Dungeon.DUNGEON_WIDTH - 1, i, Tile.STONE_WALL);
         }
     }
 
     private Dungeon initialiseMap(Dungeon map){
-        for(int x = 0; x< Config.DungeonConfig.DUNGEON_WIDTH; x++){
-            for(int y = 0; y< Config.DungeonConfig.DUNGEON_HEIGHT; y++){
+        for(int x = 0; x< Config.Dungeon.DUNGEON_WIDTH; x++){
+            for(int y = 0; y< Config.Dungeon.DUNGEON_HEIGHT; y++){
                 if(new Random().nextInt(100) < chanceToStartAlive){
                     map.setTile(x, y, Tile.STONE_WALL);
                 } else {
@@ -117,7 +117,7 @@ public class CaveDungeonCreator implements DungeonCreator {
     }
 
     private Dungeon doSimulationStep(Dungeon oldMap){
-        Dungeon newMap = new Dungeon(Config.DungeonConfig.DUNGEON_WIDTH, Config.DungeonConfig.DUNGEON_HEIGHT);
+        Dungeon newMap = new Dungeon(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT);
         //Loop over each row and column of the map
         for(int x=1; x<oldMap.getWidth() - 1; x++){
             for(int y=1; y<oldMap.getHeight()-1; y++){

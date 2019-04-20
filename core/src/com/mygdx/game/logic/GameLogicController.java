@@ -15,6 +15,7 @@ public class GameLogicController {
 
     public void update() {
         actorRegistry.getActors().forEach(actor -> {
+            actor.increaseHunger(1);
             activityManager.manage(actor);
             actor.getActivityStack().performNext();
         });

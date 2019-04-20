@@ -9,6 +9,7 @@ import java.util.List;
 
 public class MovementActivity implements Activity {
 
+    private boolean suspended = false;
     private final Actor actor;
     private int targetX;
     private int targetY;
@@ -61,6 +62,32 @@ public class MovementActivity implements Activity {
         return firstRun;
     }
 
+    @Override
+    public void suspend() {
+        suspended = true;
+    }
+
+    @Override
+    public void resume() {
+        init();
+        suspended = false;
+    }
+
+    @Override
+    public boolean isSuspended() {
+        return suspended;
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public boolean isCancellable() {
+        return false;
+    }
+
     public void setPriorityModifier(int priorityModifier) {
         this.priorityModifier = priorityModifier;
     }
@@ -81,4 +108,5 @@ public class MovementActivity implements Activity {
     public boolean isTriggered() {
         return counter == actor.getMovementSpeed() -1;
     }
+
 }

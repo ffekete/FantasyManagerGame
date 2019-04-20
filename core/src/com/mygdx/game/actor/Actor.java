@@ -14,4 +14,8 @@ public interface Actor {
 
     int getMovementSpeed();
     void setCoordinates(int x, int y);
+    boolean isHungry();
+    void increaseHunger(int amount);
+    void decreaseHunger(int amount);
+    int getHungerLevel();
 }

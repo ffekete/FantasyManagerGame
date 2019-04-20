@@ -8,4 +8,9 @@ public interface Activity extends CooldownActivity, Comparable<Activity> {
     void cancel();
     int getPriority();
     boolean isFirstRun();
+    void suspend();
+    void resume();
+    boolean isSuspended();
+    void clear();
+    boolean isCancellable();
 }
