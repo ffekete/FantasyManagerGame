@@ -3,7 +3,6 @@ package com.mygdx.game.logic.visibility;
 import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.creator.map.dungeon.Dungeon;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.VisibilityMask;
 
 import java.util.ArrayList;
 import java.util.Arrays;

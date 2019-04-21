@@ -1,5 +1,6 @@
-package com.mygdx.game.logic;
+package com.mygdx.game.logic.visibility;
 
+import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.creator.map.dungeon.Dungeon;
 
@@ -18,14 +19,24 @@ public class VisibilityMask {
         mask = new int[width][height];
     }
 
-    public Tile[][] mask(Dungeon map) {
+    public Tile[][] mask(Map2D map, VisitedArea[][] visitedAreaMap) {
         if(width != map.getWidth() || height != map.getHeight())
             throw new IllegalArgumentException("Map sizes are not matching with mask!");
         Tile[][] newMap = new Tile[map.getWidth()][map.getHeight()];
 
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                newMap[i][j] = mask[i][j] == 0 ? Tile.EMPTY : map.getTile(i,j);
+                if(mask[i][j] == 0) {
+                    if(visitedAreaMap[i][j] == VisitedArea.NOT_VISITED) {
+                        newMap[i][j] = Tile.EMPTY;
+                    } else {
+                        visitedAreaMap[i][j] = VisitedArea.VISITED_BUT_NOT_VISIBLE; // visited but not seen
+                        newMap[i][j] = map.getTile(i,j);
+                    }
+                } else {
+                    visitedAreaMap[i][j] = VisitedArea.VISIBLE; // visited and seen
+                    newMap[i][j] = map.getTile(i,j);
+                }
             }
         }
 

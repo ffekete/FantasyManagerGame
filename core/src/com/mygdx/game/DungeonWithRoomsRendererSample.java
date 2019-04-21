@@ -13,7 +13,7 @@ import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.creator.map.dungeon.DungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonWithRoomsCreator;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.VisibilityMask;
+import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.utils.GdxUtils;
 
@@ -65,7 +65,7 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     public void draw() {
         VisibilityCalculator visibilityCalculator = new VisibilityCalculator(dungeon.getWidth(), dungeon.getHeight());
         VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 100, Arrays.asList(new Point(px,py)));
-        Tile[][] drawMap = visibilityMask.mask(dungeon);
+        Tile[][] drawMap = visibilityMask.mask(dungeon, dungeon.getVisitedareaMap());
 
         //drawMap[px][py] = 3;
 
