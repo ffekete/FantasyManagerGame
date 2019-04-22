@@ -16,7 +16,7 @@ public class HungerActivity implements Activity, CooldownActivity {
     private MovementActivity movementActivity;
 
     private final Actor actor;
-    private final Food food;
+    private Food food;
     private boolean suspended = false;
 
     public HungerActivity(Actor actor, Food food) {
@@ -36,7 +36,7 @@ public class HungerActivity implements Activity, CooldownActivity {
 
     @Override
     public boolean isDone() {
-        return actor.getX() == food.getX() && actor.getY() == food.getY();
+        return actor.getX() == food.getX() && actor.getY() == food.getY() || actor.getInventory().has(Food.class);
     }
 
     @Override
@@ -91,6 +91,10 @@ public class HungerActivity implements Activity, CooldownActivity {
 
     @Override
     public void clear() {
+        if(actor.getInventory().has(Food.class)) {
+            this.food = actor.getInventory().get(Food.class);
+            System.out.println("I will eat this from my inventory: " + food);
+        }
         System.out.println(" I ate " + food.getNutritionAmount() + " " + actor.getHungerLevel());
         actor.decreaseHunger(food.getNutritionAmount());
         itemRegistry.getAllItems(actor.getCurrentMap()).remove(food);

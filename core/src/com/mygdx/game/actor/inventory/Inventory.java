@@ -21,6 +21,10 @@ public class Inventory {
         inventory.remove(item);
     }
 
+    public <T extends Item> T get(Class<T> clazz) {
+        return (T)inventory.parallelStream().filter(item -> clazz.isAssignableFrom(item.getClass())).findFirst().get();
+    }
+
     public boolean has(Class clazz) {
         return inventory.parallelStream().anyMatch(item -> clazz.isAssignableFrom(item.getClass()));
     }
