@@ -1,11 +1,17 @@
 package com.mygdx.game.logic.activity;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class MovementActivity implements Activity {
 
@@ -19,6 +25,7 @@ public class MovementActivity implements Activity {
     private Integer counter = 0;
     private boolean done = false;
     private ActorMovementHandler actorMovementHandler;
+    private Future<List<PathFinder.Node>> path;
 
     public MovementActivity(Actor actor, int targetX, int targetY, PathFinder pathFinder) {
         this.actor = actor;
@@ -35,7 +42,16 @@ public class MovementActivity implements Activity {
 
     @Override
     public void update() {
-        //actor.moveToNextPathPoint();
+        if(path != null && path.isDone()) {
+            try {
+                actorMovementHandler.registerActorPath(actor, path.get());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            path = null;
+        }
         done = (!actorMovementHandler.moveToNextPathPoint(actor));
     }
 
@@ -43,8 +59,9 @@ public class MovementActivity implements Activity {
     public void init() {
         System.out.println("Starting activity");
         pathFinder.init(actor.getCurrentMap());
-        List<PathFinder.Node> path = pathFinder.findAStar(new Point(actor.getX(), actor.getY()), new Point(targetX, targetY));
-        actorMovementHandler.registerActorPath(actor, path);
+        ExecutorService executor = Executors.newFixedThreadPool(Config.Engine.NUMBER_OF_THREADS);
+        path = executor.submit(() -> pathFinder.findAStar(new Point(actor.getX(), actor.getY()), new Point(targetX, targetY)));
+
         firstRun = false;
     }
 

@@ -16,12 +16,9 @@ import java.util.Random;
 
 public class ActivityManager {
 
-    private PathFinder pathFinder;
     private ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
 
-    public ActivityManager() {
-        this.pathFinder = new PathFinder();
-    }
+    public ActivityManager() { }
 
     public void manage(Actor actor) {
         Activity activity;
@@ -66,7 +63,8 @@ public class ActivityManager {
                 y = new Random().nextInt(actor.getCurrentMap().getHeight());
             } while (actor.getCurrentMap().getTile(x, y).isObstacle());
 
-            activity = new MovementActivity(actor, x, y, pathFinder);
+
+            activity = new MovementActivity(actor, x, y, new PathFinder());
             actor.getActivityStack().add(activity);
         }
     }

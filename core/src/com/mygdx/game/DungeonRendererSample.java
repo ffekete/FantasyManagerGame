@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -76,8 +77,6 @@ public class DungeonRendererSample extends SampleBase {
         pathFinder = new PathFinder(dungeon.getWidth(), dungeon.getHeight());
         Gdx.input.setInputProcessor(this);
 
-
-
         Hero hero = new Hero();
 
         int x = 0;
@@ -120,7 +119,7 @@ public class DungeonRendererSample extends SampleBase {
     @Override
     public void render() {
         spriteBatch.setProjectionMatrix(camera.combined);
-
+        viewPort.apply();
         spriteBatch.begin();
 
         GdxUtils.clearScreen();
