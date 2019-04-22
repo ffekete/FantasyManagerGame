@@ -13,6 +13,7 @@ public class Config {
 
     public static class Item {
         public static final int BREAD_HUNGER_LEVEL = 100;
+        public static final int PICK_UP_ITEM_DISTANCE = 15;
     }
 
     public static class Dungeon {

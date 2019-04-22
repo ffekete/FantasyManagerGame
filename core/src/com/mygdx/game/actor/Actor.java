@@ -1,6 +1,8 @@
 package com.mygdx.game.actor;
 
+import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.activity.ActivityStack;
 
 public interface Actor {
@@ -18,4 +20,6 @@ public interface Actor {
     void increaseHunger(int amount);
     void decreaseHunger(int amount);
     int getHungerLevel();
+    void pickUp(Item item);
+    Inventory getInventory();
 }

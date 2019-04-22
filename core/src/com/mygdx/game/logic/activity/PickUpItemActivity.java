@@ -2,26 +2,27 @@ package com.mygdx.game.logic.activity;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.Food;
+import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.registry.ItemRegistry;
 
-public class HungerActivity implements Activity, CooldownActivity {
+public class PickUpItemActivity implements Activity, CooldownActivity {
 
     private ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
 
     private PathFinder pathFinder = new PathFinder();
     private boolean firstRun = true;
-    private int priority = 99;
+    private int priority = 98;
     private int counter = 0;
     private MovementActivity movementActivity;
 
     private final Actor actor;
-    private final Food food;
+    private final Item item;
     private boolean suspended = false;
 
-    public HungerActivity(Actor actor, Food food) {
+    public PickUpItemActivity(Actor actor, Item item) {
         this.actor = actor;
-        this.food = food;
+        this.item = item;
     }
 
     @Override
@@ -36,7 +37,7 @@ public class HungerActivity implements Activity, CooldownActivity {
 
     @Override
     public boolean isDone() {
-        return actor.getX() == food.getX() && actor.getY() == food.getY();
+        return actor.getX() == item.getX() && actor.getY() == item.getY();
     }
 
     @Override
@@ -47,7 +48,7 @@ public class HungerActivity implements Activity, CooldownActivity {
     @Override
     public void init() {
         firstRun = false;
-        this.movementActivity = new MovementActivity(actor, food.getX(), food.getY(), pathFinder);
+        this.movementActivity = new MovementActivity(actor, item.getX(), item.getY(), pathFinder);
         movementActivity.init();
     }
 
@@ -74,7 +75,7 @@ public class HungerActivity implements Activity, CooldownActivity {
     @Override
     public void resume() {
         suspended = false;
-        if(itemRegistry.getAllItems(actor.getCurrentMap()).contains(food)) {
+        if(itemRegistry.getAllItems(actor.getCurrentMap()).contains(item)) {
             movementActivity.init();
         }
     }
@@ -91,15 +92,14 @@ public class HungerActivity implements Activity, CooldownActivity {
 
     @Override
     public void clear() {
-        System.out.println(" I ate " + food.getNutritionAmount() + " " + actor.getHungerLevel());
-        actor.decreaseHunger(food.getNutritionAmount());
-        itemRegistry.getAllItems(actor.getCurrentMap()).remove(food);
-        System.out.println(actor.getHungerLevel());
+        System.out.println(" I picked up " + item);
+        actor.pickUp(item);
+        itemRegistry.getAllItems(actor.getCurrentMap()).remove(item);
     }
 
     @Override
     public boolean isCancellable() {
         // food is gone
-        return !itemRegistry.getAllItems(actor.getCurrentMap()).contains(food);
+        return !itemRegistry.getAllItems(actor.getCurrentMap()).contains(item);
     }
 }

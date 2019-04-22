@@ -2,7 +2,9 @@ package com.mygdx.game.actor;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.component.Attributes;
+import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.activity.ActivityStack;
 
 import java.util.HashMap;
@@ -11,6 +13,7 @@ import java.util.PriorityQueue;
 
 public class AbstractActor implements Actor {
 
+    private Inventory inventory;
     private Map<Attributes, Integer> baseAttributes;
 
     private int x;
@@ -27,6 +30,7 @@ public class AbstractActor implements Actor {
         for(Attributes a : Attributes.values()) {
             baseAttributes.put(a, 20);
         }
+        this.inventory = new Inventory();
     }
 
     @Override
@@ -69,6 +73,16 @@ public class AbstractActor implements Actor {
     @Override
     public int getHungerLevel() {
         return hungerLevel;
+    }
+
+    @Override
+    public void pickUp(Item item) {
+        this.inventory.add(item);
+    }
+
+    @Override
+    public Inventory getInventory() {
+        return this.inventory;
     }
 
     public Integer getattribute(Attributes a) {
