@@ -30,7 +30,6 @@ public class ActivityManager {
             if(!items.isEmpty()) {
                 // find items
                 Item item = findClosest(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE);
-                System.out.println(item);
                 if(item != null) {
                     // go for it
                     System.out.println(String.format("I'mpicking up %s!", item));
@@ -46,7 +45,7 @@ public class ActivityManager {
 
             if(!items.isEmpty()) {
                 // find food
-                Food food = findClosest(actor, items);
+                Food food = (Food)findClosest(actor, items);
                 // go for it
                 System.out.println(String.format("I'm hungry for %s!", food));
                 activity = new HungerActivity(actor, food);
@@ -83,15 +82,13 @@ public class ActivityManager {
             float distance = Math.abs(x-a)*Math.abs(x-a) + Math.abs(y-b) * Math.abs(y-b);
             if(distance < minDistance) {
                 selectedItem = item;
-                minDistance = distance; //Math.abs(x-selectedItem.getX())*Math.abs(x-selectedItem.getX()) + Math.abs(y-selectedItem.getY()) * Math.abs(y-selectedItem.getY());
+                minDistance = distance;
             }
         }
-
-        // oldDistance = Math.abs(x-selectedItem.getX())*Math.abs(x-selectedItem.getX()) + Math.abs(y-selectedItem.getY()) * Math.abs(y-selectedItem.getY());
-
         return minDistance > maxDistance*maxDistance ? null : selectedItem;
     }
 
+    // todo: make this to work on classes instead of Food
     private Food findClosest(Actor actor, List<Item> items) {
         Item food = items.get(0);
         int x = actor.getX();
