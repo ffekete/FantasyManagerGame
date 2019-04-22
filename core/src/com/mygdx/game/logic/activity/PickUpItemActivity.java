@@ -1,14 +1,15 @@
 package com.mygdx.game.logic.activity;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.item.Food;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.registry.ItemRegistry;
 
 public class PickUpItemActivity implements Activity, CooldownActivity {
 
     private ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
+    private ActorMovementHandler actorMovementHandler = ActorMovementHandler.INSTANCE;
 
     private PathFinder pathFinder = new PathFinder();
     private boolean firstRun = true;
@@ -27,12 +28,13 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
 
     @Override
     public void countDown() {
-        counter = (counter + 1) % actor.getMovementSpeed();
+        counter = (counter + 1) % movementActivity.getMovementSpeed();
+        actorMovementHandler.updateActorOffsetCoordinates(actor, movementActivity.getMovementSpeed());
     }
 
     @Override
     public boolean isTriggered() {
-        return counter == actor.getMovementSpeed() -1;
+        return counter == movementActivity.getMovementSpeed() -1;
     }
 
     @Override
@@ -92,6 +94,8 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
 
     @Override
     public void clear() {
+        actor.setxOffset(0);
+        actor.setyOffset(0);
         System.out.println(" I picked up " + item);
         actor.pickUp(item);
         itemRegistry.getAllItems(actor.getCurrentMap()).remove(item);

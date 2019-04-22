@@ -23,13 +23,14 @@ public class ActivityManager {
     public void manage(Actor actor) {
         Activity activity;
 
-        List<Item> items = itemRegistry.getAllItems(actor.getCurrentMap(), Food.class);
+        List<Item> items = itemRegistry.getAllItems(actor.getCurrentMap());
 
         if(!actor.getActivityStack().contains(PickUpItemActivity.class)) {
 
             if(!items.isEmpty()) {
                 // find items
                 Item item = findClosest(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE);
+                System.out.println(item);
                 if(item != null) {
                     // go for it
                     System.out.println(String.format("I'mpicking up %s!", item));
@@ -69,26 +70,26 @@ public class ActivityManager {
         }
     }
 
-    private Food findClosest(Actor actor, List<Item> items, Integer maxDistance) {
+    private Item findClosest(Actor actor, List<Item> items, Integer maxDistance) {
         Item selectedItem = items.get(0);
         int x = actor.getX();
         int y = actor.getY();
-        float oldDistance = Math.abs(x-selectedItem.getX())*Math.abs(x-selectedItem.getX()) + Math.abs(y-selectedItem.getY()) * Math.abs(y-selectedItem.getY());
+        float minDistance = Math.abs(x-selectedItem.getX())*Math.abs(x-selectedItem.getX()) + Math.abs(y-selectedItem.getY()) * Math.abs(y-selectedItem.getY());
 
         for(Item item : items) {
             int a = item.getX();
             int b = item.getY();
 
             float distance = Math.abs(x-a)*Math.abs(x-a) + Math.abs(y-b) * Math.abs(y-b);
-            if(distance < oldDistance) {
+            if(distance < minDistance) {
                 selectedItem = item;
-                oldDistance = Math.abs(x-selectedItem.getX())*Math.abs(x-selectedItem.getX()) + Math.abs(y-selectedItem.getY()) * Math.abs(y-selectedItem.getY());
+                minDistance = distance; //Math.abs(x-selectedItem.getX())*Math.abs(x-selectedItem.getX()) + Math.abs(y-selectedItem.getY()) * Math.abs(y-selectedItem.getY());
             }
         }
 
         // oldDistance = Math.abs(x-selectedItem.getX())*Math.abs(x-selectedItem.getX()) + Math.abs(y-selectedItem.getY()) * Math.abs(y-selectedItem.getY());
 
-        return oldDistance > maxDistance ? null : (Food)selectedItem;
+        return minDistance > maxDistance*maxDistance ? null : selectedItem;
     }
 
     private Food findClosest(Actor actor, List<Item> items) {

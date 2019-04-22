@@ -22,4 +22,8 @@ public interface Actor {
     int getHungerLevel();
     void pickUp(Item item);
     Inventory getInventory();
+    float getxOffset();
+    float getyOffset();
+    void setxOffset(float xOffset);
+    void setyOffset(float yOffset);
 }

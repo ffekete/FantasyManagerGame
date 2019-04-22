@@ -7,7 +7,6 @@ import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,13 +25,14 @@ public class MovementActivity implements Activity {
     private boolean done = false;
     private ActorMovementHandler actorMovementHandler;
     private Future<List<PathFinder.Node>> path;
+    private int speed;
 
     public MovementActivity(Actor actor, int targetX, int targetY, PathFinder pathFinder) {
         this.actor = actor;
         this.targetX = targetX;
         this.targetY = targetY;
         this.pathFinder = pathFinder;
-        this.actorMovementHandler = new ActorMovementHandler();
+        this.actorMovementHandler = ActorMovementHandler.INSTANCE;
     }
 
     @Override
@@ -52,7 +52,14 @@ public class MovementActivity implements Activity {
             }
             path = null;
         }
+        actor.setxOffset(0);
+        actor.setyOffset(0);
+        speed = actor.getMovementSpeed();
         done = (!actorMovementHandler.moveToNextPathPoint(actor));
+    }
+
+    public int getMovementSpeed() {
+        return speed;
     }
 
     @Override
@@ -62,7 +69,11 @@ public class MovementActivity implements Activity {
         ExecutorService executor = Executors.newFixedThreadPool(Config.Engine.NUMBER_OF_THREADS);
         path = executor.submit(() -> pathFinder.findAStar(new Point(actor.getX(), actor.getY()), new Point(targetX, targetY)));
 
+        actor.setxOffset(0);
+        actor.setyOffset(0);
+
         firstRun = false;
+        speed = actor.getMovementSpeed();
     }
 
     @Override
@@ -116,14 +127,15 @@ public class MovementActivity implements Activity {
 
     @Override
     public void countDown() {
-        counter = (counter + 1) % actor.getMovementSpeed();
+        counter = (counter + 1) % speed;
         if(counter < 0)
             counter = 0;
+        actorMovementHandler.updateActorOffsetCoordinates(actor, speed);
     }
 
     @Override
     public boolean isTriggered() {
-        return counter == actor.getMovementSpeed() -1;
+        return counter == speed -1;
     }
 
 }

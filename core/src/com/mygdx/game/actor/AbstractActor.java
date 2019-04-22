@@ -20,6 +20,9 @@ public class AbstractActor implements Actor {
     private int y;
     private int hungerLevel;
 
+    private float xOffset = 0;
+    private float yOffset = 0;
+
     private ActivityStack activityStack = new ActivityStack(new PriorityQueue<>());
 
     private Map2D currentMap;
@@ -101,5 +104,21 @@ public class AbstractActor implements Actor {
     @Override
     public void setCurrentMap(Map2D map) {
         this.currentMap = map;
+    }
+
+    public float getxOffset() {
+        return xOffset;
+    }
+
+    public float getyOffset() {
+        return yOffset;
+    }
+
+    public void setxOffset(float xOffset) {
+        this.xOffset = xOffset;
+    }
+
+    public void setyOffset(float yOffset) {
+        this.yOffset = yOffset;
     }
 }

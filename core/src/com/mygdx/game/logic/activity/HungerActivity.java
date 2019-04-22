@@ -2,12 +2,14 @@ package com.mygdx.game.logic.activity;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.Food;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.registry.ItemRegistry;
 
 public class HungerActivity implements Activity, CooldownActivity {
 
     private ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
+    private ActorMovementHandler actorMovementHandler = ActorMovementHandler.INSTANCE;
 
     private PathFinder pathFinder = new PathFinder();
     private boolean firstRun = true;
@@ -26,12 +28,13 @@ public class HungerActivity implements Activity, CooldownActivity {
 
     @Override
     public void countDown() {
-        counter = (counter + 1) % actor.getMovementSpeed();
+        counter = (counter + 1) % movementActivity.getMovementSpeed();
+        actorMovementHandler.updateActorOffsetCoordinates(actor, movementActivity.getMovementSpeed());
     }
 
     @Override
     public boolean isTriggered() {
-        return counter == actor.getMovementSpeed() -1;
+        return counter == movementActivity.getMovementSpeed() -1;
     }
 
     @Override
@@ -49,6 +52,8 @@ public class HungerActivity implements Activity, CooldownActivity {
         firstRun = false;
         this.movementActivity = new MovementActivity(actor, food.getX(), food.getY(), pathFinder);
         movementActivity.init();
+        actor.setxOffset(0);
+        actor.setyOffset(0);
     }
 
     @Override

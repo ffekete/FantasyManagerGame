@@ -10,16 +10,63 @@ import java.util.Map;
 
 public class ActorMovementHandler {
 
-    private final PathFinder pathFinder;
+    public static final ActorMovementHandler INSTANCE = new ActorMovementHandler();
+
     private final Map<Actor, List<PathFinder.Node>> paths;
 
     public ActorMovementHandler() {
-        this.pathFinder = new PathFinder();
         this.paths = new HashMap<>();
     }
 
     public void registerActorPath(Actor actor, List<PathFinder.Node> path) {
         paths.put(actor, path);
+    }
+
+    private Point getNextPoint(Actor actor) {
+        if(!paths.containsKey(actor) || paths.get(actor).isEmpty()) {
+            return null;
+        }
+        else {
+            List<PathFinder.Node> path = paths.get(actor);
+            PathFinder.Node node = path.get(path.size() -1);
+            return new Point(node.getX(), node.getY());
+        }
+    }
+
+    public void updateActorOffsetCoordinates(Actor actor, int speed) {
+        Point point = getNextPoint(actor);
+
+        if(point != null) {
+            if (point.getX() > actor.getX() && point.getY() > actor.getY()) {
+                actor.setxOffset(actor.getxOffset() + 1.0f / speed);
+                actor.setyOffset(actor.getyOffset() + 1.0f / speed);
+
+            } else if (point.getX() > actor.getX() && point.getY() == actor.getY()) {
+                actor.setxOffset(actor.getxOffset() + 1.0f / speed);
+
+            } else if (point.getX() == actor.getX() && point.getY() > actor.getY()) {
+                actor.setyOffset(actor.getyOffset() + 1.0f / speed);
+
+            } else if (point.getX() < actor.getX() && point.getY() < actor.getY()) {
+                actor.setxOffset(actor.getxOffset() - 1.0f / speed);
+                actor.setyOffset(actor.getyOffset() - 1.0f / speed);
+
+            } else if (point.getX() < actor.getX() && point.getY() == actor.getY()) {
+                actor.setxOffset(actor.getxOffset() - 1.0f / speed);
+
+            } else if (point.getX() == actor.getX() && point.getY() < actor.getY()) {
+                actor.setyOffset(actor.getyOffset() - 1.0f / speed);
+
+            } else if (point.getX() < actor.getX() && point.getY() > actor.getY()) {
+                actor.setxOffset(actor.getxOffset() - 1.0f / speed);
+                actor.setyOffset(actor.getyOffset() + 1.0f / speed);
+
+            } else if (point.getX() > actor.getX() && point.getY() < actor.getY()) {
+                actor.setxOffset(actor.getxOffset() + 1.0f / speed);
+                actor.setyOffset(actor.getyOffset() - 1.0f / speed);
+
+            }
+        }
     }
 
     public boolean moveToNextPathPoint(Actor movableActor) {
@@ -30,6 +77,7 @@ public class ActorMovementHandler {
 
         PathFinder.Node nextNode = path.get(path.size()-1);
         if(movableActor.getCurrentMap().getTile(nextNode.getX(), nextNode.getY()).isObstacle()) {
+            PathFinder pathFinder = new PathFinder();
             pathFinder.init(movableActor.getCurrentMap());
             path = pathFinder.findAStar(Point.of(movableActor.getX(), movableActor.getY()), Point.of(nextNode.getX(), nextNode.getY()));
         }
