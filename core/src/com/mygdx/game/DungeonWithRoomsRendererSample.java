@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Tile;
+import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonWithRoomsCreator;
 import com.mygdx.game.logic.Point;
@@ -31,7 +32,7 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     private Texture floorTexture;
     private Texture playerTexture;
 
-    DungeonCreator dungeonCreator = new DungeonWithRoomsCreator();
+    DungeonCreator dungeonCreator = new CaveDungeonCreator();
     com.mygdx.game.creator.map.dungeon.Dungeon dungeon;
 
     int px = 1, py = 1;
@@ -63,17 +64,17 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     }
 
     public void draw() {
-        VisibilityCalculator visibilityCalculator = new VisibilityCalculator(dungeon.getWidth(), dungeon.getHeight());
-        VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 100, Arrays.asList(new Point(px,py)));
-        Tile[][] drawMap = visibilityMask.mask(dungeon, dungeon.getVisitedareaMap());
+        //VisibilityCalculator visibilityCalculator = new VisibilityCalculator(dungeon.getWidth(), dungeon.getHeight());
+        //VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 100, Arrays.asList(new Point(px,py)));
+        //Tile[][] drawMap = visibilityMask.mask(dungeon, dungeon.getVisitedareaMap());
 
         //drawMap[px][py] = 3;
 
         for(int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
             for (int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {
-                if(drawMap[i][j].equals(Tile.STONE_WALL)) {
+                if(dungeon.getTile(i,j).equals(Tile.STONE_WALL)) {
                     spriteBatch.draw(wallTexture, i,j, 0,0,1,1,1,1,0,0,0, wallTexture.getWidth(), wallTexture.getHeight(), false, false);
-                } else if(drawMap[i][j].equals(Tile.FLOOR)) {
+                } else if(dungeon.getTile(i, j).equals(Tile.FLOOR)) {
                     spriteBatch.draw(floorTexture, i,j, 0,0,1,1,1,1,0,0,0,floorTexture.getWidth(), floorTexture.getHeight(), false, false);
                 }
             }

@@ -8,10 +8,10 @@ import java.util.Random;
 public class CaveDungeonCreator implements DungeonCreator {
 
     private final static boolean DEBUG = false;
-    private int deathLimit = 4;
-    private int birthLimit = 4;
+    private int deathLimit = 5;
+    private int birthLimit = 3;
     private int numberOfSteps = 3;
-    private float chanceToStartAlive = 50;
+    private float chanceToStartAlive = 45;
 
     @Override
     public Dungeon create() {

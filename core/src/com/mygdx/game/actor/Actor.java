@@ -1,7 +1,9 @@
 package com.mygdx.game.actor;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.activity.ActivityStack;
 
@@ -26,4 +28,6 @@ public interface Actor {
     float getyOffset();
     void setxOffset(float xOffset);
     void setyOffset(float yOffset);
+    Alignment getAlignment();
+    void setAlignment(Alignment alignment);
 }

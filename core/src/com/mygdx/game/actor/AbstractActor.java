@@ -4,6 +4,7 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.component.Attributes;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.activity.ActivityStack;
 
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
 
-public class AbstractActor implements Actor {
+public abstract class AbstractActor implements Actor {
 
     private Inventory inventory;
     private Map<Attributes, Integer> baseAttributes;
@@ -19,6 +20,7 @@ public class AbstractActor implements Actor {
     private int x;
     private int y;
     private int hungerLevel;
+    private Alignment alignment;
 
     private float xOffset = 0;
     private float yOffset = 0;
@@ -106,19 +108,33 @@ public class AbstractActor implements Actor {
         this.currentMap = map;
     }
 
+    @Override
     public float getxOffset() {
         return xOffset;
     }
 
+    @Override
     public float getyOffset() {
         return yOffset;
     }
 
+    @Override
     public void setxOffset(float xOffset) {
         this.xOffset = xOffset;
     }
 
+    @Override
     public void setyOffset(float yOffset) {
         this.yOffset = yOffset;
+    }
+
+    @Override
+    public Alignment getAlignment() {
+        return this.alignment;
+    }
+
+    @Override
+    public void setAlignment(Alignment alignment) {
+        this.alignment = alignment;
     }
 }

@@ -5,28 +5,30 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.actor.hero.Hero;
+import com.mygdx.game.actor.hero.Warrior;
+import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Tile;
+import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonCreator;
+import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Bread;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.ItemRegistry;
+import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.utils.GdxUtils;
 
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class DungeonRendererSample extends SampleBase {
     private Texture playerTexture;
     private Texture breadTexture;
     private Texture actorTexture;
+    private TextureRegistry textureRegistry;
 
     DungeonCreator dungeonCreator = new DummyDungeonCreator();
     com.mygdx.game.creator.map.dungeon.Dungeon dungeon;
@@ -75,9 +78,10 @@ public class DungeonRendererSample extends SampleBase {
         actorTexture = new Texture(Gdx.files.internal("warrior.png"));
         dungeon = dungeonCreator.create();
         pathFinder = new PathFinder(dungeon.getWidth(), dungeon.getHeight());
+        textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
-        Hero hero = new Hero();
+        Warrior warrior = new Warrior();
 
         int x = 0;
         int y = 0;
@@ -86,18 +90,18 @@ public class DungeonRendererSample extends SampleBase {
             x = new Random().nextInt(dungeon.getWidth());
             y = new Random().nextInt(dungeon.getHeight());
         } while(dungeon.getTile(x,y).isObstacle());
-        hero.setCoordinates(x, y);
+        warrior.setCoordinates(x, y);
 
-        Hero hero2 = new Hero();
+        Warrior warrior2 = new Warrior();
 
         do {
             x = new Random().nextInt(dungeon.getWidth());
             y = new Random().nextInt(dungeon.getHeight());
         } while(dungeon.getTile(x,y).isObstacle());
-        hero2.setCoordinates(x, y);
+        warrior2.setCoordinates(x, y);
 
-        hero.setCurrentMap(dungeon);
-        hero2.setCurrentMap(dungeon);
+        warrior.setCurrentMap(dungeon);
+        warrior2.setCurrentMap(dungeon);
 
         Bread bread = new Bread();
         bread.setCoordinates(10, 10);
@@ -109,8 +113,13 @@ public class DungeonRendererSample extends SampleBase {
         itemRegistry.add(dungeon, bread2);
         itemTextures.put(bread, breadTexture);
 
-        actorRegistry.add(hero);
-        actorRegistry.add(hero2);
+        Goblin goblin = new Goblin();
+        goblin.setCurrentMap(dungeon);
+        goblin.setCoordinates(10, 10);
+
+        actorRegistry.add(warrior);
+        actorRegistry.add(warrior2);
+        actorRegistry.add(goblin);
 
         visibilityCalculator = new VisibilityCalculator(dungeon.getWidth(), dungeon.getHeight());
 
@@ -133,11 +142,12 @@ public class DungeonRendererSample extends SampleBase {
 
         List<Point> coordinatesForVisibilityCalculation = new ArrayList<>();
         actorRegistry.getActors().forEach(actor -> {
-                    coordinatesForVisibilityCalculation.add(new Point(actor.getX(), actor.getY()));
+                    if(Alignment.FRIENDLY.equals(actor.getAlignment()))
+                        coordinatesForVisibilityCalculation.add(new Point(actor.getX(), actor.getY()));
                 }
         );
 
-        VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 10, coordinatesForVisibilityCalculation);
+        VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 15, coordinatesForVisibilityCalculation);
         Tile[][] drawMap = visibilityMask.mask(dungeon, dungeon.getVisitedareaMap());
 
         for (int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
@@ -157,10 +167,12 @@ public class DungeonRendererSample extends SampleBase {
         }
 
         for(Item item : itemRegistry.getAllItems(dungeon)) {
-            spriteBatch.draw(breadTexture, item.getX(), item.getY(), 0,0,1,1,1,1,0, 0,0,breadTexture.getWidth(), breadTexture.getHeight(), false, false);
+            if(visibilityMask.getValue(item.getX(), item.getY()) == 1)
+                spriteBatch.draw(breadTexture, item.getX(), item.getY(), 0,0,1,1,1,1,0, 0,0,breadTexture.getWidth(), breadTexture.getHeight(), false, false);
         }
         for(Actor actor : actorRegistry.getActors()) {
-            spriteBatch.draw(actorTexture, actor.getX()-1 + actor.getxOffset(), actor.getY()-1 + actor.getyOffset(), 0,0,3,3,1,1,0, 0,0,actorTexture.getWidth(), actorTexture.getHeight(), false, false);
+            if(Alignment.FRIENDLY.equals(actor.getAlignment()) || visibilityMask.getValue(actor.getX(), actor.getY()) == 1)
+                spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX()-1 + actor.getxOffset(), actor.getY()-1 + actor.getyOffset(), 0,0,3,3,1,1,0, 0,0,actorTexture.getWidth(), actorTexture.getHeight(), false, false);
         }
 
     }
