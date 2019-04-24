@@ -1,5 +1,6 @@
 package com.mygdx.game.creator.map;
 
+import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 
 public interface Map2D {
@@ -10,4 +11,7 @@ public interface Map2D {
     int getWidth();
     VisitedArea[][] getVisitedareaMap();
     void setVisitedAreaMap(VisitedArea[][] map);
+
+    VisibilityCalculator getVisibilityCalculator();
+
 }

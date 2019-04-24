@@ -27,7 +27,9 @@ import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.ItemRegistry;
+import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.TextureRegistry;
+import com.mygdx.game.registry.VisibilityMapRegistry;
 import com.mygdx.game.utils.GdxUtils;
 
 import java.util.ArrayList;
@@ -62,7 +64,6 @@ public class DungeonRendererSample extends SampleBase {
     GameLogicController gameLogicController = new GameLogicController(actorRegistry);
     PathFinder pathFinder;
     Map<Item, Texture> itemTextures = new HashMap<>();
-    VisibilityCalculator visibilityCalculator;
 
     @Override
     public void create() {
@@ -81,22 +82,9 @@ public class DungeonRendererSample extends SampleBase {
         Gdx.input.setInputProcessor(this);
 
         Warrior warrior = new Warrior();
-
-        int x = 0;
-        int y = 0;
-
-        do {
-            x = new Random().nextInt(dungeon.getWidth());
-            y = new Random().nextInt(dungeon.getHeight());
-        } while(dungeon.getTile(x,y).isObstacle());
         warrior.setCoordinates(85, 55);
 
         Warrior warrior2 = new Warrior();
-
-        do {
-            x = new Random().nextInt(dungeon.getWidth());
-            y = new Random().nextInt(dungeon.getHeight());
-        } while(dungeon.getTile(x,y).isObstacle());
         warrior2.setCoordinates(45, 45);
 
         warrior.setCurrentMap(dungeon);
@@ -120,7 +108,7 @@ public class DungeonRendererSample extends SampleBase {
         actorRegistry.add(warrior2);
         actorRegistry.add(goblin);
 
-        visibilityCalculator = new VisibilityCalculator(dungeon.getWidth(), dungeon.getHeight());
+        MapRegistry.INSTANCE.add(dungeon);
 
     }
 
@@ -139,14 +127,8 @@ public class DungeonRendererSample extends SampleBase {
 
     public void draw() {
 
-        List<Point> coordinatesForVisibilityCalculation = new ArrayList<>();
-        actorRegistry.getActors().forEach(actor -> {
-                    if(Alignment.FRIENDLY.equals(actor.getAlignment()))
-                        coordinatesForVisibilityCalculation.add(new Point(actor.getX(), actor.getY()));
-                }
-        );
+        VisibilityMask visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(dungeon);
 
-        VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 15, coordinatesForVisibilityCalculation);
         Tile[][] drawMap = visibilityMask.mask(dungeon, dungeon.getVisitedareaMap());
 
         for (int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {

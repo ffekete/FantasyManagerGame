@@ -1,5 +1,6 @@
 package com.mygdx.game.logic.visibility;
 
+import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.creator.map.dungeon.Dungeon;
 import com.mygdx.game.logic.Point;
@@ -19,7 +20,7 @@ public class VisibilityCalculator {
         this.height = height;
     }
     
-    public VisibilityMask generateMask(Dungeon map, int range, List<Point> points) {
+    public VisibilityMask generateMask(Map2D map, int range, List<Point> points) {
         VisibilityMask mask = new VisibilityMask(width, height);
         for(Point point : points) {
             calculateFor(point.getX(), point.getY(), range, mask, map);
@@ -93,7 +94,7 @@ public class VisibilityCalculator {
         return points;
     }
 
-    private void line(int x,int y,int x2, int y2, VisibilityMask visibilityMask, Dungeon map) {
+    private void line(int x,int y,int x2, int y2, VisibilityMask visibilityMask, Map2D map) {
         int w = x2 - x ;
         int h = y2 - y ;
         int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0 ;
@@ -187,7 +188,7 @@ public class VisibilityCalculator {
         }
     }
 
-    private void calculateFor(int x, int y, int range, VisibilityMask visibilityMask, Dungeon map) {
+    private void calculateFor(int x, int y, int range, VisibilityMask visibilityMask, Map2D map) {
         List<Integer[]> points = midPointCircleDraw(x, y, range);
 
         for (Integer[] point : points) {

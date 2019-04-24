@@ -2,6 +2,7 @@ package com.mygdx.game.creator.map.dungeon;
 
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.Tile;
+import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 
 public class Dungeon implements Map2D {
@@ -9,10 +10,13 @@ public class Dungeon implements Map2D {
     private VisitedArea[][] visitedareaMap;
     private final int height;
     private final int width;
+    private final VisibilityCalculator visibilityCalculator;
 
     public Dungeon(int width, int height) {
         this.height = height;
         this.width = width;
+
+        visibilityCalculator = new VisibilityCalculator(width, height);
 
         visitedareaMap = new VisitedArea[width][height];
         for(int i = 0; i < width; i++) {
@@ -52,5 +56,10 @@ public class Dungeon implements Map2D {
     @Override
     public void setVisitedAreaMap(VisitedArea[][] map) {
         this.visitedareaMap = visitedareaMap;
+    }
+
+    @Override
+    public VisibilityCalculator getVisibilityCalculator() {
+        return visibilityCalculator;
     }
 }
