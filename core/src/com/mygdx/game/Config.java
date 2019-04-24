@@ -9,6 +9,7 @@ public class Config {
 
     public static final int BASE_HUNGER_LEVEL = 0;
     public static final int BASE_HUNGER_LIMIT = 1000;
+    public static final boolean SHOW_ELAPSED_TIME = false;
 
     public static class Engine {
         public static final int NUMBER_OF_THREADS = 4;

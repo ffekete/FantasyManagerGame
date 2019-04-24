@@ -9,11 +9,12 @@ import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.CompoundActivity;
 import com.mygdx.game.logic.activity.MovePickupActivity;
 import com.mygdx.game.logic.activity.MovePickupEatActivity;
-import com.mygdx.game.logic.activity.SimpleEatingActivity;
 import com.mygdx.game.logic.activity.MoveThenAttackActivity;
 import com.mygdx.game.logic.activity.MovementActivity;
 import com.mygdx.game.logic.activity.PickUpItemActivity;
 import com.mygdx.game.logic.activity.SimpleAttackActivity;
+import com.mygdx.game.logic.activity.SimpleEatingActivity;
+import com.mygdx.game.logic.activity.WaitActivity;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.ItemRegistry;
@@ -32,9 +33,6 @@ public class ActivityManager {
     public void manage(Actor actor) {
         Activity activity;
 
-        if(actor.getAlignment().equals(Alignment.ENEMY)) {
-            return;
-        }
         List<Item> items = itemRegistry.getAllItems(actor.getCurrentMap());
 
         if(!actor.getActivityStack().contains(MoveThenAttackActivity.class)) {
@@ -42,8 +40,15 @@ public class ActivityManager {
             if(enemy != null) {
                 System.out.println("Enemy sighted");
                 CompoundActivity compoundActivity = new MoveThenAttackActivity(97);
-                compoundActivity.add(new MovementActivity(actor, enemy.getX(), enemy.getY(), 1, new PathFinder()));
-                compoundActivity.add(new SimpleAttackActivity(actor, enemy));
+                if(actor.getAlignment().equals(Alignment.FRIENDLY)) {
+                    compoundActivity.add(new MovementActivity(actor, enemy.getX(), enemy.getY(), 1, new PathFinder()));
+                    compoundActivity.add(new SimpleAttackActivity(actor, enemy));
+                }
+                else {
+                    compoundActivity.add(new WaitActivity(actor, enemy, 1, new PathFinder()));
+                    compoundActivity.add(new SimpleAttackActivity(actor, enemy));
+                }
+
                 actor.getActivityStack().add(compoundActivity);
                 return;
             }
@@ -110,7 +115,7 @@ public class ActivityManager {
         Actor selectedActor = null;
         int x = actor.getX();
         int y = actor.getY();
-        float minDistance = Integer.MAX_VALUE; //Math.abs(x-selectedActor.getX())*Math.abs(x-selectedActor.getX()) + Math.abs(y-selectedActor.getY()) * Math.abs(y-selectedActor.getY());
+        float minDistance = Integer.MAX_VALUE;
 
         for(Actor actor1 : actors) {
             if(!actor.getAlignment().getEnemies().contains(actor1.getAlignment())) {

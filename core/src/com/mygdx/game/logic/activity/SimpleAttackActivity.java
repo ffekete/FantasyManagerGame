@@ -52,6 +52,8 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     @Override
     public void cancel() {
         System.out.println(actor + " cancelled.");
+        actor.setxOffset(0);
+        actor.setyOffset(0);
     }
 
     @Override
@@ -98,6 +100,6 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     @Override
     public boolean isCancellable() {
         // enemy is gone
-        return !actorRegistry.getActors().contains(enemy);
+        return !actorRegistry.getActors().contains(enemy) || !(Math.abs(actor.getX() - enemy.getX()) <= 1 && Math.abs(actor.getY() - enemy.getY()) <= 1 ) ;
     }
 }

@@ -62,7 +62,6 @@ public class DungeonRendererSample extends SampleBase {
     ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
     GameLogicController gameLogicController = new GameLogicController(actorRegistry);
-    PathFinder pathFinder;
     Map<Item, Texture> itemTextures = new HashMap<>();
 
     @Override
@@ -77,14 +76,15 @@ public class DungeonRendererSample extends SampleBase {
         breadTexture = new Texture(Gdx.files.internal("bread.png"));
         actorTexture = new Texture(Gdx.files.internal("warrior.png"));
         dungeon = dungeonCreator.create();
-        pathFinder = new PathFinder(dungeon.getWidth(), dungeon.getHeight());
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
         Warrior warrior = new Warrior();
+        warrior.setName("A");
         warrior.setCoordinates(85, 55);
 
         Warrior warrior2 = new Warrior();
+        warrior2.setName("B");
         warrior2.setCoordinates(45, 45);
 
         warrior.setCurrentMap(dungeon);
@@ -103,6 +103,7 @@ public class DungeonRendererSample extends SampleBase {
         Goblin goblin = new Goblin();
         goblin.setCurrentMap(dungeon);
         goblin.setCoordinates(50, 50);
+        goblin.setName("Gobelin");
 
         actorRegistry.add(warrior);
         actorRegistry.add(warrior2);

@@ -31,4 +31,6 @@ public interface Actor {
     Alignment getAlignment();
     void setAlignment(Alignment alignment);
     int getAttackSpeed();
+    String getName();
+    void setName(String name);
 }

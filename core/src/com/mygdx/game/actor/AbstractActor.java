@@ -14,6 +14,7 @@ import java.util.PriorityQueue;
 
 public abstract class AbstractActor implements Actor {
 
+    private String name;
     private Inventory inventory;
     private Map<Attributes, Integer> baseAttributes;
 
@@ -141,5 +142,15 @@ public abstract class AbstractActor implements Actor {
     @Override
     public int getAttackSpeed() {
         return 30;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
     }
 }

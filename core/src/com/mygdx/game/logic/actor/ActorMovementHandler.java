@@ -22,6 +22,11 @@ public class ActorMovementHandler {
         paths.put(actor, path);
     }
 
+    public void clearPath(Actor actor) {
+        if(paths.containsKey(actor))
+            paths.get(actor).clear();
+    }
+
     private Point getNextPoint(Actor actor) {
         if(!paths.containsKey(actor) || paths.get(actor).isEmpty()) {
             return null;
