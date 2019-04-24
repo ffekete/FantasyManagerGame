@@ -20,6 +20,8 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     public SimpleAttackActivity(Actor actor, Actor enemy) {
         this.actor = actor;
         this.enemy = enemy;
+        actor.setxOffset(0);
+        actor.setyOffset(0);
     }
 
     @Override
@@ -34,9 +36,6 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
 
     @Override
     public boolean isDone() {
-        if(Math.abs(actor.getX() - enemy.getX()) <= 1 && Math.abs(actor.getY() - enemy.getY()) <= 1) {
-            System.out.println("Attack done.");
-        }
         return Math.abs(actor.getX() - enemy.getX()) <= 1 && Math.abs(actor.getY() - enemy.getY()) <= 1;
     }
 
@@ -48,7 +47,6 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     @Override
     public void init() {
         firstRun = false;
-        System.out.println("Attack inited");
     }
 
     @Override

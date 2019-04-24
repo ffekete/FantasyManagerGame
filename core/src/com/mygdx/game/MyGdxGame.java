@@ -72,8 +72,8 @@ public class MyGdxGame extends SampleBase {
         batch.setProjectionMatrix(camera.combined);
         BitmapFont bitmapFont = new BitmapFont();
         batch.begin();
-        for (int i = (int)camera.position.x; i < (int)camera.position.x + 20; i++)
-            for (int j = (int)camera.position.y; j < (int)camera.position.y + 20; j++) {
+        for (int i = 0; i < Config.WORLD_WIDTH; i++)
+            for (int j = 0; j < Config.WORLD_HEIGHT; j++) {
                 batch.draw(textures.get(map[i][j]), i-10, j-10, 0.5f, 0.5f, 1, 1, 1.0f, 1.0f, 0.0f, 1, 1, textures.get(map[i][j]).getWidth(), textures.get(map[i][j]).getHeight(), false, false);
             }
         bitmapFont.draw(batch, Integer.valueOf(Gdx.graphics.getFramesPerSecond()).toString(), 1, 1);

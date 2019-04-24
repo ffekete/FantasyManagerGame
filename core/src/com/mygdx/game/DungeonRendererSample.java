@@ -14,7 +14,6 @@ import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Tile;
-import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonCreator;
 import com.mygdx.game.faction.Alignment;
@@ -22,9 +21,9 @@ import com.mygdx.game.item.Bread;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
+import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.ItemRegistry;
@@ -90,7 +89,7 @@ public class DungeonRendererSample extends SampleBase {
             x = new Random().nextInt(dungeon.getWidth());
             y = new Random().nextInt(dungeon.getHeight());
         } while(dungeon.getTile(x,y).isObstacle());
-        warrior.setCoordinates(55, 55);
+        warrior.setCoordinates(85, 55);
 
         Warrior warrior2 = new Warrior();
 

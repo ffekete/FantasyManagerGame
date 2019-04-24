@@ -7,7 +7,9 @@ import com.mygdx.game.item.Food;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.CompoundActivity;
-import com.mygdx.game.logic.activity.HungerActivity;
+import com.mygdx.game.logic.activity.MovePickupActivity;
+import com.mygdx.game.logic.activity.MovePickupEatActivity;
+import com.mygdx.game.logic.activity.SimpleEatingActivity;
 import com.mygdx.game.logic.activity.MoveThenAttackActivity;
 import com.mygdx.game.logic.activity.MovementActivity;
 import com.mygdx.game.logic.activity.PickUpItemActivity;
@@ -46,15 +48,16 @@ public class ActivityManager {
             }
         }
 
-        if(!actor.getActivityStack().contains(PickUpItemActivity.class)) {
-
+        if(!actor.getActivityStack().contains(MovePickupActivity.class)) {
             if(!items.isEmpty()) {
                 // find items
-                Item item = findClosest(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE);
+                Item item = findClosestFood(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE);
                 if(item != null) {
                     // go for it
                     System.out.println(String.format("I'mpicking up %s!", item));
-                    activity = new PickUpItemActivity(actor, item);
+                    activity = new MovePickupActivity(98)
+                            .add(new MovementActivity(actor, item.getX(), item.getY(), 1, new PathFinder()))
+                            .add(new PickUpItemActivity(actor, item));
                     actor.getActivityStack().suspendAll();
                     actor.getActivityStack().add(activity);
                     return;
@@ -62,14 +65,26 @@ public class ActivityManager {
             }
         }
 
-        if (actor.isHungry() && !actor.getActivityStack().contains(HungerActivity.class)) {
+        if(actor.isHungry() && !actor.getActivityStack().contains(SimpleEatingActivity.class)) {
+            if(!actor.getInventory().has(Food.class)) {
+                SimpleEatingActivity simpleEatingActivity = new SimpleEatingActivity(actor);
+                actor.getActivityStack().suspendAll();
+                actor.getActivityStack().add(simpleEatingActivity);
+                return;
+            }
+        }
+
+        if (actor.isHungry() && !actor.getActivityStack().contains(MovePickupEatActivity.class)) {
 
             if(!items.isEmpty()) {
                 // find food
-                Food food = (Food)findClosest(actor, items);
+                Food food = findClosestFood(actor, items);
                 // go for it
                 System.out.println(String.format("I'm hungry for %s!", food));
-                activity = new HungerActivity(actor, food);
+                activity = new MovePickupEatActivity(99)
+                    .add(new MovementActivity(actor, food.getX(), food.getY(), 1, new PathFinder()))
+                        .add(new PickUpItemActivity(actor, food))
+                        .add(new SimpleEatingActivity(actor));
                 actor.getActivityStack().suspendAll();
                 actor.getActivityStack().add(activity);
                 return;
@@ -112,7 +127,7 @@ public class ActivityManager {
         return minDistance > maxDistance*maxDistance ? null : selectedActor;
     }
 
-    private Item findClosest(Actor actor, List<Item> items, Integer maxDistance) {
+    private Item findClosestFood(Actor actor, List<Item> items, Integer maxDistance) {
         Item selectedItem = items.get(0);
         int x = actor.getX();
         int y = actor.getY();
@@ -132,7 +147,7 @@ public class ActivityManager {
     }
 
     // todo: make this to work on classes instead of Food
-    private Food findClosest(Actor actor, List<Item> items) {
+    private Food findClosestFood(Actor actor, List<Item> items) {
         Item food = items.get(0);
         int x = actor.getX();
         int y = actor.getY();

@@ -38,8 +38,9 @@ public abstract class CompoundActivity implements Activity {
         }
     }
 
-    public void add(Activity activity) {
+    public CompoundActivity add(Activity activity) {
         this.activities.add(activity);
+        return this;
     }
 
     @Override
@@ -93,7 +94,11 @@ public abstract class CompoundActivity implements Activity {
 
     @Override
     public boolean isCancellable() {
-        return activities.get(currentActivity).isCancellable();
+        for(int i = currentActivity; i < activities.size(); i++) {
+            if(activities.get(currentActivity).isCancellable())
+                return true;
+        }
+        return false;
     }
 
     @Override

@@ -1,39 +1,34 @@
 package com.mygdx.game.logic.activity;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.item.Item;
-import com.mygdx.game.registry.ItemRegistry;
+import com.mygdx.game.item.Food;
 
-public class PickUpItemActivity implements Activity, CooldownActivity {
-
-    private ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
+public class SimpleEatingActivity implements Activity, CooldownActivity {
 
     private boolean firstRun = true;
-    private int priority = 98;
+    private int priority = 99;
     private int counter = 0;
 
     private final Actor actor;
-    private final Item item;
     private boolean suspended = false;
 
-    public PickUpItemActivity(Actor actor, Item item) {
+    public SimpleEatingActivity(Actor actor) {
         this.actor = actor;
-        this.item = item;
     }
 
     @Override
     public void countDown() {
-        counter = (counter + 1) % actor.getMovementSpeed();
+
     }
 
     @Override
     public boolean isTriggered() {
-        return counter == actor.getMovementSpeed() -1;
+        return true;
     }
 
     @Override
     public boolean isDone() {
-        return Math.abs(actor.getX() - item.getX()) < 2 && Math.abs(actor.getY() - item.getY()) < 2;
+        return actor.getInventory().has(Food.class);
     }
 
     @Override
@@ -44,6 +39,8 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
     @Override
     public void init() {
         firstRun = false;
+        actor.setxOffset(0);
+        actor.setyOffset(0);
     }
 
     @Override
@@ -83,16 +80,18 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
 
     @Override
     public void clear() {
-        actor.setxOffset(0);
-        actor.setyOffset(0);
-        System.out.println(" I picked up " + item);
-        actor.pickUp(item);
-        itemRegistry.getAllItems(actor.getCurrentMap()).remove(item);
+        System.out.println("clear eating");
+        if(actor.getInventory().has(Food.class)) {
+            Food food = actor.getInventory().get(Food.class);
+            System.out.println(" I ate " + food.getNutritionAmount() + " " + actor.getHungerLevel());
+            actor.decreaseHunger(food.getNutritionAmount());
+            actor.getInventory().remove(food);
+        }
     }
 
     @Override
     public boolean isCancellable() {
         // food is gone
-        return !itemRegistry.getAllItems(actor.getCurrentMap()).contains(item);
+        return !actor.getInventory().has(Food.class);
     }
 }
