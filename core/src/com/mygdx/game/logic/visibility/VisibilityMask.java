@@ -1,8 +1,13 @@
 package com.mygdx.game.logic.visibility;
 
+import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.creator.map.dungeon.Dungeon;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class VisibilityMask {
 
@@ -11,12 +16,17 @@ public class VisibilityMask {
     private final int width;
     private final int height;
 
-    private int[][] mask;
+    private List<Actor>[][] mask;
 
     public VisibilityMask(int width, int height) {
         this.width = width;
         this.height = height;
-        mask = new int[width][height];
+        mask = new ArrayList[width][height];
+        for(int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                mask[i][j] = new ArrayList<>();
+            }
+        }
     }
 
     public Tile[][] mask(Map2D map, VisitedArea[][] visitedAreaMap) {
@@ -26,7 +36,7 @@ public class VisibilityMask {
 
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
-                if(mask[i][j] == 0) {
+                if(mask[i][j].isEmpty()) {
                     if(visitedAreaMap[i][j] == VisitedArea.NOT_VISITED) {
                         newMap[i][j] = Tile.EMPTY;
                     } else {
@@ -43,19 +53,17 @@ public class VisibilityMask {
         return newMap;
     }
 
-    public void reset() {
-        for(int i = 0; i < width; i++) {
-            for(int j = 0; j < height; j++) {
-                mask[i][j] = DEFAULT_VALE;
-            }
-        }
+
+
+    public void setValue(int x, int y, Actor value) {
+        mask[x][y].add(value);
     }
 
-    public void setValue(int x, int y) {
-        mask[x][y] = 1;
+    public void setAllValue(int x, int y, Set<Actor> values) {
+        mask[x][y].addAll(values);
     }
 
-    public int getValue(int x, int y) {
+    public List<Actor> getValue(int x, int y) {
         return mask[x][y];
     }
 }

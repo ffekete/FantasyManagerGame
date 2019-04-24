@@ -17,6 +17,7 @@ import com.mygdx.game.logic.activity.SimpleAttackActivity;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.ItemRegistry;
+import com.mygdx.game.registry.VisibilityMapRegistry;
 
 import java.util.List;
 import java.util.Random;
@@ -78,7 +79,7 @@ public class ActivityManager {
 
             if(!items.isEmpty()) {
                 // find food
-                Food food = findClosestFood(actor, items);
+                Food food = (Food)findClosestFood(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE);
                 // go for it
                 System.out.println(String.format("I'm hungry for %s!", food));
                 activity = new MovePickupEatActivity(99)
@@ -115,8 +116,13 @@ public class ActivityManager {
             if(!actor.getAlignment().getEnemies().contains(actor1.getAlignment())) {
                 continue;
             }
+
             int a = actor1.getX();
             int b = actor1.getY();
+
+            if(!VisibilityMapRegistry.INSTANCE.getFor(actor.getCurrentMap()).getValue(a,b).contains(actor)) {
+                continue;
+            }
 
             float distance = Math.abs(x-a)*Math.abs(x-a) + Math.abs(y-b) * Math.abs(y-b);
             if(distance < minDistance) {
@@ -128,14 +134,18 @@ public class ActivityManager {
     }
 
     private Item findClosestFood(Actor actor, List<Item> items, Integer maxDistance) {
-        Item selectedItem = items.get(0);
+        Item selectedItem = null;
         int x = actor.getX();
         int y = actor.getY();
-        float minDistance = Math.abs(x-selectedItem.getX())*Math.abs(x-selectedItem.getX()) + Math.abs(y-selectedItem.getY()) * Math.abs(y-selectedItem.getY());
 
+        float minDistance = Float.MAX_VALUE;
         for(Item item : items) {
             int a = item.getX();
             int b = item.getY();
+
+            if(!VisibilityMapRegistry.INSTANCE.getFor(actor.getCurrentMap()).getValue(a,b).contains(actor)) {
+                continue;
+            }
 
             float distance = Math.abs(x-a)*Math.abs(x-a) + Math.abs(y-b) * Math.abs(y-b);
             if(distance < minDistance) {
@@ -145,22 +155,4 @@ public class ActivityManager {
         }
         return minDistance > maxDistance*maxDistance ? null : selectedItem;
     }
-
-    // todo: make this to work on classes instead of Food
-    private Food findClosestFood(Actor actor, List<Item> items) {
-        Item food = items.get(0);
-        int x = actor.getX();
-        int y = actor.getY();
-
-        for(Item item : items) {
-            int a = item.getX();
-            int b = item.getY();
-
-            if(Math.abs(x-a)*Math.abs(x-a) + Math.abs(y-b) * Math.abs(y-b) < Math.abs(x-food.getX())*Math.abs(x-food.getX()) + Math.abs(y-food.getY()) * Math.abs(y-food.getY())) {
-                food = item;
-            }
-        }
-        return (Food)food;
-    }
-
 }

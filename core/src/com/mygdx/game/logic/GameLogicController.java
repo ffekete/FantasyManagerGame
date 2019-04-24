@@ -1,8 +1,10 @@
 package com.mygdx.game.logic;
 
 import com.badlogic.gdx.Gdx;
+import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
+import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisibilityMask;
@@ -43,10 +45,10 @@ public class GameLogicController {
 
     private void calculateVisibilityForMaps() {
         for(Map2D map : mapRegistry.getMaps()) {
-            List<Point> coordinatesForVisibilityCalculation = new ArrayList<>();
+            List<Actor> coordinatesForVisibilityCalculation = new ArrayList<>();
             actorRegistry.getActors().forEach(actor -> {
                         if (Alignment.FRIENDLY.equals(actor.getAlignment()))
-                            coordinatesForVisibilityCalculation.add(new Point(actor.getX(), actor.getY()));
+                            coordinatesForVisibilityCalculation.add(actor);
                     }
             );
 

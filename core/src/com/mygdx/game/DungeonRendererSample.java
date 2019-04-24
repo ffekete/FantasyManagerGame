@@ -148,11 +148,11 @@ public class DungeonRendererSample extends SampleBase {
         }
 
         for(Item item : itemRegistry.getAllItems(dungeon)) {
-            if(visibilityMask.getValue(item.getX(), item.getY()) == 1)
+            if(!visibilityMask.getValue(item.getX(), item.getY()).isEmpty())
                 spriteBatch.draw(breadTexture, item.getX(), item.getY(), 0,0,1,1,1,1,0, 0,0,breadTexture.getWidth(), breadTexture.getHeight(), false, false);
         }
         for(Actor actor : actorRegistry.getActors()) {
-            if(Alignment.FRIENDLY.equals(actor.getAlignment()) || visibilityMask.getValue(actor.getX(), actor.getY()) == 1)
+            if(Alignment.FRIENDLY.equals(actor.getAlignment()) || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
                 spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX()-1 + actor.getxOffset(), actor.getY()-1 + actor.getyOffset(), 0,0,3,3,1,1,0, 0,0,actorTexture.getWidth(), actorTexture.getHeight(), false, false);
         }
 

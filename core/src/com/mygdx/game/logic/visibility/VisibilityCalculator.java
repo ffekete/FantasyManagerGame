@@ -1,5 +1,6 @@
 package com.mygdx.game.logic.visibility;
 
+import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.creator.map.dungeon.Dungeon;
@@ -7,11 +8,12 @@ import com.mygdx.game.logic.Point;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class VisibilityCalculator {
 
-    public static final int FLOOR_TILE = 1;
     public final int width;
     public final int height;
 
@@ -20,10 +22,10 @@ public class VisibilityCalculator {
         this.height = height;
     }
     
-    public VisibilityMask generateMask(Map2D map, int range, List<Point> points) {
+    public VisibilityMask generateMask(Map2D map, int range, List<Actor> points) {
         VisibilityMask mask = new VisibilityMask(width, height);
-        for(Point point : points) {
-            calculateFor(point.getX(), point.getY(), range, mask, map);
+        for(Actor actor : points) {
+            calculateFor(actor, range, mask, map);
         }
 
         refine(mask);
@@ -94,7 +96,7 @@ public class VisibilityCalculator {
         return points;
     }
 
-    private void line(int x,int y,int x2, int y2, VisibilityMask visibilityMask, Map2D map) {
+    private void line(int x,int y,int x2, int y2, VisibilityMask visibilityMask, Map2D map, Actor value) {
         int w = x2 - x ;
         int h = y2 - y ;
         int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0 ;
@@ -118,7 +120,7 @@ public class VisibilityCalculator {
             x = Math.min(x, width-1);
             y = Math.min(y, height-1);
 
-            visibilityMask.setValue(x, y);
+            visibilityMask.setValue(x, y, value);
             if (map.getTile(x,y).isObstacle()) break;
 
 
@@ -137,62 +139,29 @@ public class VisibilityCalculator {
     private void refine(VisibilityMask mask) {
         for(int i = 1; i < width-1; i++) {
             for(int j = 1; j < height-1; j++) {
-                int sum =  mask.getValue(i-1, j) + mask.getValue(i+1, j) + mask.getValue(i, j-1) + mask.getValue(i, j+1);
-                if(mask.getValue(i, j) == 0 && sum >= 3) {
-                    mask.setValue(i,j);
+                int a = mask.getValue(i-1, j).size() > 0 ? 1 : 0;
+                int b = mask.getValue(i+1, j).size() > 0 ? 1 : 0;
+                int c = mask.getValue(i, j-1).size() > 0 ? 1 : 0;
+                int d = mask.getValue(i, j+1).size() > 0 ? 1 : 0;
+                int sum =  a + b + c + d;
+                if(mask.getValue(i, j).isEmpty() && sum >= 3) {
+                    Set<Actor> finalActors = new HashSet<>();
+                    finalActors.addAll(mask.getValue(i-1, j));
+                    finalActors.addAll(mask.getValue(i+1, j));
+                    finalActors.addAll(mask.getValue(i, j -1));
+                    finalActors.addAll(mask.getValue(i, j+1));
+
+                    mask.setAllValue(i,j, finalActors);
                 }
             }
         }
     }
 
-    public static void main(String[] args) {
-
-        VisibilityCalculator visibilityCalculator = new VisibilityCalculator(100, 100);
-
-        long start = System.currentTimeMillis();
-
-        VisibilityMask visibilityMask;
-        Dungeon map = new Dungeon(100, 100);
-
-        for(int i = 0; i < 20; i++) {
-            map.setTile(11, i+5, Tile.FLOOR);
-            map.setTile(11+i, 5, Tile.FLOOR);
-            map.setTile(11+i, 25, Tile.FLOOR);
-            map.setTile(30, 5+i, Tile.FLOOR);
-        }
-
-        visibilityMask = visibilityCalculator.generateMask(map, 15, Arrays.asList(new Point(35, 10), new Point(0,0)));
-
-        System.out.println(System.currentTimeMillis() - start);
-
-        visibilityCalculator.print(visibilityMask, map);
-    }
-
-    private void print(VisibilityMask visibilityMask, Dungeon map) {
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                System.out.print(map.getTile(i, j));
-            }
-            System.out.println("");
-        }
-
-
-        System.out.println(" ----------------------- ");
-        System.out.println("");
-
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                System.out.print(visibilityMask.getValue(i, j));
-            }
-            System.out.println("");
-        }
-    }
-
-    private void calculateFor(int x, int y, int range, VisibilityMask visibilityMask, Map2D map) {
-        List<Integer[]> points = midPointCircleDraw(x, y, range);
+    private void calculateFor(Actor actor, int range, VisibilityMask visibilityMask, Map2D map) {
+        List<Integer[]> points = midPointCircleDraw(actor.getX(), actor.getY(), range);
 
         for (Integer[] point : points) {
-            line(x, y, point[0], point[1], visibilityMask, map);
+            line(actor.getX(), actor.getY(), point[0], point[1], visibilityMask, map, actor);
         }
     }
 }
