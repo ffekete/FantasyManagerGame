@@ -1,57 +1,54 @@
 package com.mygdx.game.logic.activity;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
-import com.mygdx.game.registry.ItemRegistry;
+import com.mygdx.game.registry.ActorRegistry;
 
-public class PickUpItemActivity implements Activity, CooldownActivity {
+public class SimpleAttackActivity implements Activity, CooldownActivity {
 
-    private ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
-    private ActorMovementHandler actorMovementHandler = ActorMovementHandler.INSTANCE;
+    private ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
 
-    private PathFinder pathFinder = new PathFinder();
     private boolean firstRun = true;
-    private int priority = 98;
+    private int priority = 97;
     private int counter = 0;
-    private MovementActivity movementActivity;
 
     private final Actor actor;
-    private final Item item;
+    private final Actor enemy;
     private boolean suspended = false;
 
-    public PickUpItemActivity(Actor actor, Item item) {
+    public SimpleAttackActivity(Actor actor, Actor enemy) {
         this.actor = actor;
-        this.item = item;
+        this.enemy = enemy;
     }
 
     @Override
     public void countDown() {
-        counter = (counter + 1) % movementActivity.getMovementSpeed();
-        actorMovementHandler.updateActorOffsetCoordinates(actor, movementActivity.getMovementSpeed());
+        counter = (counter + 1) % actor.getAttackSpeed();
     }
 
     @Override
     public boolean isTriggered() {
-        return counter == movementActivity.getMovementSpeed() -1;
+        return counter == actor.getAttackSpeed() -1;
     }
 
     @Override
     public boolean isDone() {
-        return actor.getX() == item.getX() && actor.getY() == item.getY();
+        if(Math.abs(actor.getX() - enemy.getX()) <= 1 && Math.abs(actor.getY() - enemy.getY()) <= 1) {
+            System.out.println("Attack done.");
+        }
+        return Math.abs(actor.getX() - enemy.getX()) <= 1 && Math.abs(actor.getY() - enemy.getY()) <= 1;
     }
 
     @Override
     public void update() {
-        movementActivity.update();
+        // todo attack and roll to hit regularly
     }
 
     @Override
     public void init() {
         firstRun = false;
-        this.movementActivity = new MovementActivity(actor, item.getX(), item.getY(), 1, pathFinder);
-        movementActivity.init();
+        System.out.println("Attack inited");
     }
 
     @Override
@@ -77,8 +74,8 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
     @Override
     public void resume() {
         suspended = false;
-        if(itemRegistry.getAllItems(actor.getCurrentMap()).contains(item)) {
-            movementActivity.init();
+        if(actorRegistry.getActors().contains(enemy)) {
+
         }
     }
 
@@ -96,14 +93,13 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
     public void clear() {
         actor.setxOffset(0);
         actor.setyOffset(0);
-        System.out.println(" I picked up " + item);
-        actor.pickUp(item);
-        itemRegistry.getAllItems(actor.getCurrentMap()).remove(item);
+        System.out.println(" I attacked and killed " + enemy);
+        actorRegistry.getActors().remove(enemy);
     }
 
     @Override
     public boolean isCancellable() {
-        // food is gone
-        return !itemRegistry.getAllItems(actor.getCurrentMap()).contains(item);
+        // enemy is gone
+        return !actorRegistry.getActors().contains(enemy);
     }
 }

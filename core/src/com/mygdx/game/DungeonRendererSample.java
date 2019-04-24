@@ -90,7 +90,7 @@ public class DungeonRendererSample extends SampleBase {
             x = new Random().nextInt(dungeon.getWidth());
             y = new Random().nextInt(dungeon.getHeight());
         } while(dungeon.getTile(x,y).isObstacle());
-        warrior.setCoordinates(x, y);
+        warrior.setCoordinates(55, 55);
 
         Warrior warrior2 = new Warrior();
 
@@ -98,7 +98,7 @@ public class DungeonRendererSample extends SampleBase {
             x = new Random().nextInt(dungeon.getWidth());
             y = new Random().nextInt(dungeon.getHeight());
         } while(dungeon.getTile(x,y).isObstacle());
-        warrior2.setCoordinates(x, y);
+        warrior2.setCoordinates(45, 45);
 
         warrior.setCurrentMap(dungeon);
         warrior2.setCurrentMap(dungeon);
@@ -115,7 +115,7 @@ public class DungeonRendererSample extends SampleBase {
 
         Goblin goblin = new Goblin();
         goblin.setCurrentMap(dungeon);
-        goblin.setCoordinates(10, 10);
+        goblin.setCoordinates(50, 50);
 
         actorRegistry.add(warrior);
         actorRegistry.add(warrior2);

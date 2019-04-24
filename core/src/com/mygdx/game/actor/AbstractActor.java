@@ -137,4 +137,9 @@ public abstract class AbstractActor implements Actor {
     public void setAlignment(Alignment alignment) {
         this.alignment = alignment;
     }
+
+    @Override
+    public int getAttackSpeed() {
+        return 30;
+    }
 }

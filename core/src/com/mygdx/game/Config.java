@@ -14,6 +14,8 @@ public class Config {
         public static final int NUMBER_OF_THREADS = 4;
     }
 
+    public static final int ATTACK_DISTANCE = 15;
+
     public static class Item {
         public static final int BREAD_HUNGER_LEVEL = 100;
         public static final int PICK_UP_ITEM_DISTANCE = 15;

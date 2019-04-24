@@ -26,23 +26,26 @@ public class MovementActivity implements Activity {
     private ActorMovementHandler actorMovementHandler;
     private Future<List<PathFinder.Node>> path;
     private int speed;
+    private int range = 0;
+    ExecutorService executor = Executors.newFixedThreadPool(Config.Engine.NUMBER_OF_THREADS);
 
-    public MovementActivity(Actor actor, int targetX, int targetY, PathFinder pathFinder) {
+    public MovementActivity(Actor actor, int targetX, int targetY, int range, PathFinder pathFinder) {
         this.actor = actor;
         this.targetX = targetX;
         this.targetY = targetY;
         this.pathFinder = pathFinder;
         this.actorMovementHandler = ActorMovementHandler.INSTANCE;
+        this.range = range;
     }
 
     @Override
     public boolean isDone() {
-        return (done || (actor.getX() == targetX && actor.getY() == targetY));
+        return (done || (Math.abs(actor.getX() - targetX) <= range && Math.abs(actor.getY() - targetY) <= range));
     }
 
     @Override
     public void update() {
-        if(path != null && path.isDone()) {
+        if (path != null && path.isDone()) {
             try {
                 actorMovementHandler.registerActorPath(actor, path.get());
             } catch (InterruptedException e) {
@@ -66,7 +69,6 @@ public class MovementActivity implements Activity {
     public void init() {
         System.out.println("Starting activity");
         pathFinder.init(actor.getCurrentMap());
-        ExecutorService executor = Executors.newFixedThreadPool(Config.Engine.NUMBER_OF_THREADS);
         path = executor.submit(() -> pathFinder.findAStar(new Point(actor.getX(), actor.getY()), new Point(targetX, targetY)));
 
         actor.setxOffset(0);
@@ -135,7 +137,7 @@ public class MovementActivity implements Activity {
 
     @Override
     public boolean isTriggered() {
-        return counter == speed -1;
+        return counter == speed - 1;
     }
 
 }

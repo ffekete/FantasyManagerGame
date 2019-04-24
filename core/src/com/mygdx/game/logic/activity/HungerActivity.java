@@ -50,7 +50,7 @@ public class HungerActivity implements Activity, CooldownActivity {
     @Override
     public void init() {
         firstRun = false;
-        this.movementActivity = new MovementActivity(actor, food.getX(), food.getY(), pathFinder);
+        this.movementActivity = new MovementActivity(actor, food.getX(), food.getY(), 1, pathFinder);
         movementActivity.init();
         actor.setxOffset(0);
         actor.setyOffset(0);

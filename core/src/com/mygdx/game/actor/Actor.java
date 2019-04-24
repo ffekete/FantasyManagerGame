@@ -30,4 +30,5 @@ public interface Actor {
     void setyOffset(float yOffset);
     Alignment getAlignment();
     void setAlignment(Alignment alignment);
+    int getAttackSpeed();
 }

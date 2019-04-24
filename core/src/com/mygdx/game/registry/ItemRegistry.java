@@ -4,9 +4,9 @@ import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.item.Item;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class ItemRegistry {
@@ -16,7 +16,7 @@ public class ItemRegistry {
     private Map<Map2D, List<Item>> items;
 
     public ItemRegistry() {
-        this.items = new HashMap<>();
+        this.items = new ConcurrentHashMap<>();
     }
 
     public List<Item> getAllItems(Map2D map) {
