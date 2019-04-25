@@ -18,7 +18,7 @@ public class Config {
     public static final int ATTACK_DISTANCE = 15;
 
     public static class Time {
-        public static final int TICK_PER_HOUR = 50;
+        public static final int TICK_PER_HOUR = 100;
         public static final int HOUR_PER_DAY = 24;
     }
 
