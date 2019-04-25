@@ -1,4 +1,4 @@
-package com.mygdx.game.item;
+package com.mygdx.game.item.food;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;

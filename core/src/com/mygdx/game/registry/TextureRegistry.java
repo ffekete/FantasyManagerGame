@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
+import com.mygdx.game.item.food.Bread;
+import com.mygdx.game.item.weapon.ShortSword;
 
 import java.util.Map;
 
@@ -18,6 +20,8 @@ public class TextureRegistry {
         textures = ImmutableMap.<Class, Texture>builder()
                 .put(Warrior.class, new Texture(Gdx.files.internal("warrior.png")))
                 .put(Goblin.class, new Texture(Gdx.files.internal("goblin.png")))
+                .put(ShortSword.class, new Texture(Gdx.files.internal("sword.png")))
+                .put(Bread.class, new Texture(Gdx.files.internal("bread.png")))
                 .build();
     }
 

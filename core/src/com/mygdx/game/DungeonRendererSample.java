@@ -17,12 +17,10 @@ import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonCreator;
 import com.mygdx.game.faction.Alignment;
-import com.mygdx.game.item.Bread;
+import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.item.weapon.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
-import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.pathfinding.PathFinder;
-import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.ActorRegistry;
@@ -32,11 +30,8 @@ import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 import com.mygdx.game.utils.GdxUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 
 public class DungeonRendererSample extends SampleBase {
@@ -109,6 +104,10 @@ public class DungeonRendererSample extends SampleBase {
         actorRegistry.add(warrior2);
         actorRegistry.add(goblin);
 
+        ShortSword shortSword = new ShortSword();
+        shortSword.setCoordinates(88, 58);
+        itemRegistry.add(dungeon, shortSword);
+
         MapRegistry.INSTANCE.add(dungeon);
 
     }
@@ -149,8 +148,10 @@ public class DungeonRendererSample extends SampleBase {
         }
 
         for(Item item : itemRegistry.getAllItems(dungeon)) {
-            if(!visibilityMask.getValue(item.getX(), item.getY()).isEmpty())
-                spriteBatch.draw(breadTexture, item.getX(), item.getY(), 0,0,1,1,1,1,0, 0,0,breadTexture.getWidth(), breadTexture.getHeight(), false, false);
+            if(!visibilityMask.getValue(item.getX(), item.getY()).isEmpty()) {
+                Texture actualTexture = textureRegistry.getFor(item.getClass());
+                spriteBatch.draw(actualTexture, item.getX(), item.getY(), 0, 0, 1, 1, 1, 1, 0, 0, 0, actualTexture.getWidth(), actualTexture.getHeight(), false, false);
+            }
         }
         for(Actor actor : actorRegistry.getActors()) {
             if(Alignment.FRIENDLY.equals(actor.getAlignment()) || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())

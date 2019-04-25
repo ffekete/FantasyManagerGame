@@ -3,7 +3,7 @@ package com.mygdx.game.logic.activity.manager;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.faction.Alignment;
-import com.mygdx.game.item.Food;
+import com.mygdx.game.item.food.Food;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.CompoundActivity;

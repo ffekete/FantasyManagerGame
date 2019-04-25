@@ -1,7 +1,7 @@
 package com.mygdx.game.logic.activity;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.item.Food;
+import com.mygdx.game.item.food.Food;
 
 public class SimpleEatingActivity implements Activity, CooldownActivity {
 
