@@ -37,8 +37,8 @@ public class ActivityManagerTest {
         visibilityMask.setValue(15,15, hero);
         visibilityMask.setValue(10,10, goblin);
 
-        ActorRegistry.INSTANCE.add(hero);
-        ActorRegistry.INSTANCE.add(goblin);
+        ActorRegistry.INSTANCE.add(dungeon, hero);
+        ActorRegistry.INSTANCE.add(dungeon, goblin);
         MapRegistry.INSTANCE.add(dungeon);
 
         activityManager.manage(hero);

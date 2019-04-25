@@ -100,9 +100,9 @@ public class DungeonRendererSample extends SampleBase {
         goblin.setCoordinates(50, 50);
         goblin.setName("Gobelin");
 
-        actorRegistry.add(warrior);
-        actorRegistry.add(warrior2);
-        actorRegistry.add(goblin);
+        actorRegistry.add(dungeon, warrior);
+        actorRegistry.add(dungeon, warrior2);
+        actorRegistry.add(dungeon, goblin);
 
         ShortSword shortSword = new ShortSword();
         shortSword.setCoordinates(88, 58);
@@ -153,7 +153,7 @@ public class DungeonRendererSample extends SampleBase {
                 spriteBatch.draw(actualTexture, item.getX(), item.getY(), 0, 0, 1, 1, 1, 1, 0, 0, 0, actualTexture.getWidth(), actualTexture.getHeight(), false, false);
             }
         }
-        for(Actor actor : actorRegistry.getActors()) {
+        for(Actor actor : actorRegistry.getActors(dungeon)) {
             if(Alignment.FRIENDLY.equals(actor.getAlignment()) || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
                 spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX()-1 + actor.getxOffset(), actor.getY()-1 + actor.getyOffset(), 0,0,3,3,1,1,0, 0,0,actorTexture.getWidth(), actorTexture.getHeight(), false, false);
         }

@@ -36,7 +36,7 @@ public class ActivityManager {
         List<Item> items = itemRegistry.getAllItems(actor.getCurrentMap());
 
         if(!actor.getActivityStack().contains(MoveThenAttackActivity.class)) {
-            Actor enemy = findClosestEnemy(actor, actorRegistry.getActors(), Config.ATTACK_DISTANCE);
+            Actor enemy = findClosestEnemy(actor, actorRegistry.getActors(actor.getCurrentMap()), Config.ATTACK_DISTANCE);
             if(enemy != null) {
                 System.out.println("Enemy sighted");
                 CompoundActivity compoundActivity = new MoveThenAttackActivity(97);

@@ -36,11 +36,12 @@ public class GameLogicController {
             counter = 0;
 
             calculateVisibilityForMaps();
-
-            actorRegistry.getActors().forEach(actor -> {
-                actor.increaseHunger(1);
-                activityManager.manage(actor);
-                actor.getActivityStack().performNext();
+            MapRegistry.INSTANCE.getMaps().forEach(map -> {
+                actorRegistry.getActors(map).forEach(actor -> {
+                    actor.increaseHunger(1);
+                    activityManager.manage(actor);
+                    actor.getActivityStack().performNext();
+                });
             });
         }
         if(Config.SHOW_ELAPSED_TIME)
@@ -50,7 +51,7 @@ public class GameLogicController {
     private void calculateVisibilityForMaps() {
         for(Map2D map : mapRegistry.getMaps()) {
             List<Actor> coordinatesForVisibilityCalculation = new ArrayList<>();
-            coordinatesForVisibilityCalculation.addAll(actorRegistry.getActors());
+            coordinatesForVisibilityCalculation.addAll(actorRegistry.getActors(map));
 
             VisibilityCalculator visibilityCalculator = map.getVisibilityCalculator();
             VisibilityMask visibilityMask = visibilityCalculator.generateMask(map, 15, coordinatesForVisibilityCalculation);

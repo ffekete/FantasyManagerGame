@@ -74,7 +74,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     @Override
     public void resume() {
         suspended = false;
-        if(actorRegistry.getActors().contains(enemy)) {
+        if(actorRegistry.getActors(actor.getCurrentMap()).contains(enemy)) {
 
         }
     }
@@ -94,12 +94,12 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
         actor.setxOffset(0);
         actor.setyOffset(0);
         System.out.println(" I attacked and killed " + enemy);
-        actorRegistry.getActors().remove(enemy);
+        actorRegistry.getActors(actor.getCurrentMap()).remove(enemy);
     }
 
     @Override
     public boolean isCancellable() {
         // enemy is gone
-        return !actorRegistry.getActors().contains(enemy) || !(Math.abs(actor.getX() - enemy.getX()) <= 1 && Math.abs(actor.getY() - enemy.getY()) <= 1 ) ;
+        return !actorRegistry.getActors(actor.getCurrentMap()).contains(enemy) || !(Math.abs(actor.getX() - enemy.getX()) <= 1 && Math.abs(actor.getY() - enemy.getY()) <= 1 ) ;
     }
 }
