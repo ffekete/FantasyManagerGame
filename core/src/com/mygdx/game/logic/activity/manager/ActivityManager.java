@@ -3,10 +3,12 @@ package com.mygdx.game.logic.activity.manager;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.faction.Alignment;
+import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.food.Food;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.CompoundActivity;
+import com.mygdx.game.logic.activity.EquipActivity;
 import com.mygdx.game.logic.activity.MovePickupActivity;
 import com.mygdx.game.logic.activity.MovePickupEatActivity;
 import com.mygdx.game.logic.activity.MoveThenAttackActivity;
@@ -34,6 +36,13 @@ public class ActivityManager {
         Activity activity;
 
         List<Item> items = itemRegistry.getAllItems(actor.getCurrentMap());
+
+        if(actor.getInventory().has(Equipable.class) && !actor.getActivityStack().contains(EquipActivity.class)) {
+            Equipable equipable = actor.getInventory().get(Equipable.class);
+            EquipActivity equipActivity = new EquipActivity(actor, equipable);
+            actor.getActivityStack().add(equipActivity);
+            return;
+        }
 
         if(!actor.getActivityStack().contains(MoveThenAttackActivity.class)) {
             Actor enemy = findClosestEnemy(actor, actorRegistry.getActors(actor.getCurrentMap()), Config.ATTACK_DISTANCE);

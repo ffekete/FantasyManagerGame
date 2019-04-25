@@ -5,7 +5,9 @@ import com.mygdx.game.actor.component.Attributes;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
+import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.activity.ActivityStack;
 
 import java.util.HashMap;
@@ -17,6 +19,7 @@ public abstract class AbstractActor implements Actor {
     private String name;
     private Inventory inventory;
     private Map<Attributes, Integer> baseAttributes;
+    private final Actions actions = new Actions();
 
     private int x;
     private int y;
@@ -26,6 +29,9 @@ public abstract class AbstractActor implements Actor {
     private float xOffset = 0;
     private float yOffset = 0;
 
+    private Equipable leftHand = null;
+    private Equipable rightHand = null;
+
     private ActivityStack activityStack = new ActivityStack(new PriorityQueue<>());
 
     private Map2D currentMap;
@@ -33,7 +39,7 @@ public abstract class AbstractActor implements Actor {
     public AbstractActor() {
         this.hungerLevel = Config.BASE_HUNGER_LEVEL;
         this.baseAttributes = new HashMap<>();
-        for(Attributes a : Attributes.values()) {
+        for (Attributes a : Attributes.values()) {
             baseAttributes.put(a, 20);
         }
         this.inventory = new Inventory();
@@ -152,5 +158,27 @@ public abstract class AbstractActor implements Actor {
     @Override
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public Actions getActions() {
+        return actions;
+    }
+
+    public class Actions {
+
+        public void equip(Equipable equipable) {
+            if (leftHand == null) {
+                leftHand = equipable;
+                inventory.remove(equipable);
+                //equipable.onEquip(actor);
+                System.out.println(name + " equiped in left hand " + equipable);
+            } else if (rightHand == null) {
+                rightHand = equipable;
+                inventory.remove(equipable);
+                System.out.println(name + " equiped in right hand " + equipable);
+            }
+        }
+
     }
 }

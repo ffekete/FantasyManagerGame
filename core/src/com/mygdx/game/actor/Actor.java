@@ -33,4 +33,6 @@ public interface Actor {
     int getAttackSpeed();
     String getName();
     void setName(String name);
+
+    AbstractActor.Actions getActions();
 }
