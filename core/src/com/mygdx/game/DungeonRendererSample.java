@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -21,6 +22,7 @@ import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.weapon.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
+import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.ActorRegistry;
@@ -59,10 +61,20 @@ public class DungeonRendererSample extends SampleBase {
     GameLogicController gameLogicController = new GameLogicController(actorRegistry);
     Map<Item, Texture> itemTextures = new HashMap<>();
 
+    OrthographicCamera infoCamera;
+    Viewport infoViewPort;
+    BitmapFont bitmapFont;
+
     @Override
     public void create() {
+
+        infoCamera = new OrthographicCamera();
+        infoViewPort = new FitViewport(1280,720, infoCamera);
+        bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
+        //bitmapFont.getData().setScale(f);
+
         camera = new OrthographicCamera();
-        viewPort = new FitViewport(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT, camera);
+        viewPort = new FitViewport(100, 100, camera);
         spriteBatch = new SpriteBatch();
         wallTexture = new Texture(Gdx.files.internal("wall.jpg"));
         floorTexture = new Texture(Gdx.files.internal("terrain.jpg"));
@@ -123,6 +135,12 @@ public class DungeonRendererSample extends SampleBase {
         draw();
 
         spriteBatch.end();
+
+        infoViewPort.apply();
+        spriteBatch.setProjectionMatrix(infoCamera.combined);
+        spriteBatch.begin();
+        bitmapFont.draw(spriteBatch, "Hour: " + DayTimeCalculator.INSTANCE.getHour() + " Day: " + DayTimeCalculator.INSTANCE.getDay(), 10,40);
+        spriteBatch.end();
     }
 
     public void draw() {
@@ -135,9 +153,9 @@ public class DungeonRendererSample extends SampleBase {
             for (int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {
 
                 if(dungeon.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
-                    spriteBatch.setColor(Color.GRAY);
+                    spriteBatch.setColor(Color.DARK_GRAY);
                 } else {
-                    spriteBatch.setColor(0xff,0xff,0xff,0xff);
+                    spriteBatch.setColor(Color.WHITE);
                 }
                 if (drawMap[i][j].equals(Tile.STONE_WALL)) {
                     spriteBatch.draw(wallTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, wallTexture.getWidth(), wallTexture.getHeight(), false, false);
@@ -163,6 +181,7 @@ public class DungeonRendererSample extends SampleBase {
     @Override
     public void resize(int width, int height) {
         viewPort.update(width, height, true);
+        infoViewPort.update(width, height, true);
     }
 
     @Override
@@ -172,11 +191,13 @@ public class DungeonRendererSample extends SampleBase {
         wallTexture.dispose();
         floorTexture.dispose();
         grassVisitedTexture.dispose();
+        textureRegistry.dispose();
+        bitmapFont.dispose();
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        dungeon = dungeonCreator.create();
+        //dungeon = dungeonCreator.create();
         return true;
     }
 
@@ -193,13 +214,13 @@ public class DungeonRendererSample extends SampleBase {
         float delta = Gdx.graphics.getDeltaTime();
 
         if (keycode == Input.Keys.LEFT) {
-            //camera.position.x -= 10.0 *
+            camera.position.x -= 10.0 * delta;
             px--;
             if (px < 0)
                 px = 0;
         }
         if (keycode == Input.Keys.RIGHT) {
-            //camera.position.x += 10.0 * delta;
+            camera.position.x += 10.0 * delta;
             px++;
             if (px >= Config.Dungeon.DUNGEON_WIDTH)
                 px = Config.Dungeon.DUNGEON_WIDTH - 1;

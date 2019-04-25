@@ -3,6 +3,7 @@ package com.mygdx.game.common;
 import com.mygdx.game.DungeonRendererSample;
 import com.mygdx.game.DungeonWithRoomsRendererSample;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.TextSample;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,6 +18,7 @@ public class SampleInfos {
     public static final List<SampleInfo> ALL = Arrays.asList(
             MyGdxGame.SAMPLE_INFO,
             DungeonRendererSample.SAMPLE_INFO,
+            TextSample.SAMPLE_INFO,
             DungeonWithRoomsRendererSample.SAMPLE_INFO
     );
 

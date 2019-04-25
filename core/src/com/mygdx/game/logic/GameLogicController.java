@@ -7,6 +7,7 @@ import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
+import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.registry.ActorRegistry;
@@ -23,6 +24,7 @@ public class GameLogicController {
     private final ActivityManager activityManager;
 
     private MapRegistry mapRegistry = MapRegistry.INSTANCE;
+    private DayTimeCalculator dayTimeCalculator = DayTimeCalculator.INSTANCE;
 
     public GameLogicController(ActorRegistry actorRegistry) {
         this.actorRegistry = actorRegistry;
@@ -34,6 +36,8 @@ public class GameLogicController {
         counter += Gdx.graphics.getDeltaTime();
         if(counter > 0.05) {
             counter = 0;
+
+            dayTimeCalculator.update();
 
             calculateVisibilityForMaps();
             MapRegistry.INSTANCE.getMaps().forEach(map -> {

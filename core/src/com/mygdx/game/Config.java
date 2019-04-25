@@ -17,6 +17,11 @@ public class Config {
 
     public static final int ATTACK_DISTANCE = 15;
 
+    public static class Time {
+        public static final int TICK_PER_HOUR = 50;
+        public static final int HOUR_PER_DAY = 24;
+    }
+
     public static class Item {
         public static final int BREAD_HUNGER_LEVEL = 100;
         public static final int PICK_UP_ITEM_DISTANCE = 15;

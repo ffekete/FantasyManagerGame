@@ -94,15 +94,17 @@ public class ActivityManager {
             if(!items.isEmpty()) {
                 // find food
                 Food food = (Food)findClosestFood(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE);
-                // go for it
-                System.out.println(String.format("I'm hungry for %s!", food));
-                activity = new MovePickupEatActivity(99)
-                    .add(new MovementActivity(actor, food.getX(), food.getY(), 1, new PathFinder()))
-                        .add(new PickUpItemActivity(actor, food))
-                        .add(new SimpleEatingActivity(actor));
-                actor.getActivityStack().suspendAll();
-                actor.getActivityStack().add(activity);
-                return;
+                if(food != null) {
+                    // go for it
+                    System.out.println(String.format("I'm hungry for %s!", food));
+                    activity = new MovePickupEatActivity(99)
+                            .add(new MovementActivity(actor, food.getX(), food.getY(), 1, new PathFinder()))
+                            .add(new PickUpItemActivity(actor, food))
+                            .add(new SimpleEatingActivity(actor));
+                    actor.getActivityStack().suspendAll();
+                    actor.getActivityStack().add(activity);
+                    return;
+                }
             }
         }
         if (actor.getActivityStack().isEmpty()) {

@@ -31,4 +31,10 @@ public class TextureRegistry {
         }
         return null;
     }
+
+    public void dispose() {
+        for(Texture t : textures.values()) {
+            t.dispose();
+        }
+    }
 }
