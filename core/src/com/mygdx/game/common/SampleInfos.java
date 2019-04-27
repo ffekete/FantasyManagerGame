@@ -1,5 +1,6 @@
 package com.mygdx.game.common;
 
+import com.mygdx.game.AnimationSample;
 import com.mygdx.game.DungeonRendererSample;
 import com.mygdx.game.DungeonWithRoomsRendererSample;
 import com.mygdx.game.MyGdxGame;
@@ -19,6 +20,7 @@ public class SampleInfos {
             MyGdxGame.SAMPLE_INFO,
             DungeonRendererSample.SAMPLE_INFO,
             TextSample.SAMPLE_INFO,
+            AnimationSample.SAMPLE_INFO,
             DungeonWithRoomsRendererSample.SAMPLE_INFO
     );
 

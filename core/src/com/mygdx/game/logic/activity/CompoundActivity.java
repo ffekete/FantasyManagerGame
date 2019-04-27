@@ -115,4 +115,8 @@ public abstract class CompoundActivity implements Activity {
     public int compareTo(Activity o) {
         return Integer.compare(priority, o.getPriority());
     }
+
+    public Activity getCurrent() {
+        return activities.get(currentActivity);
+    }
 }

@@ -1,13 +1,16 @@
 package com.mygdx.game.logic.activity;
 
+import com.mygdx.game.actor.Actor;
+
 import java.util.PriorityQueue;
 
 public class ActivityStack {
 
     private PriorityQueue<Activity> activities;
 
-    public ActivityStack(PriorityQueue<Activity> activities) {
+    public ActivityStack(PriorityQueue<Activity> activities, Actor actor) {
         this.activities = activities;
+        activities.add(new IdleActivity(actor));
     }
 
     public void suspendAll() {
@@ -16,6 +19,10 @@ public class ActivityStack {
 
     public boolean contains(Class clazz) {
         return activities.stream().filter(activity -> activity.getClass().isAssignableFrom(clazz)).count() == 1;
+    }
+
+    public int getSize() {
+        return activities.size();
     }
 
     public boolean isEmpty() {
@@ -52,8 +59,15 @@ public class ActivityStack {
         }
     }
 
+    public Activity getCurrent() {
+        if(activities.isEmpty()) {
+            return null;
+        }
+        return activities.peek();
+    }
+
     public void add(Activity activity) {
-        System.out.println("activity added");
+        System.out.println("activity added + " + activity.getClass());
         this.activities.offer(activity);
     }
 }

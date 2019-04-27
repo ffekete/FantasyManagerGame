@@ -60,7 +60,7 @@ public class EquipActivity implements Activity {
 
     @Override
     public void clear() {
-        actor.getActions().equip(equipable);
+        actor.equip(equipable);
     }
 
     @Override

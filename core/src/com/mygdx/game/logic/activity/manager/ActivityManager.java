@@ -9,6 +9,7 @@ import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.CompoundActivity;
 import com.mygdx.game.logic.activity.EquipActivity;
+import com.mygdx.game.logic.activity.IdleActivity;
 import com.mygdx.game.logic.activity.MovePickupActivity;
 import com.mygdx.game.logic.activity.MovePickupEatActivity;
 import com.mygdx.game.logic.activity.MoveThenAttackActivity;
@@ -81,7 +82,7 @@ public class ActivityManager {
         }
 
         if(actor.isHungry() && !actor.getActivityStack().contains(SimpleEatingActivity.class)) {
-            if(!actor.getInventory().has(Food.class)) {
+            if(actor.getInventory().has(Food.class)) {
                 SimpleEatingActivity simpleEatingActivity = new SimpleEatingActivity(actor);
                 actor.getActivityStack().suspendAll();
                 actor.getActivityStack().add(simpleEatingActivity);
@@ -107,7 +108,8 @@ public class ActivityManager {
                 }
             }
         }
-        if (actor.getActivityStack().isEmpty()) {
+        if (actor.getActivityStack().isEmpty() ||
+                (actor.getActivityStack().contains(IdleActivity.class) && actor.getActivityStack().getSize() == 1)) {
             // Nothing else to do, wandering around the map for now
             int x;
             int y;

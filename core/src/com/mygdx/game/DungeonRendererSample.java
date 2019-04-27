@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.Direction;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.common.SampleBase;
@@ -18,14 +19,19 @@ import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonCreator;
 import com.mygdx.game.faction.Alignment;
-import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.weapon.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
+import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.logic.activity.CompoundActivity;
+import com.mygdx.game.logic.activity.IdleActivity;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.ActorRegistry;
+import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.TextureRegistry;
@@ -39,9 +45,6 @@ import java.util.Map;
 public class DungeonRendererSample extends SampleBase {
 
     public final static SampleInfo SAMPLE_INFO = new SampleInfo(DungeonRendererSample.class);
-
-    private int px;
-    private int py;
 
     private OrthographicCamera camera;
     private Viewport viewPort;
@@ -165,15 +168,44 @@ public class DungeonRendererSample extends SampleBase {
             }
         }
 
+        spriteBatch.setColor(Color.WHITE);
+
         for(Item item : itemRegistry.getAllItems(dungeon)) {
             if(!visibilityMask.getValue(item.getX(), item.getY()).isEmpty()) {
                 Texture actualTexture = textureRegistry.getFor(item.getClass());
                 spriteBatch.draw(actualTexture, item.getX(), item.getY(), 0, 0, 1, 1, 1, 1, 0, 0, 0, actualTexture.getWidth(), actualTexture.getHeight(), false, false);
             }
         }
+        spriteBatch.setColor(Color.WHITE);
         for(Actor actor : actorRegistry.getActors(dungeon)) {
-            if(Alignment.FRIENDLY.equals(actor.getAlignment()) || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
-                spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX()-1 + actor.getxOffset(), actor.getY()-1 + actor.getyOffset(), 0,0,3,3,1,1,0, 0,0,actorTexture.getWidth(), actorTexture.getHeight(), false, false);
+            if (Alignment.FRIENDLY.equals(actor.getAlignment()) || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
+                if (AnimationRegistry.INSTANCE.getAnimations().containsKey(actor.getClass())) {
+                    Activity activity = actor.getCurrentActivity();
+
+                    // if there is no current activity, then play wait activity animation
+//                    if(activity == null) {
+//                        //spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
+//                        //continue;
+//                        activity = new IdleActivity(actor);
+//                    }
+
+                    // if this is a compound activity get the actual activity instead
+                    if((CompoundActivity.class.isAssignableFrom(activity.getClass()))) {
+                        activity = ((CompoundActivity)activity).getCurrent();
+                    }
+
+                    // if no animation is registered in animationRegistry for that activity type, draw a placeholder
+                    if(!AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).containsKey(activity.getClass()) ||
+                            AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).get(activity.getClass()) == null) {
+                        spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
+                        continue;
+                    }
+
+                    AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).get(activity.getClass()).drawKeyFrame(spriteBatch, actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 5, ActorMovementHandler.INSTANCE.getDirection(actor).equals(Direction.RIGHT));
+                } else {
+                    spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
+
+                }
         }
 
     }
@@ -214,26 +246,16 @@ public class DungeonRendererSample extends SampleBase {
         float delta = Gdx.graphics.getDeltaTime();
 
         if (keycode == Input.Keys.LEFT) {
-            camera.position.x -= 10.0 * delta;
-            px--;
-            if (px < 0)
-                px = 0;
+            camera.position.x -= 20.0 * delta;
         }
         if (keycode == Input.Keys.RIGHT) {
-            camera.position.x += 10.0 * delta;
-            px++;
-            if (px >= Config.Dungeon.DUNGEON_WIDTH)
-                px = Config.Dungeon.DUNGEON_WIDTH - 1;
+            camera.position.x += 20.0 * delta;
         }
         if (keycode == Input.Keys.DOWN) {
-            py--;
-            if (py < 0)
-                py = 0;
+            camera.position.y -= 20.0 * delta;
         }
         if (keycode == Input.Keys.UP) {
-            py++;
-            if (py >= Config.Dungeon.DUNGEON_HEIGHT)
-                py = Config.Dungeon.DUNGEON_HEIGHT - 1;
+            camera.position.y += 20.0 * delta;
         }
 
         camera.update();

@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
+import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.ActivityStack;
 
 public interface Actor {
@@ -34,5 +36,10 @@ public interface Actor {
     String getName();
     void setName(String name);
 
-    AbstractActor.Actions getActions();
+    void equip(Equipable equipable);
+
+
+    // ******************   Animation  ********************
+    Activity getCurrentActivity();
+
 }
