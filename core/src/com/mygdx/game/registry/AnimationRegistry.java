@@ -7,7 +7,9 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.animation.Animation;
 import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.logic.activity.IdleActivity;
 import com.mygdx.game.logic.activity.MovementActivity;
+import com.mygdx.game.logic.activity.PickUpItemActivity;
 
 import java.util.Map;
 
@@ -21,10 +23,25 @@ public class AnimationRegistry {
                             .put(MovementActivity.class, Animation.builder()
                                     .withHead(new Texture(Gdx.files.internal("head_idle.png")))
                                     .withTorso(new Texture(Gdx.files.internal("torso_idle.png")))
+                                    .withLegs(new Texture(Gdx.files.internal("leg_moving.png")))
+                                    .withArms(new Texture(Gdx.files.internal("hand_idle.png")))
+                                    .build()
+                            )
+                            .put(IdleActivity.class, Animation.builder()
+                                    .withHead(new Texture(Gdx.files.internal("head_idle.png")))
+                                    .withTorso(new Texture(Gdx.files.internal("torso_idle.png")))
                                     .withLegs(new Texture(Gdx.files.internal("leg_idle.png")))
                                     .withArms(new Texture(Gdx.files.internal("hand_idle.png")))
                                     .build()
-                            ).build()
+                            )
+                            .put(PickUpItemActivity.class, Animation.builder()
+                                    .withHead(new Texture(Gdx.files.internal("head_idle.png")))
+                                    .withTorso(new Texture(Gdx.files.internal("torso_idle.png")))
+                                    .withLegs(new Texture(Gdx.files.internal("leg_idle.png")))
+                                    .withArms(new Texture(Gdx.files.internal("hand_idle.png")))
+                                    .build()
+                            )
+                            .build()
             )
             .build();
 

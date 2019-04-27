@@ -1,5 +1,6 @@
 package com.mygdx.game.animation;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
@@ -33,17 +34,17 @@ public class Animation implements Disposable  {
     private Texture rightHandItem;
     private Size rightHadItemSize;
 
-    int phase = 0;
+    double phase = 0;
 
     public Animation() {
 
     }
 
     public void drawKeyFrame(SpriteBatch spriteBatch, float x, float y, int scale, boolean flip) {
-        int nextFrameX = phase % GRIDX;
-        int nextFrameY = phase / GRIDY;
+        int nextFrameX = (int)phase % GRIDX;
+        int nextFrameY = (int)phase / GRIDY;
 
-        phase = (phase + 1) % (GRIDX*GRIDY);
+        phase = (phase + 20 * Gdx.graphics.getDeltaTime()) % (GRIDX*GRIDY);
 
         spriteBatch.draw(torso, x,y, 0, 0, 1, 1, scale, scale, 0, nextFrameX * WIDTH, nextFrameY * HEIGHT, WIDTH, HEIGHT, flip, false);
         spriteBatch.draw(head, x,y, 0, 0, 1, 1, scale, scale, 0, nextFrameX * WIDTH, nextFrameY * HEIGHT, WIDTH, HEIGHT, flip, false);
