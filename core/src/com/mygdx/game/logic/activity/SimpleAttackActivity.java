@@ -1,8 +1,8 @@
 package com.mygdx.game.logic.activity;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.logic.actor.ActorMovementHandler;
-import com.mygdx.game.logic.pathfinding.PathFinder;
+import com.mygdx.game.logic.attack.AttackController;
 import com.mygdx.game.registry.ActorRegistry;
 
 public class SimpleAttackActivity implements Activity, CooldownActivity {
@@ -36,12 +36,14 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
 
     @Override
     public boolean isDone() {
-        return Math.abs(actor.getX() - enemy.getX()) <= 1 && Math.abs(actor.getY() - enemy.getY()) <= 1;
+        //return Math.abs(actor.getX() - enemy.getX()) <= 1 && Math.abs(actor.getY() - enemy.getY()) <= 1;
+        return enemy.getHp() <= 0;
     }
 
     @Override
     public void update() {
         // todo attack and roll to hit regularly
+        AttackController.INSTANCE.calculateAttack(actor, enemy);
     }
 
     @Override
@@ -100,6 +102,18 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     @Override
     public boolean isCancellable() {
         // enemy is gone
-        return !actorRegistry.getActors(actor.getCurrentMap()).contains(enemy) || !(Math.abs(actor.getX() - enemy.getX()) <= 1 && Math.abs(actor.getY() - enemy.getY()) <= 1 ) ;
+        if (!actorRegistry.getActors(actor.getCurrentMap()).contains(enemy)) {
+            System.out.println("Enemy is killed by someone else");
+            return true;
+        }
+        if(Math.abs(actor.getX() - enemy.getX()) * (Math.abs(actor.getX() - enemy.getX()) + Math.abs(actor.getY() - enemy.getY()) * Math.abs(actor.getY() - enemy.getY())) > Config.ATTACK_DISTANCE ) {
+            System.out.println("Enemy ran away");
+            return true;
+        }
+        if(actor.getHp() < actor.getMaxHp() * 0.1) {
+            System.out.println("I've had enough! [" + actor.getName() + "]");
+            return true;
+        }
+        return false;
     }
 }

@@ -4,8 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.faction.Alignment;
-import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
@@ -55,9 +53,11 @@ public class GameLogicController {
     private void calculateVisibilityForMaps() {
         for(Map2D map : mapRegistry.getMaps()) {
             List<Actor> coordinatesForVisibilityCalculation = new ArrayList<>();
+            // get all actors in the list
             coordinatesForVisibilityCalculation.addAll(actorRegistry.getActors(map));
 
             VisibilityCalculator visibilityCalculator = map.getVisibilityCalculator();
+            // generate visible areas for all the actors
             VisibilityMask visibilityMask = visibilityCalculator.generateMask(map, 15, coordinatesForVisibilityCalculation);
             VisibilityMapRegistry.INSTANCE.add(map, visibilityMask);
         }

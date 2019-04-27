@@ -10,10 +10,10 @@ import com.mygdx.game.item.Item;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.ActivityStack;
-import com.mygdx.game.logic.activity.MovementActivity;
-import com.mygdx.game.logic.pathfinding.PathFinder;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
@@ -23,8 +23,6 @@ public abstract class AbstractActor implements Actor {
     private Inventory inventory;
     private Map<Attributes, Integer> baseAttributes;
 
-    private Direction direction = Direction.LEFT;
-
     private int x;
     private int y;
     private int hungerLevel;
@@ -32,6 +30,9 @@ public abstract class AbstractActor implements Actor {
 
     private float xOffset = 0;
     private float yOffset = 0;
+
+    private int actualHp = 20;
+    private int hpModifier = 3;
 
     private Equipable leftHand = null;
     private Equipable rightHand = null;
@@ -101,12 +102,13 @@ public abstract class AbstractActor implements Actor {
         return this.inventory;
     }
 
-    public Integer getattribute(Attributes a) {
+    @Override
+    public int getAttribute(Attributes a) {
         return baseAttributes.get(a);
     }
 
     public int getMovementSpeed() {
-        return 30 - getattribute(Attributes.Dexterity);
+        return 30 - getAttribute(Attributes.Dexterity);
     }
 
     @Override
@@ -181,5 +183,30 @@ public abstract class AbstractActor implements Actor {
     @Override
     public Activity getCurrentActivity() {
         return activityStack.getCurrent();
+    }
+
+    @Override
+    public int getHp() {
+        return actualHp;
+    }
+
+    @Override
+    public int getMaxHp() {
+        return (getAttribute(Attributes.Endurance) + getAttribute(Attributes.Strength) / 2 + hpModifier);
+    }
+
+    @Override
+    public void setHp(int value) {
+        actualHp = value;
+    }
+
+    @Override
+    public List<Weapon> getWeapons() {
+        List<Weapon> result = new ArrayList<>();
+        if(leftHand != null && Weapon.class.isAssignableFrom(leftHand.getClass()))
+            result.add(((Weapon)leftHand));
+        if(rightHand != null && Weapon.class.isAssignableFrom(rightHand.getClass()))
+            result.add(((Weapon)rightHand));
+        return result;
     }
 }

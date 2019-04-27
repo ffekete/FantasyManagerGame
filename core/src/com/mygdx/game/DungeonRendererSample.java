@@ -25,7 +25,6 @@ import com.mygdx.game.item.weapon.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.CompoundActivity;
-import com.mygdx.game.logic.activity.IdleActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityMask;
@@ -95,7 +94,7 @@ public class DungeonRendererSample extends SampleBase {
 
         Warrior warrior2 = new Warrior();
         warrior2.setName("B");
-        warrior2.setCoordinates(45, 45);
+        warrior2.setCoordinates(5, 5);
 
         warrior.setCurrentMap(dungeon);
         warrior2.setCurrentMap(dungeon);
@@ -181,13 +180,6 @@ public class DungeonRendererSample extends SampleBase {
             if (Alignment.FRIENDLY.equals(actor.getAlignment()) || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
                 if (AnimationRegistry.INSTANCE.getAnimations().containsKey(actor.getClass())) {
                     Activity activity = actor.getCurrentActivity();
-
-                    // if there is no current activity, then play wait activity animation
-//                    if(activity == null) {
-//                        //spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
-//                        //continue;
-//                        activity = new IdleActivity(actor);
-//                    }
 
                     // if this is a compound activity get the actual activity instead
                     if((CompoundActivity.class.isAssignableFrom(activity.getClass()))) {
