@@ -186,7 +186,7 @@ public class DungeonRendererSample extends SampleBase {
                         activity = ((CompoundActivity)activity).getCurrent();
                     }
 
-                    // if no animation is registered in animationRegistry for that activity type, draw a placeholder
+                    // if no actorAnimation is registered in animationRegistry for that activity type, draw a placeholder
                     if(!AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).containsKey(activity.getClass()) ||
                             AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).get(activity.getClass()) == null) {
                         spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);

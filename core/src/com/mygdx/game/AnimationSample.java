@@ -6,8 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.actor.Direction;
-import com.mygdx.game.animation.Animation;
+import com.mygdx.game.animation.ActorAnimation;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.utils.GdxUtils;
@@ -21,7 +20,7 @@ public class AnimationSample extends SampleBase {
     Viewport viewPort;
     SpriteBatch spriteBatch;
 
-    Animation animation;
+    ActorAnimation actorAnimation;
 
     @Override
     public void create() {
@@ -30,7 +29,7 @@ public class AnimationSample extends SampleBase {
         viewPort = new FitViewport(6, 6, camera);
         spriteBatch = new SpriteBatch();
 
-        animation = Animation.builder()
+        actorAnimation = ActorAnimation.builder()
                 .withHead(new Texture(Gdx.files.internal("head_idle.png")))
                 .withTorso(new Texture(Gdx.files.internal("torso_idle.png")))
                 .withLegs(new Texture(Gdx.files.internal("leg_idle.png")))
@@ -51,7 +50,7 @@ public class AnimationSample extends SampleBase {
 
     public void draw() {
 
-        animation.drawKeyFrame(spriteBatch, 3, 3,2, false);
+        actorAnimation.drawKeyFrame(spriteBatch, 3, 3,2, false);
 
     }
 

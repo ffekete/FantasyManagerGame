@@ -46,7 +46,7 @@ public interface Actor {
     List<Weapon> getWeapons();
     int getAttribute(Attributes attributes);
 
-    // ******************   Animation  ********************
+    // ******************   ActorAnimation  ********************
     Activity getCurrentActivity();
 
 }
