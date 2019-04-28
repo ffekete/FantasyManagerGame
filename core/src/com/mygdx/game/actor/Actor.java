@@ -45,6 +45,9 @@ public interface Actor {
     void setHp(int value);
     List<Weapon> getWeapons();
     int getAttribute(Attributes attributes);
+    Equipable getLeftHandItem();
+    Equipable getRightHandItem();
+    int getDefenseValue();
 
     // ******************   ActorAnimation  ********************
     Activity getCurrentActivity();

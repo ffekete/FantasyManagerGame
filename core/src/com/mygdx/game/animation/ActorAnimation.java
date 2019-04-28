@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import bsh.This;
+
 public class ActorAnimation implements Animation {
 
     private static final int HEIGHT = 30;
@@ -16,22 +18,16 @@ public class ActorAnimation implements Animation {
     }
 
     private Texture head;
-    private Size headSize;
 
     private Texture arms;
-    private Size armsSize;
 
     private Texture legs;
-    private Size legsSize;
 
     private Texture torso;
-    private Size torsoSize;
 
     private Texture leftHandItem;
-    private Size leftHadItemSize;
 
     private Texture rightHandItem;
-    private Size rightHadItemSize;
 
     double phase = 0;
 
@@ -51,6 +47,34 @@ public class ActorAnimation implements Animation {
         spriteBatch.draw(arms, x,y, 0, 0, 1, 1, scale, scale, 0, nextFrameX * WIDTH, nextFrameY * HEIGHT, WIDTH, HEIGHT, flip, false);
         spriteBatch.draw(legs, x,y, 0, 0, 1, 1, scale, scale, 0, nextFrameX * WIDTH, nextFrameY * HEIGHT, WIDTH, HEIGHT, flip, false);
 
+        if(leftHandItem != null)
+            spriteBatch.draw(leftHandItem, x,y, 0, 0, 1, 1, scale, scale, 0, nextFrameX * WIDTH, nextFrameY * HEIGHT, WIDTH, HEIGHT, flip, false);
+        if(rightHandItem != null)
+            spriteBatch.draw(rightHandItem, x,y, 0, 0, 1, 1, scale, scale, 0, nextFrameX * WIDTH, nextFrameY * HEIGHT, WIDTH, HEIGHT, flip, false);
+    }
+
+    public void setHead(Texture head) {
+        this.head = head;
+    }
+
+    public void setArms(Texture arms) {
+        this.arms = arms;
+    }
+
+    public void setLegs(Texture legs) {
+        this.legs = legs;
+    }
+
+    public void setTorso(Texture torso) {
+        this.torso = torso;
+    }
+
+    public void setLeftHandItem(Texture leftHandItem) {
+        this.leftHandItem = leftHandItem;
+    }
+
+    public void setRightHandItem(Texture rightHandItem) {
+        this.rightHandItem = rightHandItem;
     }
 
     @Override
@@ -59,6 +83,11 @@ public class ActorAnimation implements Animation {
         arms.dispose();
         legs.dispose();
         torso.dispose();
+
+        if(leftHandItem != null)
+            leftHandItem.dispose();
+        if(rightHandItem != null)
+            rightHandItem.dispose();
     }
 
     public static class Builder {
@@ -86,6 +115,16 @@ public class ActorAnimation implements Animation {
 
         public Builder withTorso(Texture torso) {
             actorAnimation.torso = torso;
+            return this;
+        }
+
+        public Builder withLeftHandItem(Texture item) {
+            actorAnimation.leftHandItem = item;
+            return this;
+        }
+
+        public Builder withRightHandItem(Texture item) {
+            actorAnimation.rightHandItem = item;
             return this;
         }
 

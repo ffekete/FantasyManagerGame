@@ -7,9 +7,11 @@ import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.ActivityStack;
+import com.mygdx.game.registry.AnimationRegistry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -168,16 +170,31 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public void equip(Equipable equipable) {
-        if (leftHand == null) {
+        // if it is shield
+        if (Shield.class.isAssignableFrom(equipable.getClass()) && leftHand == null) {
             leftHand = equipable;
             inventory.remove(equipable);
-            //equipable.onEquip(actor);
+            equipable.onEquip(this);
             System.out.println(name + " equiped in left hand " + equipable);
-        } else if (rightHand == null) {
+            AnimationRegistry.INSTANCE.refresh(this);
+
+        } else if (Weapon.class.isAssignableFrom(equipable.getClass()) && rightHand == null) {
             rightHand = equipable;
             inventory.remove(equipable);
+            equipable.onEquip(this);
             System.out.println(name + " equiped in right hand " + equipable);
+            AnimationRegistry.INSTANCE.refresh(this);
         }
+    }
+
+    @Override
+    public Equipable getLeftHandItem() {
+        return leftHand;
+    }
+
+    @Override
+    public Equipable getRightHandItem() {
+        return rightHand;
     }
 
     @Override
@@ -208,5 +225,12 @@ public abstract class AbstractActor implements Actor {
         if(rightHand != null && Weapon.class.isAssignableFrom(rightHand.getClass()))
             result.add(((Weapon)rightHand));
         return result;
+    }
+
+    @Override
+    public int getDefenseValue() {
+        if(leftHand != null && Shield.class.isAssignableFrom(leftHand.getClass()))
+            return ((Shield)leftHand).getDefense();
+        return 0;
     }
 }

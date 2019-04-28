@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.item.food.Bread;
+import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.ShortSword;
 
 import java.util.Map;
@@ -22,6 +23,7 @@ public class TextureRegistry {
                 .put(Goblin.class, new Texture(Gdx.files.internal("goblin.png")))
                 .put(ShortSword.class, new Texture(Gdx.files.internal("sword.png")))
                 .put(Bread.class, new Texture(Gdx.files.internal("bread.png")))
+                .put(SmallShiled.class, new Texture(Gdx.files.internal("shield.jpg")))
                 .build();
     }
 

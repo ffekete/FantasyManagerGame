@@ -28,7 +28,7 @@ public class AttackController {
                 + attacker.getAttribute(Attributes.Dexterity) * 2
                 + 1 * 5; // todo add weapon skill here
 
-        int evasion = victim.getAttribute(Attributes.Reflexes) * 2 + victim.getAttribute(Attributes.Dexterity);
+        int evasion = victim.getAttribute(Attributes.Reflexes) * 2 + victim.getAttribute(Attributes.Dexterity) + victim.getDefenseValue();
 
         if(toHit < hitThreshold - evasion) {
             System.out.println(attacker.getName() + " attacked " + victim.getName() + " damage: " + damage);
