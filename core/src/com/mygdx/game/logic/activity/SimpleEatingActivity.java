@@ -94,4 +94,9 @@ public class SimpleEatingActivity implements Activity, CooldownActivity {
         // food is gone
         return !actor.getInventory().has(Food.class);
     }
+
+    @Override
+    public Class getCurrentClass() {
+        return this.getClass();
+    }
 }

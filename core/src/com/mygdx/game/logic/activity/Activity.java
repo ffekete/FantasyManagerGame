@@ -13,4 +13,5 @@ public interface Activity extends CooldownActivity, Comparable<Activity> {
     boolean isSuspended();
     void clear();
     boolean isCancellable();
+    Class getCurrentClass();
 }

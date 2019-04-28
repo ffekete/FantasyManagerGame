@@ -116,4 +116,9 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
         }
         return false;
     }
+
+    @Override
+    public Class getCurrentClass() {
+        return this.getClass();
+    }
 }

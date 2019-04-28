@@ -82,6 +82,11 @@ public class IdleActivity implements Activity {
     }
 
     @Override
+    public Class getCurrentClass() {
+        return this.getClass();
+    }
+
+    @Override
     public int compareTo(Activity o) {
         return Integer.compare(getPriority(), o.getPriority());
     }

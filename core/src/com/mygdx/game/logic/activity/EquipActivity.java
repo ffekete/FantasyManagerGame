@@ -69,6 +69,11 @@ public class EquipActivity implements Activity {
     }
 
     @Override
+    public Class getCurrentClass() {
+        return this.getClass();
+    }
+
+    @Override
     public void countDown() {
 
     }

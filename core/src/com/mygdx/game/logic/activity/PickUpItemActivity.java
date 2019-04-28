@@ -95,4 +95,9 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
         // food is gone
         return !itemRegistry.getAllItems(actor.getCurrentMap()).contains(item);
     }
+
+    @Override
+    public Class getCurrentClass() {
+        return this.getClass();
+    }
 }

@@ -138,8 +138,8 @@ public class MovementActivity implements Activity {
         return counter == speed -1;
     }
 
-    public PathFinder.Node getNextNode() {
-        return actorMovementHandler.getNextPathPoint(actor);
+    @Override
+    public Class getCurrentClass() {
+        return this.getClass();
     }
-
 }

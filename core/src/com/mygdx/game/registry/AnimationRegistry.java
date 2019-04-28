@@ -9,6 +9,7 @@ import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.IdleActivity;
 import com.mygdx.game.logic.activity.MovementActivity;
 import com.mygdx.game.logic.activity.PickUpItemActivity;
+import com.mygdx.game.animation.Animation;
 
 import java.util.Map;
 
@@ -16,9 +17,9 @@ public class AnimationRegistry {
 
     public static final AnimationRegistry INSTANCE = new AnimationRegistry();
 
-    Map<Class, Map<Class<? extends Activity>, ActorAnimation>> animations = ImmutableMap.<Class, Map<Class<? extends Activity>, ActorAnimation>>builder()
+    Map<Class, Map<Class<? extends Activity>, Animation>> animations = ImmutableMap.<Class, Map<Class<? extends Activity>, Animation>>builder()
             .put(Warrior.class,
-                    ImmutableMap.<Class<? extends Activity>, ActorAnimation>builder()
+                    ImmutableMap.<Class<? extends Activity>, Animation> builder()
                             .put(MovementActivity.class, ActorAnimation.builder()
                                     .withHead(new Texture(Gdx.files.internal("head_idle.png")))
                                     .withTorso(new Texture(Gdx.files.internal("torso_idle.png")))
@@ -44,7 +45,7 @@ public class AnimationRegistry {
             )
             .build();
 
-    public Map<Class, Map<Class<? extends Activity>, ActorAnimation>> getAnimations() {
+    public Map<Class, Map<Class<? extends Activity>, Animation>> getAnimations() {
         return animations;
     }
 }

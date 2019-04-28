@@ -181,19 +181,14 @@ public class DungeonRendererSample extends SampleBase {
                 if (AnimationRegistry.INSTANCE.getAnimations().containsKey(actor.getClass())) {
                     Activity activity = actor.getCurrentActivity();
 
-                    // if this is a compound activity get the actual activity instead
-                    if((CompoundActivity.class.isAssignableFrom(activity.getClass()))) {
-                        activity = ((CompoundActivity)activity).getCurrent();
-                    }
-
                     // if no actorAnimation is registered in animationRegistry for that activity type, draw a placeholder
-                    if(!AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).containsKey(activity.getClass()) ||
-                            AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).get(activity.getClass()) == null) {
+                    if(!AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).containsKey(activity.getCurrentClass()) ||
+                            AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).get(activity.getCurrentClass()) == null) {
                         spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
                         continue;
                     }
 
-                    AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).get(activity.getClass()).drawKeyFrame(spriteBatch, actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 5, ActorMovementHandler.INSTANCE.getDirection(actor).equals(Direction.RIGHT));
+                    AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).get(activity.getCurrentClass()).drawKeyFrame(spriteBatch, actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 5, ActorMovementHandler.INSTANCE.getDirection(actor).equals(Direction.RIGHT));
                 } else {
                     spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
 

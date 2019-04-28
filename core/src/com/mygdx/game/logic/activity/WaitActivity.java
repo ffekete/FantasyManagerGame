@@ -119,4 +119,9 @@ public class WaitActivity implements Activity {
         return counter == speed - 1;
     }
 
+    @Override
+    public Class getCurrentClass() {
+        return this.getClass();
+    }
+
 }
