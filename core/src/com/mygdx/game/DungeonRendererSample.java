@@ -15,7 +15,6 @@ import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonCreator;
 import com.mygdx.game.faction.Alignment;
@@ -24,17 +23,20 @@ import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.weapon.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.activity.Activity;
-import com.mygdx.game.logic.activity.CompoundActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityMask;
-import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
+import com.mygdx.game.renderer.ActorRenderer;
+import com.mygdx.game.renderer.ItemRenderer;
+import com.mygdx.game.renderer.MapRenderer;
+import com.mygdx.game.renderer.Renderer;
+import com.mygdx.game.renderer.RendererBatch;
 import com.mygdx.game.utils.GdxUtils;
 
 import java.util.HashMap;
@@ -48,8 +50,6 @@ public class DungeonRendererSample extends SampleBase {
     private OrthographicCamera camera;
     private Viewport viewPort;
     private SpriteBatch spriteBatch;
-    private Texture wallTexture;
-    private Texture floorTexture;
     private Texture grassVisitedTexture;
     private Texture playerTexture;
     private Texture breadTexture;
@@ -78,12 +78,11 @@ public class DungeonRendererSample extends SampleBase {
         camera = new OrthographicCamera();
         viewPort = new FitViewport(100, 100, camera);
         spriteBatch = new SpriteBatch();
-        wallTexture = new Texture(Gdx.files.internal("wall.jpg"));
-        floorTexture = new Texture(Gdx.files.internal("terrain.jpg"));
+
         grassVisitedTexture = new Texture(Gdx.files.internal("grass_visited.jpg"));
         playerTexture = new Texture(Gdx.files.internal("badlogic.jpg"));
         breadTexture = new Texture(Gdx.files.internal("bread.png"));
-        actorTexture = new Texture(Gdx.files.internal("warrior.png"));
+
         dungeon = dungeonCreator.create();
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
@@ -146,55 +145,7 @@ public class DungeonRendererSample extends SampleBase {
     }
 
     public void draw() {
-
-        VisibilityMask visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(dungeon);
-
-        Tile[][] drawMap = visibilityMask.mask(dungeon, dungeon.getVisitedareaMap());
-
-        for (int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
-            for (int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {
-
-                if(dungeon.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
-                    spriteBatch.setColor(Color.DARK_GRAY);
-                } else {
-                    spriteBatch.setColor(Color.WHITE);
-                }
-                if (drawMap[i][j].equals(Tile.STONE_WALL)) {
-                    spriteBatch.draw(wallTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, wallTexture.getWidth(), wallTexture.getHeight(), false, false);
-                } else if (drawMap[i][j].equals(Tile.FLOOR)) {
-                    spriteBatch.draw(floorTexture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, floorTexture.getWidth(), floorTexture.getHeight(), false, false);
-                }
-            }
-        }
-
-        spriteBatch.setColor(Color.WHITE);
-
-        for(Item item : itemRegistry.getAllItems(dungeon)) {
-            if(!visibilityMask.getValue(item.getX(), item.getY()).isEmpty()) {
-                Texture actualTexture = textureRegistry.getFor(item.getClass());
-                spriteBatch.draw(actualTexture, item.getX(), item.getY(), 0, 0, 1, 1, 1, 1, 0, 0, 0, actualTexture.getWidth(), actualTexture.getHeight(), false, false);
-            }
-        }
-        spriteBatch.setColor(Color.WHITE);
-        for(Actor actor : actorRegistry.getActors(dungeon)) {
-            if (Alignment.FRIENDLY.equals(actor.getAlignment()) || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
-                if (AnimationRegistry.INSTANCE.getAnimations().containsKey(actor.getClass())) {
-                    Activity activity = actor.getCurrentActivity();
-
-                    // if no actorAnimation is registered in animationRegistry for that activity type, draw a placeholder
-                    if(!AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).containsKey(activity.getCurrentClass()) ||
-                            AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).get(activity.getCurrentClass()) == null) {
-                        spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
-                        continue;
-                    }
-
-                    AnimationRegistry.INSTANCE.getAnimations().get(actor.getClass()).get(activity.getCurrentClass()).drawKeyFrame(spriteBatch, actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 5, ActorMovementHandler.INSTANCE.getDirection(actor).equals(Direction.RIGHT));
-                } else {
-                    spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
-
-                }
-        }
-
+        RendererBatch.DUNGEON.draw(dungeon, spriteBatch);
     }
 
     @Override
@@ -207,8 +158,6 @@ public class DungeonRendererSample extends SampleBase {
     public void dispose() {
         spriteBatch.dispose();
         playerTexture.dispose();
-        wallTexture.dispose();
-        floorTexture.dispose();
         grassVisitedTexture.dispose();
         textureRegistry.dispose();
         bitmapFont.dispose();
