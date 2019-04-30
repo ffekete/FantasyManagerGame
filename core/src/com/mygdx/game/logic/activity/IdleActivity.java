@@ -1,5 +1,6 @@
 package com.mygdx.game.logic.activity;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
@@ -47,7 +48,7 @@ public class IdleActivity implements Activity {
 
     @Override
     public int getPriority() {
-        return 120;
+        return Config.Activity.IDLE_PRIORITY;
     }
 
     @Override

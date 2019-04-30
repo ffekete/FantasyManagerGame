@@ -14,4 +14,5 @@ public interface Map2D {
 
     VisibilityCalculator getVisibilityCalculator();
 
+    boolean isExplored();
 }

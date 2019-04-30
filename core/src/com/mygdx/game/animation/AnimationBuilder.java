@@ -6,6 +6,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.logic.activity.ExplorationActivity;
 import com.mygdx.game.logic.activity.IdleActivity;
 import com.mygdx.game.logic.activity.MovementActivity;
 import com.mygdx.game.logic.activity.PickUpItemActivity;
@@ -39,6 +40,7 @@ public class AnimationBuilder {
                     .withTorso(new Texture(Gdx.files.internal("torso_idle.png")))
                     .withLegs(new Texture(Gdx.files.internal("leg_idle.png")))
                     .withArms(new Texture(Gdx.files.internal("hand_idle.png")))
+                    .withLeftHandItem(getLeftHandItem(actor))
                     .build());
 
             map.put(PickUpItemActivity.class, ActorAnimation.builder()
@@ -46,8 +48,8 @@ public class AnimationBuilder {
                     .withTorso(new Texture(Gdx.files.internal("torso_idle.png")))
                     .withLegs(new Texture(Gdx.files.internal("leg_idle.png")))
                     .withArms(new Texture(Gdx.files.internal("hand_idle.png")))
-                    .build()
-            );
+                    .withLeftHandItem(getLeftHandItem(actor))
+                    .build());
         }
 
         return map;

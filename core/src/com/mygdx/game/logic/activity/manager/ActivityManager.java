@@ -9,6 +9,7 @@ import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.CompoundActivity;
 import com.mygdx.game.logic.activity.EquipActivity;
+import com.mygdx.game.logic.activity.ExplorationActivity;
 import com.mygdx.game.logic.activity.IdleActivity;
 import com.mygdx.game.logic.activity.MovePickupActivity;
 import com.mygdx.game.logic.activity.MovePickupEatActivity;
@@ -34,6 +35,10 @@ public class ActivityManager {
     public ActivityManager() { }
 
     public void manage(Actor actor) {
+
+        if(!actor.getActivityStack().finishedCurrentPeriod())
+            return;
+
         Activity activity;
 
         List<Item> items = itemRegistry.getAllItems(actor.getCurrentMap());
@@ -49,13 +54,13 @@ public class ActivityManager {
             Actor enemy = findClosestEnemy(actor, actorRegistry.getActors(actor.getCurrentMap()), Config.ATTACK_DISTANCE);
             if(enemy != null) {
                 System.out.println("Enemy sighted");
-                CompoundActivity compoundActivity = new MoveThenAttackActivity(97);
+                CompoundActivity compoundActivity = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY);
                 if(actor.getAlignment().equals(Alignment.FRIENDLY)) {
                     compoundActivity.add(new MovementActivity(actor, enemy.getX(), enemy.getY(), 1, new PathFinder()));
                     compoundActivity.add(new SimpleAttackActivity(actor, enemy));
                 }
                 else {
-                    compoundActivity.add(new WaitActivity(actor, enemy, 1, new PathFinder()));
+                    compoundActivity.add(new WaitActivity(actor, enemy, 1));
                     compoundActivity.add(new SimpleAttackActivity(actor, enemy));
                 }
 
@@ -67,11 +72,11 @@ public class ActivityManager {
         if(!actor.getActivityStack().contains(MovePickupActivity.class)) {
             if(!items.isEmpty()) {
                 // find items
-                Item item = findClosestFood(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE);
+                Item item = findClosestItem(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE, Item.class);
                 if(item != null) {
                     // go for it
                     System.out.println(String.format("I'mpicking up %s!", item));
-                    activity = new MovePickupActivity(98)
+                    activity = new MovePickupActivity(Config.Activity.MOVE_PICKUP_PRIORITY)
                             .add(new MovementActivity(actor, item.getX(), item.getY(), 1, new PathFinder()))
                             .add(new PickUpItemActivity(actor, item));
                     actor.getActivityStack().suspendAll();
@@ -90,15 +95,20 @@ public class ActivityManager {
             }
         }
 
+        if(Alignment.FRIENDLY.equals(actor.getAlignment()) && !actor.getCurrentMap().isExplored() && !actor.getActivityStack().contains(ExplorationActivity.class)) {
+            ExplorationActivity explorationActivity = new ExplorationActivity(actor.getCurrentMap() ,actor);
+            actor.getActivityStack().add(explorationActivity);
+        }
+
         if (actor.isHungry() && !actor.getActivityStack().contains(MovePickupEatActivity.class)) {
 
             if(!items.isEmpty()) {
                 // find food
-                Food food = (Food)findClosestFood(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE);
+                Food food = (Food) findClosestItem(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE, Food.class);
                 if(food != null) {
                     // go for it
                     System.out.println(String.format("I'm hungry for %s!", food));
-                    activity = new MovePickupEatActivity(99)
+                    activity = new MovePickupEatActivity(Config.Activity.MOVE_PICKUP_EAT_PRIORITY)
                             .add(new MovementActivity(actor, food.getX(), food.getY(), 1, new PathFinder()))
                             .add(new PickUpItemActivity(actor, food))
                             .add(new SimpleEatingActivity(actor));
@@ -151,13 +161,16 @@ public class ActivityManager {
         return minDistance > maxDistance*maxDistance ? null : selectedActor;
     }
 
-    private Item findClosestFood(Actor actor, List<Item> items, Integer maxDistance) {
+    private Item findClosestItem(Actor actor, List<Item> items, Integer maxDistance, Class<? extends Item> clazz) {
         Item selectedItem = null;
         int x = actor.getX();
         int y = actor.getY();
 
         float minDistance = Float.MAX_VALUE;
         for(Item item : items) {
+            if(!clazz.isAssignableFrom(item.getClass())) {
+                continue;
+            }
             int a = item.getX();
             int b = item.getY();
 

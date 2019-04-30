@@ -50,7 +50,7 @@ public class ActivityStack {
             if (activity.isDone()) {
                 activity.clear();
                 activities.remove(activity);
-                System.out.println("activity cleared + " + activities.size());
+                System.out.println("activity cleared + " + activity);
             } else {
                 if (activity.isTriggered()) {
                     activity.update();
@@ -69,5 +69,12 @@ public class ActivityStack {
     public void add(Activity activity) {
         System.out.println("activity added + " + activity.getClass());
         this.activities.offer(activity);
+    }
+
+    public boolean finishedCurrentPeriod() {
+        if(activities.isEmpty()) {
+            return false;
+        }
+        return activities.peek().isTriggered();
     }
 }

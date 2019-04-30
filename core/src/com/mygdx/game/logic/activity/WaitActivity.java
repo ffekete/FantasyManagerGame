@@ -16,21 +16,16 @@ public class WaitActivity implements Activity {
 
     private boolean suspended = false;
     private final Actor actor;
-    private PathFinder pathFinder;
     private int priorityModifier = 0;
     private boolean firstRun = true;
     private Integer counter = 0;
     private boolean done = false;
-    private ActorMovementHandler actorMovementHandler;
-    private Future<List<PathFinder.Node>> path;
     private int speed;
-    private int range = 0;
+    private int range = 1;
     Actor enemy;
 
-    public WaitActivity(Actor actor, Actor enemy, int range, PathFinder pathFinder) {
+    public WaitActivity(Actor actor, Actor enemy, int range) {
         this.actor = actor;
-        this.pathFinder = pathFinder;
-        this.actorMovementHandler = ActorMovementHandler.INSTANCE;
         this.range = range;
         this.enemy = enemy;
     }
@@ -43,10 +38,6 @@ public class WaitActivity implements Activity {
     @Override
     public void update() {
 
-    }
-
-    public int getMovementSpeed() {
-        return speed;
     }
 
     @Override
@@ -66,7 +57,7 @@ public class WaitActivity implements Activity {
 
     @Override
     public int getPriority() {
-        return 100 + priorityModifier;
+        return Config.Activity.WAIT_PRIORITY + priorityModifier;
     }
 
     @Override

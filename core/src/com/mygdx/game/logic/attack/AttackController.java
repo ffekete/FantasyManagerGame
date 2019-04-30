@@ -21,7 +21,7 @@ public class AttackController {
     }
 
     private void attackWithFist(Actor attacker, Actor victim) {
-        int damage = new Random().nextInt(attacker.getAttribute(Attributes.Strength));
+        int damage = new Random().nextInt(attacker.getAttribute(Attributes.Strength) / 4);
         int toHit = new Random().nextInt(100);
         int hitThreshold = 20
                 + attacker.getAttribute(Attributes.Reflexes)

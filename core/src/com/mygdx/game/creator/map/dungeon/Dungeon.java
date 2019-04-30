@@ -1,5 +1,6 @@
 package com.mygdx.game.creator.map.dungeon;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
@@ -55,11 +56,30 @@ public class Dungeon implements Map2D {
 
     @Override
     public void setVisitedAreaMap(VisitedArea[][] map) {
-        this.visitedareaMap = visitedareaMap;
+        this.visitedareaMap = map;
     }
 
     @Override
     public VisibilityCalculator getVisibilityCalculator() {
         return visibilityCalculator;
+    }
+
+    @Override
+    public boolean isExplored() {
+        int visited = 0;
+        int unvisited = 0;
+
+        for (int i = 0; i < visitedareaMap.length; i++) {
+            for (int j = 0; j < visitedareaMap[0].length; j++) {
+                if(!getTile(i,j).isObstacle()) {
+                    if(visitedareaMap[i][j].equals(VisitedArea.VISIBLE) || visitedareaMap[i][j].equals(VisitedArea.VISITED_BUT_NOT_VISIBLE)) {
+                        visited++;
+                    } else {
+                        unvisited++;
+                    }
+                }
+            }
+        }
+        return unvisited < Config.Dungeon.VISITED_AREA_THRESHOLD;
     }
 }

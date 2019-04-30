@@ -3,13 +3,13 @@ package com.mygdx.game.logic.activity;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.ThreadManager;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class MovementActivity implements Activity {
@@ -27,7 +27,7 @@ public class MovementActivity implements Activity {
     private Future<List<PathFinder.Node>> path;
     private int speed;
     private int range = 0;
-    ExecutorService executor = Executors.newFixedThreadPool(Config.Engine.NUMBER_OF_THREADS);
+    private ExecutorService executor = ThreadManager.INSTANCE.getExecutor();
 
     public MovementActivity(Actor actor, int targetX, int targetY, int range, PathFinder pathFinder) {
         this.actor = actor;
@@ -53,6 +53,7 @@ public class MovementActivity implements Activity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
+            System.out.println("Path calculated");
             path = null;
         } else if (path != null && !path.isDone()) {
             //wait
@@ -67,10 +68,11 @@ public class MovementActivity implements Activity {
 
     @Override
     public void init() {
-        System.out.println("Starting activity");
+        System.out.println("Starting activity "  + actor.getActivityStack().getSize());
         pathFinder.init(actor.getCurrentMap());
         path = executor.submit(() -> pathFinder.findAStar(new Point(actor.getX(), actor.getY()), new Point(targetX, targetY)));
 
+        System.out.println("path calculation started");
         actor.setxOffset(0);
         actor.setyOffset(0);
 
@@ -84,7 +86,7 @@ public class MovementActivity implements Activity {
 
     @Override
     public int getPriority() {
-        return 100 + priorityModifier;
+        return Config.Activity.MOVEMENT_PRIORITY + priorityModifier;
     }
 
     @Override

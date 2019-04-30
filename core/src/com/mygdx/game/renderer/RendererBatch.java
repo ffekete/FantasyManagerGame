@@ -2,7 +2,6 @@ package com.mygdx.game.renderer;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.logic.visibility.VisibilityMask;
 
 import java.util.Arrays;
 import java.util.List;

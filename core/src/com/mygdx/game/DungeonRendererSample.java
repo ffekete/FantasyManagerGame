@@ -13,6 +13,7 @@ import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonCreator;
 import com.mygdx.game.item.food.Bread;
@@ -38,7 +39,7 @@ public class DungeonRendererSample extends SampleBase {
     private SpriteBatch spriteBatch;
     private TextureRegistry textureRegistry;
 
-    DungeonCreator dungeonCreator = new DummyDungeonCreator();
+    DungeonCreator dungeonCreator = new CaveDungeonCreator();
     com.mygdx.game.creator.map.dungeon.Dungeon dungeon;
     ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
@@ -63,11 +64,9 @@ public class DungeonRendererSample extends SampleBase {
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
-
-
         ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(5).Y(5));
-        ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(85).Y(55));
-        ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.FIXED.X(50).Y(50));
+        //ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(85).Y(55));
+        //ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.FIXED.X(50).Y(50));
 
         Bread bread = new Bread();
         bread.setCoordinates(10, 10);

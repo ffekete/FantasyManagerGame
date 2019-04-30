@@ -1,7 +1,9 @@
 package com.mygdx.game.logic.activity;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.registry.ItemRegistry;
 
 public class PickUpItemActivity implements Activity, CooldownActivity {
@@ -9,7 +11,7 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
     private ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
 
     private boolean firstRun = true;
-    private int priority = 98;
+    private int priority = Config.Activity.PICKUP_PRIORITY;
     private int counter = 0;
 
     private final Actor actor;
@@ -87,6 +89,7 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
         actor.setyOffset(0);
         System.out.println(" I picked up " + item);
         actor.pickUp(item);
+        ActorMovementHandler.INSTANCE.clearPath(actor);
         itemRegistry.getAllItems(actor.getCurrentMap()).remove(item);
     }
 

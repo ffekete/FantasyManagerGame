@@ -61,13 +61,10 @@ public class PathFinder {
 
         openNodes.add(startNode);
 
-        long counter = 0;
         while (!openNodes.isEmpty()) {
-
-            counter++;
             Node current = openNodes.get(0);
 
-            for (int i = 0; i < openNodes.size(); i++) {
+            for (int i = 1; i < openNodes.size(); i++) {
                 if (openNodes.get(i).f < current.f) {
                     current = openNodes.get(i);
                 }
@@ -76,13 +73,7 @@ public class PathFinder {
             openNodes.remove(current);
             closedNodes.add(current);
 
-            if ((counter == width * height && (current.x != target.getX() || current.y != target.getY()))) {
-                return new ArrayList<>();
-            }
-
-            if ((current.x == target.getX() && current.y == target.getY())
-                    || counter == width * height
-            ) {
+            if ((current.x == target.getX() && current.y == target.getY())) {
                 // hurra
                 Node c = current;
                 while (c != null) {
@@ -194,10 +185,20 @@ public class PathFinder {
 
         int f, g, h;
 
+        @Override
+        public boolean equals(Object obj) {
+            if(!this.getClass().equals(obj.getClass())) {
+                return false;
+            }
+            return ((Node)obj).x ==x && ((Node)obj).y == y;
+        }
+
         public Node(int tile, int x, int y) {
             this.tile = tile;
             this.x = x;
             this.y = y;
+
+
         }
 
         public int getX() {

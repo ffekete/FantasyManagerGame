@@ -1,12 +1,13 @@
 package com.mygdx.game.logic.activity;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.food.Food;
 
 public class SimpleEatingActivity implements Activity, CooldownActivity {
 
     private boolean firstRun = true;
-    private int priority = 99;
+    private int priority = Config.Activity.EAT_PRIORITY;
     private int counter = 0;
 
     private final Actor actor;

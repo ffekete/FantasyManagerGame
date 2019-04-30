@@ -2,6 +2,7 @@ package com.mygdx.game.logic.activity;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.attack.AttackController;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
@@ -12,7 +13,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     private AnimationRegistry animationRegistry = AnimationRegistry.INSTANCE;
 
     private boolean firstRun = true;
-    private int priority = 97;
+    private int priority = Config.Activity.ATTACK_PRIORITY;
     private int counter = 0;
 
     private final Actor actor;
@@ -99,6 +100,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
         actor.setyOffset(0);
         System.out.println(" I attacked and killed " + enemy);
         actorRegistry.getActors(actor.getCurrentMap()).remove(enemy);
+        ActorMovementHandler.INSTANCE.clearPath(actor);
         animationRegistry.remove(enemy);
     }
 

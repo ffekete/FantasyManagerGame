@@ -1,5 +1,6 @@
 package com.mygdx.game.logic.activity;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.Equipable;
 
@@ -35,7 +36,7 @@ public class EquipActivity implements Activity {
 
     @Override
     public int getPriority() {
-        return 96;
+        return Config.Activity.EQUIP_PRIORITY;
     }
 
     @Override

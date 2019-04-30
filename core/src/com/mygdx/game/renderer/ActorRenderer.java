@@ -9,6 +9,7 @@ import com.mygdx.game.actor.Direction;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.logic.activity.ExplorationActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.registry.ActorRegistry;
@@ -24,19 +25,20 @@ public class ActorRenderer implements Renderer {
     private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
 
     private Texture actorTexture = new Texture(Gdx.files.internal("warrior.png"));
+    private Texture targetTexture = new Texture(Gdx.files.internal("location.png"));
 
     @Override
     public void draw(Map2D dungeon, SpriteBatch spriteBatch) {
         VisibilityMask visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(dungeon);
 
         spriteBatch.setColor(Color.WHITE);
-        for(Actor actor : actorRegistry.getActors(dungeon)) {
+        for (Actor actor : actorRegistry.getActors(dungeon)) {
             if (Alignment.FRIENDLY.equals(actor.getAlignment()) || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
                 if (AnimationRegistry.INSTANCE.getAnimations().containsKey(actor)) {
                     Activity activity = actor.getCurrentActivity();
 
                     // if no actorAnimation is registered in animationRegistry for that activity type, draw a placeholder
-                    if(!AnimationRegistry.INSTANCE.getAnimations().get(actor).containsKey(activity.getCurrentClass()) ||
+                    if (!AnimationRegistry.INSTANCE.getAnimations().get(actor).containsKey(activity.getCurrentClass()) ||
                             AnimationRegistry.INSTANCE.getAnimations().get(actor).get(activity.getCurrentClass()) == null) {
                         spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
                         continue;
@@ -47,6 +49,11 @@ public class ActorRenderer implements Renderer {
                     spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
 
                 }
+
+            if (ExplorationActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getClass())) {
+                ExplorationActivity explorationActivity = (ExplorationActivity) actor.getActivityStack().getCurrent();
+                spriteBatch.draw(targetTexture, explorationActivity.getTargetX(), explorationActivity.getTargetY(), -2, -2, 2, 2, 1, 1, 0, 0, 0, targetTexture.getHeight(), targetTexture.getWidth(), false, false);
+            }
         }
     }
 
