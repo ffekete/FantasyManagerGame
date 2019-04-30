@@ -26,10 +26,19 @@ public class ActorMovementHandler {
 
     public Direction getDirection(Actor actor) {
         Point next = getNextPoint(actor);
-        if(next == null) {
-            return Direction.LEFT;
+        if (next == null) {
+            return Direction.DOWN;
         } else {
-            return next.getX() < actor.getX() ? Direction.RIGHT : Direction.LEFT;
+
+            if (next.getY() < actor.getY())
+                return Direction.DOWN;
+            if (next.getY() > actor.getY())
+                return Direction.UP;
+            if (next.getX() < actor.getX())
+                return Direction.LEFT;
+            //if (next.getX() > actor.getX())
+                return Direction.RIGHT;
+
         }
     }
 

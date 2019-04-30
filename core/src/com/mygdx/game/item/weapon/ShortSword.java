@@ -26,6 +26,11 @@ public class ShortSword implements Weapon, OneHandedItem {
     }
 
     @Override
+    public void onRemove(Actor actor) {
+        
+    }
+
+    @Override
     public void setCoordinates(int x, int y) {
         this.x = x;
         this.y = y;

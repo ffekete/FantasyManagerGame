@@ -7,6 +7,8 @@ import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.item.armor.Armor;
+import com.mygdx.game.item.armor.BlackPlateMail;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.activity.Activity;
@@ -42,6 +44,8 @@ public abstract class AbstractActor implements Actor {
     private ActivityStack activityStack = new ActivityStack(new PriorityQueue<>(), this);
 
     private Map2D currentMap;
+
+    private Armor wornArmor = new BlackPlateMail();
 
     public AbstractActor() {
         this.hungerLevel = Config.BASE_HUNGER_LEVEL;
@@ -232,5 +236,10 @@ public abstract class AbstractActor implements Actor {
         if(leftHand != null && Shield.class.isAssignableFrom(leftHand.getClass()))
             return ((Shield)leftHand).getDefense();
         return 0;
+    }
+
+    @Override
+    public Armor getWornArmor() {
+        return wornArmor;
     }
 }

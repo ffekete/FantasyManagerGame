@@ -6,6 +6,7 @@ import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.item.armor.Armor;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.ActivityStack;
@@ -48,6 +49,7 @@ public interface Actor {
     Equipable getLeftHandItem();
     Equipable getRightHandItem();
     int getDefenseValue();
+    Armor getWornArmor();
 
     // ******************   ActorAnimation  ********************
     Activity getCurrentActivity();

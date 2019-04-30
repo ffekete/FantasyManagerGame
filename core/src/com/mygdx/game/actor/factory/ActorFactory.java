@@ -21,7 +21,7 @@ public class ActorFactory {
             ActorRegistry.INSTANCE.add(map, actor);
             actor.setCurrentMap(map);
             placementStrategy.place(actor, map);
-            AnimationRegistry.INSTANCE.add(actor, AnimationBuilder.INSTANCE.buildFor(actor));
+            AnimationRegistry.INSTANCE.add(actor, AnimationBuilder.INSTANCE.build(actor));
         }
         return actor;
     }
