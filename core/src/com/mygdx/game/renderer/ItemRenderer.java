@@ -10,7 +10,7 @@ import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 
-public class ItemRenderer  implements Renderer {
+public class ItemRenderer implements Renderer {
 
     public static final ItemRenderer INSTANCE = new ItemRenderer();
 
@@ -23,8 +23,8 @@ public class ItemRenderer  implements Renderer {
 
         spriteBatch.setColor(Color.WHITE);
 
-        for(Item item : itemRegistry.getAllItems(dungeon)) {
-            if(!visibilityMask.getValue(item.getX(), item.getY()).isEmpty()) {
+        for (Item item : itemRegistry.getAllItems(dungeon)) {
+            if (!visibilityMask.getValue(item.getX(), item.getY()).isEmpty()) {
                 Texture actualTexture = textureRegistry.getFor(item.getClass());
                 spriteBatch.draw(actualTexture, item.getX(), item.getY(), 0, 0, 1, 1, 1, 1, 0, 0, 0, actualTexture.getWidth(), actualTexture.getHeight(), false, false);
             }

@@ -32,7 +32,7 @@ public class GameLogicController {
     public void update() {
         long start = System.currentTimeMillis();
         counter += Gdx.graphics.getDeltaTime();
-        if(counter > 0.05) {
+        if(counter > 0.025) {
             counter = 0;
 
             dayTimeCalculator.update();

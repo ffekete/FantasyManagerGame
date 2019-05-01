@@ -4,6 +4,7 @@ import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.item.Item;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,7 +21,9 @@ public class ItemRegistry {
     }
 
     public List<Item> getAllItems(Map2D map) {
-        return items.get(map);
+        if(items.containsKey(map))
+            return items.get(map);
+        return Collections.emptyList();
     }
 
     public List<Item> getAllItems(Map2D map, Class clazz) {

@@ -27,6 +27,7 @@ import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.renderer.RendererBatch;
+import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.utils.GdxUtils;
 
 
@@ -76,14 +77,13 @@ public class DungeonRendererSample extends SampleBase {
 
         Shield shield = new SmallShiled();
         shield.setCoordinates(89, 59);
-        itemRegistry.add(dungeon, shield);
-
-        itemRegistry.add(dungeon, bread);
-        itemRegistry.add(dungeon, bread2);
 
         ShortSword shortSword = new ShortSword();
         shortSword.setCoordinates(88, 58);
-        itemRegistry.add(dungeon, shortSword);
+        //itemRegistry.add(dungeon, shortSword);
+        //itemRegistry.add(dungeon, shield);
+        //itemRegistry.add(dungeon, bread);
+        //itemRegistry.add(dungeon, bread2);
 
         MapRegistry.INSTANCE.add(dungeon);
 
@@ -96,6 +96,7 @@ public class DungeonRendererSample extends SampleBase {
         spriteBatch.begin();
 
         GdxUtils.clearScreen();
+        CameraPositionController.INSTANCE.updateCamera(camera);
         gameLogicController.update();
         draw();
 
@@ -110,6 +111,12 @@ public class DungeonRendererSample extends SampleBase {
 
     public void draw() {
         RendererBatch.DUNGEON.draw(dungeon, spriteBatch);
+        try {
+            Thread.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -156,6 +163,9 @@ public class DungeonRendererSample extends SampleBase {
             camera.position.y += 20.0 * delta;
         }
 
+        if(keycode == Input.Keys.F) {
+            CameraPositionController.INSTANCE.focusOn(actorRegistry.getActors(dungeon).get(0));
+        }
         camera.update();
 
         return true;
