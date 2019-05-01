@@ -112,10 +112,14 @@ public class DungeonRendererSample extends SampleBase {
     public void draw() {
         System.out.println(Gdx.graphics.getFramesPerSecond());
         RendererBatch.DUNGEON.draw(dungeon, spriteBatch);
-        try {
-            Thread.sleep(30);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+        if(false) {
+            // low fps test
+            try {
+                Thread.sleep(30);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
     }

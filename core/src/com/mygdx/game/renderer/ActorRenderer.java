@@ -39,13 +39,13 @@ public class ActorRenderer implements Renderer {
 
                     // if no actorAnimation is registered in animationRegistry for that activity type, draw a placeholder
                     if (!AnimationRegistry.INSTANCE.getAnimations().containsKey(actor)) {
-                        spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
+                        spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 1, 1, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
                         continue;
                     }
 
-                    AnimationRegistry.INSTANCE.getAnimations().get(actor).drawKeyFrame(spriteBatch, actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 5, ActorMovementHandler.INSTANCE.getDirection(actor), activity);
+                    AnimationRegistry.INSTANCE.getAnimations().get(actor).drawKeyFrame(spriteBatch, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), 1, ActorMovementHandler.INSTANCE.getDirection(actor), activity);
                 } else {
-                    spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 3, 3, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
+                    spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 1, 1, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
 
                 }
 
