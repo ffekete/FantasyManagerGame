@@ -10,6 +10,8 @@ import com.mygdx.game.actor.Direction;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.ExplorationActivity;
 import com.mygdx.game.logic.activity.MovementActivity;
+import com.mygdx.game.logic.activity.SimpleAttackActivity;
+import com.mygdx.game.logic.activity.WaitActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 
 import java.util.Map;
@@ -76,6 +78,18 @@ public class ActorAnimation {
                     .put(Direction.RIGHT, Phase.MoveRight)
                     .build())
             .put(ExplorationActivity.class, ImmutableMap.<Direction, Phase>builder()
+                    .put(Direction.UP, Phase.MoveUp)
+                    .put(Direction.DOWN, Phase.MoveDown)
+                    .put(Direction.LEFT, Phase.MoveLeft)
+                    .put(Direction.RIGHT, Phase.MoveRight)
+                    .build())
+            .put(WaitActivity.class, ImmutableMap.<Direction, Phase>builder()
+                    .put(Direction.UP, Phase.MoveUp)
+                    .put(Direction.DOWN, Phase.MoveDown)
+                    .put(Direction.LEFT, Phase.MoveLeft)
+                    .put(Direction.RIGHT, Phase.MoveRight)
+                    .build())
+            .put(SimpleAttackActivity.class, ImmutableMap.<Direction, Phase>builder()
                     .put(Direction.UP, Phase.MoveUp)
                     .put(Direction.DOWN, Phase.MoveDown)
                     .put(Direction.LEFT, Phase.MoveLeft)

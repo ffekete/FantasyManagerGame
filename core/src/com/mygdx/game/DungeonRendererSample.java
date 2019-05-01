@@ -53,7 +53,7 @@ public class DungeonRendererSample extends SampleBase {
     public void create() {
 
         infoCamera = new OrthographicCamera();
-        infoViewPort = new FitViewport(1280,720, infoCamera);
+        infoViewPort = new FitViewport(1280, 720, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
         //bitmapFont.getData().setScale(f);
 
@@ -65,10 +65,35 @@ public class DungeonRendererSample extends SampleBase {
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
-        ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(5).Y(5));
-        //ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(85).Y(55));
-        //ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.FIXED.X(50).Y(50));
+        boolean done = false;
+        for (int i = 0; i < dungeon.getWidth(); i++) {
+            for (int j = 0; j < dungeon.getHeight(); j++) {
+                if (!dungeon.getTile(i, j).isObstacle()) {
+                    ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(i).Y(j));
+                    done = true;
+                    break;
+                }
+                if(done)
+                    break;
+            }
+        }
 
+        done = false;
+
+        //ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(85).Y(55));
+        for (int i = 0; i < dungeon.getWidth(); i++) {
+            for (int j = 0; j < dungeon.getHeight(); j++) {
+                int x = i;
+                int y = j;
+                if (!dungeon.getTile(i, j).isObstacle() && actorRegistry.getActors(dungeon).stream().noneMatch(actor -> actor.getX() == x && actor.getY() == y)) {
+                    ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.FIXED.X(i).Y(j));
+                    done = true;
+                    break;
+                }
+                if (done)
+                    break;
+            }
+        }
         Bread bread = new Bread();
         bread.setCoordinates(10, 10);
 
@@ -105,15 +130,15 @@ public class DungeonRendererSample extends SampleBase {
         infoViewPort.apply();
         spriteBatch.setProjectionMatrix(infoCamera.combined);
         spriteBatch.begin();
-        bitmapFont.draw(spriteBatch, "Hour: " + DayTimeCalculator.INSTANCE.getHour() + " Day: " + DayTimeCalculator.INSTANCE.getDay(), 10,40);
+        bitmapFont.draw(spriteBatch, "Hour: " + DayTimeCalculator.INSTANCE.getHour() + " Day: " + DayTimeCalculator.INSTANCE.getDay(), 10, 40);
         spriteBatch.end();
     }
 
     public void draw() {
-        System.out.println(Gdx.graphics.getFramesPerSecond());
+        //System.out.println(Gdx.graphics.getFramesPerSecond());
         RendererBatch.DUNGEON.draw(dungeon, spriteBatch);
 
-        if(false) {
+        if (false) {
             // low fps test
             try {
                 Thread.sleep(30);
@@ -168,7 +193,7 @@ public class DungeonRendererSample extends SampleBase {
             camera.position.y += 20.0 * delta;
         }
 
-        if(keycode == Input.Keys.F) {
+        if (keycode == Input.Keys.F) {
             CameraPositionController.INSTANCE.focusOn(actorRegistry.getActors(dungeon).get(0));
         }
         camera.update();

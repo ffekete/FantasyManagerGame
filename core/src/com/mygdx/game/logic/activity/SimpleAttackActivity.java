@@ -39,7 +39,6 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
 
     @Override
     public boolean isDone() {
-        //return Math.abs(actor.getX() - enemy.getX()) <= 1 && Math.abs(actor.getY() - enemy.getY()) <= 1;
         return enemy.getHp() <= 0;
     }
 
@@ -102,6 +101,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
         actorRegistry.getActors(actor.getCurrentMap()).remove(enemy);
         ActorMovementHandler.INSTANCE.clearPath(actor);
         animationRegistry.remove(enemy);
+        AttackController.INSTANCE.clearAttackingHistory(actor, enemy);
     }
 
     @Override
@@ -115,10 +115,10 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
             System.out.println("Enemy ran away");
             return true;
         }
-        if(actor.getHp() < actor.getMaxHp() * 0.1) {
-            System.out.println("I've had enough! [" + actor.getName() + "]");
-            return true;
-        }
+//        if(actor.getHp() < actor.getMaxHp() * 0.1) {
+//            System.out.println("I've had enough! [" + actor.getName() + "]");
+//            return true;
+//        }
         return false;
     }
 
