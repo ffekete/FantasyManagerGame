@@ -1,5 +1,6 @@
 package com.mygdx.game.logic.pathfinding;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.logic.Point;
 
@@ -7,6 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PathFinder {
+
+    // 8 ways pathfinding
+    //private static final int[][] availableNodesForCheck = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
+
+    // 4 ways pathfinding
+    private static final int[][] availableNodesForCheck = Config.Engine.ENABLE_8_WAYS_PATHFINDING ?
+            new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}} :
+            new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
     private int width;
     private int height;
@@ -85,7 +94,7 @@ public class PathFinder {
 
             List<Node> children = new ArrayList<>();
             // add children
-            for (int[] i : new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}}) {
+            for (int[] i : availableNodesForCheck) {
                 int x = current.x - i[0];
                 int y = current.y - i[1];
 

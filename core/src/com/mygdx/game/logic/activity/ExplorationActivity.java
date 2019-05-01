@@ -93,12 +93,16 @@ public class ExplorationActivity implements Activity {
 
                 newPoints.add(new Point(px, py - 1));
                 newPoints.add(new Point(px, py + 1));
-                newPoints.add(new Point(px + 1, py + 1));
                 newPoints.add(new Point(px + 1, py));
-                newPoints.add(new Point(px  +1, py -1));
-                newPoints.add(new Point(px - 1, py + 1));
                 newPoints.add(new Point(px-1, py));
-                newPoints.add(new Point(px - 1, py - 1));
+
+                if(Config.Engine.ENABLE_8_WAYS_PATHFINDING) {
+                    newPoints.add(new Point(px  +1, py -1));
+                    newPoints.add(new Point(px - 1, py + 1));
+                    newPoints.add(new Point(px - 1, py - 1));
+                    newPoints.add(new Point(px + 1, py + 1));
+                }
+
                 Collections.shuffle(newPoints, new Random(System.currentTimeMillis()));
                 points.addAll(newPoints);
             }

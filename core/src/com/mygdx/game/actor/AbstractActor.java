@@ -114,7 +114,7 @@ public abstract class AbstractActor implements Actor {
     }
 
     public int getMovementSpeed() {
-        return 30 - getAttribute(Attributes.Dexterity);
+        return 40 - getAttribute(Attributes.Dexterity);
     }
 
     @Override
