@@ -1,6 +1,8 @@
 package com.mygdx.game.renderer.camera;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 
 public class CameraPositionController {
@@ -9,6 +11,7 @@ public class CameraPositionController {
 
     private Point coord = new Point(0f,0f);
     private float zoom = 1.0f;
+    private float focusedZoom = 1.0f;
     private Actor focusedOn = null;
     private Point focusedOnPoint = new Point(0,0);
 
@@ -20,26 +23,45 @@ public class CameraPositionController {
         return coord;
     }
 
-    public void updateCamera(OrthographicCamera camera) {
+    public void updateCamera(OrthographicCamera camera, Viewport viewport) {
         Point p = getCameraposition();
         camera.position.x = p.x;
         camera.position.y = p.y;
-        camera.zoom = zoom;
+        camera.zoom = focusedOn == null ? zoom : focusedZoom;
         camera.update();
+        viewport.update(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, focusedOn == null ? true : false);
     }
 
     public void focusOn(Actor actor) {
         if(!actor.equals(focusedOn)) {
             focusedOn = actor;
-            zoom = 0.5f;
         } else {
-            zoom = 1;
             focusedOn = null;
         }
     }
 
     public void removeFocus() {
         this.focusedOn = null;
+    }
+
+    public void updateZoomLevel(float level) {
+        if(focusedOn == null) {
+            zoom += level;
+            if(zoom < 0.1f) {
+                zoom = 0.1f;
+            }
+            if(zoom > 2) {
+                zoom = 2f;
+            }
+        } else {
+            focusedZoom += level;
+            if(focusedZoom < 0.1f) {
+                focusedZoom = 0.1f;
+            }
+            if(focusedZoom > 2 ) {
+                focusedZoom = 2f;
+            }
+        }
     }
 
     private CameraPositionController() {

@@ -96,7 +96,7 @@ public class DungeonRendererSample extends SampleBase {
         spriteBatch.begin();
 
         GdxUtils.clearScreen();
-        CameraPositionController.INSTANCE.updateCamera(camera);
+        CameraPositionController.INSTANCE.updateCamera(camera, viewPort);
         gameLogicController.update();
         draw();
 
@@ -110,9 +110,10 @@ public class DungeonRendererSample extends SampleBase {
     }
 
     public void draw() {
+        System.out.println(Gdx.graphics.getFramesPerSecond());
         RendererBatch.DUNGEON.draw(dungeon, spriteBatch);
         try {
-            Thread.sleep(3);
+            Thread.sleep(30);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -141,7 +142,7 @@ public class DungeonRendererSample extends SampleBase {
     @Override
     public boolean scrolled(int amount) {
         float delta = Gdx.graphics.getDeltaTime();
-        camera.zoom += amount * delta;
+        CameraPositionController.INSTANCE.updateZoomLevel(amount * delta);
         camera.update();
         return true;
     }
