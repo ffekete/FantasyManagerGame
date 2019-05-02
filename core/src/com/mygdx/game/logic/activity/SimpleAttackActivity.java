@@ -100,6 +100,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
         System.out.println(" I attacked and killed " + enemy);
         actorRegistry.getActors(actor.getCurrentMap()).remove(enemy);
         ActorMovementHandler.INSTANCE.clearPath(actor);
+        ActorMovementHandler.INSTANCE.clearPath(enemy);
         animationRegistry.remove(enemy);
         AttackController.INSTANCE.clearAttackingHistory(actor, enemy);
     }

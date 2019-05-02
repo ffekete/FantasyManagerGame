@@ -8,7 +8,6 @@ import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.armor.Armor;
-import com.mygdx.game.item.armor.BlackPlateMail;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.activity.Activity;
@@ -245,7 +244,7 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public void setWornArmor(Armor armor) {
-        this.wornArmor = wornArmor;
+        this.wornArmor = armor;
     }
 
     @Override

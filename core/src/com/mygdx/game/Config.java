@@ -18,6 +18,10 @@ public class Config {
 
     public static final int ATTACK_DISTANCE = 15;
 
+    public static class Actor {
+        public static final int LOW_HP_THRESHOLD_DIVIDER = 3;
+    }
+
     public static class Time {
         public static final int TICK_PER_HOUR = 100;
         public static final int HOUR_PER_DAY = 24;
@@ -26,10 +30,12 @@ public class Config {
     public static class Item {
         public static final int BREAD_HUNGER_LEVEL = 100;
         public static final int PICK_UP_ITEM_DISTANCE = 15;
+        public static final int HEALING_POTION_STRENGTH = 20;
     }
 
     public static class Activity {
 
+        public static final int HEALING_POTION_CONSUME_PRIORITY = 10;
         public static final int EQUIP_PRIORITY = 10;
         public static final int ATTACK_PRIORITY = 97;
         public static final int MOVE_THEN_ATTACK_PRIORITY = 97;

@@ -21,6 +21,8 @@ import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DungeonCreator;
 import com.mygdx.game.item.food.Bread;
+import com.mygdx.game.item.potion.HealingPotion;
+import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.ShortSword;
@@ -52,6 +54,7 @@ public class DungeonRendererSample extends SampleBase {
     OrthographicCamera infoCamera;
     Viewport infoViewPort;
     BitmapFont bitmapFont;
+    Actor hero;
 
     @Override
     public void create() {
@@ -69,12 +72,15 @@ public class DungeonRendererSample extends SampleBase {
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
-        Actor hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.RANDOM);
+        hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.RANDOM);
         //Actor hero2 = ActorFactory.INSTANCE.create(Priest.class, dungeon, Placement.RANDOM);
         hero.setLeftHandItem(new ShortSword());
+        hero.getInventory().add(new SmallHealingPotion());
+        hero.getInventory().add(new SmallHealingPotion());
+        hero.getInventory().add(new SmallHealingPotion());
 
         ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.RANDOM);
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
         }
 
@@ -178,7 +184,7 @@ public class DungeonRendererSample extends SampleBase {
         }
 
         if (keycode == Input.Keys.F) {
-            CameraPositionController.INSTANCE.focusOn(actorRegistry.getActors(dungeon).get(0));
+            CameraPositionController.INSTANCE.focusOn(hero);
         }
         camera.update();
 

@@ -14,6 +14,7 @@ import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Orc;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.logic.activity.ConsumeHealingPotion;
 import com.mygdx.game.logic.activity.ExplorationActivity;
 import com.mygdx.game.logic.activity.IdleActivity;
 import com.mygdx.game.logic.activity.MovementActivity;
@@ -59,6 +60,11 @@ public class FullBodyActorAnimation implements ActorAnimation {
                 TimedIdleActivity.class.isAssignableFrom(activity.getCurrentClass())) {
             return 0;
         }
+
+        if(ConsumeHealingPotion.class.isAssignableFrom(activity.getCurrentClass())) {
+            return 1;
+        }
+
         if(MovementActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
                 ExplorationActivity.class.isAssignableFrom(activity.getCurrentClass())
         ) {

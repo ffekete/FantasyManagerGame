@@ -3,11 +3,14 @@ package com.mygdx.game.logic.activity.manager;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.faction.Alignment;
+import com.mygdx.game.item.Consumable;
 import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.food.Food;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.item.potion.HealingPotion;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.CompoundActivity;
+import com.mygdx.game.logic.activity.ConsumeHealingPotion;
 import com.mygdx.game.logic.activity.EquipActivity;
 import com.mygdx.game.logic.activity.ExplorationActivity;
 import com.mygdx.game.logic.activity.IdleActivity;
@@ -28,6 +31,7 @@ import com.mygdx.game.registry.VisibilityMapRegistry;
 
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class ActivityManager {
 
@@ -44,6 +48,13 @@ public class ActivityManager {
         Activity activity;
 
         List<Item> items = itemRegistry.getAllItems(actor.getCurrentMap());
+
+        if(actor.getInventory().has(HealingPotion.class) && !actor.getActivityStack().contains(ConsumeHealingPotion.class)) {
+            if(actor.getHp() < actor.getMaxHp() / Config.Actor.LOW_HP_THRESHOLD_DIVIDER) {
+                activity = new ConsumeHealingPotion(actor, actor.getInventory().get(HealingPotion.class));
+                actor.getActivityStack().add(activity);
+            }
+        }
 
         if(actor.getInventory().has(Equipable.class) && !actor.getActivityStack().contains(EquipActivity.class)) {
             Equipable equipable = actor.getInventory().get(Equipable.class);
@@ -155,7 +166,7 @@ public class ActivityManager {
         }
     }
 
-    private Actor findClosestEnemy(Actor actor, List<Actor> actors, Integer maxDistance) {
+    private Actor findClosestEnemy(Actor actor, Set<Actor> actors, Integer maxDistance) {
         Actor selectedActor = null;
         int x = actor.getX();
         int y = actor.getY();
