@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
+import com.mygdx.game.actor.hero.Rogue;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.logic.activity.Activity;
@@ -16,10 +17,11 @@ import java.util.Map;
 
 public class FullBodyActorAnimation implements ActorAnimation {
 
-    Texture warriorTexture = new Texture(Gdx.files.internal("warrior_ss.png"));
-    Texture rogueTexture = new Texture(Gdx.files.internal("rogue_ss.png"));
+    private Texture warriorTexture = new Texture(Gdx.files.internal("warrior_ss.png"));
+    private Texture rogueTexture = new Texture(Gdx.files.internal("rogue_ss.png"));
+    private Texture orcTexture = new Texture(Gdx.files.internal("orc_ss.png"));
 
-    float phase = 0;
+    private float phase = 0;
 
     @Override
     public void drawKeyFrame(SpriteBatch spriteBatch, float x, float y, int scale, Direction direction, Activity activity, Class<? extends Actor> actor) {
@@ -50,6 +52,7 @@ public class FullBodyActorAnimation implements ActorAnimation {
 
     Map<Class<? extends Actor>, Texture> textureMap = ImmutableMap.<Class<? extends Actor>, Texture>builder()
             .put(Warrior.class, warriorTexture)
-            .put(Goblin.class, rogueTexture)
+            .put(Goblin.class, orcTexture)
+            .put(Rogue.class, rogueTexture)
             .build();
 }
