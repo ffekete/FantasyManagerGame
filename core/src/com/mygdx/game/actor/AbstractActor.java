@@ -242,4 +242,19 @@ public abstract class AbstractActor implements Actor {
     public Armor getWornArmor() {
         return wornArmor;
     }
+
+    @Override
+    public void setWornArmor(Armor armor) {
+        this.wornArmor = wornArmor;
+    }
+
+    @Override
+    public void setLeftHandItem(Equipable equipable) {
+        this.leftHand = equipable;
+    }
+
+    @Override
+    public void setRightHandItem(Equipable equipable) {
+        this.rightHand = equipable;
+    }
 }

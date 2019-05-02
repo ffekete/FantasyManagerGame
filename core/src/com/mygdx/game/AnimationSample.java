@@ -9,13 +9,12 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
-import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.animation.ActorAnimation;
-import com.mygdx.game.animation.Animation;
+import com.mygdx.game.animation.BodyPartsBasedActorAnimation;
+import com.mygdx.game.animation.FullBodyActorAnimation;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.logic.activity.IdleActivity;
 import com.mygdx.game.logic.activity.MovementActivity;
 import com.mygdx.game.utils.GdxUtils;
 
@@ -40,12 +39,14 @@ public class AnimationSample extends SampleBase {
         viewPort = new FitViewport(6, 6, camera);
         spriteBatch = new SpriteBatch();
 
-        actorAnimation = ActorAnimation.builder()
+        actorAnimation = BodyPartsBasedActorAnimation.builder()
                 .withHead(new Texture(Gdx.files.internal("black_plate_head.png")))
                 .withTorso(new Texture(Gdx.files.internal("black_plate_torso.png")))
                 .withLegs(new Texture(Gdx.files.internal("black_plate_leg.png")))
                 .withArms(new Texture(Gdx.files.internal("black_plate_hand.png")))
                 .build();
+
+        actorAnimation = new FullBodyActorAnimation();
     }
 
     @Override
@@ -60,7 +61,7 @@ public class AnimationSample extends SampleBase {
     }
 
     public void draw() {
-        actorAnimation.drawKeyFrame(spriteBatch, 3, 3,1, Direction.RIGHT, new MovementActivity(null, 1,1,1,null));
+        actorAnimation.drawKeyFrame(spriteBatch, 3, 3,1, Direction.RIGHT, new MovementActivity(null, 1,1,1,null), Warrior.class);
 
     }
 

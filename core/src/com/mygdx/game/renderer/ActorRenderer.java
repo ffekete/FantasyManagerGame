@@ -43,7 +43,7 @@ public class ActorRenderer implements Renderer {
                         continue;
                     }
 
-                    AnimationRegistry.INSTANCE.getAnimations().get(actor).drawKeyFrame(spriteBatch, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), 1, directionDecision.getDirection(actor), activity);
+                    AnimationRegistry.INSTANCE.getAnimations().get(actor).drawKeyFrame(spriteBatch, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), 1, directionDecision.getDirection(actor), activity, actor.getClass());
                 }
 
             if (ExplorationActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getClass())) {

@@ -14,7 +14,7 @@ public class AnimationBuilder {
     public ActorAnimation build(Actor actor) {
 
         if(BlackPlateMail.class.isAssignableFrom(actor.getWornArmor().getClass())) {
-            return ActorAnimation.builder()
+            return BodyPartsBasedActorAnimation.builder()
                     .withHead(new Texture(Gdx.files.internal("black_plate_head.png")))
                     .withTorso(new Texture(Gdx.files.internal("black_plate_torso.png")))
                     .withLegs(new Texture(Gdx.files.internal("black_plate_legs.png")))

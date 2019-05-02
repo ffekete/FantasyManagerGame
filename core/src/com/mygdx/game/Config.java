@@ -13,7 +13,7 @@ public class Config {
 
     public static class Engine {
         public static final int NUMBER_OF_THREADS = 4;
-        public static final boolean ENABLE_8_WAYS_PATHFINDING = true;
+        public static final boolean ENABLE_8_WAYS_PATHFINDING = false;
     }
 
     public static final int ATTACK_DISTANCE = 15;

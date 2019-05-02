@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Warrior;
@@ -65,11 +66,13 @@ public class DungeonRendererSample extends SampleBase {
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
+        Actor hero = null;
+
         boolean done = false;
         for (int i = 0; i < dungeon.getWidth(); i++) {
             for (int j = 0; j < dungeon.getHeight(); j++) {
                 if (!dungeon.getTile(i, j).isObstacle()) {
-                    ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(i).Y(j));
+                    hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(i).Y(j));
                     done = true;
                     break;
                 }
@@ -78,6 +81,7 @@ public class DungeonRendererSample extends SampleBase {
             }
         }
 
+        hero.setLeftHandItem(new ShortSword());
         done = false;
 
         //ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(85).Y(55));

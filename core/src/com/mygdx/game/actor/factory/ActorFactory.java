@@ -2,6 +2,7 @@ package com.mygdx.game.actor.factory;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.animation.AnimationBuilder;
+import com.mygdx.game.animation.FullBodyActorAnimation;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
@@ -21,7 +22,7 @@ public class ActorFactory {
             ActorRegistry.INSTANCE.add(map, actor);
             actor.setCurrentMap(map);
             placementStrategy.place(actor, map);
-            AnimationRegistry.INSTANCE.add(actor, AnimationBuilder.INSTANCE.build(actor));
+            AnimationRegistry.INSTANCE.add(actor, new FullBodyActorAnimation());
         }
         return actor;
     }

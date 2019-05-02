@@ -50,8 +50,12 @@ public interface Actor {
     Equipable getRightHandItem();
     int getDefenseValue();
     Armor getWornArmor();
+    void setWornArmor(Armor armor);
+    void setLeftHandItem(Equipable equipable);
+    void setRightHandItem(Equipable equipable);
 
-    // ******************   ActorAnimation  ********************
+
+    // ******************   BodyPartsBasedActorAnimation  ********************
     Activity getCurrentActivity();
 
 }
