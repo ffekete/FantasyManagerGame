@@ -35,14 +35,11 @@ public class ActorRegistry {
         return actors.get(map);
     }
 
-    public boolean containsHero(Map2D dungeon) {
+    public boolean containsAnyHeroes(Map2D dungeon) {
         if(!actors.containsKey(dungeon)) {
             return false;
         }
 
-        if(Alignment.FRIENDLY.equals(((Actor)actors.get(dungeon).toArray()[0]).getAlignment())) {
-            return true;
-        }
-        return false;
+        return (actors.get(dungeon).stream().anyMatch(actor -> Alignment.FRIENDLY.equals(actor.getAlignment())));
     }
 }
