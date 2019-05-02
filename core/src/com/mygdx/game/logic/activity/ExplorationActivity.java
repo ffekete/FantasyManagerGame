@@ -46,7 +46,6 @@ public class ExplorationActivity implements Activity {
         movementActivity.update();
         // if dungeon explored or someone else explored the area
         if(movementActivity.isDone()) {
-            System.out.println("This movement is done");
             movementActivity.clear();
             boolean[][] alreadyChecked = new boolean[targetDungeon.getWidth()][targetDungeon.getHeight()];
             Point target = findNextUnexploredArea(alreadyChecked, targetDungeon, actor.getX(), actor.getY());
@@ -85,7 +84,6 @@ public class ExplorationActivity implements Activity {
                 alreadyChecked[px][py] = true;
 
                 if(VisitedArea.NOT_VISITED.equals(targetDungeon.getVisitedareaMap()[px][py])) {
-                    System.out.println("New horizon: " + px + " " + py);
                     return new Point(px, py);
                 }
 

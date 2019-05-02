@@ -53,7 +53,6 @@ public class MovementActivity implements Activity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
-            System.out.println("Path calculated");
             path = null;
         } else if (path != null && !path.isDone()) {
             //wait
@@ -72,7 +71,6 @@ public class MovementActivity implements Activity {
         pathFinder.init(actor.getCurrentMap());
         path = executor.submit(() -> pathFinder.findAStar(new Point(actor.getX(), actor.getY()), new Point(targetX, targetY)));
 
-        System.out.println("path calculation started");
         actor.setxOffset(0);
         actor.setyOffset(0);
 

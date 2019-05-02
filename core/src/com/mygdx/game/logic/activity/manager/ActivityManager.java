@@ -18,7 +18,9 @@ import com.mygdx.game.logic.activity.MovementActivity;
 import com.mygdx.game.logic.activity.PickUpItemActivity;
 import com.mygdx.game.logic.activity.SimpleAttackActivity;
 import com.mygdx.game.logic.activity.SimpleEatingActivity;
+import com.mygdx.game.logic.activity.TimedIdleActivity;
 import com.mygdx.game.logic.activity.WaitActivity;
+import com.mygdx.game.logic.activity.WaitMoveActivity;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.ItemRegistry;
@@ -53,7 +55,6 @@ public class ActivityManager {
         if(!actor.getActivityStack().contains(MoveThenAttackActivity.class)) {
             Actor enemy = findClosestEnemy(actor, actorRegistry.getActors(actor.getCurrentMap()), Config.ATTACK_DISTANCE);
             if(enemy != null) {
-                System.out.println("Enemy sighted");
                 CompoundActivity compoundActivity = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY);
                 if(actor.getAlignment().equals(Alignment.FRIENDLY)) {
                     compoundActivity.add(new MovementActivity(actor, enemy.getX(), enemy.getY(), 1, new PathFinder()));
@@ -118,19 +119,39 @@ public class ActivityManager {
                 }
             }
         }
-        if (actor.getActivityStack().isEmpty() ||
-                (actor.getActivityStack().contains(IdleActivity.class) && actor.getActivityStack().getSize() == 1)) {
-            // Nothing else to do, wandering around the map for now
-            int x;
-            int y;
-            do {
-                x = new Random().nextInt(actor.getCurrentMap().getWidth());
-                y = new Random().nextInt(actor.getCurrentMap().getHeight());
-            } while (actor.getCurrentMap().getTile(x, y).isObstacle());
+
+        if(Alignment.FRIENDLY.equals(actor.getAlignment())) {
+            if (actor.getActivityStack().isEmpty() ||
+                    (actor.getActivityStack().contains(IdleActivity.class) && actor.getActivityStack().getSize() == 1)) {
+                // Nothing else to do, wandering around the map for now
+                int x;
+                int y;
+                do {
+                    x = new Random().nextInt(actor.getCurrentMap().getWidth());
+                    y = new Random().nextInt(actor.getCurrentMap().getHeight());
+                } while (actor.getCurrentMap().getTile(x, y).isObstacle());
 
 
-            activity = new MovementActivity(actor, x, y, 0, new PathFinder());
-            actor.getActivityStack().add(activity);
+                activity = new MovementActivity(actor, x, y, 0, new PathFinder());
+                actor.getActivityStack().add(activity);
+            }
+        } else { // enemies are waiting and moving
+            if (actor.getActivityStack().isEmpty() ||
+                    (actor.getActivityStack().contains(IdleActivity.class) && actor.getActivityStack().getSize() == 1)) {
+                // Nothing else to do, wandering around the map for now
+                int x;
+                int y;
+                do {
+                    x = new Random().nextInt(actor.getCurrentMap().getWidth());
+                    y = new Random().nextInt(actor.getCurrentMap().getHeight());
+                } while (actor.getCurrentMap().getTile(x, y).isObstacle());
+
+
+                activity = new WaitMoveActivity(Config.Activity.MOVEMENT_PRIORITY);
+                ((WaitMoveActivity) activity).add(new TimedIdleActivity(5 + new Random().nextInt(5)));
+                ((WaitMoveActivity) activity).add(new MovementActivity(actor, x, y, 1, new PathFinder()));
+                actor.getActivityStack().add(activity);
+            }
         }
     }
 

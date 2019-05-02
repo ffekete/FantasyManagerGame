@@ -6,12 +6,20 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
+import com.mygdx.game.actor.hero.Priest;
+import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Rogue;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
+import com.mygdx.game.actor.monster.Orc;
+import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.ExplorationActivity;
+import com.mygdx.game.logic.activity.IdleActivity;
 import com.mygdx.game.logic.activity.MovementActivity;
+import com.mygdx.game.logic.activity.TimedIdleActivity;
+import com.mygdx.game.logic.activity.WaitActivity;
+import com.mygdx.game.logic.activity.WaitMoveActivity;
 
 import java.util.Map;
 
@@ -20,6 +28,10 @@ public class FullBodyActorAnimation implements ActorAnimation {
     private Texture warriorTexture = new Texture(Gdx.files.internal("warrior_ss.png"));
     private Texture rogueTexture = new Texture(Gdx.files.internal("rogue_ss.png"));
     private Texture orcTexture = new Texture(Gdx.files.internal("orc_ss.png"));
+    private Texture goblinTexture = new Texture(Gdx.files.internal("goblin_ss.png"));
+    private Texture skeletonTexture = new Texture(Gdx.files.internal("skeleton_ss.png"));
+    private Texture priestTexture = new Texture(Gdx.files.internal("cleric_ss.png"));
+    private Texture rangerTexture = new Texture(Gdx.files.internal("ranger_ss.png"));
 
     private float phase = 0;
 
@@ -42,17 +54,26 @@ public class FullBodyActorAnimation implements ActorAnimation {
     }
 
     private int getRow(Activity activity) {
+        if(WaitActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
+                IdleActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
+                TimedIdleActivity.class.isAssignableFrom(activity.getCurrentClass())) {
+            return 0;
+        }
         if(MovementActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
                 ExplorationActivity.class.isAssignableFrom(activity.getCurrentClass())
         ) {
-            return 2;
+            return 2; // walk
         }
-        return 3;
+        return 3; // attack
     }
 
-    Map<Class<? extends Actor>, Texture> textureMap = ImmutableMap.<Class<? extends Actor>, Texture>builder()
+    private final Map<Class<? extends Actor>, Texture> textureMap = ImmutableMap.<Class<? extends Actor>, Texture>builder()
             .put(Warrior.class, warriorTexture)
-            .put(Goblin.class, orcTexture)
+            .put(Goblin.class, goblinTexture)
             .put(Rogue.class, rogueTexture)
+            .put(Orc.class, orcTexture)
+            .put(Ranger.class, rangerTexture)
+            .put(Skeleton.class, skeletonTexture)
+            .put(Priest.class, priestTexture)
             .build();
 }

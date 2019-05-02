@@ -45,7 +45,7 @@ public abstract class AbstractActor implements Actor {
 
     private Map2D currentMap;
 
-    private Armor wornArmor = new BlackPlateMail();
+    private Armor wornArmor = null;
 
     public AbstractActor() {
         this.hungerLevel = Config.BASE_HUNGER_LEVEL;

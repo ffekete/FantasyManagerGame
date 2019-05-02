@@ -42,8 +42,6 @@ public class WaitActivity implements Activity {
 
     @Override
     public void init() {
-        System.out.println("Starting activity");
-
         actor.setxOffset(0);
         actor.setyOffset(0);
 

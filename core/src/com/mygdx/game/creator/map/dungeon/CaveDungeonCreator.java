@@ -35,13 +35,6 @@ public class CaveDungeonCreator implements DungeonCreator {
             int allArea = countTraversableArea(cellmap, Tile.FLOOR);
             fill(coord[0],coord[1], cellmap, Tile.FLOOR, Tile.EMPTY);
             int traversable = countTraversableArea(cellmap, Tile.EMPTY);
-            System.out.println(1.0f * traversable / allArea * 100.f);
-            for(int i = 0; i < cellmap.getWidth(); i++) {
-                for(int j = 0; j < cellmap.getHeight(); j++) {
-                    System.out.print(cellmap.getTile(i,j));
-                }
-                System.out.println();
-            }
         }
         System.out.println("Elapsed: " + (System.currentTimeMillis() - start) + " ms");
 

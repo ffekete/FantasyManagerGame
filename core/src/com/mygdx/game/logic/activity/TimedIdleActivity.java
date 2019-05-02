@@ -2,42 +2,36 @@ package com.mygdx.game.logic.activity;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.logic.actor.ActorMovementHandler;
-import com.mygdx.game.logic.pathfinding.PathFinder;
 
-import java.util.List;
-import java.util.concurrent.Future;
-
-public class IdleActivity implements Activity {
+public class TimedIdleActivity implements Activity {
 
     private boolean suspended = false;
-    private final Actor actor;
+    private final long timeToWait;
     private boolean firstRun = true;
     private Integer counter = 0;
+    private int waitCounter;
     private int speed;
 
-    public IdleActivity(Actor actor) {
-        this.actor = actor;
+    public TimedIdleActivity(long timeToWait) {
+        this.timeToWait = timeToWait;
     }
 
     @Override
     public boolean isDone() {
         // ths activity never stops
-        return false;
+        return timeToWait == waitCounter;
     }
 
     @Override
     public void update() {
-
+        waitCounter++;
     }
 
     @Override
     public void init() {
-        actor.setxOffset(0);
-        actor.setyOffset(0);
-
+        counter = 0;
         firstRun = false;
-        speed = actor.getMovementSpeed();
+        speed = 40;
     }
 
     @Override
@@ -97,7 +91,7 @@ public class IdleActivity implements Activity {
 
     @Override
     public boolean isTriggered() {
-        return counter == speed - 1;
+        return counter == speed -1;
     }
 
 }

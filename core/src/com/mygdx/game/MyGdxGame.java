@@ -101,8 +101,6 @@ public class MyGdxGame extends SampleBase {
     public boolean keyDown(int keycode) {
         float delta = Gdx.graphics.getDeltaTime();
 
-        System.out.println("Key pressed " + keycode);
-
         if (keycode == Input.Keys.LEFT) {
             camera.position.x -= 10.0 * delta;
         }

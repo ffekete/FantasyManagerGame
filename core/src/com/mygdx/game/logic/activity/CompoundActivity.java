@@ -32,7 +32,6 @@ public abstract class CompoundActivity implements Activity {
             } else {
                 System.out.println("Moving on to next activity in compound " + currentActivity);
                 currentActivity++;
-                System.out.println(currentActivity);
                 activities.get(currentActivity).init();
             }
         }

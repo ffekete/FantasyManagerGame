@@ -10,8 +10,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
+import com.mygdx.game.actor.hero.Priest;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
+import com.mygdx.game.actor.monster.Orc;
+import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
@@ -66,38 +69,15 @@ public class DungeonRendererSample extends SampleBase {
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
-        Actor hero = null;
-
-        boolean done = false;
-        for (int i = 0; i < dungeon.getWidth(); i++) {
-            for (int j = 0; j < dungeon.getHeight(); j++) {
-                if (!dungeon.getTile(i, j).isObstacle()) {
-                    hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(i).Y(j));
-                    done = true;
-                    break;
-                }
-                if(done)
-                    break;
-            }
-        }
-
+        Actor hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.RANDOM);
+        //Actor hero2 = ActorFactory.INSTANCE.create(Priest.class, dungeon, Placement.RANDOM);
         hero.setLeftHandItem(new ShortSword());
-        done = false;
 
-        //ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(85).Y(55));
-        for (int i = 0; i < dungeon.getWidth(); i++) {
-            for (int j = 0; j < dungeon.getHeight(); j++) {
-                int x = i;
-                int y = j;
-                if (!dungeon.getTile(i, j).isObstacle() && actorRegistry.getActors(dungeon).stream().noneMatch(actor -> actor.getX() == x && actor.getY() == y)) {
-                    ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.FIXED.X(i).Y(j));
-                    done = true;
-                    break;
-                }
-                if (done)
-                    break;
-            }
+        ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.RANDOM);
+        for (int i = 0; i < 10; i++) {
+            ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
         }
+
         Bread bread = new Bread();
         bread.setCoordinates(10, 10);
 
