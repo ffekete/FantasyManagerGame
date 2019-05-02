@@ -90,10 +90,10 @@ public class ActorAnimation {
                     .put(Direction.RIGHT, Phase.MoveRight)
                     .build())
             .put(SimpleAttackActivity.class, ImmutableMap.<Direction, Phase>builder()
-                    .put(Direction.UP, Phase.MoveUp)
-                    .put(Direction.DOWN, Phase.MoveDown)
-                    .put(Direction.LEFT, Phase.MoveLeft)
-                    .put(Direction.RIGHT, Phase.MoveRight)
+                    .put(Direction.UP, Phase.AttackUp)
+                    .put(Direction.DOWN, Phase.AttackDown)
+                    .put(Direction.LEFT, Phase.AttackLeft)
+                    .put(Direction.RIGHT, Phase.AttackRight)
                     .build())
             .build();
 
@@ -102,10 +102,10 @@ public class ActorAnimation {
         MoveDown(0),
         MoveLeft(2),
         MoveRight(3),
-        AttackUp(7),
-        AttackDown(8),
-        AttackLeft(9),
-        AttackRight(10);
+        AttackUp(5),
+        AttackDown(4),
+        AttackLeft(6),
+        AttackRight(7);
 
         private int offset;
 
