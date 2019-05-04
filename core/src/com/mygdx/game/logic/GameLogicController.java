@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.effect.manager.Effectmanager;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
@@ -20,6 +21,7 @@ public class GameLogicController {
     private double counter = 0.0;
     private final ActorRegistry actorRegistry;
     private final ActivityManager activityManager;
+    private final Effectmanager effectmanager;
 
     private MapRegistry mapRegistry = MapRegistry.INSTANCE;
     private DayTimeCalculator dayTimeCalculator = DayTimeCalculator.INSTANCE;
@@ -27,6 +29,7 @@ public class GameLogicController {
     public GameLogicController(ActorRegistry actorRegistry) {
         this.actorRegistry = actorRegistry;
         this.activityManager = new ActivityManager();
+        effectmanager = Effectmanager.INSTANCE;
     }
 
     public void update() {
@@ -47,6 +50,7 @@ public class GameLogicController {
                     });
                 }
             });
+            effectmanager.update();
         }
         if(Config.SHOW_ELAPSED_TIME)
             System.out.println(System.currentTimeMillis() - start);

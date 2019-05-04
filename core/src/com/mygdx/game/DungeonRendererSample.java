@@ -25,6 +25,7 @@ import com.mygdx.game.item.potion.HealingPotion;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.shield.SmallShiled;
+import com.mygdx.game.item.weapon.PoisonFang;
 import com.mygdx.game.item.weapon.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.time.DayTimeCalculator;
@@ -75,7 +76,6 @@ public class DungeonRendererSample extends SampleBase {
 
         hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.RANDOM);
         //Actor hero2 = ActorFactory.INSTANCE.create(Priest.class, dungeon, Placement.RANDOM);
-        hero.setLeftHandItem(new ShortSword());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
@@ -102,6 +102,12 @@ public class DungeonRendererSample extends SampleBase {
         //itemRegistry.add(dungeon, bread2);
 
         MapRegistry.INSTANCE.add(dungeon);
+
+        hero.setName("Adavark");
+
+        PoisonFang poisonFang = new PoisonFang();
+        poisonFang.setCoordinates(hero.getX() + 1, hero.getY());
+        hero.setRightHandItem(poisonFang);
 
     }
 

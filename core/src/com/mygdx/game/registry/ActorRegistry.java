@@ -5,7 +5,9 @@ import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,6 +15,7 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.stream.Collectors;
 
 public class ActorRegistry {
 
@@ -33,6 +36,10 @@ public class ActorRegistry {
         if(!actors.containsKey(map))
             return Collections.emptySet();
         return actors.get(map);
+    }
+
+    public Set<Actor> getAllActors() {
+        return actors.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
     }
 
     public boolean containsAnyHeroes(Map2D dungeon) {

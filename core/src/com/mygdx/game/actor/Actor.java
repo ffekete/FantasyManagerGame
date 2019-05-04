@@ -3,6 +3,7 @@ package com.mygdx.game.actor;
 import com.mygdx.game.actor.component.Attributes;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.effect.Effect;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.Item;
@@ -53,6 +54,7 @@ public interface Actor {
     void setWornArmor(Armor armor);
     void setLeftHandItem(Equipable equipable);
     void setRightHandItem(Equipable equipable);
+    void die();
 
 
     // ******************   BodyPartsBasedActorAnimation  ********************

@@ -12,6 +12,7 @@ import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.ActivityStack;
+import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
 
 import java.util.ArrayList;
@@ -255,5 +256,11 @@ public abstract class AbstractActor implements Actor {
     @Override
     public void setRightHandItem(Equipable equipable) {
         this.rightHand = equipable;
+    }
+
+    @Override
+    public void die() {
+        System.out.println("I'm dead." + getName());
+        ActorDeathHandler.INSTANCE.kill(this);
     }
 }

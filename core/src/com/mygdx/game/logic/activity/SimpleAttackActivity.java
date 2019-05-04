@@ -2,6 +2,7 @@ package com.mygdx.game.logic.activity;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.ActorDeathHandler;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.attack.AttackController;
 import com.mygdx.game.registry.ActorRegistry;
@@ -98,11 +99,10 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
         actor.setxOffset(0);
         actor.setyOffset(0);
         System.out.println(" I attacked and killed " + enemy);
-        actorRegistry.getActors(actor.getCurrentMap()).remove(enemy);
         ActorMovementHandler.INSTANCE.clearPath(actor);
-        ActorMovementHandler.INSTANCE.clearPath(enemy);
         animationRegistry.remove(enemy);
-        AttackController.INSTANCE.clearAttackingHistory(actor, enemy);
+        AttackController.INSTANCE.clearAttackingHistory(actor);
+        enemy.die();
     }
 
     @Override

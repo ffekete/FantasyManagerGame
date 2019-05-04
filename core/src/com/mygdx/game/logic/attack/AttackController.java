@@ -15,9 +15,8 @@ public class AttackController {
 
     private Map<Actor, Actor> actors = new HashMap<>();
 
-    public void clearAttackingHistory(Actor actor, Actor target) {
+    public void clearAttackingHistory(Actor actor) {
         actors.remove(actor);
-        actors.remove(target);
     }
 
     public Direction getAttackingDirection(Actor actor) {
@@ -85,6 +84,7 @@ public class AttackController {
         if(toHit < hitThreshold - evasion) {
             System.out.println(attacker.getName() + " attacked " + victim.getName() + " damage: " + damage);
             victim.setHp(victim.getHp() - damage);
+            weapon.onHit(victim);
         }
     }
 
