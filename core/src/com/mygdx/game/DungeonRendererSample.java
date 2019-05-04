@@ -29,6 +29,7 @@ import com.mygdx.game.item.weapon.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.registry.ActorRegistry;
+import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.TextureRegistry;
@@ -80,7 +81,7 @@ public class DungeonRendererSample extends SampleBase {
         hero.getInventory().add(new SmallHealingPotion());
 
         ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.RANDOM);
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 15; i++) {
             ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
         }
 
@@ -150,6 +151,7 @@ public class DungeonRendererSample extends SampleBase {
         spriteBatch.dispose();
         textureRegistry.dispose();
         bitmapFont.dispose();
+        AnimationRegistry.INSTANCE.dispose();
     }
 
     @Override

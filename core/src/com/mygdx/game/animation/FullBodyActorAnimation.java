@@ -82,4 +82,11 @@ public class FullBodyActorAnimation implements ActorAnimation {
             .put(Skeleton.class, skeletonTexture)
             .put(Priest.class, priestTexture)
             .build();
+
+    @Override
+    public void dispose() {
+        for(Texture t:textureMap.values()) {
+            t.dispose();
+        }
+    }
 }

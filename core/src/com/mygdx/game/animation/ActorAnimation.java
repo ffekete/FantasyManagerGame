@@ -1,10 +1,11 @@
 package com.mygdx.game.animation;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.logic.activity.Activity;
 
-public interface ActorAnimation {
+public interface ActorAnimation extends Disposable  {
     void drawKeyFrame(SpriteBatch spriteBatch, float x, float y, int scale, Direction direction, Activity activity, Class<? extends Actor> actorClass);
 }

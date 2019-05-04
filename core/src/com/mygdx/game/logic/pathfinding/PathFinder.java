@@ -57,7 +57,7 @@ public class PathFinder {
     public List<Node> findAStar(Point start, Point target) {
         Node[][] map = getObstacleMap();
         List<Node> openNodes = new ArrayList<>();
-        List<Node> closedNodes = new ArrayList<>();
+        boolean[][] closedNodes = new boolean[width][height];
         List<Node> path = new ArrayList<>();
 
         Node startNode = new Node(map[start.getX()][start.getY()].tile, start.getX(), start.getY());
@@ -80,7 +80,7 @@ public class PathFinder {
             }
 
             openNodes.remove(current);
-            closedNodes.add(current);
+            closedNodes[current.getX()][current.getY()] = true;
 
             if ((current.x == target.getX() && current.y == target.getY())) {
                 // hurra
@@ -113,7 +113,7 @@ public class PathFinder {
 
             // calculate f,g,h
             for (Node child : children) {
-                if (closedNodes.contains(child))
+                if (closedNodes[child.getX()][child.getY()])
                     continue;
                 child.g = current.g + 1;
                 child.h = distance(child, end);

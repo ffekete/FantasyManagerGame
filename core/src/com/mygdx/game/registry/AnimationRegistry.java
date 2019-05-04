@@ -1,13 +1,15 @@
 package com.mygdx.game.registry;
 
+import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.animation.ActorAnimation;
+import com.mygdx.game.animation.Animation;
 import com.mygdx.game.animation.AnimationBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class AnimationRegistry {
+public class AnimationRegistry implements Disposable {
 
     public static final AnimationRegistry INSTANCE = new AnimationRegistry();
 
@@ -31,5 +33,12 @@ public class AnimationRegistry {
 
     public void remove(Actor actor) {
         animations.remove(actor);
+    }
+
+    @Override
+    public void dispose() {
+        for(ActorAnimation a: animations.values()) {
+            a.dispose();
+        }
     }
 }
