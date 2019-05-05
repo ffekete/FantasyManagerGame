@@ -25,6 +25,7 @@ import com.mygdx.game.item.potion.HealingPotion;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.shield.SmallShiled;
+import com.mygdx.game.item.weapon.FlameTongue;
 import com.mygdx.game.item.weapon.PoisonFang;
 import com.mygdx.game.item.weapon.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
@@ -107,7 +108,7 @@ public class DungeonRendererSample extends SampleBase {
 
         PoisonFang poisonFang = new PoisonFang();
         poisonFang.setCoordinates(hero.getX() + 1, hero.getY());
-        hero.setRightHandItem(poisonFang);
+        hero.setRightHandItem(new FlameTongue());
 
     }
 

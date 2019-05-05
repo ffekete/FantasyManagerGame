@@ -1,6 +1,8 @@
-package com.mygdx.game.logic.activity;
+package com.mygdx.game.logic.activity.stack;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.logic.activity.IdleActivity;
 
 import java.util.PriorityQueue;
 
@@ -34,7 +36,7 @@ public class ActivityStack {
             return;
         }
         Activity activity = activities.peek();
-        if(activity.isCancellable()) {
+        if (activity.isCancellable()) {
             activity.cancel();
             activities.remove(activity);
         } else {
@@ -47,20 +49,19 @@ public class ActivityStack {
 
             activity.countDown();
 
-            if (activity.isDone()) {
-                activity.clear();
-                activities.remove(activity);
-                System.out.println("activity cleared + " + activity);
-            } else {
-                if (activity.isTriggered()) {
-                    activity.update();
+            if (activity.isTriggered()) {
+                activity.update();
+                if (activity.isDone()) {
+                    activity.clear();
+                    System.out.println(activities.remove(activity));
+                    System.out.println("activity cleared + " + activity);
                 }
             }
         }
     }
 
     public Activity getCurrent() {
-        if(activities.isEmpty()) {
+        if (activities.isEmpty()) {
             return null;
         }
         return activities.peek();
@@ -72,7 +73,7 @@ public class ActivityStack {
     }
 
     public boolean finishedCurrentPeriod() {
-        if(activities.isEmpty()) {
+        if (activities.isEmpty()) {
             return false;
         }
         return activities.peek().isTriggered();
