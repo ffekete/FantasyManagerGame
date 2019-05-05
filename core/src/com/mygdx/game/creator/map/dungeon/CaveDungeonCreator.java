@@ -1,11 +1,11 @@
 package com.mygdx.game.creator.map.dungeon;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.creator.map.Tile;
+import com.mygdx.game.creator.map.Map2D;
 
 import java.util.Random;
 
-public class CaveDungeonCreator implements DungeonCreator {
+public class CaveDungeonCreator implements MapGenerator {
 
     private final static boolean DEBUG = false;
     private int deathLimit = 5;
@@ -14,7 +14,7 @@ public class CaveDungeonCreator implements DungeonCreator {
     private float chanceToStartAlive = 45;
 
     @Override
-    public Dungeon create() {
+    public Map2D create() {
 
         long start = System.currentTimeMillis();
         //Create a new map

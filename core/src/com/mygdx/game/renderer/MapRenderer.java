@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Config;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.Tile;
+import com.mygdx.game.creator.map.dungeon.Tile;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.VisibilityMapRegistry;

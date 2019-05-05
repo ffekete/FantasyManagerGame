@@ -2,7 +2,7 @@ package com.mygdx.game.logic.visibility;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.Tile;
+import com.mygdx.game.creator.map.dungeon.Tile;
 import com.mygdx.game.faction.Alignment;
 
 import java.util.HashSet;

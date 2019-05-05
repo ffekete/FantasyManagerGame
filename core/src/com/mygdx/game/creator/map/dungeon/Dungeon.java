@@ -2,7 +2,6 @@ package com.mygdx.game.creator.map.dungeon;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.Tile;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 

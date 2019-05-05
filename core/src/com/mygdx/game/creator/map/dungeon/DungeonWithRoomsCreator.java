@@ -1,13 +1,13 @@
 package com.mygdx.game.creator.map.dungeon;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.creator.map.Tile;
+import com.mygdx.game.creator.map.Map2D;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class DungeonWithRoomsCreator implements DungeonCreator {
+public class DungeonWithRoomsCreator implements MapGenerator {
 
     private static final int NR_OF_SEGMENTS = 5;
     private static final int ROOM_MAX_WIDTH = Config.Dungeon.DUNGEON_WIDTH / NR_OF_SEGMENTS;
@@ -17,7 +17,7 @@ public class DungeonWithRoomsCreator implements DungeonCreator {
     private static final int ROOM_APPEARANCE_CHANCE = 60;
 
     @Override
-    public Dungeon create() {
+    public Map2D create() {
         Dungeon map = new Dungeon(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT);
 
         for(int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {

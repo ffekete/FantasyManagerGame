@@ -1,4 +1,4 @@
-package com.mygdx.game.creator.map;
+package com.mygdx.game.creator.map.dungeon;
 
 import com.mygdx.game.creator.TileBase;
 

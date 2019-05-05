@@ -36,9 +36,9 @@ import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.utils.GdxUtils;
 
 
-public class DungeonRendererSample extends SampleBase {
+public class WorldMapSample extends SampleBase {
 
-    public final static SampleInfo SAMPLE_INFO = new SampleInfo(DungeonRendererSample.class);
+    public final static SampleInfo SAMPLE_INFO = new SampleInfo(WorldMapSample.class);
 
     private OrthographicCamera camera;
     private Viewport viewPort;
@@ -72,7 +72,6 @@ public class DungeonRendererSample extends SampleBase {
         Gdx.input.setInputProcessor(this);
 
         hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.RANDOM);
-        //Actor hero2 = ActorFactory.INSTANCE.create(Priest.class, dungeon, Placement.RANDOM);
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
@@ -93,10 +92,6 @@ public class DungeonRendererSample extends SampleBase {
 
         ShortSword shortSword = new ShortSword();
         shortSword.setCoordinates(88, 58);
-        //itemRegistry.add(dungeon, shortSword);
-        //itemRegistry.add(dungeon, shield);
-        //itemRegistry.add(dungeon, bread);
-        //itemRegistry.add(dungeon, bread2);
 
         MapRegistry.INSTANCE.add(dungeon);
 

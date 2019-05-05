@@ -9,16 +9,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.creator.map.Tile;
+import com.mygdx.game.creator.map.dungeon.Tile;
 import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
-import com.mygdx.game.creator.map.dungeon.DungeonCreator;
-import com.mygdx.game.creator.map.dungeon.DungeonWithRoomsCreator;
-import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.visibility.VisibilityMask;
-import com.mygdx.game.logic.visibility.VisibilityCalculator;
+import com.mygdx.game.creator.map.dungeon.MapGenerator;
 import com.mygdx.game.utils.GdxUtils;
-
-import java.util.Arrays;
 
 
 public class DungeonWithRoomsRendererSample extends SampleBase {
@@ -32,7 +26,7 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     private Texture floorTexture;
     private Texture playerTexture;
 
-    DungeonCreator dungeonCreator = new CaveDungeonCreator();
+    MapGenerator dungeonCreator = new CaveDungeonCreator();
     com.mygdx.game.creator.map.dungeon.Dungeon dungeon;
 
     int px = 1, py = 1;
