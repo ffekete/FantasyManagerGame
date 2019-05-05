@@ -1,9 +1,10 @@
-package com.mygdx.game.logic.activity;
+package com.mygdx.game.logic.activity.single;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.logic.visibility.VisitedArea;
 

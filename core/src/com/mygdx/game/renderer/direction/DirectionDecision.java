@@ -2,10 +2,10 @@ package com.mygdx.game.renderer.direction;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
-import com.mygdx.game.logic.activity.ExplorationActivity;
-import com.mygdx.game.logic.activity.MovementActivity;
-import com.mygdx.game.logic.activity.SimpleAttackActivity;
-import com.mygdx.game.logic.activity.WaitActivity;
+import com.mygdx.game.logic.activity.single.ExplorationActivity;
+import com.mygdx.game.logic.activity.single.MovementActivity;
+import com.mygdx.game.logic.activity.single.SimpleAttackActivity;
+import com.mygdx.game.logic.activity.single.WaitActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.attack.AttackController;
 

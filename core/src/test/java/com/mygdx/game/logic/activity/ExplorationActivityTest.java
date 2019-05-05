@@ -6,6 +6,7 @@ import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.activity.single.ExplorationActivity;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.MapRegistry;
 

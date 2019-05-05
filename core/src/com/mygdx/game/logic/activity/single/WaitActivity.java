@@ -1,29 +1,39 @@
-package com.mygdx.game.logic.activity;
+package com.mygdx.game.logic.activity.single;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class IdleActivity implements Activity {
+public class WaitActivity implements Activity {
 
     private boolean suspended = false;
     private final Actor actor;
+    private int priorityModifier = 0;
     private boolean firstRun = true;
     private Integer counter = 0;
+    private boolean done = false;
     private int speed;
+    private int range = 1;
+    Actor enemy;
 
-    public IdleActivity(Actor actor) {
+    public WaitActivity(Actor actor, Actor enemy, int range) {
         this.actor = actor;
+        this.range = range;
+        this.enemy = enemy;
     }
 
     @Override
     public boolean isDone() {
-        // ths activity never stops
-        return false;
+        return (done || (Math.abs(actor.getX() - enemy.getX()) <= range && Math.abs(actor.getY() - enemy.getY()) <= range));
     }
 
     @Override
@@ -46,7 +56,7 @@ public class IdleActivity implements Activity {
 
     @Override
     public int getPriority() {
-        return Config.Activity.IDLE_PRIORITY;
+        return Config.Activity.WAIT_PRIORITY + priorityModifier;
     }
 
     @Override
@@ -80,9 +90,8 @@ public class IdleActivity implements Activity {
         return false;
     }
 
-    @Override
-    public Class getCurrentClass() {
-        return this.getClass();
+    public void setPriorityModifier(int priorityModifier) {
+        this.priorityModifier = priorityModifier;
     }
 
     @Override
@@ -98,6 +107,11 @@ public class IdleActivity implements Activity {
     @Override
     public boolean isTriggered() {
         return counter == speed - 1;
+    }
+
+    @Override
+    public Class getCurrentClass() {
+        return this.getClass();
     }
 
 }

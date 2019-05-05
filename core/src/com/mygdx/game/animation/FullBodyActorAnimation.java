@@ -14,13 +14,12 @@ import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Orc;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.logic.activity.Activity;
-import com.mygdx.game.logic.activity.ConsumeHealingPotion;
-import com.mygdx.game.logic.activity.ExplorationActivity;
-import com.mygdx.game.logic.activity.IdleActivity;
-import com.mygdx.game.logic.activity.MovementActivity;
-import com.mygdx.game.logic.activity.TimedIdleActivity;
-import com.mygdx.game.logic.activity.WaitActivity;
-import com.mygdx.game.logic.activity.WaitMoveActivity;
+import com.mygdx.game.logic.activity.single.ConsumeHealingPotion;
+import com.mygdx.game.logic.activity.single.ExplorationActivity;
+import com.mygdx.game.logic.activity.single.IdleActivity;
+import com.mygdx.game.logic.activity.single.MovementActivity;
+import com.mygdx.game.logic.activity.single.TimedIdleActivity;
+import com.mygdx.game.logic.activity.single.WaitActivity;
 
 import java.util.Map;
 

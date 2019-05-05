@@ -2,7 +2,7 @@ package com.mygdx.game.logic.activity.stack;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.activity.Activity;
-import com.mygdx.game.logic.activity.IdleActivity;
+import com.mygdx.game.logic.activity.single.IdleActivity;
 
 import java.util.PriorityQueue;
 

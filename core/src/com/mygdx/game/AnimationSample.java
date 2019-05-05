@@ -15,7 +15,7 @@ import com.mygdx.game.animation.BodyPartsBasedActorAnimation;
 import com.mygdx.game.animation.FullBodyActorAnimation;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.logic.activity.MovementActivity;
+import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.utils.GdxUtils;
 
 

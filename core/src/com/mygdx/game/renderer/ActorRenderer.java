@@ -8,7 +8,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.activity.Activity;
-import com.mygdx.game.logic.activity.ExplorationActivity;
+import com.mygdx.game.logic.activity.single.ExplorationActivity;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
