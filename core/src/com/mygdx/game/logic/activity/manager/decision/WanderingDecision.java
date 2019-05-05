@@ -23,8 +23,22 @@ public class WanderingDecision implements Decision {
                 int x;
                 int y;
                 do {
-                    x = new Random().nextInt(actor.getCurrentMap().getWidth());
-                    y = new Random().nextInt(actor.getCurrentMap().getHeight());
+                    x = actor.getX() -10 + new Random().nextInt(actor.getX() + 20);
+                    if(x >= actor.getCurrentMap().getWidth()) {
+                        x = actor.getCurrentMap().getWidth() -1;
+                    }
+                    if(x < 0) {
+                        x = 0;
+                    }
+
+                    y = actor.getY() -10 + new Random().nextInt(actor.getY() + 20);
+                    if(y >= actor.getCurrentMap().getHeight()) {
+                        y = actor.getCurrentMap().getHeight();
+                    }
+                    if(y < 0) {
+                        y = 0;
+                    }
+
                 } while (actor.getCurrentMap().getTile(x, y).isObstacle());
 
 
@@ -39,8 +53,21 @@ public class WanderingDecision implements Decision {
                 int x;
                 int y;
                 do {
-                    x = new Random().nextInt(actor.getCurrentMap().getWidth());
-                    y = new Random().nextInt(actor.getCurrentMap().getHeight());
+                    x = actor.getX() -10 + new Random().nextInt(actor.getX() + 20);
+                    if(x >= actor.getCurrentMap().getWidth()) {
+                        x = actor.getCurrentMap().getWidth() -1;
+                    }
+                    if(x < 0) {
+                        x = 0;
+                    }
+
+                    y = actor.getY() -10 + new Random().nextInt(actor.getY() + 20);
+                    if(y >= actor.getCurrentMap().getHeight()) {
+                        y = actor.getCurrentMap().getHeight() -1;
+                    }
+                    if(y < 0) {
+                        y = 0;
+                    }
                 } while (actor.getCurrentMap().getTile(x, y).isObstacle());
 
                 WaitMoveActivity activity = new WaitMoveActivity(Config.Activity.MOVEMENT_PRIORITY);

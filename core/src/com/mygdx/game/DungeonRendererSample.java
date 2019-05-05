@@ -131,7 +131,7 @@ public class DungeonRendererSample extends SampleBase {
     }
 
     public void draw() {
-        //System.out.println(Gdx.graphics.getFramesPerSecond());
+        System.out.println(Gdx.graphics.getFramesPerSecond());
         RendererBatch.DUNGEON.draw(dungeon, spriteBatch);
 
         if (false) {
