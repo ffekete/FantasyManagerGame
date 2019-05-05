@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Config;
+import com.mygdx.game.creator.TileBase;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.Tile;
 import com.mygdx.game.logic.visibility.VisibilityMask;
@@ -23,7 +24,7 @@ public class MapRenderer  implements Renderer {
 
         VisibilityMask visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(dungeon);
 
-        Tile[][] drawMap = visibilityMask.mask(dungeon, dungeon.getVisitedareaMap());
+        TileBase[][] drawMap = visibilityMask.mask(dungeon, dungeon.getVisitedareaMap());
 
         for (int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
             for (int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {

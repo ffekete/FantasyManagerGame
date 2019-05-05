@@ -1,8 +1,6 @@
 package com.mygdx.game;
 
 public class Config {
-    public static final int WORLD_WIDTH = 1000;
-    public static final int WORLD_HEIGHT = 1000;
 
     public static final int SCREEN_WIDTH = 1024;
     public static final int SCREEN_HEIGHT = 768;
@@ -18,12 +16,17 @@ public class Config {
 
     public static final int ATTACK_DISTANCE = 15;
 
+    public static class WorldMap {
+        public static final int WORLD_WIDTH = 1000;
+        public static final int WORLD_HEIGHT = 1000;
+    }
+
     public static class Actor {
         public static final int LOW_HP_THRESHOLD_DIVIDER = 3;
     }
 
     public static class Time {
-        public static final int TICK_PER_HOUR = 100;
+        public static final int TICK_PER_HOUR = 1000;
         public static final int HOUR_PER_DAY = 24;
     }
 

@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.Tile;
 import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
@@ -27,7 +28,7 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     private Texture playerTexture;
 
     MapGenerator dungeonCreator = new CaveDungeonCreator();
-    com.mygdx.game.creator.map.dungeon.Dungeon dungeon;
+    Map2D dungeon;
 
     int px = 1, py = 1;
 

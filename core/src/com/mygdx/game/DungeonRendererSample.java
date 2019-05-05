@@ -15,7 +15,9 @@ import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
+import com.mygdx.game.creator.map.dungeon.Dungeon;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
@@ -46,7 +48,7 @@ public class DungeonRendererSample extends SampleBase {
     private TextureRegistry textureRegistry;
 
     MapGenerator dungeonCreator = new CaveDungeonCreator();
-    com.mygdx.game.creator.map.dungeon.Dungeon dungeon;
+    Map2D dungeon;
     ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
     GameLogicController gameLogicController = new GameLogicController(actorRegistry);

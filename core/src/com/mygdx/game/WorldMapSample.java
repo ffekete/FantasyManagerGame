@@ -15,8 +15,10 @@ import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
+import com.mygdx.game.creator.map.worldmap.WorldMapGenerator;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.shield.Shield;
@@ -45,8 +47,7 @@ public class WorldMapSample extends SampleBase {
     private SpriteBatch spriteBatch;
     private TextureRegistry textureRegistry;
 
-    MapGenerator dungeonCreator = new CaveDungeonCreator();
-    com.mygdx.game.creator.map.dungeon.Dungeon dungeon;
+    Map2D worldMap;
     ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
     GameLogicController gameLogicController = new GameLogicController(actorRegistry);
@@ -54,6 +55,7 @@ public class WorldMapSample extends SampleBase {
     Viewport infoViewPort;
     BitmapFont bitmapFont;
     Actor hero;
+    MapGenerator mapGenerator = new WorldMapGenerator();
 
     @Override
     public void create() {
@@ -67,18 +69,18 @@ public class WorldMapSample extends SampleBase {
         viewPort = new FitViewport(100, 100, camera);
         spriteBatch = new SpriteBatch();
 
-        dungeon = dungeonCreator.create();
+        worldMap = mapGenerator.create();
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
-        hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.RANDOM);
+        hero = ActorFactory.INSTANCE.create(Warrior.class, worldMap, Placement.RANDOM);
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
 
-        ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.RANDOM);
+        ActorFactory.INSTANCE.create(Goblin.class, worldMap, Placement.RANDOM);
         for (int i = 0; i < 15; i++) {
-            ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
+            ActorFactory.INSTANCE.create(Skeleton.class, worldMap, Placement.RANDOM);
         }
 
         Bread bread = new Bread();
@@ -93,7 +95,7 @@ public class WorldMapSample extends SampleBase {
         ShortSword shortSword = new ShortSword();
         shortSword.setCoordinates(88, 58);
 
-        MapRegistry.INSTANCE.add(dungeon);
+        MapRegistry.INSTANCE.add(worldMap);
 
         hero.setName("Adavark");
 
@@ -125,7 +127,7 @@ public class WorldMapSample extends SampleBase {
 
     public void draw() {
         //System.out.println(Gdx.graphics.getFramesPerSecond());
-        RendererBatch.DUNGEON.draw(dungeon, spriteBatch);
+        RendererBatch.DUNGEON.draw(worldMap, spriteBatch);
 
         if (false) {
             // low fps test

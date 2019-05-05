@@ -1,6 +1,7 @@
 package com.mygdx.game.logic.visibility;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.creator.TileBase;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.Tile;
 import com.mygdx.game.faction.Alignment;
@@ -28,10 +29,10 @@ public class VisibilityMask {
         }
     }
 
-    public Tile[][] mask(Map2D map, VisitedArea[][] visitedAreaMap) {
+    public TileBase[][] mask(Map2D map, VisitedArea[][] visitedAreaMap) {
         if (width != map.getWidth() || height != map.getHeight())
             throw new IllegalArgumentException("Map sizes are not matching with mask!");
-        Tile[][] newMap = new Tile[map.getWidth()][map.getHeight()];
+        TileBase[][] newMap = new Tile[map.getWidth()][map.getHeight()];
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {

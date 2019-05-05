@@ -11,6 +11,18 @@ public class WorldMapGenerator implements MapGenerator {
 
     @Override
     public Map2D create() {
-        return null;
+
+        int width = Config.WorldMap.WORLD_WIDTH;
+        int height = Config.WorldMap.WORLD_HEIGHT;
+
+        Map2D worldMap = new WorldMap(width, height);
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                worldMap.setTile(i,j, WorldMapTile.GRASS);
+            }
+        }
+
+        return worldMap;
     }
 }

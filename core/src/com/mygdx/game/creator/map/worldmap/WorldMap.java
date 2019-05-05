@@ -1,19 +1,20 @@
-package com.mygdx.game.creator.map.dungeon;
+package com.mygdx.game.creator.map.worldmap;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.creator.TileBase;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.creator.map.dungeon.Tile;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 
-public class Dungeon implements Map2D {
-    private TileBase[][] dungeon;
+public class WorldMap implements Map2D {
+    private TileBase[][] worldMap;
     private VisitedArea[][] visitedareaMap;
     private final int height;
     private final int width;
     private final VisibilityCalculator visibilityCalculator;
 
-    public Dungeon(int width, int height) {
+    public WorldMap(int width, int height) {
         this.height = height;
         this.width = width;
 
@@ -25,20 +26,20 @@ public class Dungeon implements Map2D {
                 visitedareaMap[i][j] = VisitedArea.NOT_VISITED;
             }
         }
-        this.dungeon = new Tile[width][height];
+        this.worldMap = new Tile[width][height];
     }
 
     public TileBase getTile(int x, int y) {
         if(x < 0 || x > width -1 || y < 0 || y > width -1)
-            return Tile.EMPTY;
-        return dungeon[x][y];
+            return WorldMapTile.EMPTY;
+        return worldMap[x][y];
     }
 
     public void setTile(int x, int y, TileBase value) {
         if(x < 0 || x > width -1 || y < 0 || y > width -1)
             return;
 
-        dungeon[x][y] = value;
+        worldMap[x][y] = value;
     }
 
     public int getHeight() {

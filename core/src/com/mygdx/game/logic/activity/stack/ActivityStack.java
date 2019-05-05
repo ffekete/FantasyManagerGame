@@ -73,8 +73,8 @@ public class ActivityStack {
     }
 
     public boolean finishedCurrentPeriod() {
-        if (activities.isEmpty()) {
-            return false;
+        if (activities.isEmpty() || (activities.size() == 1 && IdleActivity.class.isAssignableFrom(activities.peek().getCurrentClass()))) {
+            return true;
         }
         return activities.peek().isTriggered();
     }
