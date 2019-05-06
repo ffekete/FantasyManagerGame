@@ -16,8 +16,10 @@ import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
+import com.mygdx.game.creator.map.object.WorldObjectFactory;
+import com.mygdx.game.creator.map.object.factory.ObjectPlacement;
+import com.mygdx.game.creator.map.object.interactive.DungeonEntrance;
 import com.mygdx.game.creator.map.worldmap.WorldMapGenerator;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
@@ -57,6 +59,8 @@ public class WorldMapSample extends SampleBase {
     Actor hero;
     MapGenerator mapGenerator = new WorldMapGenerator();
 
+    WorldObjectFactory objectFactory = WorldObjectFactory.INSTANCE;
+
     @Override
     public void create() {
 
@@ -78,22 +82,12 @@ public class WorldMapSample extends SampleBase {
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
 
+        WorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, ObjectPlacement.FIXED.X(15).Y(15));
+
         ActorFactory.INSTANCE.create(Goblin.class, worldMap, Placement.RANDOM);
         for (int i = 0; i < 15; i++) {
             ActorFactory.INSTANCE.create(Skeleton.class, worldMap, Placement.RANDOM);
         }
-
-        Bread bread = new Bread();
-        bread.setCoordinates(10, 10);
-
-        Bread bread2 = new Bread();
-        bread2.setCoordinates(80, 80);
-
-        Shield shield = new SmallShiled();
-        shield.setCoordinates(89, 59);
-
-        ShortSword shortSword = new ShortSword();
-        shortSword.setCoordinates(88, 58);
 
         MapRegistry.INSTANCE.add(worldMap);
 

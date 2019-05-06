@@ -10,6 +10,7 @@ import com.mygdx.game.item.Item;
 import com.mygdx.game.item.armor.Armor;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.weapon.Weapon;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.stack.ActivityStack;
 import com.mygdx.game.registry.AnimationRegistry;
@@ -71,9 +72,9 @@ public abstract class AbstractActor implements Actor {
     }
 
     @Override
-    public void setCoordinates(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public void setCoordinates(Point point) {
+        this.x = point.getX();
+        this.y = point.getY();
     }
 
     // override this later for monsters!

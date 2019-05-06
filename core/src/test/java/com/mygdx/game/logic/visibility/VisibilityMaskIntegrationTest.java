@@ -6,6 +6,7 @@ import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
+import com.mygdx.game.logic.Point;
 
 import org.testng.annotations.Test;
 
@@ -23,10 +24,10 @@ public class VisibilityMaskIntegrationTest {
         Map2D dungeon = new DummyDungeonCreator().create();
         Actor warrior = new Warrior();
         warrior.setCurrentMap(dungeon);
-        warrior.setCoordinates(0,0);
+        warrior.setCoordinates(new Point(0,0));
 
         Actor goblin = new Goblin();
-        goblin.setCoordinates(0, 1);
+        goblin.setCoordinates(new Point(0, 1));
         goblin.setCurrentMap(dungeon);
 
         VisibilityMask mask = visibilityCalculator.generateMask(dungeon, 3, Arrays.asList(warrior, goblin));

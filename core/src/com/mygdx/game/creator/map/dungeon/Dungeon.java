@@ -3,6 +3,7 @@ package com.mygdx.game.creator.map.dungeon;
 import com.mygdx.game.Config;
 import com.mygdx.game.creator.TileBase;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 
@@ -81,5 +82,10 @@ public class Dungeon implements Map2D {
             }
         }
         return unvisited < Config.Dungeon.VISITED_AREA_THRESHOLD;
+    }
+
+    @Override
+    public Point getDefaultSpawnPoint() {
+        return null;
     }
 }

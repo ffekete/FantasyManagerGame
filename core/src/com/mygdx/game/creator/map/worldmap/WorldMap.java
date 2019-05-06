@@ -4,6 +4,7 @@ import com.mygdx.game.Config;
 import com.mygdx.game.creator.TileBase;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.Tile;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 
@@ -26,7 +27,7 @@ public class WorldMap implements Map2D {
                 visitedareaMap[i][j] = VisitedArea.NOT_VISITED;
             }
         }
-        this.worldMap = new Tile[width][height];
+        this.worldMap = new WorldMapTile[width][height];
     }
 
     public TileBase getTile(int x, int y) {
@@ -82,5 +83,10 @@ public class WorldMap implements Map2D {
             }
         }
         return unvisited < Config.Dungeon.VISITED_AREA_THRESHOLD;
+    }
+
+    @Override
+    public Point getDefaultSpawnPoint() {
+        return null;
     }
 }

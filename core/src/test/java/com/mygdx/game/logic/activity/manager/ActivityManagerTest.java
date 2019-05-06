@@ -5,6 +5,7 @@ import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveThenAttackActivity;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.registry.ActorRegistry;
@@ -27,10 +28,10 @@ public class ActivityManagerTest {
         VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
 
         Actor hero = new Warrior();
-        hero.setCoordinates(10, 10);
+        hero.setCoordinates(new Point(10, 10));
         hero.setCurrentMap(dungeon);
         Actor goblin = new Goblin();
-        goblin.setCoordinates(15, 15);
+        goblin.setCoordinates(new Point(15, 15));
         goblin.setCurrentMap(dungeon);
 
         visibilityMask.setValue(15,15, hero);

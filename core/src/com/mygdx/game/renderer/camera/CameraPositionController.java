@@ -67,9 +67,17 @@ public class CameraPositionController {
     private CameraPositionController() {
     }
 
-    class Point {
+    public class Point {
         float x;
         float y;
+
+        public float getX() {
+            return x;
+        }
+
+        public float getY() {
+            return y;
+        }
 
         public Point(float x, float y) {
             this.x = x;

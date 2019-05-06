@@ -9,7 +9,7 @@ import java.util.List;
 public enum RendererBatch implements Renderer {
 
     DUNGEON(
-            Arrays.asList(MapRenderer.INSTANCE,
+            Arrays.asList(DungeonRenderer.INSTANCE,
             ItemRenderer.INSTANCE,
             ActorRenderer.INSTANCE)
     );

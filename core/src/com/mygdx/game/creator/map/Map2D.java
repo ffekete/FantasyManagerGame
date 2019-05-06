@@ -2,6 +2,7 @@ package com.mygdx.game.creator.map;
 
 import com.mygdx.game.creator.TileBase;
 import com.mygdx.game.creator.map.dungeon.Tile;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 
@@ -17,4 +18,6 @@ public interface Map2D {
     VisibilityCalculator getVisibilityCalculator();
 
     boolean isExplored();
+
+    Point getDefaultSpawnPoint();
 }

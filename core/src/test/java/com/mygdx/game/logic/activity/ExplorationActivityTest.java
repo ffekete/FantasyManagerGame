@@ -33,7 +33,7 @@ public class ExplorationActivityTest {
         dungeon.setVisitedAreaMap(map);
         MapRegistry.INSTANCE.add(dungeon);
         Actor actor = new Warrior();
-        actor.setCoordinates(5,5);
+        actor.setCoordinates(new Point(5,5));
         actor.setCurrentMap(dungeon);
         activity = new ExplorationActivity(dungeon, actor);
         //activity.init();

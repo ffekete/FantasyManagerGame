@@ -8,6 +8,7 @@ import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.armor.Armor;
 import com.mygdx.game.item.weapon.Weapon;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.stack.ActivityStack;
 
@@ -23,7 +24,7 @@ public interface Actor {
     void setCurrentMap(Map2D map);
 
     int getMovementSpeed();
-    void setCoordinates(int x, int y);
+    void setCoordinates(Point point);
     boolean isHungry();
     void increaseHunger(int amount);
     void decreaseHunger(int amount);

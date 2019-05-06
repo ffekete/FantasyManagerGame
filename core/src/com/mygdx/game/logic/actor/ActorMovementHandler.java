@@ -118,7 +118,7 @@ public class ActorMovementHandler {
 
         if (path != null && !path.isEmpty()) {
             PathFinder.Node next = path.remove(path.size() - 1);
-            movableActor.setCoordinates(next.getX(), next.getY());
+            movableActor.setCoordinates(new Point(next.getX(), next.getY()));
         }
         return true;
     }

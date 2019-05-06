@@ -19,6 +19,7 @@ public class Config {
     public static class WorldMap {
         public static final int WORLD_WIDTH = 1000;
         public static final int WORLD_HEIGHT = 1000;
+        public static final int CLUSTER_DIVIDER = 10;
     }
 
     public static class Actor {
