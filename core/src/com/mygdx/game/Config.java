@@ -17,8 +17,8 @@ public class Config {
     public static final int ATTACK_DISTANCE = 15;
 
     public static class WorldMap {
-        public static final int WORLD_WIDTH = 1000;
-        public static final int WORLD_HEIGHT = 1000;
+        public static final int WORLD_WIDTH = 2000;
+        public static final int WORLD_HEIGHT = 2000;
         public static final int CLUSTER_DIVIDER = 10;
     }
 

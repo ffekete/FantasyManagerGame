@@ -33,7 +33,7 @@ public class ActorRenderer implements Renderer {
 
         spriteBatch.setColor(Color.WHITE);
         for (Actor actor : actorRegistry.getActors(dungeon)) {
-            if (Alignment.FRIENDLY.equals(actor.getAlignment()) || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
+            if (Alignment.FRIENDLY.equals(actor.getAlignment()) || visibilityMask == null || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
                 if (AnimationRegistry.INSTANCE.getAnimations().containsKey(actor)) {
                     Activity activity = actor.getCurrentActivity();
 

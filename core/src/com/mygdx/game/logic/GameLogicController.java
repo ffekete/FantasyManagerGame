@@ -58,7 +58,7 @@ public class GameLogicController {
 
     private void calculateVisibilityForMaps() {
         for(Map2D map : mapRegistry.getMaps()) {
-            if(actorRegistry.containsAnyHeroes(map)) {
+            if(actorRegistry.containsAnyHeroes(map) && !Map2D.MapType.WORLD_MAP.equals(map.getMapType())) {
                 List<Actor> coordinatesForVisibilityCalculation = new ArrayList<>();
                 // get all actors in the list
                 coordinatesForVisibilityCalculation.addAll(actorRegistry.getActors(map));
