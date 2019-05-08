@@ -8,6 +8,12 @@ import java.util.List;
 
 public enum RendererBatch implements Renderer {
 
+    WORLD_MAP(
+            Arrays.asList(WorldMapRenderer.INSTANCE,
+                    ItemRenderer.INSTANCE,
+                    ActorRenderer.INSTANCE)
+    ),
+
     DUNGEON(
             Arrays.asList(DungeonRenderer.INSTANCE,
             ItemRenderer.INSTANCE,

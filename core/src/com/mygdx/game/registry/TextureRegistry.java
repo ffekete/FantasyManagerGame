@@ -52,7 +52,7 @@ public class TextureRegistry {
     }
 
     public Texture getForobject(Class<? extends WorldObject> objectClass) {
-        return mapTextures.get(objectClass);
+        return objectTextures.get(objectClass);
     }
 
 

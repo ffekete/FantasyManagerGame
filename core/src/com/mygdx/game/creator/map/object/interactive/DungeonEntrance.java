@@ -12,9 +12,7 @@ public class DungeonEntrance implements InteractiveObject {
     private int x;
     private int y;
 
-    public DungeonEntrance(int x, int y, Map2D to) {
-        this.x = x;
-        this.y = y;
+    public DungeonEntrance(Map2D to) {
         this.to = to;
     }
 

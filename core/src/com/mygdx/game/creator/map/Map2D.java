@@ -20,4 +20,11 @@ public interface Map2D {
     boolean isExplored();
 
     Point getDefaultSpawnPoint();
+
+    MapType getMapType();
+
+    enum MapType {
+        DUNGEON,
+        WORLD_MAP;
+    }
 }

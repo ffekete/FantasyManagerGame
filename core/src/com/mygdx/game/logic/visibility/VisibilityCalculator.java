@@ -27,7 +27,7 @@ public class VisibilityCalculator {
             calculateFor(actor, range, mask, map);
         }
 
-        refine(mask);
+        refine(mask); // todo move this to for loop above
 
         return mask;
     }

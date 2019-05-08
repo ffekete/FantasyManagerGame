@@ -14,6 +14,7 @@ public class WorldMap implements Map2D {
     private final int height;
     private final int width;
     private final VisibilityCalculator visibilityCalculator;
+    private final MapType mapType = MapType.WORLD_MAP;
 
     public WorldMap(int width, int height) {
         this.height = height;
@@ -88,5 +89,10 @@ public class WorldMap implements Map2D {
     @Override
     public Point getDefaultSpawnPoint() {
         return null;
+    }
+
+    @Override
+    public MapType getMapType() {
+        return mapType;
     }
 }

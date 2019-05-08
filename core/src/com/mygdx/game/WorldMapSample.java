@@ -16,18 +16,16 @@ import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
-import com.mygdx.game.creator.map.object.WorldObjectFactory;
+import com.mygdx.game.creator.map.object.LinkedWorldObjectFactory;
 import com.mygdx.game.creator.map.object.factory.ObjectPlacement;
 import com.mygdx.game.creator.map.object.interactive.DungeonEntrance;
+import com.mygdx.game.creator.map.worldmap.WorldMap;
 import com.mygdx.game.creator.map.worldmap.WorldMapGenerator;
-import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
-import com.mygdx.game.item.shield.Shield;
-import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.FlameTongue;
 import com.mygdx.game.item.weapon.PoisonFang;
-import com.mygdx.game.item.weapon.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.registry.ActorRegistry;
@@ -58,8 +56,11 @@ public class WorldMapSample extends SampleBase {
     BitmapFont bitmapFont;
     Actor hero;
     MapGenerator mapGenerator = new WorldMapGenerator();
+    MapGenerator dungeonCreator = new CaveDungeonCreator();
 
-    WorldObjectFactory objectFactory = WorldObjectFactory.INSTANCE;
+    LinkedWorldObjectFactory objectFactory = LinkedWorldObjectFactory.INSTANCE;
+
+    Map2D shownMap;
 
     @Override
     public void create() {
@@ -77,19 +78,24 @@ public class WorldMapSample extends SampleBase {
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
-        hero = ActorFactory.INSTANCE.create(Warrior.class, worldMap, Placement.RANDOM);
+        hero = ActorFactory.INSTANCE.create(Warrior.class, worldMap, Placement.FIXED.X(10).Y(10));
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
 
-        WorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, ObjectPlacement.FIXED.X(15).Y(15));
+        CameraPositionController.INSTANCE.focusOn(hero);
+
+        Map2D dungeon = dungeonCreator.create();
+
+        LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(15).Y(15));
 
         ActorFactory.INSTANCE.create(Goblin.class, worldMap, Placement.RANDOM);
-        for (int i = 0; i < 15; i++) {
-            ActorFactory.INSTANCE.create(Skeleton.class, worldMap, Placement.RANDOM);
-        }
+//        for (int i = 0; i < 15; i++) {
+//            ActorFactory.INSTANCE.create(Skeleton.class, worldMap, Placement.RANDOM);
+//        }
 
         MapRegistry.INSTANCE.add(worldMap);
+        shownMap = worldMap;
 
         hero.setName("Adavark");
 
@@ -120,8 +126,12 @@ public class WorldMapSample extends SampleBase {
     }
 
     public void draw() {
-        //System.out.println(Gdx.graphics.getFramesPerSecond());
-        RendererBatch.DUNGEON.draw(worldMap, spriteBatch);
+        System.out.println(Gdx.graphics.getFramesPerSecond());
+
+        if(Map2D.MapType.WORLD_MAP.equals(shownMap.getMapType()))
+            RendererBatch.WORLD_MAP.draw(shownMap, spriteBatch);
+        else
+            RendererBatch.DUNGEON.draw(shownMap, spriteBatch);
 
         if (false) {
             // low fps test

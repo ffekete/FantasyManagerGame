@@ -13,6 +13,7 @@ public class Dungeon implements Map2D {
     private final int height;
     private final int width;
     private final VisibilityCalculator visibilityCalculator;
+    private final MapType mapType = MapType.DUNGEON;
 
     public Dungeon(int width, int height) {
         this.height = height;
@@ -87,5 +88,10 @@ public class Dungeon implements Map2D {
     @Override
     public Point getDefaultSpawnPoint() {
         return null;
+    }
+
+    @Override
+    public MapType getMapType() {
+        return mapType;
     }
 }

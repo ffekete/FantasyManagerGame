@@ -2,6 +2,7 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 
 import java.util.List;
@@ -23,7 +24,8 @@ class DecisionUtils {
             int a = actor1.getX();
             int b = actor1.getY();
 
-            if(!VisibilityMapRegistry.INSTANCE.getFor(actor.getCurrentMap()).getValue(a,b).contains(actor)) {
+            VisibilityMask mask = VisibilityMapRegistry.INSTANCE.getFor(actor.getCurrentMap());
+            if(mask != null && !mask.getValue(a,b).contains(actor)) {
                 continue;
             }
 

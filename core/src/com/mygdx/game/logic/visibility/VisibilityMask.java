@@ -29,37 +29,28 @@ public class VisibilityMask {
         }
     }
 
-    public TileBase[][] mask(Map2D map, VisitedArea[][] visitedAreaMap) {
+    public void mask(Map2D map, VisitedArea[][] visitedAreaMap) {
         if (width != map.getWidth() || height != map.getHeight())
             throw new IllegalArgumentException("Map sizes are not matching with mask!");
-        TileBase[][] newMap = new Tile[map.getWidth()][map.getHeight()];
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 if(!mask[i][j].isEmpty() && mask[i][j].stream().noneMatch(visitor -> visitor.getAlignment().equals(Alignment.FRIENDLY))) {
                     if (visitedAreaMap[i][j] == VisitedArea.NOT_VISITED) {
-                        newMap[i][j] = Tile.EMPTY;
                     } else {
                         visitedAreaMap[i][j] = VisitedArea.VISITED_BUT_NOT_VISIBLE; // visited but not seen
-                        newMap[i][j] = map.getTile(i, j);
                     }
                 }
                 else if (mask[i][j].isEmpty()) {
                     if (visitedAreaMap[i][j] == VisitedArea.NOT_VISITED) {
-                        newMap[i][j] = Tile.EMPTY;
                     } else {
                         visitedAreaMap[i][j] = VisitedArea.VISITED_BUT_NOT_VISIBLE; // visited but not seen
-                        newMap[i][j] = map.getTile(i, j);
                     }
                 } else {
                     visitedAreaMap[i][j] = VisitedArea.VISIBLE; // visited and seen
-                    newMap[i][j] = map.getTile(i, j);
-
                 }
             }
         }
-
-        return newMap;
     }
 
 

@@ -6,20 +6,22 @@ import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.object.factory.ObjectPlacement;
 import com.mygdx.game.registry.WorldMapObjectRegistry;
 
-public class WorldObjectFactory {
+import java.lang.reflect.InvocationTargetException;
 
-    public static final WorldObjectFactory INSTANCE = new WorldObjectFactory();
+public class LinkedWorldObjectFactory {
+
+    public static final LinkedWorldObjectFactory INSTANCE = new LinkedWorldObjectFactory();
 
     private final WorldMapObjectRegistry worldMapObjectRegistry = WorldMapObjectRegistry.INSTANCE;
 
-    private WorldObjectFactory() {
+    private LinkedWorldObjectFactory() {
     }
 
-    public WorldObject create(Class<? extends WorldObject> clazz, Map2D map, ObjectPlacement placement) {
+    public WorldObject create(Class<? extends WorldObject> clazz, Map2D map, Map2D linkTo, ObjectPlacement placement) {
         WorldObject object = null;
         try {
-            object = clazz.newInstance();
-        } catch (IllegalAccessException | InstantiationException e) {
+            object = clazz.getDeclaredConstructor(Map2D.class).newInstance(linkTo);
+        } catch (InvocationTargetException | NoSuchMethodException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
             return null;
         }

@@ -22,7 +22,7 @@ public class DungeonRenderer implements Renderer {
 
         VisibilityMask visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(map);
 
-        TileBase[][] drawMap = visibilityMask.mask(map, map.getVisitedareaMap());
+        visibilityMask.mask(map, map.getVisitedareaMap());
 
         for (int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
             for (int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {
@@ -32,9 +32,10 @@ public class DungeonRenderer implements Renderer {
                 } else {
                     spriteBatch.setColor(Color.WHITE);
                 }
-                Texture texture = textureRegistry.getForTile(drawMap[i][j]);
-                spriteBatch.draw(texture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
-
+                if (map.getVisitedareaMap()[i][j] != VisitedArea.NOT_VISITED) {
+                    Texture texture = textureRegistry.getForTile(map.getTile(i, j));
+                    spriteBatch.draw(texture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
+                }
             }
         }
     }
