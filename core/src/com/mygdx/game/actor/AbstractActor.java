@@ -27,8 +27,7 @@ public abstract class AbstractActor implements Actor {
     private Inventory inventory;
     private Map<Attributes, Integer> baseAttributes;
 
-    private int x;
-    private int y;
+    private Point coordinates;
     private int hungerLevel;
     private Alignment alignment;
 
@@ -58,12 +57,12 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public int getX() {
-        return x;
+        return coordinates.getX();
     }
 
     @Override
     public int getY() {
-        return y;
+        return coordinates.getY();
     }
 
     @Override
@@ -73,8 +72,12 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public void setCoordinates(Point point) {
-        this.x = point.getX();
-        this.y = point.getY();
+        this.coordinates = point;
+    }
+
+    @Override
+    public Point getCoordinates() {
+        return coordinates;
     }
 
     // override this later for monsters!

@@ -41,6 +41,7 @@ public class GameLogicController {
             dayTimeCalculator.update();
 
             calculateVisibilityForMaps();
+
             MapRegistry.INSTANCE.getMaps().forEach(map -> {
                 if(actorRegistry.containsAnyHeroes(map)) {
                     actorRegistry.getActors(map).forEach(actor -> {
@@ -53,12 +54,12 @@ public class GameLogicController {
             effectmanager.update();
         }
         if(Config.SHOW_ELAPSED_TIME)
-            System.out.println(System.currentTimeMillis() - start);
+            System.out.println("Elapsed time in GameLogicUpdater " + (System.currentTimeMillis() - start));
     }
 
     private void calculateVisibilityForMaps() {
         for(Map2D map : mapRegistry.getMaps()) {
-            if(actorRegistry.containsAnyHeroes(map) && !Map2D.MapType.WORLD_MAP.equals(map.getMapType())) {
+            if(actorRegistry.containsAnyHeroes(map)) {
                 List<Actor> coordinatesForVisibilityCalculation = new ArrayList<>();
                 // get all actors in the list
                 coordinatesForVisibilityCalculation.addAll(actorRegistry.getActors(map));

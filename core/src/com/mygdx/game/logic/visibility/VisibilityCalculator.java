@@ -2,6 +2,7 @@ package com.mygdx.game.logic.visibility;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.registry.VisibilityMapRegistry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,18 +17,26 @@ public class VisibilityCalculator {
     public final int width;
     public final int height;
 
+    private final VisibilityMapRegistry visibilityMapRegistry = VisibilityMapRegistry.INSTANCE;
+
     public VisibilityCalculator(int width, int height) {
         this.width = width;
         this.height = height;
     }
 
     public VisibilityMask generateMask(Map2D map, int range, List<Actor> points) {
-        VisibilityMask mask = new VisibilityMask(width, height);
+        VisibilityMask mask = visibilityMapRegistry.getFor(map);
+        if(mask == null) {
+            mask = new VisibilityMask(width, height);
+        } else {
+            mask.reset();
+        }
+
         for (Actor actor : points) {
             calculateFor(actor, range, mask, map);
         }
 
-        refine(mask); // todo move this to for loop above
+        refine(mask);
 
         return mask;
     }
@@ -139,63 +148,66 @@ public class VisibilityCalculator {
         }
     }
 
-    // todo: dont go through the hole array, just check the area where the circle is
     private void refine(VisibilityMask mask) {
-        for (int i = 1; i < width - 1; i++) {
-            for (int j = 1; j < height - 1; j++) {
-                int a = mask.getValue(i - 1, j).size() > 0 ? 1 : 0;
-                int b = mask.getValue(i + 1, j).size() > 0 ? 1 : 0;
-                int c = mask.getValue(i, j - 1).size() > 0 ? 1 : 0;
-                int d = mask.getValue(i, j + 1).size() > 0 ? 1 : 0;
-                int sum = a + b + c + d;
-                if (((mask.getValue(i, j).isEmpty() && sum >= 3)
-                        || (mask.getValue(i, j).size() < sum)))
-                {
-                    Set<Actor> finalActors = new HashSet<>();
+        for(VisibilityMask.ChangedArea area : mask.getChangedAreas()) {
+            for (int i = Math.max(1, area.p1.getX()); i < Math.min(area.p2.getX(), mask.getWidth()-1); i++) {
+                for (int j = Math.max(1, area.p1.getY()); j < Math.min(area.p2.getY(), mask.getHeight()-1); j++) {
+                    int a = mask.getValue(i - 1, j).size() > 0 ? 1 : 0;
+                    int b = mask.getValue(i + 1, j).size() > 0 ? 1 : 0;
+                    int c = mask.getValue(i, j - 1).size() > 0 ? 1 : 0;
+                    int d = mask.getValue(i, j + 1).size() > 0 ? 1 : 0;
+                    int sum = a + b + c + d;
+                    if (((mask.getValue(i, j).isEmpty() && sum >= 3)
+                            || (mask.getValue(i, j).size() < sum))) {
+                        Set<Actor> finalActors = new HashSet<>();
 
-                    Map<Actor, Integer> actors = new HashMap<>();
+                        Map<Actor, Integer> actors = new HashMap<>();
 
-                    for (Actor actor : mask.getValue(i - 1, j)) {
-                        if (actors.containsKey(actor)) {
-                            actors.put(actor, actors.get(actor) + 1);
-                        } else {
-                            actors.put(actor, 1);
+                        for (Actor actor : mask.getValue(i - 1, j)) {
+                            if (actors.containsKey(actor)) {
+                                actors.put(actor, actors.get(actor) + 1);
+                            } else {
+                                actors.put(actor, 1);
+                            }
                         }
-                    }
 
-                    for (Actor actor : mask.getValue(i + 1, j)) {
-                        if (actors.containsKey(actor)) {
-                            actors.put(actor, actors.get(actor) + 1);
-                        } else {
-                            actors.put(actor, 1);
+                        for (Actor actor : mask.getValue(i + 1, j)) {
+                            if (actors.containsKey(actor)) {
+                                actors.put(actor, actors.get(actor) + 1);
+                            } else {
+                                actors.put(actor, 1);
+                            }
                         }
-                    }
 
-                    for (Actor actor : mask.getValue(i, j - 1)) {
-                        if (actors.containsKey(actor)) {
-                            actors.put(actor, actors.get(actor) + 1);
-                        } else {
-                            actors.put(actor, 1);
+                        for (Actor actor : mask.getValue(i, j - 1)) {
+                            if (actors.containsKey(actor)) {
+                                actors.put(actor, actors.get(actor) + 1);
+                            } else {
+                                actors.put(actor, 1);
+                            }
                         }
-                    }
 
-                    for (Actor actor : mask.getValue(i, j + 1)) {
-                        if (actors.containsKey(actor)) {
-                            actors.put(actor, actors.get(actor) + 1);
-                        } else {
-                            actors.put(actor, 1);
+                        for (Actor actor : mask.getValue(i, j + 1)) {
+                            if (actors.containsKey(actor)) {
+                                actors.put(actor, actors.get(actor) + 1);
+                            } else {
+                                actors.put(actor, 1);
+                            }
                         }
+
+                        finalActors.addAll(actors.keySet().stream().filter(key -> actors.get(key) >= 3).collect(Collectors.toSet()));
+
+                        mask.setAllValue(i, j, finalActors);
                     }
-
-                    finalActors.addAll(actors.keySet().stream().filter(key -> actors.get(key) >= 3).collect(Collectors.toSet()));
-
-                    mask.setAllValue(i, j, finalActors);
                 }
             }
         }
     }
 
     private void calculateFor(Actor actor, int range, VisibilityMask visibilityMask, Map2D map) {
+
+        visibilityMask.addChangedArea(actor.getX() - range -2, actor.getY() - range -2, actor.getX() + range + 2, actor.getY() + range +2, actor);
+
         List<Integer[]> points = midPointCircleDraw(actor.getX(), actor.getY(), range);
 
         for (Integer[] point : points) {

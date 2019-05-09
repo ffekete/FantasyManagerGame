@@ -25,6 +25,7 @@ public interface Actor {
 
     int getMovementSpeed();
     void setCoordinates(Point point);
+    Point getCoordinates();
     boolean isHungry();
     void increaseHunger(int amount);
     void decreaseHunger(int amount);

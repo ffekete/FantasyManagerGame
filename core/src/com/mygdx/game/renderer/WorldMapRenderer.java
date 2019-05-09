@@ -37,8 +37,8 @@ public class WorldMapRenderer implements Renderer {
 
         CameraPositionController.Point cameraPosition = cameraPositionController.getCameraposition();
 
-        for (int i = Math.max((int)cameraPositionController.getCameraposition().getX()-20, 0); i < Math.max((int)cameraPositionController.getCameraposition().getX() + 20, Config.WorldMap.WORLD_WIDTH); i++) {
-            for (int j = Math.max((int)cameraPositionController.getCameraposition().getY()-20, 0); j < Math.max((int)cameraPositionController.getCameraposition().getY() + 20, Config.WorldMap.WORLD_HEIGHT); j++) {
+        for (int i = Math.max((int)cameraPositionController.getCameraposition().getX()-40, 0); i < Math.min((int)cameraPositionController.getCameraposition().getX() + 40, Config.WorldMap.WORLD_WIDTH); i++) {
+            for (int j = Math.max((int)cameraPositionController.getCameraposition().getY()-40, 0); j < Math.min((int)cameraPositionController.getCameraposition().getY() + 40, Config.WorldMap.WORLD_HEIGHT); j++) {
                 if (map.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
                     spriteBatch.setColor(Color.DARK_GRAY);
                 } else {
