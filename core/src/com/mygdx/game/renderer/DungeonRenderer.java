@@ -3,6 +3,7 @@ package com.mygdx.game.renderer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.mygdx.game.Config;
 import com.mygdx.game.creator.TileBase;
 import com.mygdx.game.creator.map.Map2D;

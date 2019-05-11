@@ -41,7 +41,7 @@ public class TextureRegistry {
 
         mapTextures = ImmutableMap.<TileBase, Texture>builder()
                 .put(WorldMapTile.GRASS, new Texture(Gdx.files.internal("grass.jpg")))
-                .put(Tile.STONE_WALL, new Texture(Gdx.files.internal("wall.jpg")))
+                .put(Tile.STONE_WALL, new Texture(Gdx.files.internal("wall.png")))
                 .put(Tile.FLOOR, new Texture(Gdx.files.internal("terrain.jpg")))
                 .put(Tile.EMPTY, new Texture(Gdx.files.internal("void.png")))
                 .build();

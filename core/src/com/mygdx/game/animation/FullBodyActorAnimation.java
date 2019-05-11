@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class FullBodyActorAnimation implements ActorAnimation {
 
-    private Texture warriorTexture = new Texture(Gdx.files.internal("warrior_ss.png"));
+    private Texture warriorTexture = new Texture(Gdx.files.internal("warrior2.png"));
     private Texture rogueTexture = new Texture(Gdx.files.internal("rogue_ss.png"));
     private Texture orcTexture = new Texture(Gdx.files.internal("orc_ss.png"));
     private Texture goblinTexture = new Texture(Gdx.files.internal("goblin_ss.png"));
@@ -37,7 +37,7 @@ public class FullBodyActorAnimation implements ActorAnimation {
 
     @Override
     public void drawKeyFrame(SpriteBatch spriteBatch, float x, float y, int scale, Direction direction, Activity activity, Class<? extends Actor> actor) {
-        phase = (phase + 0.1f) % 10f;
+        phase = (phase + 0.1f) % 3f;
 
         int row = getRow(activity);
 
@@ -67,9 +67,9 @@ public class FullBodyActorAnimation implements ActorAnimation {
         if(MovementActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
                 ExplorationActivity.class.isAssignableFrom(activity.getCurrentClass())
         ) {
-            return 2; // walk
+            return 0; // walk
         }
-        return 3; // attack
+        return 1; // attack
     }
 
     private final Map<Class<? extends Actor>, Texture> textureMap = ImmutableMap.<Class<? extends Actor>, Texture>builder()

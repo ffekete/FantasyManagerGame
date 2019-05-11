@@ -11,7 +11,7 @@ public class CameraPositionController {
 
     private Point coord = new Point(0f,0f);
     private float zoom = 1.0f;
-    private float focusedZoom = 1.0f;
+    private float focusedZoom = 0.2f;
     private Actor focusedOn = null;
     private Point focusedOnPoint = new Point(0,0);
 
