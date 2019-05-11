@@ -83,7 +83,6 @@ public class DungeonRendererSample extends SampleBase {
         hero.getInventory().add(new SmallHealingPotion());
         hero.setLeftHandItem(new SmallShiled());
 
-        ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.RANDOM);
         for (int i = 0; i < 15; i++) {
             Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
             s.setRightHandItem(new ShortSword());

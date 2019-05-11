@@ -27,7 +27,6 @@ public class ActorRenderer implements Renderer {
     private final DirectionDecision directionDecision = DirectionDecision.INSTANCE;
     private final ActionManager actionManager = ActionManager.INSTANCE;
 
-    private Texture actorTexture = new Texture(Gdx.files.internal("warrior.png"));
     private Texture targetTexture = new Texture(Gdx.files.internal("location.png"));
 
     @Override

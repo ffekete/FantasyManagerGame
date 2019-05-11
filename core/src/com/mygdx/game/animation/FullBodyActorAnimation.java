@@ -26,12 +26,7 @@ import java.util.Map;
 public class FullBodyActorAnimation implements ActorAnimation {
 
     private Texture warriorTexture = new Texture(Gdx.files.internal("Warrior2.png"));
-    private Texture rogueTexture = new Texture(Gdx.files.internal("rogue_ss.png"));
-    private Texture orcTexture = new Texture(Gdx.files.internal("orc_ss.png"));
-    private Texture goblinTexture = new Texture(Gdx.files.internal("goblin_ss.png"));
     private Texture skeletonTexture = new Texture(Gdx.files.internal("skeleton_ss.png"));
-    private Texture priestTexture = new Texture(Gdx.files.internal("cleric_ss.png"));
-    private Texture rangerTexture = new Texture(Gdx.files.internal("ranger_ss.png"));
 
     private float phase = 0;
 
@@ -74,12 +69,7 @@ public class FullBodyActorAnimation implements ActorAnimation {
 
     private final Map<Class<? extends Actor>, Texture> textureMap = ImmutableMap.<Class<? extends Actor>, Texture>builder()
             .put(Warrior.class, warriorTexture)
-            .put(Goblin.class, goblinTexture)
-            .put(Rogue.class, rogueTexture)
-            .put(Orc.class, orcTexture)
-            .put(Ranger.class, rangerTexture)
             .put(Skeleton.class, skeletonTexture)
-            .put(Priest.class, priestTexture)
             .build();
 
     @Override
