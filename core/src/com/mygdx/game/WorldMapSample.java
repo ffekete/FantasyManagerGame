@@ -33,6 +33,7 @@ import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.MapRegistry;
+import com.mygdx.game.registry.SpriteBatchRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.renderer.RendererBatch;
 import com.mygdx.game.renderer.camera.CameraPositionController;
@@ -47,7 +48,6 @@ public class WorldMapSample extends SampleBase {
 
     private OrthographicCamera camera;
     private Viewport viewPort;
-    private SpriteBatch spriteBatch;
     private TextureRegistry textureRegistry;
 
     Map2D worldMap;
@@ -74,7 +74,8 @@ public class WorldMapSample extends SampleBase {
 
         camera = new OrthographicCamera();
         viewPort = new FitViewport(100, 100, camera);
-        spriteBatch = new SpriteBatch();
+
+        SpriteBatchRegistry.INSTANCE.setSpriteBatch(new SpriteBatch());
 
         worldMap = mapGenerator.create();
         textureRegistry = TextureRegistry.INSTANCE;
@@ -119,31 +120,31 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public void render() {
-        spriteBatch.setProjectionMatrix(camera.combined);
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(camera.combined);
         viewPort.apply();
-        spriteBatch.begin();
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().begin();
 
         GdxUtils.clearScreen();
         CameraPositionController.INSTANCE.updateCamera(camera, viewPort);
         gameLogicController.update();
         draw();
 
-        spriteBatch.end();
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().end();
 
         infoViewPort.apply();
-        spriteBatch.setProjectionMatrix(infoCamera.combined);
-        spriteBatch.begin();
-        bitmapFont.draw(spriteBatch, "Hour: " + DayTimeCalculator.INSTANCE.getHour() + " Day: " + DayTimeCalculator.INSTANCE.getDay(), 10, 40);
-        spriteBatch.end();
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(infoCamera.combined);
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().begin();
+        bitmapFont.draw(SpriteBatchRegistry.INSTANCE.getSpriteBatch(), "Hour: " + DayTimeCalculator.INSTANCE.getHour() + " Day: " + DayTimeCalculator.INSTANCE.getDay(), 10, 40);
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().end();
     }
 
     public void draw() {
         //System.out.println(Gdx.graphics.getFramesPerSecond());
 
         if(Map2D.MapType.WORLD_MAP.equals(MapRegistry.INSTANCE.getCurrentMapToShow().getMapType()))
-            RendererBatch.WORLD_MAP.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), spriteBatch);
+            RendererBatch.WORLD_MAP.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), SpriteBatchRegistry.INSTANCE.getSpriteBatch());
         else
-            RendererBatch.DUNGEON.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), spriteBatch);
+            RendererBatch.DUNGEON.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), SpriteBatchRegistry.INSTANCE.getSpriteBatch());
 
         if (false) {
             // low fps test
@@ -164,7 +165,7 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public void dispose() {
-        spriteBatch.dispose();
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().dispose();
         textureRegistry.dispose();
         bitmapFont.dispose();
         AnimationRegistry.INSTANCE.dispose();

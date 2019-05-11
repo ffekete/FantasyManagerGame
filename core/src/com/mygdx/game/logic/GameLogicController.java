@@ -5,6 +5,7 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.effect.manager.Effectmanager;
+import com.mygdx.game.logic.action.manager.ActionManager;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;

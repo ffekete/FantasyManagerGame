@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.Direction;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
+import com.mygdx.game.logic.action.manager.ActionManager;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.single.ExplorationActivity;
 import com.mygdx.game.logic.visibility.VisibilityMask;
@@ -23,6 +25,7 @@ public class ActorRenderer implements Renderer {
     private final ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
     private final DirectionDecision directionDecision = DirectionDecision.INSTANCE;
+    private final ActionManager actionManager = ActionManager.INSTANCE;
 
     private Texture actorTexture = new Texture(Gdx.files.internal("warrior.png"));
     private Texture targetTexture = new Texture(Gdx.files.internal("location.png"));
@@ -36,20 +39,20 @@ public class ActorRenderer implements Renderer {
             if (Alignment.FRIENDLY.equals(actor.getAlignment()) || visibilityMask == null || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
                 if (AnimationRegistry.INSTANCE.getAnimations().containsKey(actor)) {
                     Activity activity = actor.getCurrentActivity();
-
-                    // if no actorAnimation is registered in animationRegistry for that activity type, draw a placeholder
-                    if (!AnimationRegistry.INSTANCE.getAnimations().containsKey(actor)) {
-                        spriteBatch.draw(textureRegistry.getFor(actor.getClass()), actor.getX() - 1 + actor.getxOffset(), actor.getY() - 1 + actor.getyOffset(), 0, 0, 1, 1, 1, 1, 0, 0, 0, actorTexture.getWidth(), actorTexture.getHeight(), false, false);
-                        continue;
-                    }
-
                     AnimationRegistry.INSTANCE.getAnimations().get(actor).drawKeyFrame(spriteBatch, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), 1, directionDecision.getDirection(actor), activity, actor.getClass());
                 }
 
+            if(actor.getLeftHandItem() != null) {
+                Texture itemTexture = textureRegistry.getFor(actor.getLeftHandItem().getClass());
+                spriteBatch.draw(itemTexture, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), 0, 0, 1, 1, 1, 1, 0, 0, 0, itemTexture.getHeight(), itemTexture.getWidth(), directionDecision.getDirection(actor).equals(Direction.LEFT) || directionDecision.getDirection(actor).equals(Direction.UP), false);
+            }
+
             if (ExplorationActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getClass())) {
                 ExplorationActivity explorationActivity = (ExplorationActivity) actor.getActivityStack().getCurrent();
-                spriteBatch.draw(targetTexture, explorationActivity.getTargetX(), explorationActivity.getTargetY(), -2, -2, 2, 2, 1, 1, 0, 0, 0, targetTexture.getHeight(), targetTexture.getWidth(), false, false);
+                spriteBatch.draw(targetTexture, explorationActivity.getTargetX(), explorationActivity.getTargetY(), 0, 0, 1, 1, 1, 1, 0, 0, 0, targetTexture.getHeight(), targetTexture.getWidth(), false, false);
             }
+
+            actionManager.update();
         }
     }
 

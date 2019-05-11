@@ -22,7 +22,7 @@ public class CaveDungeonCreator implements MapGenerator {
         //Set up the map with random values
         cellmap = initialiseMap(cellmap);
 
-        //And now run the simulation for a set number of steps
+        //And now update the simulation for a set number of steps
         for(int i=0; i<numberOfSteps; i++){
             cellmap = doSimulationStep(cellmap);
         }

@@ -264,6 +264,7 @@ public abstract class AbstractActor implements Actor {
     @Override
     public void die() {
         System.out.println("I'm dead." + getName());
+        activityStack.getCurrent().cancel();
         ActorDeathHandler.INSTANCE.kill(this);
     }
 }

@@ -3,17 +3,25 @@ package com.mygdx.game.logic.activity.single;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.ActorDeathHandler;
+import com.mygdx.game.actor.Direction;
+import com.mygdx.game.item.weapon.PoisonFang;
+import com.mygdx.game.item.weapon.ShortSword;
+import com.mygdx.game.logic.action.Action;
+import com.mygdx.game.logic.action.SwingAttackAction;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.CooldownActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.attack.AttackController;
+import com.mygdx.game.registry.ActionRegistry;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
+import com.mygdx.game.registry.TextureRegistry;
 
 public class SimpleAttackActivity implements Activity, CooldownActivity {
 
     private ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     private AnimationRegistry animationRegistry = AnimationRegistry.INSTANCE;
+    private ActionRegistry actionRegistry = ActionRegistry.INSTANCE;
 
     private boolean firstRun = true;
     private int priority = Config.Activity.ATTACK_PRIORITY;
@@ -21,6 +29,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
 
     private final Actor actor;
     private final Actor enemy;
+    private Action action;
     private boolean suspended = false;
 
     public SimpleAttackActivity(Actor actor, Actor enemy) {
@@ -54,6 +63,16 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     @Override
     public void init() {
         firstRun = false;
+
+        Direction direction;
+        if(actor.getX() < enemy.getX()) {
+            direction = Direction.RIGHT;
+        } else {
+            direction = Direction.LEFT;
+        }
+
+        action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), direction);
+        actionRegistry.add(actor.getCurrentMap(), action);
     }
 
     @Override
@@ -61,6 +80,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
         System.out.println(actor + " cancelled.");
         actor.setxOffset(0);
         actor.setyOffset(0);
+        actionRegistry.remove(actor.getCurrentMap(), action);
     }
 
     @Override
@@ -76,14 +96,13 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     @Override
     public void suspend() {
         suspended = true;
+        actionRegistry.remove(actor.getCurrentMap(), action);
     }
 
     @Override
     public void resume() {
         suspended = false;
-        if(actorRegistry.getActors(actor.getCurrentMap()).contains(enemy)) {
-
-        }
+        actionRegistry.add(actor.getCurrentMap(), action);
     }
 
     @Override
@@ -104,6 +123,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
         ActorMovementHandler.INSTANCE.clearPath(actor);
         animationRegistry.remove(enemy);
         AttackController.INSTANCE.clearAttackingHistory(actor);
+        actionRegistry.remove(enemy.getCurrentMap(), action);
         enemy.die();
     }
 

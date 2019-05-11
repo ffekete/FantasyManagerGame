@@ -61,9 +61,9 @@ public class VisibilityMask {
             for (int i = Math.max(0, area.p1.getX()); i <= Math.min(area.p2.getX(), width-1); i++) {
                 for (int j = Math.max(0, area.p1.getY()); j <= Math.min(area.p2.getY(), height-1); j++) {
 
-                    if(distance(area.actor.getCoordinates(), Point.of(i,j)) > 15) {
+                    //if(distance(area.actor.getCoordinates(), Point.of(i,j)) > 15) {
                         mask[i][j].remove(area.actor);
-                    }
+                    //}
                 }
             }
         }

@@ -32,6 +32,7 @@ import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.MapRegistry;
+import com.mygdx.game.registry.SpriteBatchRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.renderer.RendererBatch;
 import com.mygdx.game.renderer.camera.CameraPositionController;
@@ -68,6 +69,8 @@ public class DungeonRendererSample extends SampleBase {
         camera = new OrthographicCamera();
         viewPort = new FitViewport(100, 100, camera);
         spriteBatch = new SpriteBatch();
+        spriteBatch.enableBlending();
+        SpriteBatchRegistry.INSTANCE.setSpriteBatch(spriteBatch);
 
         dungeon = dungeonCreator.create();
         textureRegistry = TextureRegistry.INSTANCE;
@@ -78,11 +81,16 @@ public class DungeonRendererSample extends SampleBase {
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
+        hero.setLeftHandItem(new SmallShiled());
 
         ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.RANDOM);
         for (int i = 0; i < 15; i++) {
-            ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
+            Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
+            s.setRightHandItem(new ShortSword());
+
         }
+
+        MapRegistry.INSTANCE.setCurrentMapToShow(dungeon);
 
         Bread bread = new Bread();
         bread.setCoordinates(10, 10);
@@ -103,9 +111,6 @@ public class DungeonRendererSample extends SampleBase {
         MapRegistry.INSTANCE.add(dungeon);
 
         hero.setName("Adavark");
-
-        PoisonFang poisonFang = new PoisonFang();
-        poisonFang.setCoordinates(hero.getX() + 1, hero.getY());
         hero.setRightHandItem(new FlameTongue());
 
     }

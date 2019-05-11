@@ -149,7 +149,7 @@ public class GdxSamplerLauncher extends JFrame {
 
     // == main ==
     public static void main(String[] args) {
-        // must be used to run our jframe properly
+        // must be used to update our jframe properly
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
