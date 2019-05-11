@@ -3,14 +3,17 @@ package com.mygdx.game.creator.map.object.interactive;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.object.InteractiveObject;
+import com.mygdx.game.logic.CharacterMap2dSwitcher;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.registry.ActorRegistry;
+import com.mygdx.game.renderer.camera.CameraPositionController;
 
 public class DungeonEntrance implements InteractiveObject {
 
     private final Map2D to;
+    private final CharacterMap2dSwitcher characterMap2dSwitcher = CharacterMap2dSwitcher.INSTANCE;
 
-    private int x;
-    private int y;
+    private Point coordinates;
 
     public DungeonEntrance(Map2D to) {
         this.to = to;
@@ -18,8 +21,7 @@ public class DungeonEntrance implements InteractiveObject {
 
     @Override
     public void onInteract(Actor actor) {
-        actor.setCurrentMap(to);
-        actor.setCoordinates(to.getDefaultSpawnPoint());
+        characterMap2dSwitcher.switchTo(to, actor.getCurrentMap(), actor);
     }
 
     @Override
@@ -29,18 +31,22 @@ public class DungeonEntrance implements InteractiveObject {
 
     @Override
     public int getX() {
-        return x;
+        return coordinates.getX();
     }
 
     @Override
     public int getY() {
-        return y;
+        return coordinates.getY();
     }
 
     @Override
     public void setCoordinates(Point point) {
-        this.x = point.getX();
-        this.y = point.getY();
+        this.coordinates = point;
+    }
+
+    @Override
+    public Point getCoordinates() {
+        return coordinates;
     }
 
 

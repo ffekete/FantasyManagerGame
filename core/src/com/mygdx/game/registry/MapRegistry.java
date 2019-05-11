@@ -9,6 +9,8 @@ public class MapRegistry {
 
     public static final MapRegistry INSTANCE = new MapRegistry();
 
+    private Map2D currentMapToShow = null;
+
     private List<Map2D> maps;
 
     public MapRegistry() {
@@ -21,5 +23,13 @@ public class MapRegistry {
 
     public List<Map2D> getMaps() {
         return maps;
+    }
+
+    public Map2D getCurrentMapToShow() {
+        return currentMapToShow;
+    }
+
+    public void setCurrentMapToShow(Map2D currentMapToShow) {
+        this.currentMapToShow = currentMapToShow;
     }
 }

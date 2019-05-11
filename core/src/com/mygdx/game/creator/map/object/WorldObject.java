@@ -7,4 +7,5 @@ public interface WorldObject {
     int getY();
 
     void setCoordinates(Point point);
+    Point getCoordinates();
 }

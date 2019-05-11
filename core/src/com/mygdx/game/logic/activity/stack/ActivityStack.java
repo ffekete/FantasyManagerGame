@@ -15,6 +15,12 @@ public class ActivityStack {
         activities.add(new IdleActivity(actor));
     }
 
+    public void debug() {
+        activities.forEach(activity -> {
+            System.out.println(activity.getClass());
+        });
+    }
+
     public void suspendAll() {
         activities.forEach(Activity::suspend);
     }

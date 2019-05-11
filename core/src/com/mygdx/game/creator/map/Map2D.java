@@ -20,6 +20,7 @@ public interface Map2D {
     boolean isExplored();
 
     Point getDefaultSpawnPoint();
+    void setDefaultSpawningPoint(Point point);
 
     MapType getMapType();
 

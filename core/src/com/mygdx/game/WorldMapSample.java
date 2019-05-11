@@ -27,6 +27,7 @@ import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.weapon.FlameTongue;
 import com.mygdx.game.item.weapon.PoisonFang;
 import com.mygdx.game.logic.GameLogicController;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
@@ -36,6 +37,8 @@ import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.renderer.RendererBatch;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.utils.GdxUtils;
+
+import java.util.Random;
 
 
 public class WorldMapSample extends SampleBase {
@@ -48,6 +51,7 @@ public class WorldMapSample extends SampleBase {
     private TextureRegistry textureRegistry;
 
     Map2D worldMap;
+    Map2D dungeon;
     ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
     GameLogicController gameLogicController = new GameLogicController(actorRegistry);
@@ -59,8 +63,6 @@ public class WorldMapSample extends SampleBase {
     MapGenerator dungeonCreator = new CaveDungeonCreator();
 
     LinkedWorldObjectFactory objectFactory = LinkedWorldObjectFactory.INSTANCE;
-
-    Map2D shownMap;
 
     @Override
     public void create() {
@@ -85,17 +87,26 @@ public class WorldMapSample extends SampleBase {
 
         CameraPositionController.INSTANCE.focusOn(hero);
 
-        Map2D dungeon = dungeonCreator.create();
+        dungeon = dungeonCreator.create();
+        int x = 0,y = 0;
+        do {
+            x = new Random().nextInt(dungeon.getWidth());
+            y = new Random().nextInt(dungeon.getHeight());
+
+        } while(dungeon.getTile(x,y).isObstacle());
+
+        dungeon.setDefaultSpawningPoint(Point.of(x, y));
 
         LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(15).Y(15));
 
         ActorFactory.INSTANCE.create(Goblin.class, worldMap, Placement.RANDOM);
 //        for (int i = 0; i < 15; i++) {
-//            ActorFactory.INSTANCE.create(Skeleton.class, worldMap, Placement.RANDOM);
+//            ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
 //        }
 
         MapRegistry.INSTANCE.add(worldMap);
-        shownMap = worldMap;
+        MapRegistry.INSTANCE.add(dungeon);
+        MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
 
         hero.setName("Adavark");
 
@@ -103,6 +114,7 @@ public class WorldMapSample extends SampleBase {
         poisonFang.setCoordinates(hero.getX() + 1, hero.getY());
         hero.setRightHandItem(new FlameTongue());
 
+        MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
     }
 
     @Override
@@ -126,12 +138,12 @@ public class WorldMapSample extends SampleBase {
     }
 
     public void draw() {
-        System.out.println(Gdx.graphics.getFramesPerSecond());
+        //System.out.println(Gdx.graphics.getFramesPerSecond());
 
-        if(Map2D.MapType.WORLD_MAP.equals(shownMap.getMapType()))
-            RendererBatch.WORLD_MAP.draw(shownMap, spriteBatch);
+        if(Map2D.MapType.WORLD_MAP.equals(MapRegistry.INSTANCE.getCurrentMapToShow().getMapType()))
+            RendererBatch.WORLD_MAP.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), spriteBatch);
         else
-            RendererBatch.DUNGEON.draw(shownMap, spriteBatch);
+            RendererBatch.DUNGEON.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), spriteBatch);
 
         if (false) {
             // low fps test
@@ -175,6 +187,14 @@ public class WorldMapSample extends SampleBase {
     @Override
     public boolean keyDown(int keycode) {
         float delta = Gdx.graphics.getDeltaTime();
+
+        if(keycode == Input.Keys.SPACE) {
+            if(MapRegistry.INSTANCE.getCurrentMapToShow() == worldMap) {
+                MapRegistry.INSTANCE.setCurrentMapToShow(dungeon);
+            } else {
+                MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
+            }
+        }
 
         if (keycode == Input.Keys.LEFT) {
             camera.position.x -= 20.0 * delta;

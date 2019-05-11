@@ -11,6 +11,7 @@ import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.CompoundActivity;
 import com.mygdx.game.logic.activity.manager.decision.ConsumeHealingpotionDecision;
 import com.mygdx.game.logic.activity.manager.decision.Decision;
+import com.mygdx.game.logic.activity.manager.decision.DungeonVisitingDecision;
 import com.mygdx.game.logic.activity.manager.decision.EatingDecision;
 import com.mygdx.game.logic.activity.manager.decision.EquipDecision;
 import com.mygdx.game.logic.activity.manager.decision.ExplorationDecision;
@@ -54,6 +55,7 @@ public class ActivityManager {
         decisionTable.add(new MoveAndAttackDecision());
         decisionTable.add(new MovePickupDecision());
         decisionTable.add(new EatingDecision());
+        decisionTable.add(new DungeonVisitingDecision());
         decisionTable.add(new ExplorationDecision());
         decisionTable.add(new MovePickupEatDecision());
         decisionTable.add(new WanderingDecision());

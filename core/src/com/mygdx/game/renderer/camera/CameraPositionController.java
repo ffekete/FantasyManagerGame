@@ -23,6 +23,10 @@ public class CameraPositionController {
         return coord;
     }
 
+    public Actor getFocusedOn() {
+        return focusedOn;
+    }
+
     public void updateCamera(OrthographicCamera camera, Viewport viewport) {
         Point p = getCameraposition();
         camera.position.x = p.x;

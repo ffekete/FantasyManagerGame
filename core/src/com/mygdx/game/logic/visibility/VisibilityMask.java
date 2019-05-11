@@ -1,19 +1,13 @@
 package com.mygdx.game.logic.visibility;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.creator.TileBase;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.Tile;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.utils.GdxUtils;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class VisibilityMask {
@@ -100,7 +94,6 @@ public class VisibilityMask {
             }
         }
     }
-
 
     private double distance(Point p1, Point p2) {
         if(p1 == null || p2 == null)

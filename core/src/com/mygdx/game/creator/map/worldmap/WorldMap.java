@@ -3,7 +3,6 @@ package com.mygdx.game.creator.map.worldmap;
 import com.mygdx.game.Config;
 import com.mygdx.game.creator.TileBase;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.Tile;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
@@ -15,6 +14,7 @@ public class WorldMap implements Map2D {
     private final int width;
     private final VisibilityCalculator visibilityCalculator;
     private final MapType mapType = MapType.WORLD_MAP;
+    private Point defaultSpawningPoint;
 
     public WorldMap(int width, int height) {
         this.height = height;
@@ -88,7 +88,12 @@ public class WorldMap implements Map2D {
 
     @Override
     public Point getDefaultSpawnPoint() {
-        return null;
+        return defaultSpawningPoint;
+    }
+
+    @Override
+    public void setDefaultSpawningPoint(Point point) {
+        this.defaultSpawningPoint = point;
     }
 
     @Override

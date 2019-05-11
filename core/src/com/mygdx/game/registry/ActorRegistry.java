@@ -28,6 +28,10 @@ public class ActorRegistry {
         actors.get(map).add(actor);
     }
 
+    public void remove(Map2D map, Actor actor) {
+        actors.get(map).remove(actor);
+    }
+
     public void setActors(Map<Map2D, Set<Actor>> actors) {
         this.actors = actors;
     }

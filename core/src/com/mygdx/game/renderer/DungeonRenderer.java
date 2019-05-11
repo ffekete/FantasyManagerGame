@@ -22,6 +22,10 @@ public class DungeonRenderer implements Renderer {
 
         VisibilityMask visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(map);
 
+        // if nothing to calculate for now
+        if(visibilityMask == null)
+            return;
+
         visibilityMask.mask(map, map.getVisitedareaMap());
 
         for (int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
