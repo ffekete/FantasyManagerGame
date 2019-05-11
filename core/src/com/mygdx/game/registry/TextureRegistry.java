@@ -40,11 +40,15 @@ public class TextureRegistry {
                 .build();
 
         mapTextures = ImmutableMap.<TileBase, Texture>builder()
-                .put(WorldMapTile.GRASS, new Texture(Gdx.files.internal("grass.jpg")))
+                .put(WorldMapTile.GRASS, new Texture(Gdx.files.internal("terrain.jpg")))
                 .put(Tile.STONE_WALL, new Texture(Gdx.files.internal("wall.png")))
                 .put(Tile.FLOOR, new Texture(Gdx.files.internal("terrain.jpg")))
                 .put(Tile.EMPTY, new Texture(Gdx.files.internal("void.png")))
                 .build();
+
+        mapTextures.forEach((tile, texture) -> {
+            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        });
 
         objectTextures = ImmutableMap.<Class<? extends WorldObject>, Texture>builder()
                 .put(DungeonEntrance.class, new Texture(Gdx.files.internal("DungeonEntrance.jpg")))

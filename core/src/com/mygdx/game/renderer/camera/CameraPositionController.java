@@ -54,16 +54,16 @@ public class CameraPositionController {
             if(zoom < 0.1f) {
                 zoom = 0.1f;
             }
-            if(zoom > 2) {
-                zoom = 2f;
+            if(zoom > 1) {
+                zoom = 1f;
             }
         } else {
             focusedZoom += level;
             if(focusedZoom < 0.1f) {
                 focusedZoom = 0.1f;
             }
-            if(focusedZoom > 2 ) {
-                focusedZoom = 2f;
+            if(focusedZoom > 1 ) {
+                focusedZoom = 1f;
             }
         }
     }
@@ -84,8 +84,8 @@ public class CameraPositionController {
         }
 
         public Point(float x, float y) {
-            this.x = x;
-            this.y = y;
+            this.x = Math.round(x);
+            this.y = Math.round(y);
         }
 
         void update(float x, float y) {

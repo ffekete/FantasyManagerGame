@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class FullBodyActorAnimation implements ActorAnimation {
 
-    private Texture warriorTexture = new Texture(Gdx.files.internal("warrior2.png"));
+    private Texture warriorTexture = new Texture(Gdx.files.internal("Warrior2.png"));
     private Texture rogueTexture = new Texture(Gdx.files.internal("rogue_ss.png"));
     private Texture orcTexture = new Texture(Gdx.files.internal("orc_ss.png"));
     private Texture goblinTexture = new Texture(Gdx.files.internal("goblin_ss.png"));
