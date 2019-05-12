@@ -1,8 +1,11 @@
 package com.mygdx.game.registry;
 
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.logic.pathfinding.PathFinder;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MapRegistry {
@@ -12,13 +15,18 @@ public class MapRegistry {
     private Map2D currentMapToShow = null;
 
     private List<Map2D> maps;
+    private Map<Map2D, PathFinder> pathFinderMap;
 
     public MapRegistry() {
         maps = new CopyOnWriteArrayList<>();
+        pathFinderMap = new HashMap<>();
     }
 
     public void add(Map2D map) {
         maps.add(map);
+        PathFinder pathFinder = new PathFinder();
+        pathFinder.init(map);
+        pathFinderMap.put(map, pathFinder);
     }
 
     public List<Map2D> getMaps() {
@@ -31,5 +39,9 @@ public class MapRegistry {
 
     public void setCurrentMapToShow(Map2D currentMapToShow) {
         this.currentMapToShow = currentMapToShow;
+    }
+
+    public PathFinder getPathFinderFor(Map2D map) {
+        return pathFinderMap.get(map);
     }
 }

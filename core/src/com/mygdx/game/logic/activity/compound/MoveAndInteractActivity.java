@@ -7,5 +7,4 @@ public class MoveAndInteractActivity extends CompoundActivity {
     public MoveAndInteractActivity(int priority) {
         super(priority);
     }
-
 }

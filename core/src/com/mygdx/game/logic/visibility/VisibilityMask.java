@@ -95,16 +95,6 @@ public class VisibilityMask {
         }
     }
 
-    private double distance(Point p1, Point p2) {
-        if(p1 == null || p2 == null)
-            return Double.MAX_VALUE;
-
-        int a = Math.abs(p1.getX() - p2.getX());
-        int b = Math.abs(p1.getY() - p2.getY());
-
-        return Math.sqrt(a*a + b*b);
-    }
-
     public void setValue(int x, int y, Actor actor) {
         mask[x][y].add(actor);
     }
