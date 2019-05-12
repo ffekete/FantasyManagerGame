@@ -81,6 +81,11 @@ public class ConsumeHealingPotion implements Activity {
     }
 
     @Override
+    public Activity getCurrentActivity() {
+        return this;
+    }
+
+    @Override
     public void countDown() {
         counter++;
     }

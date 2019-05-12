@@ -134,7 +134,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
             System.out.println("Enemy is killed by someone else");
             return true;
         }
-        if(Math.abs(actor.getX() - enemy.getX()) * (Math.abs(actor.getX() - enemy.getX()) + Math.abs(actor.getY() - enemy.getY()) * Math.abs(actor.getY() - enemy.getY())) > Config.ATTACK_DISTANCE ) {
+        if(Math.sqrt(Math.abs(actor.getX() - enemy.getX()) * (Math.abs(actor.getX() - enemy.getX()) + Math.abs(actor.getY() - enemy.getY()) * Math.abs(actor.getY() - enemy.getY()))) > actor.getAttackRange() + 1) {
             System.out.println("Enemy ran away");
             return true;
         }
@@ -149,4 +149,10 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     public Class getCurrentClass() {
         return this.getClass();
     }
+
+    @Override
+    public Activity getCurrentActivity() {
+        return this;
+    }
+
 }

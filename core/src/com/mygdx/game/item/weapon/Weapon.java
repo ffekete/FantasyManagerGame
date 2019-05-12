@@ -7,4 +7,5 @@ public interface Weapon extends Equipable {
     int getDamage();
     int getPrice();
     void onHit(Actor target);
+    int getRange();
 }

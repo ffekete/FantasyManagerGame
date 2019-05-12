@@ -119,4 +119,9 @@ public abstract class CompoundActivity implements Activity {
     public Class getCurrentClass() {
         return activities.get(currentActivity).getCurrentClass();
     }
+
+    @Override
+    public Activity getCurrentActivity() {
+        return activities.get(currentActivity);
+    }
 }

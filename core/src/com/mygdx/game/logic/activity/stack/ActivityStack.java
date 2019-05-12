@@ -42,6 +42,15 @@ public class ActivityStack {
             return;
         }
         Activity activity = activities.peek();
+
+        if (activity.isTriggered()) {
+            activity.update();
+            if (activity.isDone()) {
+                activity.clear();
+                System.out.println(activities.remove(activity));
+                System.out.println("activity cleared + " + activity);
+            }
+        }
         if (activity.isCancellable()) {
             activity.cancel();
             activities.remove(activity);
@@ -54,15 +63,6 @@ public class ActivityStack {
             }
 
             activity.countDown();
-
-            if (activity.isTriggered()) {
-                activity.update();
-                if (activity.isDone()) {
-                    activity.clear();
-                    System.out.println(activities.remove(activity));
-                    System.out.println("activity cleared + " + activity);
-                }
-            }
         }
     }
 

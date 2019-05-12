@@ -56,6 +56,7 @@ public interface Actor {
     void setLeftHandItem(Equipable equipable);
     void setRightHandItem(Equipable equipable);
     void die();
+    int getAttackRange();
 
 
     // ******************   BodyPartsBasedActorAnimation  ********************

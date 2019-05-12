@@ -30,7 +30,7 @@ public class SwingAttackAction implements Action {
         float start = 0.0f;
         float end = 120f;
         float restart = 270;
-        float inc = Gdx.graphics.getDeltaTime() * 15f;
+        float inc = Gdx.graphics.getDeltaTime() * 20f;
 
         if(direction.equals(Direction.LEFT)) {
 

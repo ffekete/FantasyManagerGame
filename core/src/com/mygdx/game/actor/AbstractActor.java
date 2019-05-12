@@ -267,4 +267,9 @@ public abstract class AbstractActor implements Actor {
         activityStack.getCurrent().cancel();
         ActorDeathHandler.INSTANCE.kill(this);
     }
+
+    @Override
+    public int getAttackRange() {
+        return ((Weapon)getRightHandItem()).getRange();
+    }
 }

@@ -26,6 +26,11 @@ public class ShortSword implements Weapon, OneHandedItem {
     }
 
     @Override
+    public int getRange() {
+        return 1;
+    }
+
+    @Override
     public void onEquip(Actor actor) {
 
     }

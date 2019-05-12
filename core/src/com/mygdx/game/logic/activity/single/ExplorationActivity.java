@@ -178,4 +178,11 @@ public class ExplorationActivity implements Activity {
     public int compareTo(Activity o) {
         return movementActivity.compareTo(o);
     }
+
+
+    @Override
+    public Activity getCurrentActivity() {
+        return movementActivity;
+    }
+
 }

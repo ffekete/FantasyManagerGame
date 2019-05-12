@@ -114,4 +114,9 @@ public class WaitActivity implements Activity {
         return this.getClass();
     }
 
+    @Override
+    public Activity getCurrentActivity() {
+        return this;
+    }
+
 }

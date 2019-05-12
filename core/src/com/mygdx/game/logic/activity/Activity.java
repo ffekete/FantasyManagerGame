@@ -14,4 +14,5 @@ public interface Activity extends CooldownActivity, Comparable<Activity> {
     void clear();
     boolean isCancellable();
     Class getCurrentClass();
+    Activity getCurrentActivity();
 }

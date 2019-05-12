@@ -60,10 +60,10 @@ public class MovementActivity implements Activity {
             return;
         }
 
-        actor.setxOffset(0);
-        actor.setyOffset(0);
         speed = actor.getMovementSpeed();
         done = (!actorMovementHandler.moveToNextPathPoint(actor));
+        actor.setxOffset(0);
+        actor.setyOffset(0);
     }
 
     @Override
@@ -132,7 +132,8 @@ public class MovementActivity implements Activity {
     @Override
     public void countDown() {
         counter = (counter + 1) % (speed);
-        actorMovementHandler.updateActorOffsetCoordinates(actor, speed);
+        if(path == null || path.isDone())
+            actorMovementHandler.updateActorOffsetCoordinates(actor, speed);
     }
 
     @Override
@@ -144,4 +145,18 @@ public class MovementActivity implements Activity {
     public Class getCurrentClass() {
         return this.getClass();
     }
+
+    public int getTargetX() {
+        return targetX;
+    }
+
+    public int getTargetY() {
+        return targetY;
+    }
+
+    @Override
+    public Activity getCurrentActivity() {
+        return this;
+    }
+
 }

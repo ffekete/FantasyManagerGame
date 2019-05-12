@@ -101,4 +101,10 @@ public class IdleActivity implements Activity {
         return counter == speed - 1;
     }
 
+    @Override
+    public Activity getCurrentActivity() {
+        return this;
+    }
+
+
 }

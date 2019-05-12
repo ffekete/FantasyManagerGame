@@ -92,4 +92,10 @@ public class InteractActivity implements Activity {
     public int compareTo(Activity o) {
         return Integer.compare(getPriority(), o.getPriority());
     }
+
+    @Override
+    public Activity getCurrentActivity() {
+        return this;
+    }
+
 }
