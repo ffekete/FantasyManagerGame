@@ -7,6 +7,8 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 
+import java.util.Random;
+
 public class Dungeon implements Map2D {
     private TileBase[][] dungeon;
     private VisitedArea[][] visitedareaMap;
@@ -15,10 +17,12 @@ public class Dungeon implements Map2D {
     private final VisibilityCalculator visibilityCalculator;
     private final MapType mapType = MapType.DUNGEON;
     private Point defaultSpawningPoint;
+    private final DungeonType dungeonType;
 
-    public Dungeon(int width, int height) {
+    public Dungeon(int width, int height, DungeonType dungeonType) {
         this.height = height;
         this.width = width;
+        this.dungeonType = dungeonType;
 
         visibilityCalculator = new VisibilityCalculator(width, height);
 

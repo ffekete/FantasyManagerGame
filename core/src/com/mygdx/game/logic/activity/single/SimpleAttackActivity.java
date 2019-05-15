@@ -2,10 +2,6 @@ package com.mygdx.game.logic.activity.single;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.actor.ActorDeathHandler;
-import com.mygdx.game.actor.Direction;
-import com.mygdx.game.item.weapon.PoisonFang;
-import com.mygdx.game.item.weapon.ShortSword;
 import com.mygdx.game.logic.action.Action;
 import com.mygdx.game.logic.action.SwingAttackAction;
 import com.mygdx.game.logic.activity.Activity;
@@ -64,14 +60,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     public void init() {
         firstRun = false;
 
-        Direction direction;
-        if(actor.getX() < enemy.getX()) {
-            direction = Direction.RIGHT;
-        } else {
-            direction = Direction.LEFT;
-        }
-
-        action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), direction);
+        action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), actor);
         actionRegistry.add(actor.getCurrentMap(), action);
     }
 
@@ -134,8 +123,11 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
             System.out.println("Enemy is killed by someone else");
             return true;
         }
-        if(Math.sqrt(Math.abs(actor.getX() - enemy.getX()) * (Math.abs(actor.getX() - enemy.getX()) + Math.abs(actor.getY() - enemy.getY()) * Math.abs(actor.getY() - enemy.getY()))) > actor.getAttackRange() + 1) {
-            System.out.println("Enemy ran away");
+
+        int distance = (int)Math.sqrt(Math.abs(actor.getX() - enemy.getX()) * (Math.abs(actor.getX() - enemy.getX()) + Math.abs(actor.getY() - enemy.getY()) * Math.abs(actor.getY() - enemy.getY())));
+
+        if(distance > actor.getAttackRange()) {
+            System.out.println("Enemy ran away + " + distance + " " + actor.getAttackRange());
             return true;
         }
 //        if(actor.getHp() < actor.getMaxHp() * 0.1) {

@@ -16,7 +16,7 @@ import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
-import com.mygdx.game.renderer.direction.DirectionDecision;
+import com.mygdx.game.renderer.direction.DirectionSelector;
 
 public class ActorRenderer implements Renderer {
 
@@ -24,7 +24,7 @@ public class ActorRenderer implements Renderer {
 
     private final ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
-    private final DirectionDecision directionDecision = DirectionDecision.INSTANCE;
+    private final DirectionSelector directionSelector = DirectionSelector.INSTANCE;
     private final ActionManager actionManager = ActionManager.INSTANCE;
 
     private Texture targetTexture = new Texture(Gdx.files.internal("location.png"));
@@ -38,12 +38,12 @@ public class ActorRenderer implements Renderer {
             if (Alignment.FRIENDLY.equals(actor.getAlignment()) || visibilityMask == null || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
                 if (AnimationRegistry.INSTANCE.getAnimations().containsKey(actor)) {
                     Activity activity = actor.getCurrentActivity();
-                    AnimationRegistry.INSTANCE.getAnimations().get(actor).drawKeyFrame(spriteBatch, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), 1, directionDecision.getDirection(actor), activity, actor.getClass());
+                    AnimationRegistry.INSTANCE.getAnimations().get(actor).drawKeyFrame(spriteBatch, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), 1, directionSelector.getDirection(actor), activity, actor.getClass());
                 }
 
             if(actor.getLeftHandItem() != null) {
                 Texture itemTexture = textureRegistry.getFor(actor.getLeftHandItem().getClass());
-                spriteBatch.draw(itemTexture, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), 0, 0, 1, 1, 1, 1, 0, 0, 0, itemTexture.getHeight(), itemTexture.getWidth(), directionDecision.getDirection(actor).equals(Direction.LEFT) || directionDecision.getDirection(actor).equals(Direction.UP), false);
+                spriteBatch.draw(itemTexture, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), 0, 0, 1, 1, 1, 1, 0, 0, 0, itemTexture.getHeight(), itemTexture.getWidth(), directionSelector.getDirection(actor).equals(Direction.LEFT) || directionSelector.getDirection(actor).equals(Direction.UP), false);
             }
 
             if (ExplorationActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getClass())) {

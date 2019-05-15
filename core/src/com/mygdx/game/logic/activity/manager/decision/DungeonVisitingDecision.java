@@ -58,6 +58,8 @@ public class DungeonVisitingDecision implements Decision {
 
                 actor.getActivityStack().add(moveAndInteractActivity);
                 return true;
+            } else if(actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
+                return true;
             }
         }
         return false;

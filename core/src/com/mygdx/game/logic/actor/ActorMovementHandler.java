@@ -16,6 +16,8 @@ public class ActorMovementHandler {
 
     private final Map<Actor, List<PathFinder.Node>> paths;
 
+    private Map<Actor, Direction> directions = new HashMap<>();
+
     public ActorMovementHandler() {
         this.paths = new ConcurrentHashMap<>();
     }
@@ -27,18 +29,25 @@ public class ActorMovementHandler {
     public Direction getDirection(Actor actor) {
         Point next = getNextPoint(actor);
         if (next == null) {
-            return Direction.DOWN;
-        } else {
-
-            if (next.getY() < actor.getY())
+            if(directions.containsKey(actor))
+                return directions.get(actor);
+            else
                 return Direction.DOWN;
-            if (next.getY() > actor.getY())
-                return Direction.UP;
-            if (next.getX() < actor.getX())
-                return Direction.LEFT;
-            //if (next.getX() > actor.getX())
-                return Direction.RIGHT;
+        } else {
+            Direction nextDirection;
 
+            if (next.getX() < actor.getX())
+                nextDirection = Direction.LEFT;
+            else if (next.getX() > actor.getX())
+                nextDirection = Direction.RIGHT;
+            else if (next.getY() < actor.getY())
+                nextDirection = Direction.DOWN;
+            else //(next.getY() > actor.getY())
+                nextDirection = Direction.UP;
+
+            directions.put(actor, nextDirection);
+
+            return nextDirection;
         }
     }
 
@@ -114,13 +123,15 @@ public class ActorMovementHandler {
             PathFinder pathFinder = new PathFinder();
             pathFinder.init(movableActor.getCurrentMap());
             path = pathFinder.findAStar(Point.of(movableActor.getX(), movableActor.getY()), Point.of(nextNode.getX(), nextNode.getY()));
+            paths.put(movableActor, path);
         }
 
         if (path != null && !path.isEmpty()) {
             PathFinder.Node next = path.remove(path.size() - 1);
             movableActor.setCoordinates(new Point(next.getX(), next.getY()));
+            return true;
         }
-        return true;
+        return false;
     }
 
 }

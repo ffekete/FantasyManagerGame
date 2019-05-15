@@ -18,7 +18,7 @@ public class DungeonWithRoomsCreator implements MapGenerator {
 
     @Override
     public Map2D create() {
-        Dungeon map = new Dungeon(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT);
+        Dungeon map = new Dungeon(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT, DungeonType.ROOMS);
 
         for(int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
             for(int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {

@@ -5,6 +5,7 @@ import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.Dungeon;
+import com.mygdx.game.creator.map.dungeon.DungeonType;
 
 import org.testng.annotations.Test;
 
@@ -17,7 +18,7 @@ public class ActorRegistryTest {
 
     @Test
     public void fillTest() {
-        Map2D dungeon = new Dungeon(5,5);
+        Map2D dungeon = new Dungeon(5,5, DungeonType.CAVE);
         Actor warrior = new Warrior();
         actorRegistry.add(dungeon, new Goblin());
         actorRegistry.add(dungeon, warrior);

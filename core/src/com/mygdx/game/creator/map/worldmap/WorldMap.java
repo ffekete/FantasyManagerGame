@@ -7,6 +7,8 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 
+import java.util.Random;
+
 public class WorldMap implements Map2D {
     private TileBase[][] worldMap;
     private VisitedArea[][] visitedareaMap;

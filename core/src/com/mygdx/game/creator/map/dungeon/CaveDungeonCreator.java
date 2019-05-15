@@ -18,7 +18,7 @@ public class CaveDungeonCreator implements MapGenerator {
 
         long start = System.currentTimeMillis();
         //Create a new map
-        Dungeon cellmap = new Dungeon(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT);
+        Dungeon cellmap = new Dungeon(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT, DungeonType.CAVE);
         //Set up the map with random values
         cellmap = initialiseMap(cellmap);
 
@@ -110,7 +110,7 @@ public class CaveDungeonCreator implements MapGenerator {
     }
 
     private Dungeon doSimulationStep(Dungeon oldMap){
-        Dungeon newMap = new Dungeon(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT);
+        Dungeon newMap = new Dungeon(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT, DungeonType.CAVE);
         //Loop over each row and column of the map
         for(int x=1; x<oldMap.getWidth() - 1; x++){
             for(int y=1; y<oldMap.getHeight()-1; y++){

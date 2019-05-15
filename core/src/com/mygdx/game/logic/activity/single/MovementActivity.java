@@ -41,7 +41,9 @@ public class MovementActivity implements Activity {
 
     @Override
     public boolean isDone() {
-        return (done || (Math.abs(actor.getX() - targetX) <= range && Math.abs(actor.getY() - targetY) <= range));
+        int a = Math.abs(actor.getX() - targetX);
+        int b = Math.abs(actor.getY() - targetY);
+        return (done || (Math.sqrt(a*a + b*b) <= range));
     }
 
     @Override

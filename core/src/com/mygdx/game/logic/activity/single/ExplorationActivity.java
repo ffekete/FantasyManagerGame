@@ -161,7 +161,7 @@ public class ExplorationActivity implements Activity {
 
     @Override
     public Class getCurrentClass() {
-        return movementActivity.getClass();
+        return this.getClass();
     }
 
     @Override

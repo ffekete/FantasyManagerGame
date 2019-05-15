@@ -12,6 +12,9 @@ public class ExplorationDecision implements Decision {
             ExplorationActivity explorationActivity = new ExplorationActivity(actor.getCurrentMap() ,actor);
             actor.getActivityStack().add(explorationActivity);
             return true;
+        } else if (actor.getActivityStack().contains(ExplorationActivity.class)) {
+            // already doing activity, the decision chain should end here
+            return true;
         }
         return false;
     }

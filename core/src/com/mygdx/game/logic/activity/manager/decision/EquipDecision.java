@@ -13,8 +13,7 @@ public class EquipDecision implements Decision {
             EquipActivity equipActivity = new EquipActivity(actor, equipable);
             actor.getActivityStack().add(equipActivity);
             return true;
-        }
-        return false;
+        } else return actor.getActivityStack().contains(EquipActivity.class);
     }
 
     public EquipDecision() {

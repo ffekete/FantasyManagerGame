@@ -4,17 +4,19 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.logic.activity.single.ExplorationActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
+import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
 import com.mygdx.game.logic.activity.single.SimpleAttackActivity;
 import com.mygdx.game.logic.activity.single.WaitActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.attack.AttackController;
 
-public class DirectionDecision {
+public class DirectionSelector {
 
-    public static final DirectionDecision INSTANCE = new DirectionDecision();
+    public static final DirectionSelector INSTANCE = new DirectionSelector();
 
     public Direction getDirection(Actor actor) {
-        if(MovementActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())
+        if(PreCalculatedMovementActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())
+                || MovementActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())
                 || ExplorationActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass()))
             return ActorMovementHandler.INSTANCE.getDirection(actor);
 
@@ -32,6 +34,6 @@ public class DirectionDecision {
         return Direction.DOWN;
     }
 
-    private DirectionDecision() {
+    private DirectionSelector() {
     }
 }

@@ -16,6 +16,8 @@ public class ConsumeHealingpotionDecision implements Decision {
                 actor.getActivityStack().add(activity);
                 return true;
             }
+        } else if(actor.getActivityStack().contains(ConsumeHealingPotion.class)){
+            return true;
         }
         return false;
     }

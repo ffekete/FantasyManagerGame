@@ -9,10 +9,12 @@ import java.util.PriorityQueue;
 public class ActivityStack {
 
     private PriorityQueue<Activity> activities;
+    private Actor actor;
 
     public ActivityStack(PriorityQueue<Activity> activities, Actor actor) {
         this.activities = activities;
         activities.add(new IdleActivity(actor));
+        this.actor = actor;
     }
 
     public void debug() {
@@ -53,6 +55,7 @@ public class ActivityStack {
         }
         if (activity.isCancellable()) {
             activity.cancel();
+            System.out.println(this + "Removed " + activity);
             activities.remove(activity);
         } else {
             if (activity.isFirstRun()) {
@@ -64,6 +67,11 @@ public class ActivityStack {
 
             activity.countDown();
         }
+    }
+
+    public void clear() {
+        activities.clear();
+        activities.add(new IdleActivity(actor));
     }
 
     public Activity getCurrent() {

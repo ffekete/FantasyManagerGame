@@ -40,7 +40,10 @@ public class PreCalculatedMovementActivity implements Activity {
 
     @Override
     public boolean isDone() {
-        return (done || (Math.abs(actor.getX() - targetX) <= range && Math.abs(actor.getY() - targetY) <= range));
+        int a = Math.abs(actor.getX() - targetX);
+        int b = Math.abs(actor.getY() - targetY);
+        //return (done || (Math.sqrt(a*a + b*b) <= range));
+        return done;
     }
 
     @Override
@@ -53,7 +56,7 @@ public class PreCalculatedMovementActivity implements Activity {
 
     @Override
     public void init() {
-        System.out.println("Starting activity " + actor.getActivityStack().getSize());
+        System.out.println("Starting pre activity " + actor.getActivityStack().getSize());
         actorMovementHandler.registerActorPath(actor, path);
 
         actor.setxOffset(0);

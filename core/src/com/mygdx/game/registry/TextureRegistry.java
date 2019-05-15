@@ -30,12 +30,11 @@ public class TextureRegistry {
 
     public TextureRegistry() {
         textures = ImmutableMap.<Class, Texture>builder()
-                .put(Goblin.class, new Texture(Gdx.files.internal("goblin.png")))
-                .put(ShortSword.class, new Texture(Gdx.files.internal("sword.png")))
+                .put(ShortSword.class, new Texture(Gdx.files.internal("ShortSword.png")))
                 .put(Bread.class, new Texture(Gdx.files.internal("bread.png")))
                 .put(SmallShiled.class, new Texture(Gdx.files.internal("shield.png")))
                 .put(PoisonFang.class, new Texture(Gdx.files.internal("PoisonFang.png")))
-                .put(FlameTongue.class, new Texture(Gdx.files.internal("sword.png")))
+                .put(FlameTongue.class, new Texture(Gdx.files.internal("FlameTongue.png")))
                 .build();
 
         mapTextures = ImmutableMap.<TileBase, Texture>builder()

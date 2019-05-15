@@ -14,6 +14,8 @@ public class EatingDecision implements Decision {
                 actor.getActivityStack().add(simpleEatingActivity);
                 return true;
             }
+        } else if(actor.getActivityStack().contains(SimpleEatingActivity.class)){
+            return true;
         }
         return false;
     }

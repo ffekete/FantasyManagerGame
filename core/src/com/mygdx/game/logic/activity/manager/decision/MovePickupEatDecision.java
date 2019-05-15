@@ -38,6 +38,9 @@ public class MovePickupEatDecision implements Decision {
                     return true;
                 }
             }
+        } else {
+            // already doing activity, the decision chain should end here
+            return true;
         }
         return false;
     }

@@ -206,7 +206,7 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public Activity getCurrentActivity() {
-        return activityStack.getCurrent();
+        return activityStack.getCurrent().getCurrentActivity();
     }
 
     @Override

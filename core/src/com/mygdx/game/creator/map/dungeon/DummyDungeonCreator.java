@@ -6,7 +6,7 @@ public class DummyDungeonCreator implements MapGenerator {
 
     @Override
     public Map2D create() {
-        Dungeon dungeon = new Dungeon(100, 100);
+        Dungeon dungeon = new Dungeon(100, 100, DungeonType.CAVE);
         for(int i = 0; i < 100; i++) {
             for(int j = 0; j < 100; j++) {
                 dungeon.setTile(i,j, Tile.FLOOR);

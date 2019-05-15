@@ -18,6 +18,7 @@ import com.mygdx.game.logic.activity.single.ConsumeHealingPotion;
 import com.mygdx.game.logic.activity.single.ExplorationActivity;
 import com.mygdx.game.logic.activity.single.IdleActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
+import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
 import com.mygdx.game.logic.activity.single.TimedIdleActivity;
 import com.mygdx.game.logic.activity.single.WaitActivity;
 
@@ -25,8 +26,8 @@ import java.util.Map;
 
 public class FullBodyActorAnimation implements ActorAnimation {
 
-    private Texture warriorTexture = new Texture(Gdx.files.internal("Warrior2.png"));
-    private Texture skeletonTexture = new Texture(Gdx.files.internal("skeleton_ss.png"));
+    private Texture warriorTexture = new Texture(Gdx.files.internal("Warrior.png"));
+    private Texture skeletonTexture = new Texture(Gdx.files.internal("skeleton.png"));
 
     private float phase = 0;
 
@@ -52,14 +53,15 @@ public class FullBodyActorAnimation implements ActorAnimation {
         if(WaitActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
                 IdleActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
                 TimedIdleActivity.class.isAssignableFrom(activity.getCurrentClass())) {
-            return 0;
+            return 1;
         }
 
         if(ConsumeHealingPotion.class.isAssignableFrom(activity.getCurrentClass())) {
             return 1;
         }
 
-        if(MovementActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
+        if(PreCalculatedMovementActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
+        MovementActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
                 ExplorationActivity.class.isAssignableFrom(activity.getCurrentClass())
         ) {
             return 0; // walk
