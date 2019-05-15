@@ -1,1 +1,1 @@
-gradlew desktop:dist
+gradlew clean desktop:dist

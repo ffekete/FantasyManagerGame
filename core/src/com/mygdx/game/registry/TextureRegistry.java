@@ -34,7 +34,7 @@ public class TextureRegistry {
                 .put(Bread.class, new Texture(Gdx.files.internal("bread.png")))
                 .put(SmallShiled.class, new Texture(Gdx.files.internal("shield.png")))
                 .put(PoisonFang.class, new Texture(Gdx.files.internal("PoisonFang.png")))
-                .put(FlameTongue.class, new Texture(Gdx.files.internal("FlameTongue.png")))
+                .put(FlameTongue.class, new Texture(Gdx.files.internal("Flametongue.png")))
                 .build();
 
         mapTextures = ImmutableMap.<TileBase, Texture>builder()

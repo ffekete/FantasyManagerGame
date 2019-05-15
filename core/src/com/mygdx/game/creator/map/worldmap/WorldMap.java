@@ -17,6 +17,7 @@ public class WorldMap implements Map2D {
     private final VisibilityCalculator visibilityCalculator;
     private final MapType mapType = MapType.WORLD_MAP;
     private Point defaultSpawningPoint;
+    private int[][] tileVariation;
 
     public WorldMap(int width, int height) {
         this.height = height;
@@ -31,6 +32,7 @@ public class WorldMap implements Map2D {
             }
         }
         this.worldMap = new WorldMapTile[width][height];
+        this.tileVariation = new int[width][height];
     }
 
     public TileBase getTile(int x, int y) {
@@ -44,6 +46,7 @@ public class WorldMap implements Map2D {
             return;
 
         worldMap[x][y] = value;
+        tileVariation[x][y] = new Random().nextInt(value.getVariation());
     }
 
     public int getHeight() {
@@ -101,5 +104,10 @@ public class WorldMap implements Map2D {
     @Override
     public MapType getMapType() {
         return mapType;
+    }
+
+    @Override
+    public int getTileVariation(int x, int y) {
+        return 0;
     }
 }

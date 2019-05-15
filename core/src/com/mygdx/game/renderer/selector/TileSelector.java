@@ -10,6 +10,7 @@ import java.util.Random;
 public class TileSelector {
 
     TextureRegion textureRegion;
+    long stamp = System.currentTimeMillis();
 
     public TileSelector() {
         textureRegion = new TextureRegion(new Texture(Gdx.files.internal("tiles/CaveTileset.png")));
@@ -18,7 +19,8 @@ public class TileSelector {
     public TextureRegion getFor(Map2D map, int x, int y) {
 
         if (!map.getTile(x, y).isObstacle()) {
-            textureRegion.setRegion(64, 0, 16, 16);
+
+            textureRegion.setRegion(64 + (map.getTileVariation(x,y) % 3)* 16, 0 + (map.getTileVariation(x,y) / 3) * 16, 16, 16);
             return textureRegion;
         }
 

@@ -43,12 +43,14 @@ public class MoveAndAttackDecision implements Decision {
 
                     PathFinder pathFinder = mapRegistry.getPathFinderFor(actor.getCurrentMap());
 
+                    long start = System.currentTimeMillis();
                     List<PathFinder.Node> path;
                     if (PreCalculatedMovementActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass())) {
                         path = pathFinder.findAStar(actor.getCoordinates(), Point.of(((PreCalculatedMovementActivity) enemy.getActivityStack().getCurrent().getCurrentActivity()).getTargetX(), ((PreCalculatedMovementActivity) enemy.getActivityStack().getCurrent().getCurrentActivity()).getTargetY()));
                     } else {
                         path = pathFinder.findAStar(actor.getCoordinates(), enemy.getCoordinates());
                     }
+                    System.out.println("Pathfinding took " + (System.currentTimeMillis() - start));
 
                     int halfWay = path.size() / 2;
 
@@ -57,7 +59,7 @@ public class MoveAndAttackDecision implements Decision {
                     } else {
                         actorMovementHandler.clearPath(actor);
                         List<PathFinder.Node> actorPath = new ArrayList<>();
-                        int start = halfWay;
+                        int startDate = halfWay;
                         int end = path.size();
 
                         // if enemy is already fighting
@@ -68,7 +70,7 @@ public class MoveAndAttackDecision implements Decision {
                             start = 1;
                             end = path.size();
                         }
-                        for (int i = start; i < end; i++) {
+                        for (int i = startDate; i < end; i++) {
                             actorPath.add(path.get(i));
                         }
                         //actorMovementHandler.registerActorPath(actor, actorPath);

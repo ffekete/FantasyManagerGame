@@ -111,6 +111,7 @@ public class DungeonRendererSample extends SampleBase {
 
         hero.setName("Adavark");
         hero.setRightHandItem(new FlameTongue());
+        CameraPositionController.INSTANCE.focusOn(hero);
 
     }
 

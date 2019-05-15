@@ -58,6 +58,7 @@ public class Config {
         public static final int VISITED_AREA_THRESHOLD = 10;
         public static final int DUNGEON_WIDTH = 100;
         public static final int DUNGEON_HEIGHT = 100;
+        public static final int TILE_VARIATION_FREQUENCY = 20;
     }
 
 

@@ -50,9 +50,9 @@ public class ActorRenderer implements Renderer {
                 ExplorationActivity explorationActivity = (ExplorationActivity) actor.getActivityStack().getCurrent();
                 spriteBatch.draw(targetTexture, explorationActivity.getTargetX(), explorationActivity.getTargetY(), 0, 0, 1, 1, 1, 1, 0, 0, 0, targetTexture.getHeight(), targetTexture.getWidth(), false, false);
             }
-
-            actionManager.update();
         }
+
+        actionManager.update();
     }
 
 

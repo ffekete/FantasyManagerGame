@@ -24,6 +24,8 @@ public interface Map2D {
 
     MapType getMapType();
 
+    int getTileVariation(int x, int y);
+
     enum MapType {
         DUNGEON,
         WORLD_MAP;

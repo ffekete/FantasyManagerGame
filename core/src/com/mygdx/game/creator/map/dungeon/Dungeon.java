@@ -11,6 +11,7 @@ import java.util.Random;
 
 public class Dungeon implements Map2D {
     private TileBase[][] dungeon;
+    private int[][] tileVariation;
     private VisitedArea[][] visitedareaMap;
     private final int height;
     private final int width;
@@ -33,6 +34,7 @@ public class Dungeon implements Map2D {
             }
         }
         this.dungeon = new Tile[width][height];
+        this.tileVariation = new int[width][height];
     }
 
     public TileBase getTile(int x, int y) {
@@ -46,6 +48,10 @@ public class Dungeon implements Map2D {
             return;
 
         dungeon[x][y] = value;
+        int variation = new Random().nextInt(value.getVariation() * Config.Dungeon.TILE_VARIATION_FREQUENCY);
+        if(variation >= value.getVariation())
+            variation = 0;
+        tileVariation[x][y] = variation;
     }
 
     public int getHeight() {
@@ -103,5 +109,10 @@ public class Dungeon implements Map2D {
     @Override
     public MapType getMapType() {
         return mapType;
+    }
+
+    @Override
+    public int getTileVariation(int x, int y) {
+        return tileVariation[x][y];
     }
 }
