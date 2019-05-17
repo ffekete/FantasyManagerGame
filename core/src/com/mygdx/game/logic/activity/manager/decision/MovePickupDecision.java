@@ -25,7 +25,6 @@ public class MovePickupDecision implements Decision {
                 Item item = DecisionUtils.findClosestItem(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE, Item.class);
                 if(item != null) {
                     // go for it
-                    System.out.println(String.format("I'mpicking up %s!", item));
                     Activity activity = new MovePickupActivity(Config.Activity.MOVE_PICKUP_PRIORITY)
                             .add(new MovementActivity(actor, item.getX(), item.getY(), 1, new PathFinder()))
                             .add(new PickUpItemActivity(actor, item));

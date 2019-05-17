@@ -56,7 +56,6 @@ public class PreCalculatedMovementActivity implements Activity {
 
     @Override
     public void init() {
-        System.out.println("Starting pre activity " + actor.getActivityStack().getSize());
         actorMovementHandler.registerActorPath(actor, path);
 
         actor.setxOffset(0);

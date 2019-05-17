@@ -21,7 +21,6 @@ public class CharacterMap2dSwitcher {
         actorRegistry.add(to, actor);
         if(cameraPositionController.getFocusedOn() == actor) {
             mapRegistry.setCurrentMapToShow(to);
-            System.out.println("Setting scene to " + to);
         }
     }
 

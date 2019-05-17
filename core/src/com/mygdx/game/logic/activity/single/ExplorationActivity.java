@@ -119,7 +119,6 @@ public class ExplorationActivity implements Activity {
 
     @Override
     public void cancel() {
-        System.out.println("This movement is cancelled");
         movementActivity.cancel();
     }
 

@@ -17,12 +17,6 @@ public class ActivityStack {
         this.actor = actor;
     }
 
-    public void debug() {
-        activities.forEach(activity -> {
-            System.out.println(activity.getClass());
-        });
-    }
-
     public void suspendAll() {
         activities.forEach(Activity::suspend);
     }
@@ -49,13 +43,11 @@ public class ActivityStack {
             activity.update();
             if (activity.isDone()) {
                 activity.clear();
-                System.out.println(activities.remove(activity));
-                System.out.println("activity cleared + " + activity);
+                activities.remove(activity);
             }
         }
         if (activity.isCancellable()) {
             activity.cancel();
-            System.out.println(this + "Removed " + activity);
             activities.remove(activity);
         } else {
             if (activity.isFirstRun()) {
@@ -82,7 +74,6 @@ public class ActivityStack {
     }
 
     public void add(Activity activity) {
-        System.out.println("activity added + " + activity.getClass());
         this.activities.offer(activity);
     }
 

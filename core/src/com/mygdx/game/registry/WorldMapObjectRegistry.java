@@ -1,7 +1,7 @@
 package com.mygdx.game.registry;
 
 import com.mygdx.game.creator.map.Cluster;
-import com.mygdx.game.creator.map.object.WorldObject;
+import com.mygdx.game.object.WorldObject;
 
 import java.util.HashMap;
 import java.util.HashSet;

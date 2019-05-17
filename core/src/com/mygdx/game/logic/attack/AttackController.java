@@ -66,7 +66,6 @@ public class AttackController {
         int evasion = victim.getAttribute(Attributes.Reflexes) * 2 + victim.getAttribute(Attributes.Dexterity) + victim.getDefenseValue();
 
         if(toHit < hitThreshold - evasion) {
-            System.out.println(attacker.getName() + " attacked " + victim.getName() + " damage: " + damage);
             victim.setHp(victim.getHp() - damage);
         }
     }
@@ -82,7 +81,6 @@ public class AttackController {
         int evasion = victim.getAttribute(Attributes.Reflexes) * 2 + victim.getAttribute(Attributes.Dexterity);
 
         if(toHit < hitThreshold - evasion) {
-            System.out.println(attacker.getName() + " attacked " + victim.getName() + " damage: " + damage);
             victim.setHp(victim.getHp() - damage);
             weapon.onHit(victim);
         }

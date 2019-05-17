@@ -11,24 +11,26 @@ public enum RendererBatch implements Renderer {
     WORLD_MAP(
             Arrays.asList(WorldMapRenderer.INSTANCE,
                     ItemRenderer.INSTANCE,
-                    ActorRenderer.INSTANCE)
+                    ActorRenderer.INSTANCE
+            )
     ),
 
     DUNGEON(
             Arrays.asList(DungeonRenderer.INSTANCE,
-            ItemRenderer.INSTANCE,
-            ActorRenderer.INSTANCE)
+                    ItemRenderer.INSTANCE,
+                    ActorRenderer.INSTANCE,
+                    LightRenderer.INSTANCE)
     );
 
     List<Renderer> renderers;
 
-    RendererBatch( List<Renderer> renderers) {
+    RendererBatch(List<Renderer> renderers) {
         this.renderers = renderers;
     }
 
     @Override
     public void draw(Map2D dungeon, SpriteBatch spriteBatch) {
-        for(Renderer renderer : renderers) {
+        for (Renderer renderer : renderers) {
             renderer.draw(dungeon, spriteBatch);
         }
     }

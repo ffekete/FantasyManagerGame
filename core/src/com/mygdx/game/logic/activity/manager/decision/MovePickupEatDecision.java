@@ -28,7 +28,6 @@ public class MovePickupEatDecision implements Decision {
                 Food food = (Food) DecisionUtils.findClosestItem(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE, Food.class);
                 if(food != null) {
                     // go for it
-                    System.out.println(String.format("I'm hungry for %s!", food));
                     Activity activity = new MovePickupEatActivity(Config.Activity.MOVE_PICKUP_EAT_PRIORITY)
                             .add(new MovementActivity(actor, food.getX(), food.getY(), 1, new PathFinder()))
                             .add(new PickUpItemActivity(actor, food))

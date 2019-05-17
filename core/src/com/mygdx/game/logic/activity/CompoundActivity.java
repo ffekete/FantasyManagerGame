@@ -30,7 +30,6 @@ public abstract class CompoundActivity implements Activity {
             if (activities.size() - 1 == currentActivity) {
                 // this was the last activity, nothing else to do here
             } else {
-                System.out.println("Moving on to next activity in compound " + currentActivity);
                 currentActivity++;
                 activities.get(currentActivity).init();
             }

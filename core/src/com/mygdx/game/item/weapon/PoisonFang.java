@@ -21,7 +21,6 @@ public class PoisonFang implements Weapon, OneHandedItem {
 
     @Override
     public void onHit(Actor target) {
-        System.out.println("Poisoning target");
         EffectRegistry.INSTANCE.add(new Poison(2, 5, target), target);
     }
 

@@ -25,7 +25,6 @@ public class FireDamage implements Effect {
         if(counter <= 0) {
             counter = 60;
             duration--;
-            System.out.println("******************* burning target!");
             target.setHp(target.getHp() - strength);
         }
     }

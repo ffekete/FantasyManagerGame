@@ -52,7 +52,6 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
 
     @Override
     public void cancel() {
-        System.out.println(actor + " cancelled.");
     }
 
     @Override
@@ -89,7 +88,6 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
     public void clear() {
         actor.setxOffset(0);
         actor.setyOffset(0);
-        System.out.println(" I picked up " + item);
         actor.pickUp(item);
         ActorMovementHandler.INSTANCE.clearPath(actor);
         itemRegistry.getAllItems(actor.getCurrentMap()).remove(item);

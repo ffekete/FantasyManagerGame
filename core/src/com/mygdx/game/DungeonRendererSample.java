@@ -2,38 +2,35 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Warrior;
-import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
-import com.mygdx.game.creator.map.dungeon.Dungeon;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.FlameTongue;
-import com.mygdx.game.item.weapon.PoisonFang;
 import com.mygdx.game.item.weapon.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.time.DayTimeCalculator;
-import com.mygdx.game.registry.ActorRegistry;
-import com.mygdx.game.registry.AnimationRegistry;
-import com.mygdx.game.registry.ItemRegistry;
-import com.mygdx.game.registry.MapRegistry;
-import com.mygdx.game.registry.SpriteBatchRegistry;
-import com.mygdx.game.registry.TextureRegistry;
+import com.mygdx.game.object.light.ActorLightSource;
+import com.mygdx.game.object.light.ConstantLightSource;
+import com.mygdx.game.object.light.LightSourceType;
+import com.mygdx.game.registry.*;
 import com.mygdx.game.renderer.RendererBatch;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.utils.GdxUtils;
@@ -60,7 +57,6 @@ public class DungeonRendererSample extends SampleBase {
 
     @Override
     public void create() {
-
         infoCamera = new OrthographicCamera();
         infoViewPort = new FitViewport(1280, 720, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
@@ -68,7 +64,7 @@ public class DungeonRendererSample extends SampleBase {
 
         camera = new OrthographicCamera();
         viewPort = new FitViewport(100, 100, camera);
-        spriteBatch = new SpriteBatch();
+        spriteBatch = new SpriteBatch(150);
         spriteBatch.enableBlending();
         SpriteBatchRegistry.INSTANCE.setSpriteBatch(spriteBatch);
 
@@ -85,6 +81,7 @@ public class DungeonRendererSample extends SampleBase {
 
         for (int i = 0; i < 15; i++) {
             Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
+            LightSourceRegistry.INSTANCE.add(dungeon, new ActorLightSource(s, Color.LIME, 5, LightSourceType.Ambient));
             s.setRightHandItem(new ShortSword());
 
         }
@@ -112,6 +109,8 @@ public class DungeonRendererSample extends SampleBase {
         hero.setName("Adavark");
         hero.setRightHandItem(new FlameTongue());
         CameraPositionController.INSTANCE.focusOn(hero);
+        LightSourceRegistry.INSTANCE.add(dungeon, new ActorLightSource(hero, new Color(0xFFFFe0), 9, LightSourceType.Ambient));
+        LightSourceRegistry.INSTANCE.add(dungeon, new ConstantLightSource(hero.getX(), hero.getY(), Color.RED, 9, LightSourceType.Beam));
 
     }
 
@@ -119,18 +118,16 @@ public class DungeonRendererSample extends SampleBase {
     public void render() {
         spriteBatch.setProjectionMatrix(camera.combined);
         viewPort.apply();
-        spriteBatch.begin();
 
+        spriteBatch.begin();
         GdxUtils.clearScreen();
         CameraPositionController.INSTANCE.updateCamera(camera, viewPort);
         gameLogicController.update();
         draw();
 
-        spriteBatch.end();
-
         infoViewPort.apply();
         spriteBatch.setProjectionMatrix(infoCamera.combined);
-        spriteBatch.begin();
+
         bitmapFont.draw(spriteBatch, "Hour: " + DayTimeCalculator.INSTANCE.getHour() + " Day: " + DayTimeCalculator.INSTANCE.getDay(), 10, 40);
         spriteBatch.end();
     }

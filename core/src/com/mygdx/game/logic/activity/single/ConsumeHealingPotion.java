@@ -66,7 +66,6 @@ public class ConsumeHealingPotion implements Activity {
 
     @Override
     public void clear() {
-        System.out.println(actor.getName() + ": gulp!");
         healingPotion.consume(actor);
     }
 

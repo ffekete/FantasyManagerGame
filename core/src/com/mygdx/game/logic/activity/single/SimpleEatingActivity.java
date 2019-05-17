@@ -48,7 +48,6 @@ public class SimpleEatingActivity implements Activity, CooldownActivity {
 
     @Override
     public void cancel() {
-        System.out.println(actor + " cancelled.");
     }
 
     @Override
@@ -83,10 +82,8 @@ public class SimpleEatingActivity implements Activity, CooldownActivity {
 
     @Override
     public void clear() {
-        System.out.println("clear eating");
         if(actor.getInventory().has(Food.class)) {
             Food food = actor.getInventory().get(Food.class);
-            System.out.println(" I ate " + food.getNutritionAmount() + " " + actor.getHungerLevel());
             actor.decreaseHunger(food.getNutritionAmount());
             actor.getInventory().remove(food);
         }

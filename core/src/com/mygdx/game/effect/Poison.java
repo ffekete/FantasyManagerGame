@@ -23,7 +23,6 @@ public class Poison implements Effect {
         if (counter <= 0) {
             counter = 60;
             duration -= 1;
-            System.out.println(target + " was hit by poison: " + stregth);
 
             target.setHp(target.getHp() - stregth);
             if (target.getHp() <= 0) {

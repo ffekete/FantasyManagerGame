@@ -70,8 +70,6 @@ public class MovementActivity implements Activity {
 
     @Override
     public void init() {
-        System.out.println("Starting activity "  + actor.getActivityStack().getSize());
-        actor.getActivityStack().debug();
         pathFinder.init(actor.getCurrentMap());
         path = executor.submit(() -> pathFinder.findAStar(new Point(actor.getX(), actor.getY()), new Point(targetX, targetY)));
 

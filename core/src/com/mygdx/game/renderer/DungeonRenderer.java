@@ -18,9 +18,7 @@ public class DungeonRenderer implements Renderer {
 
     public static final DungeonRenderer INSTANCE = new DungeonRenderer();
 
-    private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
-
-    TileSelector tileSelector = new TileSelector();
+    private TileSelector tileSelector = new TileSelector();
 
     @Override
     public void draw(Map2D map, SpriteBatch spriteBatch) {
@@ -39,7 +37,7 @@ public class DungeonRenderer implements Renderer {
                 if (map.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
                     spriteBatch.setColor(Color.DARK_GRAY);
                 } else {
-                    spriteBatch.setColor(Color.WHITE);
+                    spriteBatch.setColor(Color.GRAY);
                 }
                 if (map.getVisitedareaMap()[i][j] != VisitedArea.NOT_VISITED) {
 

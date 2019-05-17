@@ -66,7 +66,6 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
 
     @Override
     public void cancel() {
-        System.out.println(actor + " cancelled.");
         actor.setxOffset(0);
         actor.setyOffset(0);
         actionRegistry.remove(actor.getCurrentMap(), action);
@@ -108,7 +107,6 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     public void clear() {
         actor.setxOffset(0);
         actor.setyOffset(0);
-        System.out.println(" I attacked and killed " + enemy);
         ActorMovementHandler.INSTANCE.clearPath(actor);
         animationRegistry.remove(enemy);
         AttackController.INSTANCE.clearAttackingHistory(actor);
