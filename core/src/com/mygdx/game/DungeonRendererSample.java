@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Frustum;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
@@ -33,6 +32,7 @@ import com.mygdx.game.object.light.LightSourceType;
 import com.mygdx.game.registry.*;
 import com.mygdx.game.renderer.RendererBatch;
 import com.mygdx.game.renderer.camera.CameraPositionController;
+import com.mygdx.game.renderer.gui.ActorGuiRenderer;
 import com.mygdx.game.utils.GdxUtils;
 
 
@@ -58,7 +58,7 @@ public class DungeonRendererSample extends SampleBase {
     @Override
     public void create() {
         infoCamera = new OrthographicCamera();
-        infoViewPort = new FitViewport(1280, 720, infoCamera);
+        infoViewPort = new FitViewport(1080, 720, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
         //bitmapFont.getData().setScale(f);
 
@@ -128,7 +128,8 @@ public class DungeonRendererSample extends SampleBase {
         infoViewPort.apply();
         spriteBatch.setProjectionMatrix(infoCamera.combined);
 
-        bitmapFont.draw(spriteBatch, "Hour: " + DayTimeCalculator.INSTANCE.getHour() + " Day: " + DayTimeCalculator.INSTANCE.getDay(), 10, 40);
+        ActorGuiRenderer.INSTANCE.render(spriteBatch, hero);
+        bitmapFont.draw(spriteBatch, "Hour: " + DayTimeCalculator.INSTANCE.getHour() + " Day: " + DayTimeCalculator.INSTANCE.getDay(), 400, 40);
         spriteBatch.end();
     }
 

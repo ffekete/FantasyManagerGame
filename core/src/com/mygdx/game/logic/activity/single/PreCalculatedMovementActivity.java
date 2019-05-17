@@ -131,6 +131,7 @@ public class PreCalculatedMovementActivity implements Activity {
     }
 
     public int getTargetX() {
+        // ez neha null, next todo
         return path.get(0).getX();
     }
 

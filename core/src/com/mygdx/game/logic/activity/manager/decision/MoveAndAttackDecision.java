@@ -46,7 +46,16 @@ public class MoveAndAttackDecision implements Decision {
                     long start = System.currentTimeMillis();
                     List<PathFinder.Node> path;
                     if (PreCalculatedMovementActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass())) {
-                        path = pathFinder.findAStar(actor.getCoordinates(), Point.of(((PreCalculatedMovementActivity) enemy.getActivityStack().getCurrent().getCurrentActivity()).getTargetX(), ((PreCalculatedMovementActivity) enemy.getActivityStack().getCurrent().getCurrentActivity()).getTargetY()));
+
+                        PreCalculatedMovementActivity movementActivity = ((PreCalculatedMovementActivity) enemy.getActivityStack().getCurrent().getCurrentActivity());
+                        Point target;
+                        if(movementActivity == null) {
+                            target = enemy.getCoordinates();
+                        } else {
+                            target = Point.of(movementActivity.getTargetX(), movementActivity.getTargetY());
+                        }
+
+                        path = pathFinder.findAStar(actor.getCoordinates(), target);
                     } else {
                         path = pathFinder.findAStar(actor.getCoordinates(), enemy.getCoordinates());
                     }

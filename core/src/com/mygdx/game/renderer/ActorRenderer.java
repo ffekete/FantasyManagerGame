@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.creator.map.Map2D;
@@ -17,6 +19,7 @@ import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 import com.mygdx.game.renderer.direction.DirectionSelector;
+import com.mygdx.game.renderer.gui.component.GuiComponent;
 
 public class ActorRenderer implements Renderer {
 
@@ -29,6 +32,14 @@ public class ActorRenderer implements Renderer {
 
     private Texture targetTexture = new Texture(Gdx.files.internal("location.png"));
 
+    TextureRegion textureRegion;
+    TextureRegion healthBarRegion;
+
+    public ActorRenderer() {
+        this.textureRegion = new TextureRegion(textureRegistry.getFor(GuiComponent.HUD), 0, 150, textureRegistry.getFor(GuiComponent.HUD).getWidth(), textureRegistry.getFor(GuiComponent.HUD).getHeight());
+        this.healthBarRegion = new TextureRegion(textureRegistry.getFor(GuiComponent.HUD), 340, 30, 500, 40);
+    }
+
     @Override
     public void draw(Map2D dungeon, SpriteBatch spriteBatch) {
         VisibilityMask visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(dungeon);
@@ -40,6 +51,9 @@ public class ActorRenderer implements Renderer {
                     Activity activity = actor.getCurrentActivity();
                     AnimationRegistry.INSTANCE.getAnimations().get(actor).drawKeyFrame(spriteBatch, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), 1, directionSelector.getDirection(actor), activity, actor.getClass());
                 }
+
+            // show health bar
+            spriteBatch.draw(healthBarRegion, actor.getX() + actor.getxOffset() + 0.2f, actor.getY() + actor.getyOffset() + 1, 1.8f * ((float)actor.getHp() / actor.getMaxHp()), 0.1f);
 
             if(actor.getLeftHandItem() != null) {
                 Texture itemTexture = textureRegistry.getFor(actor.getLeftHandItem().getClass());

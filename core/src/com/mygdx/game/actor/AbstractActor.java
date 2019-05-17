@@ -34,7 +34,7 @@ public abstract class AbstractActor implements Actor {
     private float xOffset = 0;
     private float yOffset = 0;
 
-    private int actualHp = 20;
+    private int actualHp;
     private int hpModifier = 3;
 
     private Equipable leftHand = null;
@@ -52,6 +52,7 @@ public abstract class AbstractActor implements Actor {
         for (Attributes a : Attributes.values()) {
             baseAttributes.put(a, 20);
         }
+        actualHp = getMaxHp();
         this.inventory = new Inventory();
     }
 

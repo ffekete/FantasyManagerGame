@@ -1,5 +1,6 @@
 package com.mygdx.game.renderer;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.creator.map.Map2D;
 
@@ -33,5 +34,6 @@ public enum RendererBatch implements Renderer {
         for (Renderer renderer : renderers) {
             renderer.draw(dungeon, spriteBatch);
         }
+        spriteBatch.setColor(Color.WHITE);
     }
 }

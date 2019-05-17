@@ -14,19 +14,26 @@ import com.mygdx.game.item.weapon.FlameTongue;
 import com.mygdx.game.item.weapon.PoisonFang;
 import com.mygdx.game.item.weapon.ShortSword;
 import com.mygdx.game.object.light.LightSourceType;
+import com.mygdx.game.renderer.gui.component.GuiComponent;
 
+import javax.xml.soap.Text;
 import java.util.Map;
 
 public class TextureRegistry {
 
     public static final TextureRegistry INSTANCE = new TextureRegistry();
 
+    private Map<GuiComponent, Texture> guiTextures;
     private Map<Class, Texture> textures;
     private Map<LightSourceType, Texture> lightTextures;
     private Map<TileBase, Texture> mapTextures;
     private Map<Class<? extends WorldObject>, Texture> objectTextures;
 
     public TextureRegistry() {
+
+        guiTextures = ImmutableMap.<GuiComponent, Texture>builder()
+                .put(GuiComponent.HUD, new Texture(Gdx.files.internal("Hud.png")))
+                .build();
 
         lightTextures = ImmutableMap.<LightSourceType, Texture>builder()
                 .put(LightSourceType.Ambient, new Texture(Gdx.files.internal("light_bu.png")))
@@ -57,6 +64,10 @@ public class TextureRegistry {
         objectTextures = ImmutableMap.<Class<? extends WorldObject>, Texture>builder()
                 .put(DungeonEntrance.class, new Texture(Gdx.files.internal("DungeonEntrance.jpg")))
                 .build();
+    }
+
+    public Texture getFor(GuiComponent guiComponent) {
+        return guiTextures.get(guiComponent);
     }
 
     public Texture getFor(LightSourceType lightSourceType) {
