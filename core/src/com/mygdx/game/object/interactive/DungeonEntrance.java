@@ -28,12 +28,12 @@ public class DungeonEntrance implements InteractiveObject {
     }
 
     @Override
-    public int getX() {
+    public float getX() {
         return coordinates.getX();
     }
 
     @Override
-    public int getY() {
+    public float getY() {
         return coordinates.getY();
     }
 

@@ -12,7 +12,9 @@ public enum RendererBatch implements Renderer {
     WORLD_MAP(
             Arrays.asList(WorldMapRenderer.INSTANCE,
                     ItemRenderer.INSTANCE,
-                    ActorRenderer.INSTANCE
+                    ActorRenderer.INSTANCE,
+                    WorldObjectRenderer.INSTANCE,
+                    LightRenderer.INSTANCE
             )
     ),
 
@@ -20,7 +22,9 @@ public enum RendererBatch implements Renderer {
             Arrays.asList(DungeonRenderer.INSTANCE,
                     ItemRenderer.INSTANCE,
                     ActorRenderer.INSTANCE,
-                    LightRenderer.INSTANCE)
+                    WorldObjectRenderer.INSTANCE,
+                    LightRenderer.INSTANCE
+            )
     );
 
     List<Renderer> renderers;

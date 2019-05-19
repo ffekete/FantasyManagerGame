@@ -51,7 +51,7 @@ public class DungeonVisitingDecision implements Decision {
                     && !actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
                 MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY);
 
-                moveAndInteractActivity.add(new MovementActivity(actor, closestObject.getX(), closestObject.getY(), 1, new PathFinder()));
+                moveAndInteractActivity.add(new MovementActivity(actor, (int)closestObject.getX(), (int)closestObject.getY(), 1, new PathFinder()));
                 moveAndInteractActivity.add(new InteractActivity(actor, (InteractiveObject) closestObject));
 
                 actor.getActivityStack().add(moveAndInteractActivity);

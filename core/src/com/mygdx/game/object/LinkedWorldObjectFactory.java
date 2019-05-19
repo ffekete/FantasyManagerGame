@@ -3,7 +3,7 @@ package com.mygdx.game.object;
 import com.mygdx.game.Config;
 import com.mygdx.game.creator.map.Cluster;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.object.factory.ObjectPlacement;
+import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.WorldMapObjectRegistry;
 
 import java.lang.reflect.InvocationTargetException;
@@ -28,8 +28,8 @@ public class LinkedWorldObjectFactory {
 
         placement.place(object, map);
         worldMapObjectRegistry.add(
-                new Cluster(object.getX() / Config.WorldMap.CLUSTER_DIVIDER,
-                        object.getY() / Config.WorldMap.CLUSTER_DIVIDER),
+                new Cluster((int)object.getX() / Config.WorldMap.CLUSTER_DIVIDER,
+                        (int)object.getY() / Config.WorldMap.CLUSTER_DIVIDER),
                 object);
 
         return object;

@@ -33,8 +33,6 @@ public class WorldMapRenderer implements Renderer {
         if(visibilityMask != null)
             visibilityMask.mask(map, map.getVisitedareaMap());
 
-        CameraPositionController.Point cameraPosition = cameraPositionController.getCameraposition();
-
         for (int i = Math.max((int)cameraPositionController.getCameraposition().getX()-40, 0); i < Math.min((int)cameraPositionController.getCameraposition().getX() + 40, Config.WorldMap.WORLD_WIDTH); i++) {
             for (int j = Math.max((int)cameraPositionController.getCameraposition().getY()-40, 0); j < Math.min((int)cameraPositionController.getCameraposition().getY() + 40, Config.WorldMap.WORLD_HEIGHT); j++) {
                 if (map.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
@@ -48,29 +46,5 @@ public class WorldMapRenderer implements Renderer {
                 }
             }
         }
-
-        // draw objects
-        int x = (int) cameraPosition.getX() / Config.WorldMap.CLUSTER_DIVIDER;
-        int y = (int) cameraPosition.getY() / Config.WorldMap.CLUSTER_DIVIDER;
-
-        List<Cluster> clusters = new ArrayList<>();
-
-        for (int i = -1; i <= 1; i++)
-            for (int j = -1; j <= 1; j++) {
-                if (x + i >= 0 && x + i <= Config.WorldMap.WORLD_WIDTH / Config.WorldMap.CLUSTER_DIVIDER &&
-                        y + j >= 0 && y + j <= Config.WorldMap.WORLD_HEIGHT / Config.WorldMap.CLUSTER_DIVIDER) {
-                    Cluster cluster = new Cluster(x + i, y + j);
-                    clusters.add(cluster);
-                }
-            }
-
-        for (Cluster cluster : clusters) {
-            if (objectRegistry.getObjects(cluster).isPresent())
-                for (WorldObject worldObject : objectRegistry.getObjects(cluster).get()) {
-                    Texture texture = textureRegistry.getForobject(worldObject.getClass());
-                    spriteBatch.draw(texture, worldObject.getX(), worldObject.getY(), 0, 0, 1, 1, 1, 1, 0, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
-                }
-        }
-
     }
 }

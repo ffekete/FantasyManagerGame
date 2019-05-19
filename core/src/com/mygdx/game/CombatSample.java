@@ -81,9 +81,9 @@ public class CombatSample extends SampleBase {
         hero.setLeftHandItem(new SmallShiled());
 
         Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(5).Y(0));
-        //Actor s2 = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(0).Y(5));
+        Actor s2 = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(0).Y(5));
         s.setRightHandItem(new ShortSword());
-        //s2.setRightHandItem(new ShortSword());
+        s2.setRightHandItem(new ShortSword());
 
         MapRegistry.INSTANCE.setCurrentMapToShow(dungeon);
         MapRegistry.INSTANCE.add(dungeon);

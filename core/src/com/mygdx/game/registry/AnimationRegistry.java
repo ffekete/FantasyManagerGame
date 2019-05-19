@@ -5,6 +5,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.animation.ActorAnimation;
 import com.mygdx.game.animation.Animation;
 import com.mygdx.game.animation.AnimationBuilder;
+import com.mygdx.game.object.AnimatedObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,8 @@ public class AnimationRegistry implements Disposable {
 
     public static final AnimationRegistry INSTANCE = new AnimationRegistry();
 
-    private Map<Actor, ActorAnimation> animations = new HashMap<>();
+    private final Map<Actor, ActorAnimation> animations = new HashMap<>();
+    private final Map<AnimatedObject, Animation> objectAnimations = new HashMap<>();
 
     public Map<Actor, ActorAnimation> getAnimations() {
         return animations;
@@ -21,6 +23,14 @@ public class AnimationRegistry implements Disposable {
 
     public ActorAnimation get(Actor actor) {
         return animations.getOrDefault(actor, null);
+    }
+
+    public Animation get(AnimatedObject animatedObject) {
+        return objectAnimations.get(animatedObject);
+    }
+
+    public void add(AnimatedObject object, Animation animation) {
+        objectAnimations.put(object, animation);
     }
 
     public void add(Actor actor, ActorAnimation animation) {

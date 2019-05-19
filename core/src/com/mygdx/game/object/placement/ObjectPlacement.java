@@ -1,4 +1,4 @@
-package com.mygdx.game.object.factory;
+package com.mygdx.game.object.placement;
 
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.object.WorldObject;

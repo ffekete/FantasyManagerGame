@@ -37,9 +37,9 @@ public class DungeonRenderer implements Renderer {
             for (int j = Math.max((int)cameraPositionController.getCameraposition().getY()-40, 0); j < Math.min((int)cameraPositionController.getCameraposition().getY() + 40, Config.Dungeon.DUNGEON_HEIGHT); j++) {
 
                 if (map.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
-                    spriteBatch.setColor(Color.DARK_GRAY);
+                    spriteBatch.setColor(Color.valueOf("111111"));
                 } else {
-                    spriteBatch.setColor(Color.GRAY);
+                    spriteBatch.setColor(Color.valueOf("222222"));
                 }
                 if (map.getVisitedareaMap()[i][j] != VisitedArea.NOT_VISITED) {
                     TextureRegion texture = tileSelector.getFor(map, i,j);
