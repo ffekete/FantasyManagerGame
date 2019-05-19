@@ -33,11 +33,10 @@ public class ActivityManager {
     }
 
     public void manage(Actor actor) {
-        for (Decision decision : decisionTable) {
-            if(decision.decide(actor)) {
+        for (int i = 0; i < decisionTable.size(); i++) {
+            if(decisionTable.get(i).decide(actor)) {
                 break;
             }
         }
-
     }
 }

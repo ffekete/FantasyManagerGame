@@ -11,13 +11,16 @@ public class ActionManager {
     private final ActionRegistry actionRegistry = ActionRegistry.INSTANCE;
     private final MapRegistry mapRegistry = MapRegistry.INSTANCE;
 
+    // for performance tuning
+    private Action action;
 
     private ActionManager() {
     }
 
     public void update() {
         if(mapRegistry.getCurrentMapToShow() != null) {
-            for (Action action : actionRegistry.getActions((mapRegistry.getCurrentMapToShow()))) {
+            for (int i = 0;  i < actionRegistry.getActions((mapRegistry.getCurrentMapToShow())).size(); i++) {
+                action = actionRegistry.getActions((mapRegistry.getCurrentMapToShow())).get(i);
                 if (!action.isFinished()) {
                     action.update();
                 } else {

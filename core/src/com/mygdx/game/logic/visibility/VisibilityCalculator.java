@@ -19,6 +19,10 @@ public class VisibilityCalculator {
 
     private final VisibilityMapRegistry visibilityMapRegistry = VisibilityMapRegistry.INSTANCE;
 
+
+    // for performance tuning
+    private VisibilityMask.ChangedArea changedArea;
+
     public VisibilityCalculator(int width, int height) {
         this.width = width;
         this.height = height;
@@ -149,9 +153,10 @@ public class VisibilityCalculator {
     }
 
     private void refine(VisibilityMask mask) {
-        for(VisibilityMask.ChangedArea area : mask.getChangedAreas()) {
-            for (int i = Math.max(1, area.p1.getX()); i < Math.min(area.p2.getX(), mask.getWidth()-1); i++) {
-                for (int j = Math.max(1, area.p1.getY()); j < Math.min(area.p2.getY(), mask.getHeight()-1); j++) {
+        for(int k = 0; k <  mask.getChangedAreas().size(); k++) {
+            changedArea = mask.getChangedAreas().get(k);
+            for (int i = Math.max(1, changedArea.p1.getX()); i < Math.min(changedArea.p2.getX(), mask.getWidth()-1); i++) {
+                for (int j = Math.max(1, changedArea.p1.getY()); j < Math.min(changedArea.p2.getY(), mask.getHeight()-1); j++) {
                     int a = mask.getValue(i - 1, j).size() > 0 ? 1 : 0;
                     int b = mask.getValue(i + 1, j).size() > 0 ? 1 : 0;
                     int c = mask.getValue(i, j - 1).size() > 0 ? 1 : 0;
@@ -159,7 +164,6 @@ public class VisibilityCalculator {
                     int sum = a + b + c + d;
                     if (((mask.getValue(i, j).isEmpty() && sum >= 3)
                             || (mask.getValue(i, j).size() < sum))) {
-                        Set<Actor> finalActors = new HashSet<>();
 
                         Map<Actor, Integer> actors = new HashMap<>();
 
@@ -195,7 +199,7 @@ public class VisibilityCalculator {
                             }
                         }
 
-                        finalActors.addAll(actors.keySet().stream().filter(key -> actors.get(key) >= 3).collect(Collectors.toSet()));
+                        Set<Actor> finalActors = actors.keySet().stream().filter(key -> actors.get(key) >= 3).collect(Collectors.toSet());
 
                         mask.setAllValue(i, j, finalActors);
                     }

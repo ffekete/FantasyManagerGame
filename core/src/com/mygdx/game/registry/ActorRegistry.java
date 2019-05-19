@@ -21,10 +21,10 @@ public class ActorRegistry {
 
     public static final ActorRegistry INSTANCE = new ActorRegistry();
 
-    private Map<Map2D, Set<Actor>> actors = new ConcurrentHashMap<>();
+    private Map<Map2D, List<Actor>> actors = new ConcurrentHashMap<>();
 
     public void add(Map2D map, Actor actor) {
-        actors.computeIfAbsent(map, value -> new CopyOnWriteArraySet<>());
+        actors.computeIfAbsent(map, value -> new CopyOnWriteArrayList<>());
         actors.get(map).add(actor);
     }
 
@@ -32,18 +32,18 @@ public class ActorRegistry {
         actors.get(map).remove(actor);
     }
 
-    public void setActors(Map<Map2D, Set<Actor>> actors) {
+    public void setActors(Map<Map2D, List<Actor>> actors) {
         this.actors = actors;
     }
 
-    public Set<Actor> getActors(Map2D map) {
+    public List<Actor> getActors(Map2D map) {
         if(!actors.containsKey(map))
-            return Collections.emptySet();
+            return Collections.emptyList();
         return actors.get(map);
     }
 
-    public Set<Actor> getAllActors() {
-        return actors.values().stream().flatMap(Collection::stream).collect(Collectors.toSet());
+    public List<Actor> getAllActors() {
+        return actors.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
     }
 
     public boolean containsAnyHeroes(Map2D dungeon) {

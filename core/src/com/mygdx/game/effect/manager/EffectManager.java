@@ -5,19 +5,23 @@ import com.mygdx.game.effect.Effect;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.EffectRegistry;
 
-import java.util.stream.Stream;
+public class EffectManager {
 
-public class Effectmanager {
-
-    public static final Effectmanager INSTANCE = new Effectmanager();
+    public static final EffectManager INSTANCE = new EffectManager();
 
     private ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     private final EffectRegistry effectRegistry = EffectRegistry.INSTANCE;
 
 
+    // private for better performance
+    private Actor actor;
+    private Effect effect;
+
     public void update() {
-        for (Actor actor : actorRegistry.getAllActors()) {
-            for (Effect effect : effectRegistry.getAll(actor)) {
+        for(int i = 0; i < actorRegistry.getAllActors().size(); i++) {
+            actor = actorRegistry.getAllActors().get(i);
+            for (int j = 0; j < effectRegistry.getAll(actor).size(); j++) {
+                effect = effectRegistry.getAll(actor).get(j);
                 effect.update();
                 if (effect.isOver()) {
                     effectRegistry.remove(effect, actor);
@@ -26,6 +30,6 @@ public class Effectmanager {
         }
     }
 
-    private Effectmanager() {
+    private EffectManager() {
     }
 }

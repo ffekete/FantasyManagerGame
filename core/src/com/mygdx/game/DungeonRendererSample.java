@@ -57,10 +57,8 @@ public class DungeonRendererSample extends SampleBase {
     @Override
     public void create() {
         infoCamera = new OrthographicCamera();
-        infoViewPort = new FitViewport(Config.Screen.CANVAS_WIDTH, Config.Screen.HEIGHT, infoCamera);
+        infoViewPort = new FitViewport(Config.Screen.WIDTH, Config.Screen.HEIGHT, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
-        //bitmapFont.getData().setScale(f);
-
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();

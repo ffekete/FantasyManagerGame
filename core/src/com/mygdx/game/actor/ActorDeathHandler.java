@@ -1,6 +1,5 @@
 package com.mygdx.game.actor;
 
-import com.mygdx.game.effect.manager.Effectmanager;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.attack.AttackController;
 import com.mygdx.game.registry.ActorRegistry;

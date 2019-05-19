@@ -55,20 +55,20 @@ public class FullBodyActorAnimation implements ActorAnimation {
         if(WaitActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
                 IdleActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
                 TimedIdleActivity.class.isAssignableFrom(activity.getCurrentClass())) {
-            return 1;
+            return AnimationPhase.WALK.column;
         }
 
         if(ConsumeHealingPotion.class.isAssignableFrom(activity.getCurrentClass())) {
-            return 1;
+            return AnimationPhase.WALK.column;
         }
 
         if(PreCalculatedMovementActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
         MovementActivity.class.isAssignableFrom(activity.getCurrentClass()) ||
                 ExplorationActivity.class.isAssignableFrom(activity.getCurrentClass())
         ) {
-            return 0; // walk
+            return AnimationPhase.WALK.column;
         }
-        return 1; // attack
+        return AnimationPhase.ATTACK.column; // attack
     }
 
     private final Map<Class<? extends Actor>, Texture> textureMap = ImmutableMap.<Class<? extends Actor>, Texture>builder()
@@ -82,6 +82,17 @@ public class FullBodyActorAnimation implements ActorAnimation {
     public void dispose() {
         for(Texture t:textureMap.values()) {
             t.dispose();
+        }
+    }
+
+    private enum AnimationPhase {
+        WALK(0),
+        ATTACK(1);
+
+        private int column;
+
+        AnimationPhase(int column) {
+            this.column = column;
         }
     }
 }

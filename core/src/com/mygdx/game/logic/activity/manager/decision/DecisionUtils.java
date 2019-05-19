@@ -10,19 +10,23 @@ import java.util.Set;
 
 class DecisionUtils {
 
-    static Actor findClosestEnemy(Actor actor, Set<Actor> actors, Integer maxDistance) {
+    private static Actor actorForClosestEnemy;
+    private static Item item;
+
+    static Actor findClosestEnemy(Actor actor, List<Actor> actors, Integer maxDistance) {
         Actor selectedActor = null;
         int x = actor.getX();
         int y = actor.getY();
         float minDistance = Integer.MAX_VALUE;
 
-        for(Actor actor1 : actors) {
-            if(!actor.getAlignment().getEnemies().contains(actor1.getAlignment())) {
+        for(int i = 0; i < actors.size(); i++) {
+            actorForClosestEnemy = actors.get(i);
+            if(!actor.getAlignment().getEnemies().contains(actorForClosestEnemy.getAlignment())) {
                 continue;
             }
 
-            int a = actor1.getX();
-            int b = actor1.getY();
+            int a = actorForClosestEnemy.getX();
+            int b = actorForClosestEnemy.getY();
 
             VisibilityMask mask = VisibilityMapRegistry.INSTANCE.getFor(actor.getCurrentMap());
             if(mask != null && !mask.getValue(a,b).contains(actor)) {
@@ -31,7 +35,7 @@ class DecisionUtils {
 
             float distance = Math.abs(x-a)*Math.abs(x-a) + Math.abs(y-b) * Math.abs(y-b);
             if(distance < minDistance) {
-                selectedActor = actor1;
+                selectedActor = actorForClosestEnemy;
                 minDistance = distance;
             }
         }
@@ -44,7 +48,8 @@ class DecisionUtils {
         int y = actor.getY();
 
         float minDistance = Float.MAX_VALUE;
-        for(Item item : items) {
+        for(int i = 0; i < items.size(); i++) {
+            item = items.get(i);
             if(!clazz.isAssignableFrom(item.getClass())) {
                 continue;
             }
