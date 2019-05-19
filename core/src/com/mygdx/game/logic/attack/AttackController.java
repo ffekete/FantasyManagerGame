@@ -36,16 +36,17 @@ public class AttackController {
         return null;
     }
 
+    public void registerAttackHistory(Actor attacker, Actor target) {
+        if(!actors.containsKey(attacker) || actors.get(attacker) != target) {
+            actors.put(attacker, target);
+        }
+    }
+
     public Actor getTargetFor(Actor attacker) {
         return actors.get(attacker);
     }
 
     public void calculateAttack(Actor attacker, Actor victim) {
-
-        if(!(actors.containsKey(attacker) && actors.get(attacker).equals(victim))) {
-            actors.put(attacker, victim);
-        }
-
         if(attacker.getWeapons().isEmpty()) {
             attackWithFist(attacker, victim);
         } else {

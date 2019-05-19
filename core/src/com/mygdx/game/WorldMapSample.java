@@ -2,10 +2,14 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.factory.ActorFactory;
@@ -45,7 +49,6 @@ public class WorldMapSample extends SampleBase {
     public final static SampleInfo SAMPLE_INFO = new SampleInfo(WorldMapSample.class);
 
     private OrthographicCamera camera;
-    private Viewport viewPort;
     private TextureRegistry textureRegistry;
 
     Map2D worldMap;
@@ -62,17 +65,18 @@ public class WorldMapSample extends SampleBase {
 
     LinkedWorldObjectFactory objectFactory = LinkedWorldObjectFactory.INSTANCE;
 
+    ShapeRenderer shapeRenderer;
+
     @Override
     public void create() {
 
         infoCamera = new OrthographicCamera();
-        infoViewPort = new FitViewport(1280, 720, infoCamera);
+        infoViewPort = new FitViewport(Config.Screen.CANVAS_WIDTH, Config.Screen.HEIGHT, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
-        //bitmapFont.getData().setScale(f);
 
-        camera = new OrthographicCamera();
-        viewPort = new FitViewport(100, 100, camera);
-
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        camera = new OrthographicCamera(60, 60 * (h / w));
         SpriteBatchRegistry.INSTANCE.setSpriteBatch(new SpriteBatch());
 
         worldMap = mapGenerator.create();
@@ -114,16 +118,17 @@ public class WorldMapSample extends SampleBase {
         hero.setRightHandItem(new FlameTongue());
 
         MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
+
+        shapeRenderer = new ShapeRenderer();
     }
 
     @Override
     public void render() {
         SpriteBatchRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(camera.combined);
-        viewPort.apply();
         SpriteBatchRegistry.INSTANCE.getSpriteBatch().begin();
 
         GdxUtils.clearScreen();
-        CameraPositionController.INSTANCE.updateCamera(camera, viewPort);
+        CameraPositionController.INSTANCE.updateCamera(camera);
         gameLogicController.update();
         draw();
 
@@ -157,8 +162,11 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public void resize(int width, int height) {
-        viewPort.update(width, height, true);
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
+        camera.update();
         infoViewPort.update(width, height, true);
+        infoCamera.update();
     }
 
     @Override

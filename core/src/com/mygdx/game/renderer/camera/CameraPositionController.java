@@ -1,5 +1,6 @@
 package com.mygdx.game.renderer.camera;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Config;
@@ -10,8 +11,8 @@ public class CameraPositionController {
     public static final CameraPositionController INSTANCE = new CameraPositionController();
 
     private Point coord = new Point(0f,0f);
-    private float zoom = 1.0f;
-    private float focusedZoom = 0.2f;
+    private float zoom = 0.5f;
+    private float focusedZoom = 0.5f;
     private Actor focusedOn = null;
     private Point focusedOnPoint = new Point(0,0);
 
@@ -27,13 +28,12 @@ public class CameraPositionController {
         return focusedOn;
     }
 
-    public void updateCamera(OrthographicCamera camera, Viewport viewport) {
+    public void updateCamera(OrthographicCamera camera) {
         Point p = getCameraposition();
         camera.position.x = p.x;
         camera.position.y = p.y;
         camera.zoom = focusedOn == null ? zoom : focusedZoom;
         camera.update();
-        viewport.update(Config.SCREEN_WIDTH, Config.SCREEN_HEIGHT, focusedOn == null ? true : false);
     }
 
     public void focusOn(Actor actor) {
@@ -58,6 +58,7 @@ public class CameraPositionController {
                 zoom = 1f;
             }
         } else {
+            System.out.println(focusedZoom);
             focusedZoom += level;
             if(focusedZoom < 0.1f) {
                 focusedZoom = 0.1f;

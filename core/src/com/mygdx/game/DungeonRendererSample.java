@@ -41,7 +41,6 @@ public class DungeonRendererSample extends SampleBase {
     public final static SampleInfo SAMPLE_INFO = new SampleInfo(DungeonRendererSample.class);
 
     private OrthographicCamera camera;
-    private Viewport viewPort;
     private SpriteBatch spriteBatch;
     private TextureRegistry textureRegistry;
 
@@ -58,12 +57,15 @@ public class DungeonRendererSample extends SampleBase {
     @Override
     public void create() {
         infoCamera = new OrthographicCamera();
-        infoViewPort = new FitViewport(1080, 720, infoCamera);
+        infoViewPort = new FitViewport(Config.Screen.CANVAS_WIDTH, Config.Screen.HEIGHT, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
         //bitmapFont.getData().setScale(f);
 
-        camera = new OrthographicCamera();
-        viewPort = new FitViewport(100, 100, camera);
+
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        camera = new OrthographicCamera(60, 60 * (w/h));
+
         spriteBatch = new SpriteBatch(150);
         spriteBatch.enableBlending();
         SpriteBatchRegistry.INSTANCE.setSpriteBatch(spriteBatch);
@@ -117,11 +119,10 @@ public class DungeonRendererSample extends SampleBase {
     @Override
     public void render() {
         spriteBatch.setProjectionMatrix(camera.combined);
-        viewPort.apply();
 
         spriteBatch.begin();
         GdxUtils.clearScreen();
-        CameraPositionController.INSTANCE.updateCamera(camera, viewPort);
+        CameraPositionController.INSTANCE.updateCamera(camera);
         gameLogicController.update();
         draw();
 
@@ -150,7 +151,10 @@ public class DungeonRendererSample extends SampleBase {
 
     @Override
     public void resize(int width, int height) {
-        viewPort.update(width, height, true);
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        camera = new OrthographicCamera(60, 60 * (h / w));
+        camera.update();
         infoViewPort.update(width, height, true);
     }
 
@@ -164,7 +168,6 @@ public class DungeonRendererSample extends SampleBase {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        //dungeon = dungeonCreator.create();
         return true;
     }
 
@@ -179,6 +182,11 @@ public class DungeonRendererSample extends SampleBase {
     @Override
     public boolean keyDown(int keycode) {
         float delta = Gdx.graphics.getDeltaTime();
+
+        if(keycode == Input.Keys.ESCAPE) {
+            Gdx.app.exit();
+            System.exit(0);
+        }
 
         if (keycode == Input.Keys.LEFT) {
             camera.position.x -= 20.0 * delta;

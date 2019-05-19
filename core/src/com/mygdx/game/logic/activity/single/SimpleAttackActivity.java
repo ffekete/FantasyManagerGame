@@ -18,6 +18,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     private ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     private AnimationRegistry animationRegistry = AnimationRegistry.INSTANCE;
     private ActionRegistry actionRegistry = ActionRegistry.INSTANCE;
+    private AttackController attackController = AttackController.INSTANCE;
 
     private boolean firstRun = true;
     private int priority = Config.Activity.ATTACK_PRIORITY;
@@ -59,6 +60,8 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     @Override
     public void init() {
         firstRun = false;
+
+        attackController.registerAttackHistory(actor, enemy);
 
         action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), actor);
         actionRegistry.add(actor.getCurrentMap(), action);

@@ -17,21 +17,24 @@ public class DirectionSelector {
     public Direction getDirection(Actor actor) {
         if(PreCalculatedMovementActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())
                 || MovementActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())
-                || ExplorationActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass()))
+                || ExplorationActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())) {
             return ActorMovementHandler.INSTANCE.getDirection(actor);
+        }
 
         if(WaitActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())) {
-            return Direction.DOWN;
+
+            return Direction.UP;
         }
 
         if(SimpleAttackActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())) {
             Direction direction = AttackController.INSTANCE.getAttackingDirection(actor);
-            if(direction != null)
+            if(direction != null) {
                 return direction;
+            }
         }
 
         // default direction
-        return Direction.DOWN;
+        return Direction.UP;
     }
 
     private DirectionSelector() {

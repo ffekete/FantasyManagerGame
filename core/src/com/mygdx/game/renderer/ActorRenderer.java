@@ -53,22 +53,22 @@ public class ActorRenderer implements Renderer {
                 }
 
             // show health bar
-            spriteBatch.draw(healthBarRegion, actor.getX() + actor.getxOffset() + 0.2f, actor.getY() + actor.getyOffset() + 1, 1.8f * ((float)actor.getHp() / actor.getMaxHp()), 0.1f);
+            spriteBatch.draw(healthBarRegion, actor.getX() + actor.getxOffset() + 0.2f, actor.getY() + actor.getyOffset() + 1, 1.8f * ((float) actor.getHp() / actor.getMaxHp()), 0.1f);
 
-            if(actor.getLeftHandItem() != null) {
+            // show shield
+            if (actor.getLeftHandItem() != null) {
                 Texture itemTexture = textureRegistry.getFor(actor.getLeftHandItem().getClass());
                 spriteBatch.draw(itemTexture, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), 0, 0, 1, 1, 1, 1, 0, 0, 0, itemTexture.getHeight(), itemTexture.getWidth(), directionSelector.getDirection(actor).equals(Direction.LEFT) || directionSelector.getDirection(actor).equals(Direction.UP), false);
             }
 
             if (ExplorationActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getClass())) {
                 ExplorationActivity explorationActivity = (ExplorationActivity) actor.getActivityStack().getCurrent();
-                spriteBatch.draw(targetTexture, explorationActivity.getTargetX(), explorationActivity.getTargetY(), 0, 0, 1, 1, 1, 1, 0, 0, 0, targetTexture.getHeight(), targetTexture.getWidth(), false, false);
+                spriteBatch.draw(targetTexture, explorationActivity.getTargetX() + 0.25f, explorationActivity.getTargetY() + 0.25f, 0, 0, 0.5f, 0.5f, 1, 1, 0, 0, 0, targetTexture.getHeight(), targetTexture.getWidth(), false, false);
             }
         }
 
         actionManager.update();
     }
-
 
 
 }

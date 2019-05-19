@@ -12,11 +12,13 @@ import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
+import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.renderer.selector.TileSelector;
 
 public class DungeonRenderer implements Renderer {
 
     public static final DungeonRenderer INSTANCE = new DungeonRenderer();
+    public final CameraPositionController cameraPositionController = CameraPositionController.INSTANCE;
 
     private TileSelector tileSelector = new TileSelector();
 
@@ -31,8 +33,8 @@ public class DungeonRenderer implements Renderer {
 
         visibilityMask.mask(map, map.getVisitedareaMap());
 
-        for (int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
-            for (int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {
+        for (int i = Math.max((int)cameraPositionController.getCameraposition().getX()-40, 0); i < Math.min((int)cameraPositionController.getCameraposition().getX() + 40, Config.Dungeon.DUNGEON_WIDTH); i++) {
+            for (int j = Math.max((int)cameraPositionController.getCameraposition().getY()-40, 0); j < Math.min((int)cameraPositionController.getCameraposition().getY() + 40, Config.Dungeon.DUNGEON_HEIGHT); j++) {
 
                 if (map.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
                     spriteBatch.setColor(Color.DARK_GRAY);
@@ -40,11 +42,9 @@ public class DungeonRenderer implements Renderer {
                     spriteBatch.setColor(Color.GRAY);
                 }
                 if (map.getVisitedareaMap()[i][j] != VisitedArea.NOT_VISITED) {
+                    TextureRegion texture = tileSelector.getFor(map, i,j);
 
-
-                    TextureRegion texture = tileSelector.getFor(map, i,j); //textureRegistry.getForTile(map.getTile(i, j));
-
-                    spriteBatch.draw(texture, i, j, 1, 1);
+                    spriteBatch.draw(texture, i , j, 1, 1);
                 }
             }
         }

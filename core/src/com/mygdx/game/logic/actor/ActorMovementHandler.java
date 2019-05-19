@@ -32,7 +32,7 @@ public class ActorMovementHandler {
             if(directions.containsKey(actor))
                 return directions.get(actor);
             else
-                return Direction.DOWN;
+                return Direction.UP;
         } else {
             Direction nextDirection;
 

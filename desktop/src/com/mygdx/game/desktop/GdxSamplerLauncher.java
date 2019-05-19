@@ -1,9 +1,12 @@
 package com.mygdx.game.desktop;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglAWTCanvas;
 import com.mygdx.game.common.SampleFactory;
 import com.mygdx.game.common.SampleInfos;
+
+import org.lwjgl.opengl.DisplayMode;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -32,8 +35,8 @@ import javax.swing.WindowConstants;
  */
 public class GdxSamplerLauncher extends JFrame {
 
-    private static final int WIDTH = 1280;
-    private static final int HEIGHT = 720;
+    private static final int WIDTH = 1920;
+    private static final int HEIGHT = 1080;
     private static final int CELL_WIDTH = 200;
     private static final int CANVAS_WIDTH = WIDTH - CELL_WIDTH;
 
@@ -66,7 +69,8 @@ public class GdxSamplerLauncher extends JFrame {
         setTitle(GdxSamplerLauncher.class.getSimpleName());
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
         setSize(WIDTH, HEIGHT);
-        setResizable(false);
+        setResizable(true);
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         // tell window (jframe) to resize and layout our components

@@ -37,6 +37,13 @@ public class Config {
         public static final int HEALING_POTION_STRENGTH = 20;
     }
 
+    public static class Screen {
+        public static final int WIDTH = 1920;
+        public static final int HEIGHT = 1080;
+        public static final int CELL_WIDTH = 200;
+        public static final int CANVAS_WIDTH = WIDTH - CELL_WIDTH;
+    }
+
     public static class Activity {
 
         public static final int HEALING_POTION_CONSUME_PRIORITY = 10;

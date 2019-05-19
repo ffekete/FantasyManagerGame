@@ -42,7 +42,6 @@ public class CombatSample extends SampleBase {
     public final static SampleInfo SAMPLE_INFO = new SampleInfo(CombatSample.class);
 
     private OrthographicCamera camera;
-    private Viewport viewPort;
     private SpriteBatch spriteBatch;
     private TextureRegistry textureRegistry;
 
@@ -62,10 +61,10 @@ public class CombatSample extends SampleBase {
         infoCamera = new OrthographicCamera();
         infoViewPort = new FitViewport(1280, 720, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
-        //bitmapFont.getData().setScale(f);
 
-        camera = new OrthographicCamera();
-        viewPort = new FitViewport(100, 100, camera);
+        float w = Gdx.graphics.getWidth();
+        float h = Gdx.graphics.getHeight();
+        camera = new OrthographicCamera(60, 60 * (h / w));
         spriteBatch = new SpriteBatch();
         spriteBatch.enableBlending();
         SpriteBatchRegistry.INSTANCE.setSpriteBatch(spriteBatch);
@@ -82,9 +81,9 @@ public class CombatSample extends SampleBase {
         hero.setLeftHandItem(new SmallShiled());
 
         Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(5).Y(0));
-        Actor s2 = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(0).Y(5));
+        //Actor s2 = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(0).Y(5));
         s.setRightHandItem(new ShortSword());
-        s2.setRightHandItem(new ShortSword());
+        //s2.setRightHandItem(new ShortSword());
 
         MapRegistry.INSTANCE.setCurrentMapToShow(dungeon);
         MapRegistry.INSTANCE.add(dungeon);
@@ -98,11 +97,10 @@ public class CombatSample extends SampleBase {
     @Override
     public void render() {
         spriteBatch.setProjectionMatrix(camera.combined);
-        viewPort.apply();
         spriteBatch.begin();
 
         GdxUtils.clearScreen();
-        CameraPositionController.INSTANCE.updateCamera(camera, viewPort);
+        CameraPositionController.INSTANCE.updateCamera(camera);
         gameLogicController.update();
         draw();
 
@@ -132,7 +130,6 @@ public class CombatSample extends SampleBase {
 
     @Override
     public void resize(int width, int height) {
-        viewPort.update(width, height, true);
         infoViewPort.update(width, height, true);
     }
 
