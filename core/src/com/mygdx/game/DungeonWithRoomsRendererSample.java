@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.creator.map.dungeon.DungeonWithRoomsCreator;
 import com.mygdx.game.creator.map.dungeon.Tile;
 import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
@@ -25,9 +26,8 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     private SpriteBatch spriteBatch;
     private Texture wallTexture;
     private Texture floorTexture;
-    private Texture playerTexture;
 
-    MapGenerator dungeonCreator = new CaveDungeonCreator();
+    MapGenerator dungeonCreator = new DungeonWithRoomsCreator();
     Map2D dungeon;
 
     int px = 1, py = 1;
@@ -37,9 +37,8 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
         camera = new OrthographicCamera();
         viewPort = new FitViewport(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT, camera);
         spriteBatch = new SpriteBatch();
-        wallTexture = new Texture(Gdx.files.internal("wall.jpg"));
-        floorTexture = new Texture(Gdx.files.internal("terrain.jpg"));
-        playerTexture = new Texture(Gdx.files.internal("badlogic.jpg"));
+        wallTexture = new Texture(Gdx.files.internal("grass.jpg"));
+        floorTexture = new Texture(Gdx.files.internal("void.png"));
         dungeon = dungeonCreator.create();
         Gdx.input.setInputProcessor(this);
     }
@@ -59,12 +58,6 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     }
 
     public void draw() {
-        //VisibilityCalculator visibilityCalculator = new VisibilityCalculator(dungeon.getWidth(), dungeon.getHeight());
-        //VisibilityMask visibilityMask = visibilityCalculator.generateMask(dungeon, 100, Arrays.asList(new Point(px,py)));
-        //Tile[][] drawMap = visibilityMask.mask(dungeon, dungeon.getVisitedareaMap());
-
-        //drawMap[px][py] = 3;
-
         for(int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
             for (int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {
                 if(dungeon.getTile(i,j).equals(Tile.STONE_WALL)) {
@@ -88,7 +81,6 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
         spriteBatch.dispose();
         wallTexture.dispose();
         floorTexture.dispose();
-        playerTexture.dispose();
     }
 
     @Override

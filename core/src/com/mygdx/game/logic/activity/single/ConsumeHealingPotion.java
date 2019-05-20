@@ -67,6 +67,7 @@ public class ConsumeHealingPotion implements Activity {
     @Override
     public void clear() {
         healingPotion.consume(actor);
+        actor.getInventory().remove(healingPotion);
     }
 
     @Override

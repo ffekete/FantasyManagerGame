@@ -150,58 +150,32 @@ public class DungeonWithRoomsCreator implements MapGenerator {
 
     private Room findNextRoom(int x, int y, Room[][] roomLayout) {
         Room room = null;
-        for(int i = x-1; i >= 0; i--) {
-            for(int j = y-1; j>= 0; j--) {
-                if(roomLayout[i][j] != null) {
-                    if (room == null) room = roomLayout[i][j];
-                    else {
-                        if (distance(roomLayout[x][y], roomLayout[i][j]) < distance(roomLayout[x][y], room)) {
-                            room = roomLayout[i][j];
-                        }
+
+        List<Room> tilesVisited = new ArrayList<>();
+        List<Room> tilesNotVisited = new ArrayList<>();
+
+        tilesNotVisited.add(roomLayout[x][y]);
+
+
+        while(tilesNotVisited.size() > 0) {
+            Room current = tilesNotVisited.remove(0);
+            tilesVisited.add(current);
+
+            if(current.getX() / NR_OF_SEGMENTS != x || current.getY() / NR_OF_SEGMENTS != y) {
+                // fount a room
+                return current;
+            }
+
+            for(int i = -1; i < 2; i++) {
+                for(int j = -1; j < 2; j++) {
+                    if(x+i >= 0 && x+i < NR_OF_SEGMENTS && y+j >=0 && y+j < NR_OF_SEGMENTS) {
+                        if(roomLayout[i+x][j+y] != null && !tilesNotVisited.contains(roomLayout[x+i][y+j]))
+                            tilesNotVisited.add(roomLayout[x+i][y+j]);
                     }
                 }
             }
         }
 
-        for(int i = x+1; i < roomLayout.length; i++) {
-            for(int j = y-1; j>= 0; j--) {
-                if(roomLayout[i][j] != null) {
-                    if (room == null) room = roomLayout[i][j];
-                    else {
-                        if (distance(roomLayout[x][y], roomLayout[i][j]) < distance(roomLayout[x][y], room)) {
-                            room = roomLayout[i][j];
-                        }
-                    }
-                }
-            }
-        }
-
-        for(int i = x+1; i < roomLayout.length; i++) {
-            for(int j = y+1; j< roomLayout[0].length; j++) {
-                if(roomLayout[i][j] != null) {
-                    if (room == null) room = roomLayout[i][j];
-                    else {
-                        if (distance(roomLayout[x][y], roomLayout[i][j]) < distance(roomLayout[x][y], room)) {
-                            room = roomLayout[i][j];
-                        }
-                    }
-                }
-            }
-        }
-
-        for(int i = x-1; i >= 0; i--) {
-            for(int j = y+1; j < roomLayout[0].length; j++) {
-                if(roomLayout[i][j] != null) {
-                    if (room == null) room = roomLayout[i][j];
-                    else {
-                        if (distance(roomLayout[x][y], roomLayout[i][j]) < distance(roomLayout[x][y], room)) {
-                            room = roomLayout[i][j];
-                        }
-                    }
-                }
-            }
-        }
-
-        return room;
+        return null;
     }
 }

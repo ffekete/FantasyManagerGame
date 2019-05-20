@@ -28,4 +28,8 @@ public class Inventory {
     public boolean has(Class clazz) {
         return inventory.parallelStream().anyMatch(item -> clazz.isAssignableFrom(item.getClass()));
     }
+
+    public long count(Class<? extends Item> clazz) {
+        return inventory.stream().filter(item -> clazz.isAssignableFrom(item.getClass())).count();
+    }
 }
