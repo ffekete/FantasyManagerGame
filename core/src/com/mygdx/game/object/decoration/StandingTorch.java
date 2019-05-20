@@ -27,7 +27,7 @@ public class StandingTorch implements WorldObject, LightSource, AnimatedObject {
 
     @Override
     public float getArea() {
-        return 10;
+        return 20;
     }
 
     @Override
