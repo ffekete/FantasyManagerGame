@@ -24,16 +24,14 @@ public class PreCalculatedMovementActivity implements Activity {
     private boolean done = false;
     private ActorMovementHandler actorMovementHandler;
     private int speed;
-    private int range = 0;
     private int targetX;
     private int targetY;
     private final List<PathFinder.Node> path;
 
-    public PreCalculatedMovementActivity(Actor actor, int range, List<PathFinder.Node> path) {
+    public PreCalculatedMovementActivity(Actor actor, List<PathFinder.Node> path) {
         this.actor = actor;
         this.path = path;
         this.actorMovementHandler = ActorMovementHandler.INSTANCE;
-        this.range = range;
         targetX = path.get(0).getX();
         targetY = path.get(0).getY();
     }
@@ -49,6 +47,10 @@ public class PreCalculatedMovementActivity implements Activity {
     @Override
     public void update() {
         speed = actor.getMovementSpeed();
+        if(path.size() > 0) {
+            targetX = path.get(0).getX();
+            targetY = path.get(0).getY();
+        }
         done = (!actorMovementHandler.moveToNextPathPoint(actor));
         actor.setxOffset(0);
         actor.setyOffset(0);
@@ -131,12 +133,11 @@ public class PreCalculatedMovementActivity implements Activity {
     }
 
     public int getTargetX() {
-        // ez neha null, next todo
-        return path.get(0).getX();
+        return targetX;
     }
 
     public int getTargetY() {
-        return path.get(0).getY();
+        return targetY;
     }
 
     @Override

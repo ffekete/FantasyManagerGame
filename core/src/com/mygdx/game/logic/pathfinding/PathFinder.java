@@ -1,5 +1,6 @@
 package com.mygdx.game.logic.pathfinding;
 
+import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Config;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.logic.Point;
@@ -8,6 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PathFinder {
+
+    private final Pool<Node> nodePool = new Pool<Node>() {
+        @Override
+        protected Node newObject() {
+            return new Node(0,0,0);
+        }
+    };
 
     // 8 ways pathfinding
     //private static final int[][] availableNodesForCheck = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
@@ -57,18 +65,32 @@ public class PathFinder {
     public List<Node> findAStar(Point start, Point target) {
         Node[][] map = getObstacleMap();
         List<Node> openNodes = new ArrayList<>();
-        boolean[][] closedNodes = new boolean[width][height];
+        List<Node> closedNodes = new ArrayList<>();
         List<Node> path = new ArrayList<>();
+        List<Node> allNodes = new ArrayList<>();
 
-        Node startNode = new Node(map[start.getX()][start.getY()].tile, start.getX(), start.getY());
+        Node startNode = nodePool.obtain();
+
+        startNode.tile = map[start.getX()][start.getY()].tile;
+        startNode.x = start.getX();
+        startNode.y = start.getY();
+
         startNode.g = startNode.f = startNode.h = 0;
         startNode.parent = null;
 
-        Node end = new Node(map[target.getX()][target.getY()].tile, target.getX(), target.getY());
+        Node end = nodePool.obtain();
+        end.tile = map[target.getX()][target.getY()].tile;
+        end.x = target.getX();
+        end.y = target.getY();
+
         end.g = end.h = end.f = 0;
         end.parent = null;
 
         openNodes.add(startNode);
+
+        allNodes.add(startNode);
+        allNodes.add(end);
+
 
         while (!openNodes.isEmpty()) {
             Node current = openNodes.get(0);
@@ -80,13 +102,14 @@ public class PathFinder {
             }
 
             openNodes.remove(current);
-            closedNodes[current.getX()][current.getY()] = true;
+            closedNodes.add(current);
 
             if ((current.x == target.getX() && current.y == target.getY())) {
                 // hurra
                 Node c = current;
                 while (c != null) {
-                    path.add(c);
+                    Node c1 = new Node(c.tile, c.x, c.y);
+                    path.add(c1);
                     c = c.parent;
                 }
                 break;
@@ -104,7 +127,12 @@ public class PathFinder {
                         continue;
                     }
 
-                    Node child = new Node(map[x][y].tile, x, y);
+                    Node child = nodePool.obtain();
+                    allNodes.add(child);
+                    child.tile = map[x][y].tile;
+                    child.x = x;
+                    child.y = y;
+
                     child.parent = current;
 
                     children.add(child);
@@ -113,7 +141,7 @@ public class PathFinder {
 
             // calculate f,g,h
             for (Node child : children) {
-                if (closedNodes[child.getX()][child.getY()])
+                if (closedNodes.contains(child))
                     continue;
                 child.g = current.g + 1;
                 child.h = distance(child, end);
@@ -124,6 +152,10 @@ public class PathFinder {
                 }
                 openNodes.add(child);
             }
+        }
+
+        for(Node n : allNodes) {
+            nodePool.free(n);
         }
 
         return path;
@@ -166,6 +198,7 @@ public class PathFinder {
         obstacleMap = new Node[width][height];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
+
                 obstacleMap[i][j] = new Node(map.getTile(i, j).isObstacle() ? 1 : 0, i, j);
             }
         }
@@ -186,9 +219,9 @@ public class PathFinder {
         return a * a + b * b;
     }
 
-    public static class Node {
-        private final int x;
-        private final int y;
+    public static class Node implements Pool.Poolable {
+        private int x;
+        private int y;
         private Node parent;
         private int tile;
 
@@ -220,6 +253,11 @@ public class PathFinder {
 
         public int getTile() {
             return tile;
+        }
+
+        @Override
+        public void reset() {
+            tile = 0;
         }
     }
 }

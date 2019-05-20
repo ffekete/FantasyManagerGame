@@ -58,7 +58,6 @@ public class CameraPositionController {
                 zoom = 1f;
             }
         } else {
-            System.out.println(focusedZoom);
             focusedZoom += level;
             if(focusedZoom < 0.1f) {
                 focusedZoom = 0.1f;

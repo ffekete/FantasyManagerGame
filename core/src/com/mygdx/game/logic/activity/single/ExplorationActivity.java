@@ -1,5 +1,6 @@
 package com.mygdx.game.logic.activity.single;
 
+import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
@@ -17,6 +18,13 @@ import java.util.Random;
 
 public class ExplorationActivity implements Activity {
 
+    private final Pool<Point> pointPool = new Pool<Point>() {
+        @Override
+        protected Point newObject() {
+            return new Point(0,0);
+        }
+    };
+
     private final Map2D targetDungeon;
     private final Actor actor;
     private MovementActivity movementActivity;
@@ -24,6 +32,10 @@ public class ExplorationActivity implements Activity {
     private boolean suspended = false;
     private int targetX = 0;
     private int targetY = 0;
+
+    // performance enhancement
+    private Point point;
+    private final List<Point> allPoints = new ArrayList<>();
 
     public ExplorationActivity(Map2D targetDungeon, Actor actor) {
         this.targetDungeon = targetDungeon;
@@ -72,7 +84,7 @@ public class ExplorationActivity implements Activity {
             return null;
         }
         Deque<Point> points = new ArrayDeque<>();
-        points.add(new Point(x,y));
+        points.add(obtainPoint(x, y));
 
         while(!points.isEmpty()) {
             Point next = points.remove();
@@ -85,21 +97,24 @@ public class ExplorationActivity implements Activity {
                 alreadyChecked[px][py] = true;
 
                 if(VisitedArea.NOT_VISITED.equals(targetDungeon.getVisitedareaMap()[px][py])) {
-                    return new Point(px, py);
+                    for(Point p : allPoints) {
+                        pointPool.free(p);
+                    }
+                    return obtainPoint(px, py);
                 }
 
                 List<Point> newPoints = new ArrayList<>();
 
-                newPoints.add(new Point(px, py - 1));
-                newPoints.add(new Point(px, py + 1));
-                newPoints.add(new Point(px + 1, py));
-                newPoints.add(new Point(px-1, py));
+                newPoints.add(obtainPoint(px, py - 1));
+                newPoints.add(obtainPoint(px, py + 1));
+                newPoints.add(obtainPoint(px + 1, py));
+                newPoints.add(obtainPoint(px-1, py));
 
                 if(Config.Engine.ENABLE_8_WAYS_PATHFINDING) {
-                    newPoints.add(new Point(px  +1, py -1));
-                    newPoints.add(new Point(px - 1, py + 1));
-                    newPoints.add(new Point(px - 1, py - 1));
-                    newPoints.add(new Point(px + 1, py + 1));
+                    newPoints.add(obtainPoint(px  +1, py -1));
+                    newPoints.add(obtainPoint(px - 1, py + 1));
+                    newPoints.add(obtainPoint(px - 1, py - 1));
+                    newPoints.add(obtainPoint(px + 1, py + 1));
                 }
 
                 Collections.shuffle(newPoints, new Random(System.currentTimeMillis()));
@@ -109,6 +124,13 @@ public class ExplorationActivity implements Activity {
         }
         // no more visited area
         return null;
+    }
+
+    private Point obtainPoint(int x, int y) {
+        point = pointPool.obtain();
+        point.update(x,y);
+        allPoints.add(point);
+        return point;
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.mygdx.game.logic;
 
-public class Point {
+import com.badlogic.gdx.utils.Pool;
+
+public class Point implements Pool.Poolable {
     private int x;
     private int y;
 
@@ -24,5 +26,11 @@ public class Point {
     public void update(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    @Override
+    public void reset() {
+        x = 0;
+        y = 0;
     }
 }
