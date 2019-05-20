@@ -32,7 +32,7 @@ public class StandingTorch implements WorldObject, LightSource, AnimatedObject {
 
     @Override
     public Color getColor() {
-        return Color.valueOf("FFFF00");
+        return Color.valueOf("FFFF55");
     }
 
     @Override

@@ -20,7 +20,7 @@ public class TileSelector {
 
         if (!map.getTile(x, y).isObstacle()) {
 
-            textureRegion.setRegion(64 + (map.getTileVariation(x,y) % 3)* 16, 0 + (map.getTileVariation(x,y) / 3) * 16, 16, 16);
+            textureRegion.setRegion(64 + (map.getTileVariation(x,y) % 4)* 16, 0 + (map.getTileVariation(x,y) / 4) * 16, 16, 16);
             return textureRegion;
         }
 
