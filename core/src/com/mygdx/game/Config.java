@@ -24,6 +24,7 @@ public class Config {
 
     public static class Actor {
         public static final int LOW_HP_THRESHOLD_DIVIDER = 3;
+        public static final int MAX_STARTER_SKILL_LEVEL = 2;
     }
 
     public static class Time {

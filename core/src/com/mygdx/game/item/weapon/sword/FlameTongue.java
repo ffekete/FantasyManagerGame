@@ -1,13 +1,14 @@
-package com.mygdx.game.item.weapon;
+package com.mygdx.game.item.weapon.sword;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.FireDamage;
 import com.mygdx.game.item.OneHandedItem;
+import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.registry.EffectRegistry;
 
 import java.util.Random;
 
-public class FlameTongue implements Weapon, OneHandedItem {
+public class FlameTongue implements OneHandedItem, Sword {
 
     private final EffectRegistry effectRegistry = EffectRegistry.INSTANCE;
 

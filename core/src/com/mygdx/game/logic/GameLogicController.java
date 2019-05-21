@@ -66,7 +66,7 @@ public class GameLogicController {
 
                 VisibilityCalculator visibilityCalculator = map.getVisibilityCalculator();
                 // generate visible areas for all the actors
-                VisibilityMask visibilityMask = visibilityCalculator.generateMask(map, 15, coordinatesForVisibilityCalculation);
+                VisibilityMask visibilityMask = visibilityCalculator.generateMask(map, coordinatesForVisibilityCalculation);
                 VisibilityMapRegistry.INSTANCE.add(map, visibilityMask);
             }
         }

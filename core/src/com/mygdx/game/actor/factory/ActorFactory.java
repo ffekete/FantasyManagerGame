@@ -1,6 +1,7 @@
 package com.mygdx.game.actor.factory;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.component.SkillPopulator;
 import com.mygdx.game.animation.AnimationBuilder;
 import com.mygdx.game.animation.FullBodyActorAnimation;
 import com.mygdx.game.creator.map.Map2D;
@@ -23,6 +24,7 @@ public class ActorFactory {
             actor.setCurrentMap(map);
             placementStrategy.place(actor, map);
             AnimationRegistry.INSTANCE.add(actor, new FullBodyActorAnimation());
+            SkillPopulator.WeaponSkillPopulatorStrategy.RANDOM.populate(actor);
         }
         return actor;
     }

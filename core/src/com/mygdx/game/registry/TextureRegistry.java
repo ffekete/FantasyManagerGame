@@ -10,13 +10,12 @@ import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.creator.map.worldmap.WorldMapTile;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.shield.SmallShiled;
-import com.mygdx.game.item.weapon.FlameTongue;
-import com.mygdx.game.item.weapon.PoisonFang;
-import com.mygdx.game.item.weapon.ShortSword;
+import com.mygdx.game.item.weapon.sword.FlameTongue;
+import com.mygdx.game.item.weapon.sword.PoisonFang;
+import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.object.light.LightSourceType;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
 
-import javax.xml.soap.Text;
 import java.util.Map;
 
 public class TextureRegistry {

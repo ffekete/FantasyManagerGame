@@ -2,6 +2,8 @@ package com.mygdx.game.actor;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.component.Attributes;
+import com.mygdx.game.actor.component.MagicSkill;
+import com.mygdx.game.actor.component.WeaponSkill;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
@@ -26,6 +28,8 @@ public abstract class AbstractActor implements Actor {
     private String name;
     private Inventory inventory;
     private Map<Attributes, Integer> baseAttributes;
+    private Map<WeaponSkill, Integer> weaponSkills;
+    private Map<MagicSkill, Integer> magicSkills;
 
     private Point coordinates;
     private int hungerLevel;
@@ -49,8 +53,14 @@ public abstract class AbstractActor implements Actor {
     public AbstractActor() {
         this.hungerLevel = Config.BASE_HUNGER_LEVEL;
         this.baseAttributes = new HashMap<>();
+        this.weaponSkills = new HashMap<>();
+
         for (Attributes a : Attributes.values()) {
-            baseAttributes.put(a, 20);
+            baseAttributes.put(a, 0);
+        }
+
+        for(WeaponSkill s : WeaponSkill.values()) {
+            weaponSkills.put(s, 0);
         }
         actualHp = getMaxHp();
         this.inventory = new Inventory();
@@ -272,5 +282,20 @@ public abstract class AbstractActor implements Actor {
     @Override
     public int getAttackRange() {
         return ((Weapon)getRightHandItem()).getRange();
+    }
+
+    @Override
+    public int getVisibilityRange() {
+        return 6;
+    }
+
+    @Override
+    public Map<WeaponSkill, Integer> getWeaponSkills() {
+        return weaponSkills;
+    }
+
+    @Override
+    public Map<MagicSkill, Integer> getMagicSkills() {
+        return magicSkills;
     }
 }

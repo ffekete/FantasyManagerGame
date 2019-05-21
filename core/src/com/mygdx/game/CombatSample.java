@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.component.WeaponSkill;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Warrior;
@@ -15,15 +16,12 @@ import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
-import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
-import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.shield.SmallShiled;
-import com.mygdx.game.item.weapon.FlameTongue;
-import com.mygdx.game.item.weapon.ShortSword;
+import com.mygdx.game.item.weapon.sword.FlameTongue;
+import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.registry.ActorRegistry;
@@ -89,6 +87,7 @@ public class CombatSample extends SampleBase {
         MapRegistry.INSTANCE.add(dungeon);
 
         hero.setName("Adavark");
+        hero.getWeaponSkills().put(WeaponSkill.Sword, 5);
         hero.setRightHandItem(new FlameTongue());
         CameraPositionController.INSTANCE.focusOn(hero);
 

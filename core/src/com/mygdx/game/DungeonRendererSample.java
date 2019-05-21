@@ -13,10 +13,8 @@ import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Skeleton;
-import com.mygdx.game.animation.object.WorldObjectAnimation;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.creator.map.Cluster;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
@@ -24,15 +22,13 @@ import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.shield.SmallShiled;
-import com.mygdx.game.item.weapon.FlameTongue;
-import com.mygdx.game.item.weapon.ShortSword;
+import com.mygdx.game.item.weapon.sword.FlameTongue;
+import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
-import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.object.decoration.StandingTorch;
 import com.mygdx.game.object.factory.WorldObjectFactory;
 import com.mygdx.game.object.light.ActorLightSource;
-import com.mygdx.game.object.light.ConstantLightSource;
 import com.mygdx.game.object.light.LightSourceType;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.*;
@@ -117,7 +113,7 @@ public class DungeonRendererSample extends SampleBase {
         CameraPositionController.INSTANCE.focusOn(hero);
 
         StandingTorch standingTorch = WorldObjectFactory.create(StandingTorch.class, dungeon, ObjectPlacement.FIXED.X(hero.getX()).Y(hero.getY()));
-        
+
         LightSourceRegistry.INSTANCE.add(dungeon, new ActorLightSource(hero, new Color(0xFFFFe0), 9, LightSourceType.Ambient));
         //LightSourceRegistry.INSTANCE.add(dungeon, new ConstantLightSource(hero.getX(), hero.getY(), Color.RED, 9, LightSourceType.Beam));
 

@@ -28,7 +28,7 @@ public class VisibilityCalculator {
         this.height = height;
     }
 
-    public VisibilityMask generateMask(Map2D map, int range, List<Actor> points) {
+    public VisibilityMask generateMask(Map2D map, List<Actor> points) {
         VisibilityMask mask = visibilityMapRegistry.getFor(map);
         if(mask == null) {
             mask = new VisibilityMask(width, height);
@@ -37,7 +37,7 @@ public class VisibilityCalculator {
         }
 
         for (Actor actor : points) {
-            calculateFor(actor, range, mask, map);
+            calculateFor(actor, actor.getVisibilityRange(), mask, map);
         }
 
         refine(mask);

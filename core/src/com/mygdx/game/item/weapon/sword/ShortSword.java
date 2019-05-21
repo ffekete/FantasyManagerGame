@@ -1,27 +1,29 @@
-package com.mygdx.game.item.weapon;
+package com.mygdx.game.item.weapon.sword;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.effect.Poison;
 import com.mygdx.game.item.OneHandedItem;
-import com.mygdx.game.registry.EffectRegistry;
+import com.mygdx.game.item.weapon.Weapon;
 
 import java.util.Random;
 
-public class PoisonFang implements Weapon, OneHandedItem {
+public class ShortSword implements OneHandedItem, Sword {
+
+    private int x = 0;
+    private int y = 0;
 
     @Override
     public int getDamage() {
-        return new Random().nextInt(3) + 2;
+        return new Random().nextInt(4) + 2;
     }
 
     @Override
     public int getPrice() {
-        return 0;
+        return 100;
     }
 
     @Override
     public void onHit(Actor target) {
-        EffectRegistry.INSTANCE.add(new Poison(2, 5, target), target);
+
     }
 
     @Override
@@ -36,21 +38,22 @@ public class PoisonFang implements Weapon, OneHandedItem {
 
     @Override
     public void onRemove(Actor actor) {
-
+        
     }
 
     @Override
     public void setCoordinates(int x, int y) {
-
+        this.x = x;
+        this.y = y;
     }
 
     @Override
     public int getX() {
-        return 0;
+        return this.x;
     }
 
     @Override
     public int getY() {
-        return 0;
+        return this.y;
     }
 }
