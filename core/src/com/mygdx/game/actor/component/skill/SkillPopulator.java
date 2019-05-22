@@ -1,4 +1,4 @@
-package com.mygdx.game.actor.component;
+package com.mygdx.game.actor.component.skill;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;

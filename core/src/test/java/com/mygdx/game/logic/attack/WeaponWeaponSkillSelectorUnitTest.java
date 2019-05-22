@@ -1,7 +1,7 @@
 package com.mygdx.game.logic.attack;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.actor.component.WeaponSkill;
+import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 

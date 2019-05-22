@@ -1,9 +1,9 @@
 package com.mygdx.game.actor;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.actor.component.Attributes;
-import com.mygdx.game.actor.component.MagicSkill;
-import com.mygdx.game.actor.component.WeaponSkill;
+import com.mygdx.game.actor.component.attribute.Attributes;
+import com.mygdx.game.actor.component.skill.MagicSkill;
+import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
@@ -15,7 +15,9 @@ import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.stack.ActivityStack;
+import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.registry.AnimationRegistry;
+import com.mygdx.game.registry.LightSourceRegistry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,6 +56,7 @@ public abstract class AbstractActor implements Actor {
         this.hungerLevel = Config.BASE_HUNGER_LEVEL;
         this.baseAttributes = new HashMap<>();
         this.weaponSkills = new HashMap<>();
+        this.magicSkills = new HashMap<>();
 
         for (Attributes a : Attributes.values()) {
             baseAttributes.put(a, 0);
@@ -277,6 +280,9 @@ public abstract class AbstractActor implements Actor {
         System.out.println("I'm dead." + getName());
         activityStack.getCurrent().cancel();
         ActorDeathHandler.INSTANCE.kill(this);
+        LightSource lightSource = LightSourceRegistry.INSTANCE.getFor(this);
+        LightSourceRegistry.INSTANCE.remove(getCurrentMap(), lightSource);
+        LightSourceRegistry.INSTANCE.remove(this);
     }
 
     @Override
@@ -297,5 +303,10 @@ public abstract class AbstractActor implements Actor {
     @Override
     public Map<MagicSkill, Integer> getMagicSkills() {
         return magicSkills;
+    }
+
+    @Override
+    public void setAttribute(Attributes attribute, int value) {
+        this.baseAttributes.put(attribute, value);
     }
 }

@@ -2,7 +2,7 @@ package com.mygdx.game.logic.attack;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
-import com.mygdx.game.actor.component.Attributes;
+import com.mygdx.game.actor.component.attribute.Attributes;
 import com.mygdx.game.item.weapon.Weapon;
 
 import java.util.HashMap;

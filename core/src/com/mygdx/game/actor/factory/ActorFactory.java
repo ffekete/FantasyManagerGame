@@ -1,12 +1,17 @@
 package com.mygdx.game.actor.factory;
 
+import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.actor.component.SkillPopulator;
-import com.mygdx.game.animation.AnimationBuilder;
+import com.mygdx.game.actor.component.attribute.AttributePopulator;
+import com.mygdx.game.actor.component.skill.SkillPopulator;
 import com.mygdx.game.animation.FullBodyActorAnimation;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.object.light.ActorLightSource;
+import com.mygdx.game.object.light.LightSource;
+import com.mygdx.game.object.light.LightSourceType;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
+import com.mygdx.game.registry.LightSourceRegistry;
 
 public class ActorFactory {
 
@@ -24,7 +29,13 @@ public class ActorFactory {
             actor.setCurrentMap(map);
             placementStrategy.place(actor, map);
             AnimationRegistry.INSTANCE.add(actor, new FullBodyActorAnimation());
+            LightSource lightSource = new ActorLightSource(actor, Color.valueOf("FFFF88"), 6, LightSourceType.Ambient);
+            LightSourceRegistry.INSTANCE.add(map, lightSource);
+            LightSourceRegistry.INSTANCE.add(actor, lightSource);
             SkillPopulator.WeaponSkillPopulatorStrategy.RANDOM.populate(actor);
+            SkillPopulator.MagicSkillPopulatorStrategy.RANDOM.populate(actor);
+            AttributePopulator.ClassSpecificAttrbutePopulator.populate(actor);
+            actor.setHp(actor.getMaxHp());
         }
         return actor;
     }

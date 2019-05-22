@@ -1,4 +1,4 @@
-package com.mygdx.game.actor.component;
+package com.mygdx.game.actor.component.skill;
 
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.item.weapon.Weapon;

@@ -1,4 +1,4 @@
-package com.mygdx.game.actor.component;
+package com.mygdx.game.actor.component.skill;
 
 public enum MagicSkill {
 

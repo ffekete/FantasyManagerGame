@@ -159,8 +159,8 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public void resize(int width, int height) {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
+        camera.viewportWidth = 60;
+        camera.viewportHeight = 60f * height / width;
         camera.update();
         infoViewPort.update(width, height, true);
         infoCamera.update();
