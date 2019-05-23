@@ -25,6 +25,7 @@ public class Config {
     public static class Actor {
         public static final int LOW_HP_THRESHOLD_DIVIDER = 3;
         public static final int MAX_STARTER_SKILL_LEVEL = 2;
+        public static final String LIGHT_SOURCE_COLOR = "FF7733";
     }
 
     public static class Time {
@@ -67,6 +68,7 @@ public class Config {
         public static final int DUNGEON_WIDTH = 100;
         public static final int DUNGEON_HEIGHT = 100;
         public static final int TILE_VARIATION_FREQUENCY = 20;
+        public static final int WORLD_OBJECT_SPAWN_RATE = 10;
     }
 
 

@@ -5,10 +5,12 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.creator.map.Cluster;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.TextureRegistry;
+import com.mygdx.game.registry.VisibilityMapRegistry;
 import com.mygdx.game.registry.WorldMapObjectRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 
@@ -18,6 +20,7 @@ import java.util.List;
 public class WorldObjectRenderer implements Renderer {
 
     public static final WorldObjectRenderer INSTANCE = new WorldObjectRenderer();
+    public final VisibilityMapRegistry visibilityMapRegistry = VisibilityMapRegistry.INSTANCE;
 
     private final CameraPositionController cameraPositionController = CameraPositionController.INSTANCE;
     private final WorldMapObjectRegistry objectRegistry = WorldMapObjectRegistry.INSTANCE;
@@ -48,7 +51,8 @@ public class WorldObjectRenderer implements Renderer {
             if (objectRegistry.getObjects(cluster).isPresent())
                 for (WorldObject worldObject : objectRegistry.getObjects(cluster).get()) {
                     if(AnimatedObject.class.isAssignableFrom(worldObject.getClass())) {
-                        animationRegistry.get((AnimatedObject) worldObject).drawKeyFrame(spriteBatch, worldObject.getX(), worldObject.getY(), 1, Direction.RIGHT);
+                        if(dungeon.getVisitedareaMap()[(int)worldObject.getX()][(int) worldObject.getY()] == VisitedArea.VISIBLE)
+                            animationRegistry.get((AnimatedObject) worldObject).drawKeyFrame(spriteBatch, worldObject.getX(), worldObject.getY(), 1, Direction.RIGHT);
                     } else {
                         spriteBatch.draw(textureRegistry.getForobject(worldObject.getClass()), worldObject.getX(), worldObject.getY(), 0, 0, 1, 1, 1, 1, 0, 0, 0, textureRegistry.getForobject(worldObject.getClass()).getWidth(), textureRegistry.getForobject(worldObject.getClass()).getHeight(), false, false);
                     }

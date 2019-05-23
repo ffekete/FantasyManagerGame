@@ -16,7 +16,7 @@ import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
+import com.mygdx.game.creator.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
 import com.mygdx.game.object.LinkedWorldObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;

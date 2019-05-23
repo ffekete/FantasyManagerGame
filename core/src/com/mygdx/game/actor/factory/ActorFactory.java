@@ -1,6 +1,7 @@
 package com.mygdx.game.actor.factory;
 
 import com.badlogic.gdx.graphics.Color;
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.attribute.AttributePopulator;
 import com.mygdx.game.actor.component.skill.SkillPopulator;
@@ -29,7 +30,7 @@ public class ActorFactory {
             actor.setCurrentMap(map);
             placementStrategy.place(actor, map);
             AnimationRegistry.INSTANCE.add(actor, new FullBodyActorAnimation());
-            LightSource lightSource = new ActorLightSource(actor, Color.valueOf("FFFF88"), 6, LightSourceType.Ambient);
+            LightSource lightSource = new ActorLightSource(actor, Color.valueOf(Config.Actor.LIGHT_SOURCE_COLOR), 6, LightSourceType.Ambient);
             LightSourceRegistry.INSTANCE.add(map, lightSource);
             LightSourceRegistry.INSTANCE.add(actor, lightSource);
             SkillPopulator.WeaponSkillPopulatorStrategy.RANDOM.populate(actor);

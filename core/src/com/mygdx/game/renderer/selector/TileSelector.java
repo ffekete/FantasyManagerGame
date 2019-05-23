@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.utils.MapUtils;
 
 import java.util.Random;
 
@@ -24,23 +25,7 @@ public class TileSelector {
             return textureRegion;
         }
 
-        int mask = 0;
-
-        if (y + 1 >= map.getHeight() || map.getTile(x, y + 1).isObstacle()) {
-            mask += 1;
-        }
-
-        if (x + 1 >= map.getWidth() || map.getTile(x + 1, y).isObstacle()) {
-            mask += 2;
-        }
-
-        if (y - 1 < 0 || map.getTile(x, y - 1).isObstacle()) {
-            mask += 4;
-        }
-
-        if (x - 1 < 0 || map.getTile(x - 1, y).isObstacle()) {
-            mask += 8;
-        }
+        int mask = MapUtils.bitmask8bit(map, x,y);
 
         // rock
         textureRegion.setRegion((mask % 4) * 16, (mask / 4) * 16, 16, 16);
