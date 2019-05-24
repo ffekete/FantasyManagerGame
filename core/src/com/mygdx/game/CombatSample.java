@@ -19,6 +19,7 @@ import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
 import com.mygdx.game.item.potion.SmallHealingPotion;
+import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.ShortSword;
@@ -76,7 +77,7 @@ public class CombatSample extends SampleBase {
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
-        hero.setLeftHandItem(new SmallShiled());
+        hero.equip(new MediumShield());
 
         Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(5).Y(0));
         Actor s2 = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(0).Y(5));

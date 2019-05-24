@@ -21,6 +21,7 @@ import com.mygdx.game.creator.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
+import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
@@ -79,7 +80,10 @@ public class DungeonRendererSample extends SampleBase {
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
-        hero.setLeftHandItem(new SmallShiled());
+        //hero.setLeftHandItem(new MediumShield());
+        Shield mediumShield = new MediumShield();
+        mediumShield.setCoordinates(hero.getX() + 2, hero.getY() + 2);
+        ItemRegistry.INSTANCE.add(dungeon, mediumShield);
 
         for (int i = 0; i < 5; i++) {
             Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
@@ -105,9 +109,6 @@ public class DungeonRendererSample extends SampleBase {
 
         Bread bread2 = new Bread();
         bread2.setCoordinates(80, 80);
-
-        Shield shield = new SmallShiled();
-        shield.setCoordinates(89, 59);
 
         ShortSword shortSword = new ShortSword();
         shortSword.setCoordinates(88, 58);

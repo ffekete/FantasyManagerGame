@@ -5,5 +5,6 @@ public interface Effect {
     // for periodic effects
     void update();
     boolean isOver();
+    int getPower();
 
 }

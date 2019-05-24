@@ -6,6 +6,8 @@ import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.effect.Effect;
+import com.mygdx.game.effect.manager.AttackSpeedReduction;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.Item;
@@ -17,6 +19,7 @@ import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.stack.ActivityStack;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.registry.AnimationRegistry;
+import com.mygdx.game.registry.EffectRegistry;
 import com.mygdx.game.registry.LightSourceRegistry;
 
 import java.util.ArrayList;
@@ -32,6 +35,7 @@ public abstract class AbstractActor implements Actor {
     private Map<Attributes, Integer> baseAttributes;
     private Map<WeaponSkill, Integer> weaponSkills;
     private Map<MagicSkill, Integer> magicSkills;
+    private EffectRegistry effectRegistry = EffectRegistry.INSTANCE;
 
     private Point coordinates;
     private int hungerLevel;
@@ -176,7 +180,12 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public int getAttackSpeed() {
-        return 30;
+        int baseSpeed = 50 - getAttribute(Attributes.Reflexes);
+
+        int modifier = effectRegistry.getAll(this).stream().filter(effect -> AttackSpeedReduction.class.equals(effect.getClass())).map(Effect::getPower).reduce(0, (a, b) -> a+b);
+
+        return baseSpeed - modifier;
+
     }
 
     @Override
@@ -197,14 +206,12 @@ public abstract class AbstractActor implements Actor {
             inventory.remove(equipable);
             equipable.onEquip(this);
             System.out.println(name + " equiped in left hand " + equipable);
-            AnimationRegistry.INSTANCE.refresh(this);
 
         } else if (Weapon.class.isAssignableFrom(equipable.getClass()) && rightHand == null) {
             rightHand = equipable;
             inventory.remove(equipable);
             equipable.onEquip(this);
             System.out.println(name + " equiped in right hand " + equipable);
-            AnimationRegistry.INSTANCE.refresh(this);
         }
     }
 

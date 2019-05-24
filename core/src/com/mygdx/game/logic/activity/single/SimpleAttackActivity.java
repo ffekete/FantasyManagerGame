@@ -53,8 +53,9 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
 
     @Override
     public void update() {
-        // todo attack and roll to hit regularly
         AttackController.INSTANCE.calculateAttack(actor, enemy);
+        action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), actor);
+        actionRegistry.add(actor.getCurrentMap(), action);
     }
 
     @Override

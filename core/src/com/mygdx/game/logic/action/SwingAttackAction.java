@@ -15,6 +15,7 @@ public class SwingAttackAction implements Action {
     private final int y;
     private final Texture texture;
     private final Actor actor;
+    private boolean finished = false;
 
     private float angle;
 
@@ -66,6 +67,8 @@ public class SwingAttackAction implements Action {
 
         if((inc > 0 && angle < end) || (inc < 0 && angle > end))
             SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(texture, x,y + 0.5f, originX,originY, 1, 1, 1, 1, angle, 0,0, texture.getWidth(),texture.getHeight(), direction == Direction.UP || direction == Direction.LEFT, false);
+        else
+            finished = true;
     }
 
     @Override
@@ -74,7 +77,7 @@ public class SwingAttackAction implements Action {
 
     @Override
     public boolean isFinished() {
-        return false;
+        return finished;
     }
 
 

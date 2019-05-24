@@ -82,7 +82,7 @@ public class EquipActivity implements Activity {
 
     @Override
     public boolean isTriggered() {
-        return false;
+        return true;
     }
 
     @Override

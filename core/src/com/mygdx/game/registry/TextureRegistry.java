@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.creator.TileBase;
 import com.mygdx.game.creator.map.dungeon.Tile;
+import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.creator.map.worldmap.WorldMapTile;
@@ -43,6 +44,7 @@ public class TextureRegistry {
                 .put(ShortSword.class, new Texture(Gdx.files.internal("ShortSword.png")))
                 .put(Bread.class, new Texture(Gdx.files.internal("bread.png")))
                 .put(SmallShiled.class, new Texture(Gdx.files.internal("SmallShield.png")))
+                .put(MediumShield.class, new Texture(Gdx.files.internal("MediumShield.png")))
                 .put(PoisonFang.class, new Texture(Gdx.files.internal("PoisonFang.png")))
                 .put(FlameTongue.class, new Texture(Gdx.files.internal("Flametongue.png")))
                 .build();

@@ -33,4 +33,9 @@ public class FireDamage implements Effect {
     public boolean isOver() {
         return duration == 0;
     }
+
+    @Override
+    public int getPower() {
+        return strength;
+    }
 }
