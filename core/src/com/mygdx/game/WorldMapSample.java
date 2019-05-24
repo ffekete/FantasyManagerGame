@@ -76,7 +76,7 @@ public class WorldMapSample extends SampleBase {
         camera = new OrthographicCamera(60, 60 * (h / w));
         SpriteBatchRegistry.INSTANCE.setSpriteBatch(new SpriteBatch());
 
-        worldMap = mapGenerator.create();
+        worldMap = mapGenerator.create(0);
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
@@ -87,7 +87,7 @@ public class WorldMapSample extends SampleBase {
 
         CameraPositionController.INSTANCE.focusOn(hero);
 
-        dungeon = dungeonCreator.create();
+        dungeon = dungeonCreator.create(0);
         int x = 0,y = 0;
         do {
             x = new Random().nextInt(dungeon.getWidth());

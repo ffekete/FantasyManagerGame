@@ -34,11 +34,11 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     @Override
     public void create() {
         camera = new OrthographicCamera();
-        viewPort = new FitViewport(Config.Dungeon.DUNGEON_WIDTH, Config.Dungeon.DUNGEON_HEIGHT, camera);
+        viewPort = new FitViewport(Config.Dungeon.ROOMS_DUNGEON_WIDTH, Config.Dungeon.ROOMS_DUNGEON_HEIGHT, camera);
         spriteBatch = new SpriteBatch();
         wallTexture = new Texture(Gdx.files.internal("grass.jpg"));
         floorTexture = new Texture(Gdx.files.internal("void.png"));
-        dungeon = dungeonCreator.create();
+        dungeon = dungeonCreator.create(8);
         Gdx.input.setInputProcessor(this);
     }
 
@@ -57,8 +57,8 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
     }
 
     public void draw() {
-        for(int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
-            for (int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {
+        for(int i = 0; i < Config.Dungeon.ROOMS_DUNGEON_WIDTH; i++) {
+            for (int j = 0; j < Config.Dungeon.ROOMS_DUNGEON_HEIGHT; j++) {
                 if(dungeon.getTile(i,j).equals(Tile.STONE_WALL)) {
                     spriteBatch.draw(wallTexture, i,j, 0,0,1,1,1,1,0,0,0, wallTexture.getWidth(), wallTexture.getHeight(), false, false);
                 } else if(dungeon.getTile(i, j).equals(Tile.FLOOR)) {
@@ -84,7 +84,7 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        dungeon = dungeonCreator.create();
+        dungeon = dungeonCreator.create(8);
         return true;
     }
 
@@ -109,8 +109,8 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
         if (keycode == Input.Keys.RIGHT) {
             //camera.position.x += 10.0 * delta;
             px++;
-            if(px >= Config.Dungeon.DUNGEON_WIDTH)
-                px = Config.Dungeon.DUNGEON_WIDTH -1;
+            if(px >= Config.Dungeon.ROOMS_DUNGEON_WIDTH)
+                px = Config.Dungeon.ROOMS_DUNGEON_WIDTH -1;
         }
         if(keycode == Input.Keys.DOWN) {
             py--;
@@ -119,8 +119,8 @@ public class DungeonWithRoomsRendererSample extends SampleBase {
         }
         if(keycode == Input.Keys.UP) {
             py++;
-            if(py >= Config.Dungeon.DUNGEON_HEIGHT)
-                py = Config.Dungeon.DUNGEON_HEIGHT -1;
+            if(py >= Config.Dungeon.ROOMS_DUNGEON_HEIGHT)
+                py = Config.Dungeon.ROOMS_DUNGEON_HEIGHT -1;
         }
 
         camera.update();

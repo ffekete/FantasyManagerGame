@@ -24,7 +24,7 @@ public class ActivityManagerTest {
         ActivityManager activityManager = new ActivityManager();
 
         VisibilityMask visibilityMask = new VisibilityMask(100, 100);
-        Map2D dungeon = new DummyDungeonCreator().create();
+        Map2D dungeon = new DummyDungeonCreator().create(5);
         VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
 
         Actor hero = new Warrior();

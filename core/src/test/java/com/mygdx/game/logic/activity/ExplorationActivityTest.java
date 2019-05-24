@@ -18,7 +18,7 @@ public class ExplorationActivityTest {
 
     @Test
     public void t() {
-        Map2D dungeon = new DummyDungeonCreator().create();
+        Map2D dungeon = new DummyDungeonCreator().create(5);
 
         VisitedArea[][] map = new VisitedArea[Config.Dungeon.DUNGEON_WIDTH][Config.Dungeon.DUNGEON_HEIGHT];
 
