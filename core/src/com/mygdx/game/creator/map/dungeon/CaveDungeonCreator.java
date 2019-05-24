@@ -10,11 +10,10 @@ public class CaveDungeonCreator implements MapGenerator {
     private final static boolean DEBUG = false;
     private int deathLimit = 5;
     private int birthLimit = 3;
-    private int numberOfSteps = 3;
     private float chanceToStartAlive = 45;
 
     @Override
-    public Map2D create() {
+    public Map2D create(int steps) {
 
         long start = System.currentTimeMillis();
         //Create a new map
@@ -23,7 +22,7 @@ public class CaveDungeonCreator implements MapGenerator {
         cellmap = initialiseMap(cellmap);
 
         //And now update the simulation for a set number of steps
-        for(int i=0; i<numberOfSteps; i++){
+        for(int i=0; i<steps; i++){
             cellmap = doSimulationStep(cellmap);
         }
 

@@ -69,7 +69,7 @@ public class CombatSample extends SampleBase {
         spriteBatch.enableBlending();
         SpriteBatchRegistry.INSTANCE.setSpriteBatch(spriteBatch);
 
-        dungeon = dungeonCreator.create();
+        dungeon = dungeonCreator.create(0);
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 

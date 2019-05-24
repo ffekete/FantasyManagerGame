@@ -63,7 +63,7 @@ public class DungeonRendererSample extends SampleBase {
     @Override
     public void create() {
         infoCamera = new OrthographicCamera();
-        infoViewPort = new FitViewport(Config.Screen.WIDTH, Config.Screen.HEIGHT, infoCamera);
+        infoViewPort = new FitViewport(1280, 720, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
 
         float w = Gdx.graphics.getWidth();
@@ -74,7 +74,7 @@ public class DungeonRendererSample extends SampleBase {
         spriteBatch.enableBlending();
         SpriteBatchRegistry.INSTANCE.setSpriteBatch(spriteBatch);
 
-        dungeon = dungeonCreator.create();
+        dungeon = dungeonCreator.create(3);
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 

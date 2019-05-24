@@ -6,6 +6,8 @@ public class Room{
     private int y;
     private int width;
     private int height;
+    private boolean empty =  true;
+    private boolean corridor = false;
 
     public Room(int x, int y, int width, int height) {
         this.x = x;
@@ -36,6 +38,14 @@ public class Room{
 
     public int getMaxY() {
         return y + height;
+    }
+
+    public void setEmpty(boolean value) {
+        this.empty = value;
+    }
+
+    public boolean isEmpty() {
+        return empty;
     }
 
     @Override

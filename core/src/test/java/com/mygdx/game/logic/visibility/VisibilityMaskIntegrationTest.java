@@ -21,7 +21,7 @@ public class VisibilityMaskIntegrationTest {
 
     @Test
     public void testVisibility() {
-        Map2D dungeon = new DummyDungeonCreator().create();
+        Map2D dungeon = new DummyDungeonCreator().create(5);
         Actor warrior = new Warrior();
         warrior.setCurrentMap(dungeon);
         warrior.setCoordinates(new Point(0,0));

@@ -32,7 +32,7 @@ public class MoveAndAttackDecisionTest {
     @Test
     public void decideTest() {
         // given
-        Map2D dungeon = new DummyDungeonCreator().create();
+        Map2D dungeon = new DummyDungeonCreator().create(5);
         VisitedArea[][] map = new VisitedArea[Config.Dungeon.DUNGEON_WIDTH][Config.Dungeon.DUNGEON_HEIGHT];
 
         for (int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {

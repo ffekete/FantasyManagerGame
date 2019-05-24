@@ -33,4 +33,18 @@ public class Point implements Pool.Poolable {
         x = 0;
         y = 0;
     }
+
+    @Override
+    public int hashCode() {
+        int h =  31 * x;
+        return h + 31 * y;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(Point.class.isAssignableFrom(obj.getClass())) {
+            return ((Point)obj).getX() == x && ((Point)obj).getY() == y;
+        }
+        return false;
+    }
 }
