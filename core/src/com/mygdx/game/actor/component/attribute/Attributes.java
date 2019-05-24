@@ -1,4 +1,4 @@
-package com.mygdx.game.actor.component;
+package com.mygdx.game.actor.component.attribute;
 
 import java.util.Map;
 

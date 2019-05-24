@@ -30,7 +30,7 @@ public class VisibilityMaskIntegrationTest {
         goblin.setCoordinates(new Point(0, 1));
         goblin.setCurrentMap(dungeon);
 
-        VisibilityMask mask = visibilityCalculator.generateMask(dungeon, 3, Arrays.asList(warrior, goblin));
+        VisibilityMask mask = visibilityCalculator.generateMask(dungeon, Arrays.asList(warrior, goblin));
 
         // row 1
         assertThat(mask.getValue(0,0).size(), is(2));

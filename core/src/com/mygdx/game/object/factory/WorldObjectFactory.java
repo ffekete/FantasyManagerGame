@@ -6,7 +6,6 @@ import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.decoration.StandingTorch;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.AnimationRegistry;

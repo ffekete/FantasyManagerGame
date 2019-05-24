@@ -16,15 +16,15 @@ import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
+import com.mygdx.game.creator.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
 import com.mygdx.game.object.LinkedWorldObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.creator.map.worldmap.WorldMapGenerator;
 import com.mygdx.game.item.potion.SmallHealingPotion;
-import com.mygdx.game.item.weapon.FlameTongue;
-import com.mygdx.game.item.weapon.PoisonFang;
+import com.mygdx.game.item.weapon.sword.FlameTongue;
+import com.mygdx.game.item.weapon.sword.PoisonFang;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.time.DayTimeCalculator;
@@ -159,8 +159,8 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public void resize(int width, int height) {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
+        camera.viewportWidth = 60;
+        camera.viewportHeight = 60f * height / width;
         camera.update();
         infoViewPort.update(width, height, true);
         infoCamera.update();

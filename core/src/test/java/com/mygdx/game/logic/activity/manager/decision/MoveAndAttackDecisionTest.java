@@ -4,16 +4,13 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Skeleton;
-import com.mygdx.game.creator.TileBase;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.DummyDungeonCreator;
-import com.mygdx.game.creator.map.dungeon.Tile;
-import com.mygdx.game.item.weapon.ShortSword;
+import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
-import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
@@ -78,7 +75,7 @@ public class MoveAndAttackDecisionTest {
 
         // then
         assertThat(decisionResult, is(true));
-        assertThat(decisionResultForSkeleton, is(false));
+        assertThat(decisionResultForSkeleton, is(true));
         assertThat(decisionResultForSkeleton2, is(true));
 
         assertThat(hero.getActivityStack().getSize(), is(2));

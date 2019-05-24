@@ -1,6 +1,8 @@
 package com.mygdx.game.actor;
 
-import com.mygdx.game.actor.component.Attributes;
+import com.mygdx.game.actor.component.attribute.Attributes;
+import com.mygdx.game.actor.component.skill.MagicSkill;
+import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
@@ -13,6 +15,7 @@ import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.stack.ActivityStack;
 
 import java.util.List;
+import java.util.Map;
 
 public interface Actor {
 
@@ -57,9 +60,14 @@ public interface Actor {
     void setRightHandItem(Equipable equipable);
     void die();
     int getAttackRange();
+    void setAttribute(Attributes attribute, int value);
 
 
     // ******************   BodyPartsBasedActorAnimation  ********************
     Activity getCurrentActivity();
 
+    int getVisibilityRange();
+
+    Map<WeaponSkill, Integer> getWeaponSkills();
+    Map<MagicSkill, Integer> getMagicSkills();
 }

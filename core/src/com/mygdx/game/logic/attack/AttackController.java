@@ -2,7 +2,7 @@ package com.mygdx.game.logic.attack;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
-import com.mygdx.game.actor.component.Attributes;
+import com.mygdx.game.actor.component.attribute.Attributes;
 import com.mygdx.game.item.weapon.Weapon;
 
 import java.util.HashMap;
@@ -11,9 +11,17 @@ import java.util.Random;
 
 public class AttackController {
 
-    public static final AttackController INSTANCE = new AttackController();
+    public static final AttackController INSTANCE = new AttackController(new WeaponSkillSelector(), new ShieldSelector());
+
+    private final WeaponSkillSelector weaponSkillSelector;
+    private final ShieldSelector shieldSelector;
 
     private Map<Actor, Actor> actors = new HashMap<>();
+
+    private AttackController(WeaponSkillSelector weaponSkillSelector, ShieldSelector shieldSelector) {
+        this.weaponSkillSelector = weaponSkillSelector;
+        this.shieldSelector = shieldSelector;
+    }
 
     public void clearAttackingHistory(Actor actor) {
         actors.remove(actor);
@@ -61,8 +69,7 @@ public class AttackController {
         int toHit = new Random().nextInt(100);
         int hitThreshold = 20
                 + attacker.getAttribute(Attributes.Reflexes)
-                + attacker.getAttribute(Attributes.Dexterity) * 2
-                + 1 * 5; // todo add weapon skill here
+                + attacker.getAttribute(Attributes.Dexterity) * 3; // fist attack has no skill
 
         int evasion = victim.getAttribute(Attributes.Reflexes) * 2 + victim.getAttribute(Attributes.Dexterity) + victim.getDefenseValue();
 
@@ -74,17 +81,23 @@ public class AttackController {
     private void attackWithWeapon(Actor attacker, Actor victim, Weapon weapon) {
         int damage = weapon.getDamage();
         int toHit = new Random().nextInt(100);
+
+        float bestSkill = weaponSkillSelector.findBestSkillFor(attacker, weapon);
+
         int hitThreshold = 20
                 + attacker.getAttribute(Attributes.Reflexes)
                 + attacker.getAttribute(Attributes.Dexterity) * 2
-                + 1 * 5; // todo add weapon skill here
+                + (int)bestSkill * 5;
 
-        int evasion = victim.getAttribute(Attributes.Reflexes) * 2 + victim.getAttribute(Attributes.Dexterity);
+        int evasion = shieldSelector.getShieldValue(victim) + victim.getAttribute(Attributes.Reflexes) * 2 + victim.getAttribute(Attributes.Dexterity);
 
         if(toHit < hitThreshold - evasion) {
             victim.setHp(victim.getHp() - damage);
             weapon.onHit(victim);
         }
     }
+
+
+
 
 }

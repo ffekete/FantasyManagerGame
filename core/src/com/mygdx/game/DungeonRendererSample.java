@@ -2,7 +2,6 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,28 +11,25 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Warrior;
+import com.mygdx.game.actor.monster.Goblin;
+import com.mygdx.game.actor.monster.Orc;
 import com.mygdx.game.actor.monster.Skeleton;
-import com.mygdx.game.animation.object.WorldObjectAnimation;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.creator.map.Cluster;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
+import com.mygdx.game.creator.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.shield.SmallShiled;
-import com.mygdx.game.item.weapon.FlameTongue;
-import com.mygdx.game.item.weapon.ShortSword;
+import com.mygdx.game.item.weapon.sword.FlameTongue;
+import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
-import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.time.DayTimeCalculator;
+import com.mygdx.game.object.decoration.SpiderWeb;
 import com.mygdx.game.object.decoration.StandingTorch;
 import com.mygdx.game.object.factory.WorldObjectFactory;
-import com.mygdx.game.object.light.ActorLightSource;
-import com.mygdx.game.object.light.ConstantLightSource;
-import com.mygdx.game.object.light.LightSourceType;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.*;
 import com.mygdx.game.renderer.RendererBatch;
@@ -85,10 +81,20 @@ public class DungeonRendererSample extends SampleBase {
         hero.getInventory().add(new SmallHealingPotion());
         hero.setLeftHandItem(new SmallShiled());
 
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 5; i++) {
             Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
-            LightSourceRegistry.INSTANCE.add(dungeon, new ActorLightSource(s, Color.LIME, 5, LightSourceType.Ambient));
             s.setRightHandItem(new ShortSword());
+        }
+
+        for (int i = 0; i < 5; i++) {
+            Actor s = ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.RANDOM);
+            s.setRightHandItem(new ShortSword());
+        }
+
+        for (int i = 0; i < 5; i++) {
+            Actor s = ActorFactory.INSTANCE.create(Orc.class, dungeon, Placement.RANDOM);
+            s.setRightHandItem(new ShortSword());
+            s.setLeftHandItem(new SmallShiled());
 
         }
 
@@ -117,10 +123,6 @@ public class DungeonRendererSample extends SampleBase {
         CameraPositionController.INSTANCE.focusOn(hero);
 
         StandingTorch standingTorch = WorldObjectFactory.create(StandingTorch.class, dungeon, ObjectPlacement.FIXED.X(hero.getX()).Y(hero.getY()));
-        
-        LightSourceRegistry.INSTANCE.add(dungeon, new ActorLightSource(hero, new Color(0xFFFFe0), 9, LightSourceType.Ambient));
-        //LightSourceRegistry.INSTANCE.add(dungeon, new ConstantLightSource(hero.getX(), hero.getY(), Color.RED, 9, LightSourceType.Beam));
-
     }
 
     @Override

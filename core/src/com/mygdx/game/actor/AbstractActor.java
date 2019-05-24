@@ -1,7 +1,9 @@
 package com.mygdx.game.actor;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.actor.component.Attributes;
+import com.mygdx.game.actor.component.attribute.Attributes;
+import com.mygdx.game.actor.component.skill.MagicSkill;
+import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.faction.Alignment;
@@ -13,7 +15,9 @@ import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.stack.ActivityStack;
+import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.registry.AnimationRegistry;
+import com.mygdx.game.registry.LightSourceRegistry;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +30,8 @@ public abstract class AbstractActor implements Actor {
     private String name;
     private Inventory inventory;
     private Map<Attributes, Integer> baseAttributes;
+    private Map<WeaponSkill, Integer> weaponSkills;
+    private Map<MagicSkill, Integer> magicSkills;
 
     private Point coordinates;
     private int hungerLevel;
@@ -49,8 +55,15 @@ public abstract class AbstractActor implements Actor {
     public AbstractActor() {
         this.hungerLevel = Config.BASE_HUNGER_LEVEL;
         this.baseAttributes = new HashMap<>();
+        this.weaponSkills = new HashMap<>();
+        this.magicSkills = new HashMap<>();
+
         for (Attributes a : Attributes.values()) {
-            baseAttributes.put(a, 20);
+            baseAttributes.put(a, 0);
+        }
+
+        for(WeaponSkill s : WeaponSkill.values()) {
+            weaponSkills.put(s, 0);
         }
         actualHp = getMaxHp();
         this.inventory = new Inventory();
@@ -267,10 +280,33 @@ public abstract class AbstractActor implements Actor {
         System.out.println("I'm dead." + getName());
         activityStack.getCurrent().cancel();
         ActorDeathHandler.INSTANCE.kill(this);
+        LightSource lightSource = LightSourceRegistry.INSTANCE.getFor(this);
+        LightSourceRegistry.INSTANCE.remove(getCurrentMap(), lightSource);
+        LightSourceRegistry.INSTANCE.remove(this);
     }
 
     @Override
     public int getAttackRange() {
         return ((Weapon)getRightHandItem()).getRange();
+    }
+
+    @Override
+    public int getVisibilityRange() {
+        return 6;
+    }
+
+    @Override
+    public Map<WeaponSkill, Integer> getWeaponSkills() {
+        return weaponSkills;
+    }
+
+    @Override
+    public Map<MagicSkill, Integer> getMagicSkills() {
+        return magicSkills;
+    }
+
+    @Override
+    public void setAttribute(Attributes attribute, int value) {
+        this.baseAttributes.put(attribute, value);
     }
 }

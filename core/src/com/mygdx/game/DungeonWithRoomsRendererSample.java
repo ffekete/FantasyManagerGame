@@ -12,7 +12,6 @@ import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.creator.map.dungeon.DungeonWithRoomsCreator;
 import com.mygdx.game.creator.map.dungeon.Tile;
-import com.mygdx.game.creator.map.dungeon.CaveDungeonCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
 import com.mygdx.game.utils.GdxUtils;
 

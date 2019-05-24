@@ -1,5 +1,6 @@
 package com.mygdx.game.registry;
 
+import com.mygdx.game.actor.Actor;
 import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.object.light.LightSource;
 
@@ -10,14 +11,24 @@ public class LightSourceRegistry {
     public static final LightSourceRegistry INSTANCE = new LightSourceRegistry();
 
     private final Map<Map2D, List<LightSource>> lights;
+    private final Map<Actor, LightSource> actorLightMap;
 
     private LightSourceRegistry() {
         this.lights = new HashMap<>();
+        this.actorLightMap = new HashMap<>();
+    }
+
+    public void add(Actor actor, LightSource lightSource) {
+        this.actorLightMap.put(actor, lightSource);
     }
 
     public void add(Map2D map, LightSource lightSource) {
         lights.computeIfAbsent(map, value -> new ArrayList<>());
         lights.get(map).add(lightSource);
+    }
+
+    public LightSource getFor(Actor actor) {
+        return actorLightMap.get(actor);
     }
 
     public List<LightSource> getFor(Map2D map) {
@@ -30,5 +41,9 @@ public class LightSourceRegistry {
     public void remove(Map2D map, LightSource lightSource) {
         lights.computeIfAbsent(map, value -> new ArrayList<>());
         lights.get(map).remove(lightSource);
+    }
+
+    public void remove(Actor actor) {
+        this.actorLightMap.remove(actor);
     }
 }
