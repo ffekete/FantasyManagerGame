@@ -1,7 +1,9 @@
 package com.mygdx.game.item;
 
+import com.mygdx.game.logic.Point;
+
 public interface Item {
-    void setCoordinates(int x, int y);
+    void setCoordinates(Point point);
     int getX();
     int getY();
 }

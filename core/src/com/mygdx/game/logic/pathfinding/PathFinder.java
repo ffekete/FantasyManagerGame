@@ -2,7 +2,7 @@ package com.mygdx.game.logic.pathfinding;
 
 import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Config;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
 
 import java.util.ArrayList;

@@ -6,7 +6,6 @@ import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 
 import java.util.List;
-import java.util.Set;
 
 class DecisionUtils {
 
@@ -42,14 +41,14 @@ class DecisionUtils {
         return minDistance > maxDistance*maxDistance ? null : selectedActor;
     }
 
-    static Item findClosestItem(Actor actor, List<Item> items, Integer maxDistance, Class<? extends Item> clazz) {
+    static Item findClosestItem(Actor actor, List<Item> Items, Integer maxDistance, Class<? extends Item> clazz) {
         Item selectedItem = null;
         int x = actor.getX();
         int y = actor.getY();
 
         float minDistance = Float.MAX_VALUE;
-        for(int i = 0; i < items.size(); i++) {
-            item = items.get(i);
+        for(int i = 0; i < Items.size(); i++) {
+            item = Items.get(i);
             if(!clazz.isAssignableFrom(item.getClass())) {
                 continue;
             }

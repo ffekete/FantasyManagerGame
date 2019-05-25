@@ -15,13 +15,13 @@ import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.cave.CaveDungeonCreator;
-import com.mygdx.game.creator.map.dungeon.MapGenerator;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
+import com.mygdx.game.map.dungeon.MapGenerator;
 import com.mygdx.game.object.LinkedWorldObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.interactive.DungeonEntrance;
-import com.mygdx.game.creator.map.worldmap.WorldMapGenerator;
+import com.mygdx.game.map.worldmap.WorldMapGenerator;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.PoisonFang;
@@ -111,8 +111,8 @@ public class WorldMapSample extends SampleBase {
         hero.setName("Adavark");
 
         PoisonFang poisonFang = new PoisonFang();
-        poisonFang.setCoordinates(hero.getX() + 1, hero.getY());
-        hero.setRightHandItem(new FlameTongue());
+        poisonFang.setCoordinates(Point.of(hero.getX() + 1, hero.getY()));
+        hero.equip(new FlameTongue());
 
         MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
 

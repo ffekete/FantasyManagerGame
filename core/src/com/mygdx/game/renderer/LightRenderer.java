@@ -2,7 +2,7 @@ package com.mygdx.game.renderer;
 
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.registry.LightSourceRegistry;
 import com.mygdx.game.registry.TextureRegistry;

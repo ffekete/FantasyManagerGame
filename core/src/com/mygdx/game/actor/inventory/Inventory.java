@@ -3,7 +3,6 @@ package com.mygdx.game.actor.inventory;
 import com.mygdx.game.item.Item;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Inventory {

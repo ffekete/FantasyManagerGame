@@ -1,11 +1,8 @@
-package com.mygdx.game.creator.map.worldmap;
+package com.mygdx.game.map.worldmap;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.Dungeon;
-import com.mygdx.game.creator.map.dungeon.MapGenerator;
-
-import java.util.Random;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.dungeon.MapGenerator;
 
 public class WorldMapGenerator implements MapGenerator {
 

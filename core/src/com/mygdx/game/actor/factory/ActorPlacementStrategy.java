@@ -1,9 +1,7 @@
 package com.mygdx.game.actor.factory;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.creator.map.Map2D;
-
-import java.util.Map;
+import com.mygdx.game.map.Map2D;
 
 public interface ActorPlacementStrategy {
 

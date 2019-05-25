@@ -74,7 +74,7 @@ public class AttackController {
         int evasion = victim.getAttribute(Attributes.Reflexes) * 2 + victim.getAttribute(Attributes.Dexterity) + victim.getDefenseValue();
 
         if(toHit < hitThreshold - evasion) {
-            victim.setHp(victim.getHp() - damage);
+            victim.setHp(victim.getHp() - Math.max(1, damage - getDamageProtection(victim)));
         }
     }
 
@@ -92,12 +92,14 @@ public class AttackController {
         int evasion = shieldSelector.getShieldValue(victim) + victim.getAttribute(Attributes.Reflexes) * 2 + victim.getAttribute(Attributes.Dexterity);
 
         if(toHit < hitThreshold - evasion) {
-            victim.setHp(victim.getHp() - damage);
+            victim.setHp(victim.getHp() - Math.max(1, damage - getDamageProtection(victim)));
             weapon.onHit(victim);
         }
     }
 
-
+    private int getDamageProtection(Actor victim) {
+        return victim.getWornArmor() == null ? 0 : victim.getWornArmor().getDamageProtection();
+    }
 
 
 }

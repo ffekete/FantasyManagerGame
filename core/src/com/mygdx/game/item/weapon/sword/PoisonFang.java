@@ -3,12 +3,16 @@ package com.mygdx.game.item.weapon.sword;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.Poison;
 import com.mygdx.game.item.OneHandedItem;
+import com.mygdx.game.item.category.Legendary;
 import com.mygdx.game.item.weapon.Weapon;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.EffectRegistry;
 
 import java.util.Random;
 
-public class PoisonFang implements OneHandedItem, Sword {
+public class PoisonFang implements OneHandedItem, Sword, Legendary {
+
+    private Point coordinates = new Point(0,0);
 
     @Override
     public int getDamage() {
@@ -41,17 +45,17 @@ public class PoisonFang implements OneHandedItem, Sword {
     }
 
     @Override
-    public void setCoordinates(int x, int y) {
-
+    public void setCoordinates(Point coordinates) {
+        this.coordinates = coordinates;
     }
 
     @Override
     public int getX() {
-        return 0;
+        return coordinates.getX();
     }
 
     @Override
     public int getY() {
-        return 0;
+        return coordinates.getY();
     }
 }

@@ -1,6 +1,6 @@
 package com.mygdx.game.registry;
 
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 
 import java.util.Map;

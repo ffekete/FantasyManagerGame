@@ -1,4 +1,4 @@
-package com.mygdx.game.creator;
+package com.mygdx.game.map;
 
 public interface TileBase {
     boolean isObstacle();

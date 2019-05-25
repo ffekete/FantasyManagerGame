@@ -6,7 +6,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.attribute.AttributePopulator;
 import com.mygdx.game.actor.component.skill.SkillPopulator;
 import com.mygdx.game.animation.FullBodyActorAnimation;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.light.ActorLightSource;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.object.light.LightSourceType;

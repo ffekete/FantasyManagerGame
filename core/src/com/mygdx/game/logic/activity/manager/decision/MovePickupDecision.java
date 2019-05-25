@@ -19,10 +19,10 @@ public class MovePickupDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
         if(!actor.getActivityStack().contains(MovePickupActivity.class)) {
-            List<Item> items = itemRegistry.getAllItems(actor.getCurrentMap());
-            if(!items.isEmpty()) {
-                // find items
-                Item item = DecisionUtils.findClosestItem(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE, Item.class);
+            List<Item> Items = itemRegistry.getAllItems(actor.getCurrentMap());
+            if(!Items.isEmpty()) {
+                // find Items
+                Item item = DecisionUtils.findClosestItem(actor, Items, Config.Item.PICK_UP_ITEM_DISTANCE, Item.class);
                 if(item != null) {
                     // go for it
                     Activity activity = new MovePickupActivity(Config.Activity.MOVE_PICKUP_PRIORITY)

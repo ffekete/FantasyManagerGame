@@ -1,6 +1,6 @@
 package com.mygdx.game.utils;
 
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Map2D;
 
 public class MapUtils {
 

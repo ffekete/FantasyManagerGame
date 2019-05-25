@@ -3,10 +3,11 @@ package com.mygdx.game.item.shield;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.Effect;
 import com.mygdx.game.effect.manager.AttackSpeedReduction;
+import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.EffectRegistry;
 
-public class MediumShield implements Shield {
+public class MediumShield implements Shield, Tier1 {
 
     private Effect attackSpeedReduction = new AttackSpeedReduction(-5);
     private EffectRegistry effectRegistry = EffectRegistry.INSTANCE;
@@ -29,8 +30,8 @@ public class MediumShield implements Shield {
     }
 
     @Override
-    public void setCoordinates(int x, int y) {
-        this.coordinates.update(x,y);
+    public void setCoordinates(Point coordinates) {
+        this.coordinates = coordinates;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.activity.single.ExplorationActivity;
 

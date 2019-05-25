@@ -1,6 +1,6 @@
-package com.mygdx.game.creator.map.worldmap;
+package com.mygdx.game.map.worldmap;
 
-import com.mygdx.game.creator.TileBase;
+import com.mygdx.game.map.TileBase;
 
 public enum WorldMapTile implements TileBase {
     EMPTY(true, 1),

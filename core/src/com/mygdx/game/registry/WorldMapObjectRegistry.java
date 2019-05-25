@@ -1,6 +1,6 @@
 package com.mygdx.game.registry;
 
-import com.mygdx.game.creator.map.Cluster;
+import com.mygdx.game.map.Cluster;
 import com.mygdx.game.object.WorldObject;
 
 import java.util.HashMap;

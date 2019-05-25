@@ -9,10 +9,10 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.DungeonWithRoomsCreator;
-import com.mygdx.game.creator.map.dungeon.Tile;
-import com.mygdx.game.creator.map.dungeon.MapGenerator;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
+import com.mygdx.game.map.dungeon.Tile;
+import com.mygdx.game.map.dungeon.MapGenerator;
 import com.mygdx.game.utils.GdxUtils;
 
 

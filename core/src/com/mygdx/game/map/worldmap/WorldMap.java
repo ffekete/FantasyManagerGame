@@ -1,8 +1,8 @@
-package com.mygdx.game.creator.map.worldmap;
+package com.mygdx.game.map.worldmap;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.creator.TileBase;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.TileBase;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;

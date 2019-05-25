@@ -1,6 +1,6 @@
-package com.mygdx.game.creator.map.dungeon;
+package com.mygdx.game.map.dungeon;
 
-import com.mygdx.game.creator.TileBase;
+import com.mygdx.game.map.TileBase;
 
 public enum Tile implements TileBase {
 

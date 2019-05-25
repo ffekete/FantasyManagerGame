@@ -1,8 +1,8 @@
 package com.mygdx.game.object.factory;
 
 import com.mygdx.game.animation.object.WorldObjectAnimation;
-import com.mygdx.game.creator.map.Cluster;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Cluster;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
