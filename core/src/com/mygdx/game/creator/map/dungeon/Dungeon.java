@@ -10,13 +10,14 @@ import com.mygdx.game.logic.visibility.VisitedArea;
 import java.util.Random;
 
 public class Dungeon implements Map2D {
+
     private TileBase[][] dungeon;
     private int[][] tileVariation;
     private VisitedArea[][] visitedareaMap;
     private final int height;
     private final int width;
     private final VisibilityCalculator visibilityCalculator;
-    private final MapType mapType = MapType.DUNGEON;
+    private final MapType mapType = MapType.DUNGEON_CAVE;
     private Point defaultSpawningPoint;
     private final DungeonType dungeonType;
 
@@ -114,5 +115,9 @@ public class Dungeon implements Map2D {
     @Override
     public int getTileVariation(int x, int y) {
         return tileVariation[x][y];
+    }
+
+    public DungeonType getDungeonType() {
+        return dungeonType;
     }
 }

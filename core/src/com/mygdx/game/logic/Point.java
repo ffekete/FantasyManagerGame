@@ -36,13 +36,13 @@ public class Point implements Pool.Poolable {
 
     @Override
     public int hashCode() {
-        int h =  31 * x;
-        return h + 31 * y;
+        int h =  31 + x;
+        return h * 31 + y;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(Point.class.isAssignableFrom(obj.getClass())) {
+        if(Point.class.equals(obj.getClass())) {
             return ((Point)obj).getX() == x && ((Point)obj).getY() == y;
         }
         return false;

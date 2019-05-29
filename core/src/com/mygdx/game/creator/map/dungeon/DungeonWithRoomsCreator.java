@@ -25,6 +25,8 @@ public class DungeonWithRoomsCreator implements MapGenerator {
         }
         placeRooms(map, nrOfRoomsNeeded);
 
+        fill(1,1, map);
+
         return map;
     }
 
@@ -32,10 +34,36 @@ public class DungeonWithRoomsCreator implements MapGenerator {
         new DungeonWithRoomsCreator().create(6);
     }
 
+    private void fill(int x, int y, Map2D map) {
+        List<Point> open = new ArrayList<>();
+        Set<Point> closed = new HashSet<>();
+
+        Point start = Point.of(x,y);
+        open.add(start);
+
+        while(!open.isEmpty()) {
+            Point current = open.remove(0);
+            closed.add(current);
+
+            map.setTile(current.getX(), current.getY(), Tile.STONE_WALL);
+
+            for(int[] i : new int[][] {{1,0}, {0,1}, {-1, 0}, {0, -1} }) {
+
+                int newX = current.getX() + i[0];
+                int newY = current.getY() + i[1];
+
+                if(newX >= 0 && newX < Config.Dungeon.ROOMS_DUNGEON_WIDTH && newY >= 0 && newY < Config.Dungeon.ROOMS_DUNGEON_HEIGHT) {
+                    if(closed.contains(Point.of(newX, newY)) || open.contains(Point.of(newX, newY)) || map.getTile(newX, newY).isObstacle())
+                        continue;
+                    open.add(Point.of(newX, newY));
+                }
+            }
+        }
+    }
+
     private void connectRooms(Dungeon map, Room room1, Room room2) {
 
         if (room1.getX() / NR_OF_SEGMENTS > room2.getX() / NR_OF_SEGMENTS && room1.getY() / NR_OF_SEGMENTS == room2.getY() / NR_OF_SEGMENTS) {
-            System.out.println("Connecting " + room1 + " " + room2);
             int start_x = room1.getX();
             int start_y = room1.getY() + Math.abs(room1.getY() - room1.getMaxY()) / 2;
 
@@ -51,7 +79,6 @@ public class DungeonWithRoomsCreator implements MapGenerator {
         }
 
         if (room1.getX() / NR_OF_SEGMENTS < room2.getX() / NR_OF_SEGMENTS && room1.getY() / NR_OF_SEGMENTS == room2.getY() / NR_OF_SEGMENTS) {
-            System.out.println("Connecting " + room1 + " " + room2);
             int start_x = room1.getMaxX();
             int start_y = room1.getY() + Math.abs(room1.getY() - room1.getMaxY()) / 2;
 
@@ -67,7 +94,6 @@ public class DungeonWithRoomsCreator implements MapGenerator {
         }
 
         if (room1.getX() / NR_OF_SEGMENTS == room2.getX() / NR_OF_SEGMENTS && room1.getY() / NR_OF_SEGMENTS < room2.getY() / NR_OF_SEGMENTS) {
-            System.out.println("Connecting " + room1 + " " + room2);
             int start_x = room1.getX() + Math.abs(room1.getX() - room1.getMaxX()) / 2;
             int start_y = room1.getMaxY();
 
@@ -82,7 +108,6 @@ public class DungeonWithRoomsCreator implements MapGenerator {
         }
 
         if (room1.getX() / NR_OF_SEGMENTS == room2.getX() / NR_OF_SEGMENTS && room1.getY() / NR_OF_SEGMENTS > room2.getY() / NR_OF_SEGMENTS) {
-            System.out.println("Connecting " + room1 + " " + room2);
             int start_x = room1.getX() + Math.abs(room1.getX() - room1.getMaxX()) / 2;
             int start_y = room1.getY();
 

@@ -27,7 +27,8 @@ public interface Map2D {
     int getTileVariation(int x, int y);
 
     enum MapType {
-        DUNGEON,
+        DUNGEON_CAVE,
+        DUNGEON_ROOMS,
         WORLD_MAP;
     }
 }

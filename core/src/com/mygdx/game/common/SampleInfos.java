@@ -1,12 +1,6 @@
 package com.mygdx.game.common;
 
-import com.mygdx.game.AnimationSample;
-import com.mygdx.game.CombatSample;
-import com.mygdx.game.DungeonRendererSample;
-import com.mygdx.game.DungeonWithRoomsRendererSample;
-import com.mygdx.game.MyGdxGame;
-import com.mygdx.game.TextSample;
-import com.mygdx.game.WorldMapSample;
+import com.mygdx.game.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +14,8 @@ public class SampleInfos {
 
     public static final List<SampleInfo> ALL = Arrays.asList(
             WorldMapSample.SAMPLE_INFO,
-            DungeonRendererSample.SAMPLE_INFO,
+            CaveDungeonRendererSample.SAMPLE_INFO,
+            RoomsDungeonRendererSample.SAMPLE_INFO,
             TextSample.SAMPLE_INFO,
             AnimationSample.SAMPLE_INFO,
             DungeonWithRoomsRendererSample.SAMPLE_INFO,

@@ -17,7 +17,7 @@ import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.cave.CaveDungeonCreator;
+import com.mygdx.game.creator.map.dungeon.DungeonWithRoomsCreator;
 import com.mygdx.game.creator.map.dungeon.MapGenerator;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
@@ -27,7 +27,6 @@ import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.time.DayTimeCalculator;
-import com.mygdx.game.object.decoration.SpiderWeb;
 import com.mygdx.game.object.decoration.StandingTorch;
 import com.mygdx.game.object.factory.WorldObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
@@ -38,15 +37,15 @@ import com.mygdx.game.renderer.gui.ActorGuiRenderer;
 import com.mygdx.game.utils.GdxUtils;
 
 
-public class DungeonRendererSample extends SampleBase {
+public class RoomsDungeonRendererSample extends SampleBase {
 
-    public final static SampleInfo SAMPLE_INFO = new SampleInfo(DungeonRendererSample.class);
+    public final static SampleInfo SAMPLE_INFO = new SampleInfo(RoomsDungeonRendererSample.class);
 
     private OrthographicCamera camera;
     private SpriteBatch spriteBatch;
     private TextureRegistry textureRegistry;
 
-    MapGenerator dungeonCreator = new CaveDungeonCreator();
+    MapGenerator dungeonCreator = new DungeonWithRoomsCreator();
     Map2D dungeon;
     ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
@@ -111,10 +110,6 @@ public class DungeonRendererSample extends SampleBase {
 
         ShortSword shortSword = new ShortSword();
         shortSword.setCoordinates(88, 58);
-        //itemRegistry.add(dungeon, shortSword);
-        //itemRegistry.add(dungeon, shield);
-        //itemRegistry.add(dungeon, bread);
-        //itemRegistry.add(dungeon, bread2);
 
         MapRegistry.INSTANCE.add(dungeon);
 

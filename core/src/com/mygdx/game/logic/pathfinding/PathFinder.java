@@ -235,6 +235,12 @@ public class PathFinder {
             return ((Node)obj).x ==x && ((Node)obj).y == y;
         }
 
+        @Override
+        public int hashCode() {
+            int hash = 31 * x;
+            return 31 * hash + y;
+        }
+
         public Node(int tile, int x, int y) {
             this.tile = tile;
             this.x = x;

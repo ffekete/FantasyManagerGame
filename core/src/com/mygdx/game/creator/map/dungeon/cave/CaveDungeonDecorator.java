@@ -19,7 +19,7 @@ public class CaveDungeonDecorator implements Decorator {
         for (int i = 0; i < map.getWidth(); i++) {
             for (int j = 0; j < map.getHeight(); j++) {
 
-                int mask = MapUtils.bitmask8bit(map, i,j);
+                int mask = MapUtils.bitmask4bit(map, i,j);
 
                 if(mask == 3 && !map.getTile(i,j).isObstacle() && new Random().nextInt(Config.Dungeon.WORLD_OBJECT_SPAWN_RATE) == 0) {
                     WorldObjectFactory.create(SpiderWeb.class, map, ObjectPlacement.FIXED.X(i).Y(j));
