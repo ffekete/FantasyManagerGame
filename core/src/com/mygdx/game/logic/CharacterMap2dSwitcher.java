@@ -1,7 +1,7 @@
 package com.mygdx.game.logic;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.LightSourceRegistry;

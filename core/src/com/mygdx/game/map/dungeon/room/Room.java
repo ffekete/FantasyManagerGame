@@ -1,4 +1,4 @@
-package com.mygdx.game.creator.map.dungeon;
+package com.mygdx.game.map.dungeon.room;
 
 public class Room{
 

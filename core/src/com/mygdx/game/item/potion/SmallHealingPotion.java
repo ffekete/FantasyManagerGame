@@ -3,11 +3,12 @@ package com.mygdx.game.item.potion;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.Consumable;
+import com.mygdx.game.item.category.Tier1;
+import com.mygdx.game.logic.Point;
 
-public class SmallHealingPotion implements Consumable, HealingPotion {
+public class SmallHealingPotion implements Consumable, HealingPotion, Tier1 {
 
-    private int x;
-    private int y;
+    private Point coordinates = new Point(0,0);
 
     @Override
     public void consume(Actor actor) {
@@ -15,18 +16,17 @@ public class SmallHealingPotion implements Consumable, HealingPotion {
     }
 
     @Override
-    public void setCoordinates(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public void setCoordinates(Point coordinates) {
+        this.coordinates = coordinates;
     }
 
     @Override
     public int getX() {
-        return x;
+        return coordinates.getX();
     }
 
     @Override
     public int getY() {
-        return y;
+        return coordinates.getY();
     }
 }

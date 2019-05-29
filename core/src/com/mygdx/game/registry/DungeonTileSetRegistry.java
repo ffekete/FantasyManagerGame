@@ -3,7 +3,7 @@ package com.mygdx.game.registry;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.google.common.collect.ImmutableMap;
-import com.mygdx.game.creator.map.dungeon.DungeonType;
+import com.mygdx.game.map.dungeon.DungeonType;
 
 import java.util.Map;
 

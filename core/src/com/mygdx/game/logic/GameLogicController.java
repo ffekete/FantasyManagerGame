@@ -3,7 +3,7 @@ package com.mygdx.game.logic;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.effect.manager.EffectManager;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.time.DayTimeCalculator;

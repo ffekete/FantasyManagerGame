@@ -1,11 +1,11 @@
-package com.mygdx.game.creator.map.dungeon;
+package com.mygdx.game.map.dungeon;
 
-import com.mygdx.game.creator.TileBase;
+import com.mygdx.game.map.TileBase;
 
 public enum Tile implements TileBase {
 
     EMPTY(false, 1),
-    FLOOR(false, 9),
+    FLOOR(false, 16),
     STONE_WALL(true, 1);
 
     Tile(boolean obstacle, int variation) {

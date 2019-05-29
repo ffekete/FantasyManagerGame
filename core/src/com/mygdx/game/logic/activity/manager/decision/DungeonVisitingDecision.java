@@ -2,8 +2,8 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.creator.map.Cluster;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Cluster;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.InteractiveObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.faction.Alignment;

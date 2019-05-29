@@ -3,14 +3,18 @@ package com.mygdx.game.item.weapon.sword;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.FireDamage;
 import com.mygdx.game.item.OneHandedItem;
+import com.mygdx.game.item.category.Legendary;
 import com.mygdx.game.item.weapon.Weapon;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.EffectRegistry;
 
 import java.util.Random;
 
-public class FlameTongue implements OneHandedItem, Sword {
+public class FlameTongue implements OneHandedItem, Sword, Legendary {
 
     private final EffectRegistry effectRegistry = EffectRegistry.INSTANCE;
+
+    private Point coordinates = new Point(0,0);
 
     @Override
     public int getDamage() {
@@ -43,8 +47,8 @@ public class FlameTongue implements OneHandedItem, Sword {
     }
 
     @Override
-    public void setCoordinates(int x, int y) {
-
+    public void setCoordinates(Point coordinates) {
+        this.coordinates = coordinates;
     }
 
     @Override

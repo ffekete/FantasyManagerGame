@@ -1,8 +1,8 @@
-package com.mygdx.game.creator.map.dungeon.cave;
+package com.mygdx.game.map.dungeon.cave;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.Decorator;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.dungeon.Decorator;
 import com.mygdx.game.object.decoration.SpiderWeb;
 import com.mygdx.game.object.factory.WorldObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;

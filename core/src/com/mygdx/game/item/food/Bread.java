@@ -2,11 +2,12 @@ package com.mygdx.game.item.food;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.item.category.Tier1;
+import com.mygdx.game.logic.Point;
 
-public class Bread implements Food {
+public class Bread implements Food, Tier1 {
 
-    private int x;
-    private int y;
+    private Point coordinates = new Point(0,0);
 
     @Override
     public void consume(Actor actor) {
@@ -14,19 +15,18 @@ public class Bread implements Food {
     }
 
     @Override
-    public void setCoordinates(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public void setCoordinates(Point point) {
+        this.coordinates = point;
     }
 
     @Override
     public int getX() {
-        return x;
+        return coordinates.getX();
     }
 
     @Override
     public int getY() {
-        return y;
+        return coordinates.getY();
     }
 
 

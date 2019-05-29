@@ -1,7 +1,5 @@
-package com.mygdx.game.creator.map;
+package com.mygdx.game.map;
 
-import com.mygdx.game.creator.TileBase;
-import com.mygdx.game.creator.map.dungeon.Tile;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;

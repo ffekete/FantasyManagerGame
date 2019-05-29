@@ -1,20 +1,15 @@
 package com.mygdx.game.registry;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.faction.Alignment;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.stream.Collectors;
 
 public class ActorRegistry {

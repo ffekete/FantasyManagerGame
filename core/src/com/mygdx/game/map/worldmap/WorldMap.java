@@ -1,30 +1,27 @@
-package com.mygdx.game.creator.map.dungeon;
+package com.mygdx.game.map.worldmap;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.creator.TileBase;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.TileBase;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 
 import java.util.Random;
 
-public class Dungeon implements Map2D {
-
-    private TileBase[][] dungeon;
-    private int[][] tileVariation;
+public class WorldMap implements Map2D {
+    private TileBase[][] worldMap;
     private VisitedArea[][] visitedareaMap;
     private final int height;
     private final int width;
     private final VisibilityCalculator visibilityCalculator;
-    private final MapType mapType = MapType.DUNGEON_CAVE;
+    private final MapType mapType = MapType.WORLD_MAP;
     private Point defaultSpawningPoint;
-    private final DungeonType dungeonType;
+    private int[][] tileVariation;
 
-    public Dungeon(int width, int height, DungeonType dungeonType) {
+    public WorldMap(int width, int height) {
         this.height = height;
         this.width = width;
-        this.dungeonType = dungeonType;
 
         visibilityCalculator = new VisibilityCalculator(width, height);
 
@@ -34,25 +31,22 @@ public class Dungeon implements Map2D {
                 visitedareaMap[i][j] = VisitedArea.NOT_VISITED;
             }
         }
-        this.dungeon = new Tile[width][height];
+        this.worldMap = new WorldMapTile[width][height];
         this.tileVariation = new int[width][height];
     }
 
     public TileBase getTile(int x, int y) {
         if(x < 0 || x > width -1 || y < 0 || y > width -1)
-            return Tile.EMPTY;
-        return dungeon[x][y];
+            return WorldMapTile.EMPTY;
+        return worldMap[x][y];
     }
 
     public void setTile(int x, int y, TileBase value) {
         if(x < 0 || x > width -1 || y < 0 || y > width -1)
             return;
 
-        dungeon[x][y] = value;
-        int variation = new Random().nextInt(value.getVariation() * Config.Dungeon.TILE_VARIATION_FREQUENCY);
-        if(variation >= value.getVariation())
-            variation = 0;
-        tileVariation[x][y] = variation;
+        worldMap[x][y] = value;
+        tileVariation[x][y] = new Random().nextInt(value.getVariation());
     }
 
     public int getHeight() {
@@ -104,7 +98,7 @@ public class Dungeon implements Map2D {
 
     @Override
     public void setDefaultSpawningPoint(Point point) {
-        defaultSpawningPoint = point;
+        this.defaultSpawningPoint = point;
     }
 
     @Override
@@ -114,10 +108,6 @@ public class Dungeon implements Map2D {
 
     @Override
     public int getTileVariation(int x, int y) {
-        return tileVariation[x][y];
-    }
-
-    public DungeonType getDungeonType() {
-        return dungeonType;
+        return 0;
     }
 }

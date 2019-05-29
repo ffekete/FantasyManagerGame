@@ -4,9 +4,9 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Skeleton;
-import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.Dungeon;
-import com.mygdx.game.creator.map.dungeon.DungeonType;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.dungeon.Dungeon;
+import com.mygdx.game.map.dungeon.DungeonType;
 
 import org.testng.annotations.Test;
 

@@ -37,5 +37,10 @@ public class Poison implements Effect {
         return duration == 0;
     }
 
+    @Override
+    public int getPower() {
+        return stregth;
+    }
+
 
 }

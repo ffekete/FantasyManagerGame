@@ -1,8 +1,12 @@
-package com.mygdx.game.creator.map.dungeon;
+package com.mygdx.game.map.dungeon.room;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.creator.map.Map2D;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.dungeon.Dungeon;
+import com.mygdx.game.map.dungeon.DungeonType;
+import com.mygdx.game.map.dungeon.MapGenerator;
+import com.mygdx.game.map.dungeon.Tile;
 
 import java.util.*;
 

@@ -1,8 +1,8 @@
 package com.mygdx.game.object;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.creator.map.Cluster;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Cluster;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.WorldMapObjectRegistry;
 

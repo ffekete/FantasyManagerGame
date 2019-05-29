@@ -3,9 +3,8 @@ package com.mygdx.game.renderer.selector;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.utils.MapUtils;
-
 public class CaveTileSelector {
 
     TextureRegion textureRegion;

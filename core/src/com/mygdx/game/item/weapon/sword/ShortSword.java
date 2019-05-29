@@ -2,14 +2,16 @@ package com.mygdx.game.item.weapon.sword;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.OneHandedItem;
+import com.mygdx.game.item.category.Legendary;
+import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.item.weapon.Weapon;
+import com.mygdx.game.logic.Point;
 
 import java.util.Random;
 
-public class ShortSword implements OneHandedItem, Sword {
+public class ShortSword implements OneHandedItem, Sword, Tier1 {
 
-    private int x = 0;
-    private int y = 0;
+    private Point coordinates = new Point(0,0);
 
     @Override
     public int getDamage() {
@@ -42,18 +44,17 @@ public class ShortSword implements OneHandedItem, Sword {
     }
 
     @Override
-    public void setCoordinates(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public void setCoordinates(Point coordinates) {
+        this.coordinates = coordinates;
     }
 
     @Override
     public int getX() {
-        return this.x;
+        return this.coordinates.getX();
     }
 
     @Override
     public int getY() {
-        return this.y;
+        return this.coordinates.getY();
     }
 }

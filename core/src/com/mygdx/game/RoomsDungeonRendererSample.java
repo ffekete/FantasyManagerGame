@@ -16,9 +16,6 @@ import com.mygdx.game.actor.monster.Orc;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.creator.map.Map2D;
-import com.mygdx.game.creator.map.dungeon.DungeonWithRoomsCreator;
-import com.mygdx.game.creator.map.dungeon.MapGenerator;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.shield.Shield;
@@ -27,6 +24,9 @@ import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.time.DayTimeCalculator;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.dungeon.MapGenerator;
+import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
 import com.mygdx.game.object.decoration.StandingTorch;
 import com.mygdx.game.object.factory.WorldObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
@@ -98,18 +98,6 @@ public class RoomsDungeonRendererSample extends SampleBase {
         }
 
         MapRegistry.INSTANCE.setCurrentMapToShow(dungeon);
-
-        Bread bread = new Bread();
-        bread.setCoordinates(10, 10);
-
-        Bread bread2 = new Bread();
-        bread2.setCoordinates(80, 80);
-
-        Shield shield = new SmallShiled();
-        shield.setCoordinates(89, 59);
-
-        ShortSword shortSword = new ShortSword();
-        shortSword.setCoordinates(88, 58);
 
         MapRegistry.INSTANCE.add(dungeon);
 

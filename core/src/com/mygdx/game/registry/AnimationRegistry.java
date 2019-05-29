@@ -37,10 +37,6 @@ public class AnimationRegistry implements Disposable {
         animations.put(actor, animation);
     }
 
-    public void refresh(Actor actor) {
-        animations.put(actor, AnimationBuilder.INSTANCE.build(actor));
-    }
-
     public void remove(Actor actor) {
         animations.remove(actor);
     }

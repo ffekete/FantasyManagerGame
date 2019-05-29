@@ -1,6 +1,6 @@
 package com.mygdx.game.object.placement;
 
-import com.mygdx.game.creator.map.Map2D;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.logic.Point;
 

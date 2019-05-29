@@ -18,7 +18,7 @@ public abstract class CompoundActivity implements Activity {
 
     @Override
     public boolean isDone() {
-        // last item is done
+        // last Item is done
         return activities.size() -1 == currentActivity && activities.get(currentActivity).isDone();
     }
 

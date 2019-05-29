@@ -1,16 +1,17 @@
 package com.mygdx.game.item.shield;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.item.category.Tier1;
+import com.mygdx.game.logic.Point;
 
-public class SmallShiled implements Shield {
+public class SmallShiled implements Shield, Tier1 {
 
-    private int defense;
-    private int x;
-    private int y;
+    private int defense = 5;
+    private Point coordinates = new Point(0,0);
 
     @Override
     public void onEquip(Actor actor) {
-        System.out.println("Shield equipped");
+
     }
 
     @Override
@@ -19,19 +20,18 @@ public class SmallShiled implements Shield {
     }
 
     @Override
-    public void setCoordinates(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public void setCoordinates(Point coordinates) {
+        this.coordinates = coordinates;
     }
 
     @Override
     public int getX() {
-        return this.x;
+        return this.coordinates.getX();
     }
 
     @Override
     public int getY() {
-        return this.y;
+        return this.coordinates.getY();
     }
 
     @Override
