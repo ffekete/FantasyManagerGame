@@ -2,7 +2,7 @@ package com.mygdx.game.item.shield;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.Effect;
-import com.mygdx.game.effect.manager.AttackSpeedReduction;
+import com.mygdx.game.effect.AttackSpeedReduction;
 import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.EffectRegistry;

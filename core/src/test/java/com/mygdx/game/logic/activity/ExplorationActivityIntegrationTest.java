@@ -12,7 +12,7 @@ import com.mygdx.game.registry.MapRegistry;
 
 import org.testng.annotations.Test;
 
-public class ExplorationActivityTest {
+public class ExplorationActivityIntegrationTest {
 
     private ExplorationActivity activity;
 

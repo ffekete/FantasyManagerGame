@@ -8,7 +8,7 @@ import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.effect.Effect;
-import com.mygdx.game.effect.manager.AttackSpeedReduction;
+import com.mygdx.game.effect.AttackSpeedReduction;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.armor.Armor;
@@ -293,7 +293,7 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public int getAttackRange() {
-        return ((Weapon)getRightHandItem()).getRange();
+        return getRightHandItem() == null ? 1 : ((Weapon)getRightHandItem()).getRange();
     }
 
     @Override

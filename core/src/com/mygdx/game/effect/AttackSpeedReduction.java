@@ -1,6 +1,4 @@
-package com.mygdx.game.effect.manager;
-
-import com.mygdx.game.effect.Effect;
+package com.mygdx.game.effect;
 
 public class AttackSpeedReduction implements Effect {
 
