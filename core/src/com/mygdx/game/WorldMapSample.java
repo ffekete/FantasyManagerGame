@@ -18,6 +18,7 @@ import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.map.dungeon.MapGenerator;
+import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
 import com.mygdx.game.object.LinkedWorldObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.interactive.DungeonEntrance;
@@ -87,7 +88,7 @@ public class WorldMapSample extends SampleBase {
 
         CameraPositionController.INSTANCE.focusOn(hero);
 
-        dungeon = dungeonCreator.create(0);
+        dungeon = dungeonCreator.create(3);
         int x = 0,y = 0;
         do {
             x = new Random().nextInt(dungeon.getWidth());
@@ -97,7 +98,7 @@ public class WorldMapSample extends SampleBase {
 
         dungeon.setDefaultSpawningPoint(Point.of(x, y));
 
-        LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(15).Y(15));
+        LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(15).Y(15), ObjectPlacement.RANDOM);
 
         ActorFactory.INSTANCE.create(Goblin.class, worldMap, Placement.RANDOM);
 //        for (int i = 0; i < 15; i++) {
@@ -110,8 +111,6 @@ public class WorldMapSample extends SampleBase {
 
         hero.setName("Adavark");
 
-        PoisonFang poisonFang = new PoisonFang();
-        poisonFang.setCoordinates(Point.of(hero.getX() + 1, hero.getY()));
         hero.equip(new FlameTongue());
 
         MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
@@ -168,10 +167,10 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public void dispose() {
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().dispose();
-        textureRegistry.dispose();
-        bitmapFont.dispose();
-        AnimationRegistry.INSTANCE.dispose();
+//        SpriteBatchRegistry.INSTANCE.getSpriteBatch().dispose();
+//        textureRegistry.dispose();
+//        bitmapFont.dispose();
+//        AnimationRegistry.INSTANCE.dispose();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.mygdx.game.item.weapon.sword;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.FireDamage;
 import com.mygdx.game.item.OneHandedItem;
@@ -44,6 +45,11 @@ public class FlameTongue implements OneHandedItem, Sword, Legendary {
     @Override
     public void onRemove(Actor actor) {
 
+    }
+
+    @Override
+    public int getPower() {
+        return Config.Item.FLAME_TONGUE_POWER;
     }
 
     @Override

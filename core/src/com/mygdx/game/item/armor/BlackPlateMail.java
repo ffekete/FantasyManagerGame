@@ -1,5 +1,6 @@
 package com.mygdx.game.item.armor;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.category.Tier3;
 import com.mygdx.game.logic.Point;
@@ -21,6 +22,11 @@ public class BlackPlateMail implements Armor, Tier3 {
     @Override
     public void onRemove(Actor actor) {
 
+    }
+
+    @Override
+    public int getPower() {
+        return Config.Item.BLACK_PLATE_MAIL_POWER;
     }
 
     @Override

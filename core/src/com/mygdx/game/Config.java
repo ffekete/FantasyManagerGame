@@ -37,6 +37,14 @@ public class Config {
         public static final int BREAD_HUNGER_LEVEL = 100;
         public static final int PICK_UP_ITEM_DISTANCE = 15;
         public static final int HEALING_POTION_STRENGTH = 20;
+
+        // power lists
+        public static final int BLACK_PLATE_MAIL_POWER = 10;
+        public static final int MEDIUM_SHIELD_POWER = 6;
+        public static final int SMALL_SHIELD_POWER = 5;
+        public static final int FLAME_TONGUE_POWER = 10;
+        public static final int POISON_FANG_POWER = 10;
+        public static final int SHORT_SWORD_POWER = 5;
     }
 
     public static class Screen {
@@ -64,9 +72,12 @@ public class Config {
     }
 
     public static class Dungeon {
-        public static final int VISITED_AREA_THRESHOLD = 10;
-        public static final int DUNGEON_WIDTH = 100;
-        public static final int DUNGEON_HEIGHT = 100;
+        public static final int MULTILEVEL_DUNGEON_MAX_SIZE = 10;
+        public static final int MULTILEVEL_DUNGEON_MIN_SIZE = 6;
+
+        public static final int VISITED_AREA_THRESHOLD = 20;
+        public static final int DUNGEON_WIDTH = 40;
+        public static final int DUNGEON_HEIGHT = 40;
 
         public static final int ROOMS_DUNGEON_WIDTH = 200;
         public static final int ROOMS_DUNGEON_HEIGHT = 200;

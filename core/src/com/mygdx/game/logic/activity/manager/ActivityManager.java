@@ -7,6 +7,7 @@ import com.mygdx.game.logic.activity.manager.decision.DungeonVisitingDecision;
 import com.mygdx.game.logic.activity.manager.decision.EatingDecision;
 import com.mygdx.game.logic.activity.manager.decision.EquipDecision;
 import com.mygdx.game.logic.activity.manager.decision.ExplorationDecision;
+import com.mygdx.game.logic.activity.manager.decision.LeaveDungeonDecision;
 import com.mygdx.game.logic.activity.manager.decision.MoveAndAttackDecision;
 import com.mygdx.game.logic.activity.manager.decision.MovePickupDecision;
 import com.mygdx.game.logic.activity.manager.decision.MovePickupEatDecision;
@@ -26,6 +27,7 @@ public class ActivityManager {
         decisionTable.add(new MoveAndAttackDecision());
         decisionTable.add(new MovePickupDecision());
         decisionTable.add(new EatingDecision());
+        decisionTable.add(new LeaveDungeonDecision());
         decisionTable.add(new DungeonVisitingDecision());
         decisionTable.add(new ExplorationDecision());
         decisionTable.add(new MovePickupEatDecision());

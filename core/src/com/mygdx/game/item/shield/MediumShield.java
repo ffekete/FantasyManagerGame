@@ -1,5 +1,6 @@
 package com.mygdx.game.item.shield;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.Effect;
 import com.mygdx.game.effect.manager.AttackSpeedReduction;
@@ -27,6 +28,11 @@ public class MediumShield implements Shield, Tier1 {
     @Override
     public void onRemove(Actor actor) {
         effectRegistry.remove(attackSpeedReduction, actor);
+    }
+
+    @Override
+    public int getPower() {
+        return Config.Item.MEDIUM_SHIELD_POWER;
     }
 
     @Override

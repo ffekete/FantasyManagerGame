@@ -19,7 +19,7 @@ public class DungeonWithRoomsCreator implements MapGenerator {
     private static final int ROOM_MIN_HEIGHT = ROOM_MAX_HEIGHT / 2 + 1;
 
     @Override
-    public Map2D create(int nrOfRoomsNeeded) {
+    public Dungeon create(int nrOfRoomsNeeded) {
         Dungeon map = new Dungeon(Config.Dungeon.ROOMS_DUNGEON_WIDTH, Config.Dungeon.ROOMS_DUNGEON_HEIGHT, DungeonType.ROOMS);
 
         for (int i = 0; i < Config.Dungeon.ROOMS_DUNGEON_WIDTH; i++) {

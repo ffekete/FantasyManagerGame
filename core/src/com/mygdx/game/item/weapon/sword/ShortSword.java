@@ -1,5 +1,6 @@
 package com.mygdx.game.item.weapon.sword;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.OneHandedItem;
 import com.mygdx.game.item.category.Legendary;
@@ -41,6 +42,11 @@ public class ShortSword implements OneHandedItem, Sword, Tier1 {
     @Override
     public void onRemove(Actor actor) {
         
+    }
+
+    @Override
+    public int getPower() {
+        return Config.Item.SHORT_SWORD_POWER;
     }
 
     @Override

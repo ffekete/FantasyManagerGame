@@ -16,9 +16,7 @@ import com.mygdx.game.actor.monster.Orc;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
-import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.ShortSword;
@@ -28,7 +26,7 @@ import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.MapGenerator;
 import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
 import com.mygdx.game.object.decoration.StandingTorch;
-import com.mygdx.game.object.factory.WorldObjectFactory;
+import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.*;
 import com.mygdx.game.renderer.RendererBatch;
@@ -105,7 +103,7 @@ public class RoomsDungeonRendererSample extends SampleBase {
         hero.setRightHandItem(new FlameTongue());
         CameraPositionController.INSTANCE.focusOn(hero);
 
-        StandingTorch standingTorch = WorldObjectFactory.create(StandingTorch.class, dungeon, ObjectPlacement.FIXED.X(hero.getX()).Y(hero.getY()));
+        StandingTorch standingTorch = ObjectFactory.create(StandingTorch.class, dungeon, ObjectPlacement.FIXED.X(hero.getX()).Y(hero.getY()));
     }
 
     @Override
@@ -152,10 +150,10 @@ public class RoomsDungeonRendererSample extends SampleBase {
 
     @Override
     public void dispose() {
-        spriteBatch.dispose();
-        textureRegistry.dispose();
-        bitmapFont.dispose();
-        AnimationRegistry.INSTANCE.dispose();
+//        spriteBatch.dispose();
+//        textureRegistry.dispose();
+//        bitmapFont.dispose();
+//        AnimationRegistry.INSTANCE.dispose();
     }
 
     @Override

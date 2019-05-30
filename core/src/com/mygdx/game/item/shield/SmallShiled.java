@@ -1,5 +1,6 @@
 package com.mygdx.game.item.shield;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.logic.Point;
@@ -17,6 +18,11 @@ public class SmallShiled implements Shield, Tier1 {
     @Override
     public void onRemove(Actor actor) {
 
+    }
+
+    @Override
+    public int getPower() {
+        return Config.Item.SMALL_SHIELD_POWER;
     }
 
     @Override

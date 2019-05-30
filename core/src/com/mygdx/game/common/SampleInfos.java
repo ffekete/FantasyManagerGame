@@ -16,9 +16,6 @@ public class SampleInfos {
             WorldMapSample.SAMPLE_INFO,
             CaveDungeonRendererSample.SAMPLE_INFO,
             RoomsDungeonRendererSample.SAMPLE_INFO,
-            TextSample.SAMPLE_INFO,
-            AnimationSample.SAMPLE_INFO,
-            DungeonWithRoomsRendererSample.SAMPLE_INFO,
             CombatSample.SAMPLE_INFO
     );
 

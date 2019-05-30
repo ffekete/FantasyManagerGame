@@ -9,7 +9,7 @@ import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
-import com.mygdx.game.registry.WorldMapObjectRegistry;
+import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 
 public class WorldMapRenderer implements Renderer {
@@ -17,7 +17,7 @@ public class WorldMapRenderer implements Renderer {
     public static final WorldMapRenderer INSTANCE = new WorldMapRenderer();
 
     private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
-    private final WorldMapObjectRegistry objectRegistry = WorldMapObjectRegistry.INSTANCE;
+    private final ObjectRegistry objectRegistry = ObjectRegistry.INSTANCE;
     private final CameraPositionController cameraPositionController = CameraPositionController.INSTANCE;
 
     @Override

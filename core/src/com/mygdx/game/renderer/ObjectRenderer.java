@@ -11,19 +11,19 @@ import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
-import com.mygdx.game.registry.WorldMapObjectRegistry;
+import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WorldObjectRenderer implements Renderer {
+public class ObjectRenderer implements Renderer {
 
-    public static final WorldObjectRenderer INSTANCE = new WorldObjectRenderer();
+    public static final ObjectRenderer INSTANCE = new ObjectRenderer();
     public final VisibilityMapRegistry visibilityMapRegistry = VisibilityMapRegistry.INSTANCE;
 
     private final CameraPositionController cameraPositionController = CameraPositionController.INSTANCE;
-    private final WorldMapObjectRegistry objectRegistry = WorldMapObjectRegistry.INSTANCE;
+    private final ObjectRegistry objectRegistry = ObjectRegistry.INSTANCE;
     private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
     private final AnimationRegistry animationRegistry = AnimationRegistry.INSTANCE;
 
@@ -38,8 +38,8 @@ public class WorldObjectRenderer implements Renderer {
 
         List<Cluster> clusters = new ArrayList<>();
 
-        for (int i = -1; i <= 1; i++)
-            for (int j = -1; j <= 1; j++) {
+        for (int i = -2; i <= 2; i++)
+            for (int j = -2; j <= 2; j++) {
                 if (x + i >= 0 && x + i <= Config.WorldMap.WORLD_WIDTH / Config.WorldMap.CLUSTER_DIVIDER &&
                         y + j >= 0 && y + j <= Config.WorldMap.WORLD_HEIGHT / Config.WorldMap.CLUSTER_DIVIDER) {
                     Cluster cluster = new Cluster(x + i, y + j);
@@ -48,8 +48,8 @@ public class WorldObjectRenderer implements Renderer {
             }
 
         for (Cluster cluster : clusters) {
-            if (objectRegistry.getObjects(cluster).isPresent())
-                for (WorldObject worldObject : objectRegistry.getObjects(cluster).get()) {
+            if (objectRegistry.getObjects(dungeon, cluster).isPresent())
+                for (WorldObject worldObject : objectRegistry.getObjects(dungeon, cluster).get()) {
                     if(AnimatedObject.class.isAssignableFrom(worldObject.getClass())) {
                         if(dungeon.getVisitedareaMap()[(int)worldObject.getX()][(int) worldObject.getY()] == VisitedArea.VISIBLE)
                             animationRegistry.get((AnimatedObject) worldObject).drawKeyFrame(spriteBatch, worldObject.getX(), worldObject.getY(), 1, Direction.RIGHT);

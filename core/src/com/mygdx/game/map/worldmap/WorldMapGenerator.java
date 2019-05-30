@@ -12,7 +12,7 @@ public class WorldMapGenerator implements MapGenerator {
         int width = Config.WorldMap.WORLD_WIDTH;
         int height = Config.WorldMap.WORLD_HEIGHT;
 
-        Map2D worldMap = new WorldMap(width, height);
+        WorldMap worldMap = new WorldMap(width, height);
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {

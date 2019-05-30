@@ -46,6 +46,10 @@ public class ExplorationActivity implements Activity {
             targetX = target.getX();
             targetY = target.getY();
             this.movementActivity = new MovementActivity(actor, target.getX(), target.getY(), 0, new PathFinder());
+        } else {
+            targetX = actor.getX();
+            targetY = actor.getY();
+            this.movementActivity = new MovementActivity(actor, targetX, targetY, 0, new PathFinder());
         }
     }
 

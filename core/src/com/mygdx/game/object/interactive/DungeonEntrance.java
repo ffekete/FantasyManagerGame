@@ -9,17 +9,25 @@ import com.mygdx.game.logic.Point;
 public class DungeonEntrance implements InteractiveObject {
 
     private final Map2D to;
+    private final Map2D from;
+
     private final CharacterMap2dSwitcher characterMap2dSwitcher = CharacterMap2dSwitcher.INSTANCE;
 
     private Point coordinates;
 
-    public DungeonEntrance(Map2D to) {
+    public DungeonEntrance(Map2D to, Map2D from) {
         this.to = to;
+        this.from = from;
     }
 
     @Override
     public void onInteract(Actor actor) {
-        characterMap2dSwitcher.switchTo(to, actor.getCurrentMap(), actor);
+        if (actor.getCurrentMap().equals(from))
+            // descend to the next level of the dungeon
+            characterMap2dSwitcher.switchTo(to, actor.getCurrentMap(), actor);
+        else
+            // climb up
+            characterMap2dSwitcher.switchTo(actor.getCurrentMap(), to, actor);
     }
 
     @Override
@@ -47,5 +55,11 @@ public class DungeonEntrance implements InteractiveObject {
         return coordinates;
     }
 
+    public Map2D getTo() {
+        return to;
+    }
 
+    public Map2D getFrom() {
+        return from;
+    }
 }

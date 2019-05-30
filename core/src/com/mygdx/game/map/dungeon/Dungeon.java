@@ -20,6 +20,8 @@ public class Dungeon implements Map2D {
     private final MapType mapType = MapType.DUNGEON_CAVE;
     private Point defaultSpawningPoint;
     private final DungeonType dungeonType;
+    private Dungeon nextLevel = null;
+    private Dungeon previousLevel = null;
 
     public Dungeon(int width, int height, DungeonType dungeonType) {
         this.height = height;
@@ -98,6 +100,22 @@ public class Dungeon implements Map2D {
     }
 
     @Override
+    public boolean areAllLevelsExplored() {
+        Dungeon topLevel = this;
+        while (topLevel.previousLevel != null) {
+            topLevel = topLevel.previousLevel;
+        }
+
+        while(topLevel != null) {
+            if (!topLevel.isExplored())
+                return false;
+
+            topLevel = topLevel.nextLevel;
+        }
+        return true;
+    }
+
+    @Override
     public Point getDefaultSpawnPoint() {
         return defaultSpawningPoint;
     }
@@ -119,5 +137,21 @@ public class Dungeon implements Map2D {
 
     public DungeonType getDungeonType() {
         return dungeonType;
+    }
+
+    public void setNextLevel(Dungeon nextLevel) {
+        this.nextLevel = nextLevel;
+    }
+
+    public void setPreviousLevel(Dungeon previousLevel) {
+        this.previousLevel = previousLevel;
+    }
+
+    public Dungeon getNextLevel() {
+        return nextLevel;
+    }
+
+    public Dungeon getPreviousLevel() {
+        return previousLevel;
     }
 }

@@ -4,7 +4,7 @@ import com.mygdx.game.Config;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.Decorator;
 import com.mygdx.game.object.decoration.SpiderWeb;
-import com.mygdx.game.object.factory.WorldObjectFactory;
+import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.utils.MapUtils;
 
@@ -22,7 +22,7 @@ public class CaveDungeonDecorator implements Decorator {
                 int mask = MapUtils.bitmask4bit(map, i,j);
 
                 if(mask == 3 && !map.getTile(i,j).isObstacle() && new Random().nextInt(Config.Dungeon.WORLD_OBJECT_SPAWN_RATE) == 0) {
-                    WorldObjectFactory.create(SpiderWeb.class, map, ObjectPlacement.FIXED.X(i).Y(j));
+                    ObjectFactory.create(SpiderWeb.class, map, ObjectPlacement.FIXED.X(i).Y(j));
                 }
             }
         }

@@ -21,6 +21,7 @@ public class VisibilityMapRegistry {
     }
 
     public VisibilityMask getFor(Map2D map) {
+        registry.computeIfAbsent(map, value -> new VisibilityMask(map.getWidth(), map.getHeight()));
         if(registry.containsKey(map)) {
             return registry.get(map);
         }

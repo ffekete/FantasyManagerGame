@@ -92,6 +92,11 @@ public class WorldMap implements Map2D {
     }
 
     @Override
+    public boolean areAllLevelsExplored() {
+        return isExplored();
+    }
+
+    @Override
     public Point getDefaultSpawnPoint() {
         return defaultSpawningPoint;
     }

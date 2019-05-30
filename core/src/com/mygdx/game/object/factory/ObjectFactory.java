@@ -10,16 +10,16 @@ import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.LightSourceRegistry;
-import com.mygdx.game.registry.WorldMapObjectRegistry;
+import com.mygdx.game.registry.ObjectRegistry;
 
 import java.lang.reflect.InvocationTargetException;
 
-public class WorldObjectFactory {
+public class ObjectFactory {
 
     public static <T extends WorldObject> T create(Class<T> clazz, Map2D map2D, ObjectPlacement objectPlacement) {
 
         T object = null;
-        Point point = Point.of(0,0);
+        Point point = Point.of(0, 0);
         try {
             object = clazz.getConstructor(Point.class).newInstance(point);
         } catch (InstantiationException e) {
@@ -32,16 +32,16 @@ public class WorldObjectFactory {
             e.printStackTrace();
         }
 
-        if(object != null) {
+        if (object != null) {
 
             objectPlacement.place(object, map2D);
 
-            WorldMapObjectRegistry.INSTANCE.add(Cluster.of(object.getX(), object.getY()), object);
+            ObjectRegistry.INSTANCE.add(map2D, Cluster.of(object.getX(), object.getY()), object);
 
-            if(AnimatedObject.class.isAssignableFrom(clazz))
-                AnimationRegistry.INSTANCE.add((AnimatedObject)object, new WorldObjectAnimation((AnimatedObject) object));
+            if (AnimatedObject.class.isAssignableFrom(clazz))
+                AnimationRegistry.INSTANCE.add((AnimatedObject) object, new WorldObjectAnimation((AnimatedObject) object));
 
-            if(LightSource.class.isAssignableFrom(clazz))
+            if (LightSource.class.isAssignableFrom(clazz))
                 LightSourceRegistry.INSTANCE.add(map2D, (LightSource) object);
         }
         return object;

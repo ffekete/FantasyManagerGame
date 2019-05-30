@@ -22,7 +22,7 @@ public class CaveDungeonCreator implements MapGenerator {
     private float chanceToStartAlive = 45;
 
     @Override
-    public Map2D create(int steps) {
+    public Dungeon create(int steps) {
 
         long start = System.currentTimeMillis();
         //Create a new map

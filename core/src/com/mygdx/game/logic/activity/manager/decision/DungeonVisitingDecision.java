@@ -12,7 +12,8 @@ import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
 import com.mygdx.game.logic.activity.single.InteractActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.pathfinding.PathFinder;
-import com.mygdx.game.registry.WorldMapObjectRegistry;
+import com.mygdx.game.object.interactive.DungeonEntrance;
+import com.mygdx.game.registry.ObjectRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class DungeonVisitingDecision implements Decision {
         for (Cluster cluster : clusters) {
 
             WorldObject closestObject = null;
-            Optional<Set<WorldObject>> optionalWorldObjects = WorldMapObjectRegistry.INSTANCE.getObjects(cluster);
+            Optional<Set<WorldObject>> optionalWorldObjects = ObjectRegistry.INSTANCE.getObjects(actor.getCurrentMap(), cluster);
             if(optionalWorldObjects.isPresent()) {
                 Optional<WorldObject> optionalWorldObject = optionalWorldObjects.get().stream().filter(object -> InteractiveObject.class.isAssignableFrom(object.getClass()) && distance(object.getCoordinates(), actor.getCoordinates()) < 100).findFirst();
                 if(optionalWorldObject.isPresent()   ) {
@@ -48,6 +49,8 @@ public class DungeonVisitingDecision implements Decision {
             if (Alignment.FRIENDLY.equals(actor.getAlignment())
                     && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())
                     && closestObject != null
+                    && DungeonEntrance.class.isAssignableFrom(closestObject.getClass())
+                    && !((DungeonEntrance) closestObject).getTo().isExplored()
                     && !actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
                 MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY);
 

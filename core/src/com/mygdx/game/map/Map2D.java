@@ -16,6 +16,7 @@ public interface Map2D {
     VisibilityCalculator getVisibilityCalculator();
 
     boolean isExplored();
+    boolean areAllLevelsExplored();
 
     Point getDefaultSpawnPoint();
     void setDefaultSpawningPoint(Point point);
