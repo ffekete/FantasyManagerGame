@@ -34,7 +34,7 @@ public class PoisonIntegrationTest {
         Actor actor = new Warrior();
         actorRegistry.add(dungeon, actor);
         actor.setHp(5);
-        effectRegistry.add(new Poison(1,5,actor), actor);
+        effectRegistry.add(new Poison(1,5,actor, actor), actor);
 
         for (int i = 0; i < 60 / (60 * GDX_DELTA_TIME); i++) {
             effectManager.update();
@@ -50,7 +50,7 @@ public class PoisonIntegrationTest {
         Actor actor = new Warrior();
         actorRegistry.add(dungeon, actor);
         actor.setHp(5);
-        effectRegistry.add(new Poison(2,5,actor), actor);
+        effectRegistry.add(new Poison(2,5,actor, actor), actor);
 
         for (int i = 0; i < 60 / (60 * GDX_DELTA_TIME); i++) {
             effectManager.update();
@@ -66,7 +66,7 @@ public class PoisonIntegrationTest {
         Actor actor = new Warrior();
         actorRegistry.add(dungeon, actor);
         actor.setHp(5);
-        effectRegistry.add(new Poison(0,5,actor), actor);
+        effectRegistry.add(new Poison(0,5,actor, actor), actor);
 
         for (int i = 0; i < 60 / (60 * GDX_DELTA_TIME); i++) {
             effectManager.update();

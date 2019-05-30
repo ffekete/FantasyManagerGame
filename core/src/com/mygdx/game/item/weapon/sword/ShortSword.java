@@ -24,7 +24,7 @@ public class ShortSword implements OneHandedItem, Sword, Tier1 {
     }
 
     @Override
-    public void onHit(Actor target) {
+    public void onHit(Actor target, Actor originatingActor) {
 
     }
 

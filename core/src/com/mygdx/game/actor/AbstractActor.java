@@ -282,8 +282,8 @@ public abstract class AbstractActor implements Actor {
     }
 
     @Override
-    public void die() {
-        System.out.println("I'm dead." + getName());
+    public void die(Actor killer) {
+        System.out.println(getName() + " I'm killed by " + killer.getName());
         activityStack.getCurrent().cancel();
         ActorDeathHandler.INSTANCE.kill(this);
         LightSource lightSource = LightSourceRegistry.INSTANCE.getFor(this);

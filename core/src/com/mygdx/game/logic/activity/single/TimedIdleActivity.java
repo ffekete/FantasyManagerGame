@@ -19,7 +19,6 @@ public class TimedIdleActivity implements Activity {
 
     @Override
     public boolean isDone() {
-        // ths activity never stops
         return timeToWait == waitCounter;
     }
 

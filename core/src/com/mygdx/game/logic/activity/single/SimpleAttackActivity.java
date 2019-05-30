@@ -73,6 +73,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
         actor.setxOffset(0);
         actor.setyOffset(0);
         actionRegistry.remove(actor.getCurrentMap(), action);
+        AttackController.INSTANCE.clearAttackingHistory(actor);
     }
 
     @Override
@@ -115,7 +116,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
         animationRegistry.remove(enemy);
         AttackController.INSTANCE.clearAttackingHistory(actor);
         actionRegistry.remove(enemy.getCurrentMap(), action);
-        enemy.die();
+        enemy.die(actor);
     }
 
     @Override

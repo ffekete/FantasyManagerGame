@@ -27,8 +27,8 @@ public class FlameTongue implements OneHandedItem, Sword, Legendary {
     }
 
     @Override
-    public void onHit(Actor target) {
-        effectRegistry.add(new FireDamage(1, 1, target), target);
+    public void onHit(Actor target, Actor originatingActor) {
+        effectRegistry.add(new FireDamage(1, 1, target, originatingActor), target);
     }
 
     @Override

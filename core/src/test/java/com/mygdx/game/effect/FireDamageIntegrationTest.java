@@ -40,9 +40,9 @@ public class FireDamageIntegrationTest {
         Actor actor = new Warrior();
         actorRegistry.add(dungeon, actor);
         actor.setHp(5);
-        effectRegistry.add(new FireDamage(1,5,actor), actor);
+        effectRegistry.add(new FireDamage(1,5,actor, actor), actor);
 
-        for (int i = 0; i < 60 / (60 * GDX_DELTA_TIME); i++) {
+        for (int i = 0; i <40; i++) {
             effectManager.update();
         }
 
@@ -56,7 +56,7 @@ public class FireDamageIntegrationTest {
         Actor actor = new Warrior();
         actorRegistry.add(dungeon, actor);
         actor.setHp(5);
-        effectRegistry.add(new FireDamage(2,5,actor), actor);
+        effectRegistry.add(new FireDamage(2,5,actor, actor), actor);
 
         for (int i = 0; i < 60 / (60 * GDX_DELTA_TIME); i++) {
             effectManager.update();
@@ -72,7 +72,7 @@ public class FireDamageIntegrationTest {
         Actor actor = new Warrior();
         actorRegistry.add(dungeon, actor);
         actor.setHp(5);
-        effectRegistry.add(new FireDamage(0,5,actor), actor);
+        effectRegistry.add(new FireDamage(0,5,actor, actor), actor);
 
         for (int i = 0; i < 60 / (60 * GDX_DELTA_TIME); i++) {
             effectManager.update();

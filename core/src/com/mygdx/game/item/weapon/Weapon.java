@@ -6,6 +6,6 @@ import com.mygdx.game.item.Equipable;
 public interface Weapon extends Equipable {
     int getDamage();
     int getPrice();
-    void onHit(Actor target);
+    void onHit(Actor target, Actor originatingActor);
     int getRange();
 }

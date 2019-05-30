@@ -94,9 +94,9 @@ public class MoveAndAttackDecisionTest {
         decisionResultForSkeleton2 = moveAndAttackDecision.decide(skeleton2);
 
         // then
-        assertThat(decisionResult, is(false));
-        assertThat(decisionResultForSkeleton, is(false));
-        assertThat(decisionResultForSkeleton2, is(false));
+        assertThat(decisionResult, is(true));
+        assertThat(decisionResultForSkeleton, is(true));
+        assertThat(decisionResultForSkeleton2, is(true));
 
         assertThat(hero.getActivityStack().getSize(), is(2));
         assertThat(skeleton.getActivityStack().getSize(), is(2));
