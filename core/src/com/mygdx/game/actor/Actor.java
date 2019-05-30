@@ -58,7 +58,7 @@ public interface Actor {
     void setWornArmor(Armor armor);
     void setLeftHandItem(Equipable equipable);
     void setRightHandItem(Equipable equipable);
-    void die();
+    void die(Actor killer);
     int getAttackRange();
     void setAttribute(Attributes attribute, int value);
 

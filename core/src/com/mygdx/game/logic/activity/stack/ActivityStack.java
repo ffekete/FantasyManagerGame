@@ -46,7 +46,7 @@ public class ActivityStack {
                 activities.remove(activity);
             }
         }
-        if (activity.isCancellable()) {
+        else if (activity.isCancellable()) {
             activity.cancel();
             activities.remove(activity);
         } else {
@@ -56,9 +56,8 @@ public class ActivityStack {
             if (activity.isSuspended()) {
                 activity.resume();
             }
-
-            activity.countDown();
         }
+        activity.countDown();
     }
 
     public void clear() {

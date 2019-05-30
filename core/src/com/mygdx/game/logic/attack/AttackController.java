@@ -93,7 +93,7 @@ public class AttackController {
 
         if(toHit < hitThreshold - evasion) {
             victim.setHp(victim.getHp() - Math.max(1, damage - getDamageProtection(victim)));
-            weapon.onHit(victim);
+            weapon.onHit(victim, attacker);
         }
     }
 

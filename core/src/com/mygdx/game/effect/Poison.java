@@ -9,10 +9,12 @@ public class Poison implements Effect {
     private int duration;
     private float counter;
     private Actor target;
+    private Actor originatingActor;
 
-    public Poison(int stregth, int duration, Actor target) {
+    public Poison(int stregth, int duration, Actor target, Actor originatingActor) {
         this.stregth = stregth;
         this.duration = duration;
+        this.originatingActor = originatingActor;
         counter = 60;
         this.target = target;
     }
@@ -26,7 +28,7 @@ public class Poison implements Effect {
 
             target.setHp(target.getHp() - stregth);
             if (target.getHp() <= 0) {
-                target.die();
+                target.die(originatingActor);
             }
 
         }

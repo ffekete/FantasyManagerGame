@@ -37,7 +37,7 @@ public class MovePickupEatDecision implements Decision {
                     return true;
                 }
             }
-        } else {
+        } else if(actor.getActivityStack().contains(MovePickupEatActivity.class)) {
             // already doing activity, the decision chain should end here
             return true;
         }

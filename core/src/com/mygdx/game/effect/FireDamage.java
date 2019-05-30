@@ -7,15 +7,17 @@ public class FireDamage implements Effect {
 
     private final int strength;
     private final Actor target;
+    private final Actor originatingActor;
 
     private int duration;
     private float counter;
 
-    public FireDamage(int strength, int duration, Actor target) {
+    public FireDamage(int strength, int duration, Actor target, Actor originatingActor) {
         this.strength = strength;
         this.duration = duration;
         this.target = target;
         this.counter = 60;
+        this.originatingActor = originatingActor;
     }
 
     @Override
@@ -26,6 +28,9 @@ public class FireDamage implements Effect {
             counter = 60;
             duration--;
             target.setHp(target.getHp() - strength);
+            if (target.getHp() <= 0) {
+                target.die(originatingActor);
+            }
         }
     }
 

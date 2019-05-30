@@ -87,7 +87,7 @@ public abstract class CompoundActivity implements Activity {
 
     @Override
     public void clear() {
-        activities.get(activities.size() -1).clear();
+        //activities.get(activities.size() -1).clear();
     }
 
     @Override

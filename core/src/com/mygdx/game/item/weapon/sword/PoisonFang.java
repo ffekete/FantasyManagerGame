@@ -5,7 +5,6 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.Poison;
 import com.mygdx.game.item.OneHandedItem;
 import com.mygdx.game.item.category.Legendary;
-import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.EffectRegistry;
 
@@ -26,8 +25,8 @@ public class PoisonFang implements OneHandedItem, Sword, Legendary {
     }
 
     @Override
-    public void onHit(Actor target) {
-        EffectRegistry.INSTANCE.add(new Poison(2, 5, target), target);
+    public void onHit(Actor target, Actor originatingActor) {
+        EffectRegistry.INSTANCE.add(new Poison(2, 5, target, originatingActor), target);
     }
 
     @Override

@@ -81,17 +81,20 @@ public class RoomsDungeonRendererSample extends SampleBase {
         for (int i = 0; i < 5; i++) {
             Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
             s.setRightHandItem(new ShortSword());
+            s.setName("Skeleton " + i);
         }
 
         for (int i = 0; i < 5; i++) {
             Actor s = ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.RANDOM);
             s.setRightHandItem(new ShortSword());
+            s.setName("Gobelin " + i);
         }
 
         for (int i = 0; i < 5; i++) {
             Actor s = ActorFactory.INSTANCE.create(Orc.class, dungeon, Placement.RANDOM);
             s.setRightHandItem(new ShortSword());
             s.setLeftHandItem(new SmallShiled());
+            s.setName("Orc " + i);
 
         }
 
