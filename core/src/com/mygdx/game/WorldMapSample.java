@@ -13,11 +13,14 @@ import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
+import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.map.dungeon.MapGenerator;
+import com.mygdx.game.map.dungeon.factory.DungeonFactory;
 import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
 import com.mygdx.game.object.LinkedWorldObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
@@ -51,6 +54,7 @@ public class WorldMapSample extends SampleBase {
 
     Map2D worldMap;
     Map2D dungeon;
+    Map2D dungeon2;
     ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
     GameLogicController gameLogicController = new GameLogicController(actorRegistry);
@@ -59,7 +63,7 @@ public class WorldMapSample extends SampleBase {
     BitmapFont bitmapFont;
     Actor hero;
     MapGenerator mapGenerator = new WorldMapGenerator();
-    MapGenerator dungeonCreator = new CaveDungeonCreator();
+    DungeonFactory dungeonFactory = DungeonFactory.INSTANCE;
 
     LinkedWorldObjectFactory objectFactory = LinkedWorldObjectFactory.INSTANCE;
 
@@ -88,25 +92,15 @@ public class WorldMapSample extends SampleBase {
 
         CameraPositionController.INSTANCE.focusOn(hero);
 
-        dungeon = dungeonCreator.create(3);
-        int x = 0,y = 0;
-        do {
-            x = new Random().nextInt(dungeon.getWidth());
-            y = new Random().nextInt(dungeon.getHeight());
-
-        } while(dungeon.getTile(x,y).isObstacle());
-
-        dungeon.setDefaultSpawningPoint(Point.of(x, y));
+        dungeon = dungeonFactory.create(CaveDungeonCreator.class);
+        dungeon2 = dungeonFactory.create(DungeonWithRoomsCreator.class);
 
         LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(15).Y(15), ObjectPlacement.RANDOM);
-
-        ActorFactory.INSTANCE.create(Goblin.class, worldMap, Placement.RANDOM);
-//        for (int i = 0; i < 15; i++) {
-//            ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
-//        }
+        LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon2, ObjectPlacement.FIXED.X(13).Y(13), ObjectPlacement.RANDOM);
 
         MapRegistry.INSTANCE.add(worldMap);
         MapRegistry.INSTANCE.add(dungeon);
+        MapRegistry.INSTANCE.add(dungeon2);
         MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
 
         hero.setName("Adavark");

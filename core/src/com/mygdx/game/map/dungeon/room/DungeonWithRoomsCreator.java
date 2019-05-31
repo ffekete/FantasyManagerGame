@@ -3,14 +3,11 @@ package com.mygdx.game.map.dungeon.room;
 import com.mygdx.game.Config;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
-import com.mygdx.game.map.dungeon.Dungeon;
-import com.mygdx.game.map.dungeon.DungeonType;
-import com.mygdx.game.map.dungeon.MapGenerator;
-import com.mygdx.game.map.dungeon.Tile;
+import com.mygdx.game.map.dungeon.*;
 
 import java.util.*;
 
-public class DungeonWithRoomsCreator implements MapGenerator {
+public class DungeonWithRoomsCreator implements DungeonGenerator {
 
     private static final int NR_OF_SEGMENTS = 10;
     private static final int ROOM_MAX_WIDTH = Config.Dungeon.ROOMS_DUNGEON_WIDTH / NR_OF_SEGMENTS - 2;

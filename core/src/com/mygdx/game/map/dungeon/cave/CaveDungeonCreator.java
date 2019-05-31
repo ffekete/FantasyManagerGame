@@ -2,20 +2,14 @@ package com.mygdx.game.map.dungeon.cave;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.map.Map2D;
-import com.mygdx.game.map.dungeon.Dungeon;
-import com.mygdx.game.map.dungeon.DungeonType;
-import com.mygdx.game.map.dungeon.MapGenerator;
-import com.mygdx.game.map.dungeon.Tile;
+import com.mygdx.game.map.dungeon.*;
 import com.mygdx.game.map.dungeon.decorator.ItemPlacementHandler;
 
 import java.util.Random;
 
-public class CaveDungeonCreator implements MapGenerator {
+public class CaveDungeonCreator implements DungeonGenerator {
 
     private final static boolean DEBUG = false;
-
-    private final CaveDungeonDecorator caveDungeonDecorator = CaveDungeonDecorator.INSTANCE;
-    private final ItemPlacementHandler itemPlacementHandler = ItemPlacementHandler.INSTANCE;
 
     private int deathLimit = 5;
     private int birthLimit = 3;
@@ -44,10 +38,6 @@ public class CaveDungeonCreator implements MapGenerator {
             fill(coord[0],coord[1], cellmap, Tile.FLOOR, Tile.EMPTY);
             int traversable = countTraversableArea(cellmap, Tile.EMPTY);
         }
-
-        caveDungeonDecorator.decorate(cellmap);
-
-        itemPlacementHandler.place(cellmap);
 
         System.out.println("Elapsed: " + (System.currentTimeMillis() - start) + " ms");
 

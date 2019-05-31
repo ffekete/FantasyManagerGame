@@ -118,5 +118,4 @@ public class WaitActivity implements Activity {
     public Activity getCurrentActivity() {
         return this;
     }
-
 }

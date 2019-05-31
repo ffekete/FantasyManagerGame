@@ -37,6 +37,7 @@ public class ActivityStack {
         if (activities.isEmpty()) {
             return;
         }
+
         Activity activity = activities.peek();
 
         if (activity.isTriggered()) {

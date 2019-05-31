@@ -26,10 +26,10 @@ public abstract class CompoundActivity implements Activity {
     public void update() {
         activities.get(currentActivity).update();
         if (activities.get(currentActivity).isDone()) {
-            activities.get(currentActivity).clear();
             if (activities.size() - 1 == currentActivity) {
                 // this was the last activity, nothing else to do here
             } else {
+                activities.get(currentActivity).clear();
                 currentActivity++;
                 activities.get(currentActivity).init();
             }
@@ -87,7 +87,7 @@ public abstract class CompoundActivity implements Activity {
 
     @Override
     public void clear() {
-        //activities.get(activities.size() -1).clear();
+        activities.get(activities.size() -1).clear();
     }
 
     @Override

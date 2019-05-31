@@ -209,5 +209,4 @@ public class ExplorationActivity implements Activity {
     public Activity getCurrentActivity() {
         return movementActivity;
     }
-
 }

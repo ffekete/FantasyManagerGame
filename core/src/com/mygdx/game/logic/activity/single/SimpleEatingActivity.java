@@ -104,5 +104,4 @@ public class SimpleEatingActivity implements Activity, CooldownActivity {
     public Activity getCurrentActivity() {
         return this;
     }
-
 }

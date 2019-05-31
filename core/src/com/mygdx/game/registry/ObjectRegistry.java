@@ -40,7 +40,7 @@ public class ObjectRegistry {
     }
 
     public Optional<Set<WorldObject>> getObjects(Map2D map, Cluster cluster) {
-        if(!objects.get(map).containsKey(cluster)) {
+        if(!objects.containsKey(map) || !objects.get(map).containsKey(cluster)) {
             return Optional.empty();
         }
         return Optional.ofNullable(objects.get(map).get(cluster));

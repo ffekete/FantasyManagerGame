@@ -200,13 +200,13 @@ public abstract class AbstractActor implements Actor {
     @Override
     public void equip(Equipable equipable) {
         // if it is shield
-        if (Shield.class.isAssignableFrom(equipable.getClass()) && leftHand == null) {
+        if (Shield.class.isAssignableFrom(equipable.getClass())) {
             leftHand = equipable;
             inventory.remove(equipable);
             equipable.onEquip(this);
             System.out.println(name + " equiped in left hand " + equipable);
 
-        } else if (Weapon.class.isAssignableFrom(equipable.getClass()) && rightHand == null) {
+        } else if (Weapon.class.isAssignableFrom(equipable.getClass())) {
             rightHand = equipable;
             inventory.remove(equipable);
             equipable.onEquip(this);

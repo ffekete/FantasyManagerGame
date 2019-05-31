@@ -10,7 +10,7 @@ public class EatingDecision implements Decision {
         if(actor.isHungry() && !actor.getActivityStack().contains(SimpleEatingActivity.class)) {
             if(actor.getInventory().has(Food.class)) {
                 SimpleEatingActivity simpleEatingActivity = new SimpleEatingActivity(actor);
-                actor.getActivityStack().suspendAll();
+                actor.getActivityStack().clear();
                 actor.getActivityStack().add(simpleEatingActivity);
                 return true;
             }

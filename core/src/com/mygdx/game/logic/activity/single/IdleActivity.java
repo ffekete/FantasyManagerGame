@@ -106,5 +106,4 @@ public class IdleActivity implements Activity {
         return this;
     }
 
-
 }

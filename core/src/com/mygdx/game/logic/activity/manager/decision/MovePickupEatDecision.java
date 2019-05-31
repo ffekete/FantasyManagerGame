@@ -32,7 +32,7 @@ public class MovePickupEatDecision implements Decision {
                             .add(new MovementActivity(actor, food.getX(), food.getY(), 1, new PathFinder()))
                             .add(new PickUpItemActivity(actor, food))
                             .add(new SimpleEatingActivity(actor));
-                    actor.getActivityStack().suspendAll();
+                    actor.getActivityStack().clear();
                     actor.getActivityStack().add(activity);
                     return true;
                 }

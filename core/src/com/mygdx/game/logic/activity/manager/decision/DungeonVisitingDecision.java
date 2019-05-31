@@ -19,48 +19,53 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class DungeonVisitingDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
-        List<Cluster> clusters = new ArrayList<>();
+        if(!actor.getActivityStack().contains(MoveAndInteractActivity.class)  && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())) {
+            List<Cluster> clusters = new ArrayList<>();
 
-        for (int i = -10; i <= 10; i++)
-            for (int j = -10; j <= 10; j++) {
-                if (actor.getX() + i >= 0 && actor.getX() + i <= Config.WorldMap.WORLD_WIDTH / Config.WorldMap.CLUSTER_DIVIDER &&
-                        actor.getY() + j >= 0 && actor.getY() + j <= Config.WorldMap.WORLD_HEIGHT / Config.WorldMap.CLUSTER_DIVIDER) {
-                    Cluster cluster = new Cluster(actor.getX() + i, actor.getY() + j);
-                    clusters.add(cluster);
+            for (int i = -10; i <= 10; i++)
+                for (int j = -10; j <= 10; j++) {
+                    if (actor.getX()/ Config.WorldMap.CLUSTER_DIVIDER + i >= 0 && actor.getX() / Config.WorldMap.CLUSTER_DIVIDER + i <= Config.WorldMap.WORLD_WIDTH / Config.WorldMap.CLUSTER_DIVIDER &&
+                            actor.getY()/ Config.WorldMap.CLUSTER_DIVIDER + j >= 0 && actor.getY() / Config.WorldMap.CLUSTER_DIVIDER + j <= Config.WorldMap.WORLD_HEIGHT / Config.WorldMap.CLUSTER_DIVIDER) {
+                        Cluster cluster = new Cluster(actor.getX()/ Config.WorldMap.CLUSTER_DIVIDER + i, actor.getY()/ Config.WorldMap.CLUSTER_DIVIDER + j);
+                        clusters.add(cluster);
+                    }
                 }
-            }
 
-        for (Cluster cluster : clusters) {
+            for (Cluster cluster : clusters) {
 
-            WorldObject closestObject = null;
-            Optional<Set<WorldObject>> optionalWorldObjects = ObjectRegistry.INSTANCE.getObjects(actor.getCurrentMap(), cluster);
-            if(optionalWorldObjects.isPresent()) {
-                Optional<WorldObject> optionalWorldObject = optionalWorldObjects.get().stream().filter(object -> InteractiveObject.class.isAssignableFrom(object.getClass()) && distance(object.getCoordinates(), actor.getCoordinates()) < 100).findFirst();
-                if(optionalWorldObject.isPresent()   ) {
-                    closestObject = optionalWorldObject.get();
+                WorldObject closestObject = null;
+                Optional<Set<WorldObject>> optionalWorldObjects = ObjectRegistry.INSTANCE.getObjects(actor.getCurrentMap(), cluster);
+                if (optionalWorldObjects.isPresent()) {
+                    List<WorldObject> optionalWorldObject = optionalWorldObjects.get().stream().filter(object -> InteractiveObject.class.isAssignableFrom(object.getClass()) && distance(object.getCoordinates(), actor.getCoordinates()) < 100).collect(Collectors.toList());
+
+                    if (!optionalWorldObject.isEmpty()) {
+                        Optional<DungeonEntrance> unvisitedDungeonEntrance = optionalWorldObject.stream().filter(worldObject -> DungeonEntrance.class.isAssignableFrom(worldObject.getClass()) && !((DungeonEntrance) worldObject).getTo().areAllLevelsExplored()).map(worldObject -> (DungeonEntrance) worldObject).findFirst();
+                        if (unvisitedDungeonEntrance.isPresent())
+                            closestObject = unvisitedDungeonEntrance.get();
+                    }
                 }
-            }
 
-            if (Alignment.FRIENDLY.equals(actor.getAlignment())
-                    && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())
-                    && closestObject != null
-                    && DungeonEntrance.class.isAssignableFrom(closestObject.getClass())
-                    && !((DungeonEntrance) closestObject).getTo().isExplored()
-                    && !actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
-                MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY);
+                if (Alignment.FRIENDLY.equals(actor.getAlignment())
+                        && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())
+                        && closestObject != null
+                        && DungeonEntrance.class.isAssignableFrom(closestObject.getClass())
+                        && !((DungeonEntrance) closestObject).getTo().areAllLevelsExplored()) {
+                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY);
 
-                moveAndInteractActivity.add(new MovementActivity(actor, (int)closestObject.getX(), (int)closestObject.getY(), 1, new PathFinder()));
-                moveAndInteractActivity.add(new InteractActivity(actor, (InteractiveObject) closestObject));
+                    moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1, new PathFinder()));
+                    moveAndInteractActivity.add(new InteractActivity(actor, (InteractiveObject) closestObject));
 
-                actor.getActivityStack().add(moveAndInteractActivity);
-                return true;
-            } else if(actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
-                return true;
+                    actor.getActivityStack().add(moveAndInteractActivity);
+                    return true;
+                } else if (actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
+                    return true;
+                }
             }
         }
         return false;
