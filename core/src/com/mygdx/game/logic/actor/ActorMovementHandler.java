@@ -51,6 +51,10 @@ public class ActorMovementHandler {
         }
     }
 
+    public boolean hasPath(Actor actor) {
+        return paths.get(actor) != null && !paths.get(actor).isEmpty();
+    }
+
     public void clearPath(Actor actor) {
         if (paths.containsKey(actor))
             paths.get(actor).clear();

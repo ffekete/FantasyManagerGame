@@ -8,6 +8,7 @@ import com.mygdx.game.map.TileBase;
 import com.mygdx.game.map.dungeon.Tile;
 import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.decoration.Tree;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.map.worldmap.WorldMapTile;
 import com.mygdx.game.item.food.Bread;
@@ -31,6 +32,8 @@ public class TextureRegistry {
     private Map<Class<? extends WorldObject>, Texture> objectTextures;
 
     public TextureRegistry() {
+
+
 
         guiTextures = ImmutableMap.<GuiComponent, Texture>builder()
                 .put(GuiComponent.HUD, new Texture(Gdx.files.internal("Hud.png")))
@@ -66,6 +69,7 @@ public class TextureRegistry {
 
         objectTextures = ImmutableMap.<Class<? extends WorldObject>, Texture>builder()
                 .put(DungeonEntrance.class, new Texture(Gdx.files.internal("DungeonEntrance.jpg")))
+                .put(Tree.class, new Texture(Gdx.files.internal("object/tree.png")))
                 .build();
     }
 

@@ -51,7 +51,7 @@ public class BodyPartsBasedActorAnimation implements ActorAnimation {
 
         int nextFrameX = (int)phase % 4;
 
-        phase = (phase + 5 * Gdx.graphics.getDeltaTime()) % (4);
+        phase = (phase + 5 * Gdx.graphics.getRawDeltaTime()) % (4);
 
 
         offset = phaseMapper.get(activity.getCurrentClass()).get(direction).offset;

@@ -1,17 +1,18 @@
 package com.mygdx.game.object.decoration;
 
-import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.light.LightSource;
-import com.mygdx.game.object.light.LightSourceType;
 
-public class StandingTorch implements WorldObject, LightSource, AnimatedObject {
+import java.util.Random;
+
+public class Tree implements WorldObject {
+
+    private final float worldMapSize = new Random().nextFloat() / 2f + 1.5f;
 
     private Point coordinates;
 
-    public StandingTorch(Point point) {
+    public Tree(Point point) {
         coordinates = point;
     }
 
@@ -26,32 +27,17 @@ public class StandingTorch implements WorldObject, LightSource, AnimatedObject {
     }
 
     @Override
-    public float getArea() {
-        return 4;
-    }
-
-    @Override
-    public Color getColor() {
-        return Color.valueOf("FF5555");
-    }
-
-    @Override
-    public LightSourceType getType() {
-        return LightSourceType.Ambient;
-    }
-
-    @Override
     public void setCoordinates(Point point) {
         this.coordinates = point;
     }
 
     @Override
     public Point getCoordinates() {
-        return coordinates;
+        return this.coordinates;
     }
 
     @Override
     public float getWorldMapSize() {
-        return 1f;
+        return worldMapSize;
     }
 }

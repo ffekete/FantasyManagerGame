@@ -34,7 +34,7 @@ public class GameLogicController {
 
     public void update() {
         long start = System.currentTimeMillis();
-        counter += Gdx.graphics.getDeltaTime();
+        counter += Gdx.graphics.getRawDeltaTime();
         if(counter > 0.025) {
             counter = 0;
 
@@ -46,8 +46,8 @@ public class GameLogicController {
                 if(actorRegistry.containsAnyHeroes(map)) {
                     actorRegistry.getActors(map).forEach(actor -> {
                         actor.increaseHunger(1);
-                        activityManager.manage(actor);
                         actor.getActivityStack().performNext();
+                        activityManager.manage(actor);
                     });
                 }
             });

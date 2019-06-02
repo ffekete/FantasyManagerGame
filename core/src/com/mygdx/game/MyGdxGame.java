@@ -44,7 +44,7 @@ public class MyGdxGame extends SampleBase {
 
     @Override
     public boolean scrolled(int amount) {
-        float delta = Gdx.graphics.getDeltaTime();
+        float delta = Gdx.graphics.getRawDeltaTime();
         camera.zoom += amount * delta;
         camera.update();
         return true;
@@ -52,7 +52,7 @@ public class MyGdxGame extends SampleBase {
 
     @Override
     public boolean keyDown(int keycode) {
-        float delta = Gdx.graphics.getDeltaTime();
+        float delta = Gdx.graphics.getRawDeltaTime();
 
         if (keycode == Input.Keys.LEFT) {
             camera.position.x -= 10.0 * delta;

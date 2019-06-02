@@ -40,6 +40,12 @@ public class ActivityStack {
 
         Activity activity = activities.peek();
 
+        if (activity.isFirstRun()) {
+            activity.init();
+        }
+
+        activity.countDown();
+
         if (activity.isTriggered()) {
             activity.update();
             if (activity.isDone()) {
@@ -51,14 +57,10 @@ public class ActivityStack {
             activity.cancel();
             activities.remove(activity);
         } else {
-            if (activity.isFirstRun()) {
-                activity.init();
-            }
             if (activity.isSuspended()) {
                 activity.resume();
             }
         }
-        activity.countDown();
     }
 
     public void clear() {

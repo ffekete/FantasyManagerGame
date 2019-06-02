@@ -23,6 +23,8 @@ import com.mygdx.game.map.dungeon.MapGenerator;
 import com.mygdx.game.map.dungeon.factory.DungeonFactory;
 import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
 import com.mygdx.game.object.LinkedWorldObjectFactory;
+import com.mygdx.game.object.decoration.Tree;
+import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.map.worldmap.WorldMapGenerator;
@@ -97,6 +99,10 @@ public class WorldMapSample extends SampleBase {
 
         LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(15).Y(15), ObjectPlacement.RANDOM);
         LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon2, ObjectPlacement.FIXED.X(13).Y(13), ObjectPlacement.RANDOM);
+
+        ObjectFactory.create(Tree.class, worldMap, ObjectPlacement.FIXED.X(10).Y(10));
+        ObjectFactory.create(Tree.class, worldMap, ObjectPlacement.FIXED.X(11).Y(10));
+        ObjectFactory.create(Tree.class, worldMap, ObjectPlacement.FIXED.X(10).Y(11));
 
         MapRegistry.INSTANCE.add(worldMap);
         MapRegistry.INSTANCE.add(dungeon);
@@ -175,7 +181,7 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public boolean scrolled(int amount) {
-        float delta = Gdx.graphics.getDeltaTime();
+        float delta = Gdx.graphics.getRawDeltaTime();
         CameraPositionController.INSTANCE.updateZoomLevel(amount * delta);
         camera.update();
         return true;
@@ -183,7 +189,7 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public boolean keyDown(int keycode) {
-        float delta = Gdx.graphics.getDeltaTime();
+        float delta = Gdx.graphics.getRawDeltaTime();
 
         if(keycode == Input.Keys.SPACE) {
             if(MapRegistry.INSTANCE.getCurrentMapToShow() == worldMap) {

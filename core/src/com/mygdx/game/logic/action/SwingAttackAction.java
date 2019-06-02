@@ -35,7 +35,7 @@ public class SwingAttackAction implements Action {
         float start = 0.0f;
         float end = 120f;
         float restart = 270;
-        float inc = 500f * Gdx.graphics.getDeltaTime();
+        float inc = 500f * Gdx.graphics.getRawDeltaTime();
 
         Direction direction = directionSelector.getDirection(actor);
 

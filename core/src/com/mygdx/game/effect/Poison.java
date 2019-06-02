@@ -21,7 +21,7 @@ public class Poison implements Effect {
 
     @Override
     public void update() {
-        counter -= 60 * Gdx.graphics.getDeltaTime();
+        counter -= 60 * Gdx.graphics.getRawDeltaTime();
         if (counter <= 0) {
             counter = 60;
             duration -= 1;

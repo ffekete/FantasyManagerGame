@@ -7,6 +7,7 @@ import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.compound.MovePickupActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.activity.single.PickUpItemActivity;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.registry.ItemRegistry;
 
@@ -25,11 +26,14 @@ public class MovePickupDecision implements Decision {
                 Item item = DecisionUtils.findClosestItem(actor, Items, Config.Item.PICK_UP_ITEM_DISTANCE, Item.class);
                 if(item != null) {
                     // go for it
+                    actor.setxOffset(0.0f);
+                    actor.setyOffset(0.0f);
                     Activity activity = new MovePickupActivity(Config.Activity.MOVE_PICKUP_PRIORITY)
                             .add(new MovementActivity(actor, item.getX(), item.getY(), 1, new PathFinder()))
                             .add(new PickUpItemActivity(actor, item));
                     actor.getActivityStack().clear();
                     actor.getActivityStack().add(activity);
+                    ActorMovementHandler.INSTANCE.clearPath(actor);
                     return true;
                 }
             }

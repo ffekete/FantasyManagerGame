@@ -3,11 +3,11 @@ package com.mygdx.game.logic.activity.single;
 import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.logic.visibility.VisitedArea;
+import com.mygdx.game.map.Map2D;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ExplorationActivity implements Activity {
     private final Pool<Point> pointPool = new Pool<Point>() {
         @Override
         protected Point newObject() {
-            return new Point(0,0);
+            return new Point(0, 0);
         }
     };
 
@@ -42,7 +42,7 @@ public class ExplorationActivity implements Activity {
         this.actor = actor;
         boolean[][] alreadyChecked = new boolean[targetDungeon.getWidth()][targetDungeon.getHeight()];
         Point target = findNextUnexploredArea(alreadyChecked, targetDungeon, actor.getX(), actor.getY());
-        if(target != null) {
+        if (target != null) {
             targetX = target.getX();
             targetY = target.getY();
             this.movementActivity = new MovementActivity(actor, target.getX(), target.getY(), 0, new PathFinder());
@@ -62,11 +62,11 @@ public class ExplorationActivity implements Activity {
     public void update() {
         movementActivity.update();
         // if dungeon explored or someone else explored the area
-        if(movementActivity.isDone()) {
+        if (movementActivity.isDone()) {
             movementActivity.clear();
             boolean[][] alreadyChecked = new boolean[targetDungeon.getWidth()][targetDungeon.getHeight()];
             Point target = findNextUnexploredArea(alreadyChecked, targetDungeon, actor.getX(), actor.getY());
-            if(target != null) {
+            if (target != null) {
                 targetX = target.getX();
                 targetY = target.getY();
                 this.movementActivity = new MovementActivity(actor, target.getX(), target.getY(), 0, new PathFinder());
@@ -84,24 +84,24 @@ public class ExplorationActivity implements Activity {
     }
 
     public Point findNextUnexploredArea(boolean[][] alreadyChecked, Map2D targetDungeon, int x, int y) {
-        if(x < 0 || y < 0 || x >= targetDungeon.getWidth() || y >= targetDungeon.getHeight() || targetDungeon.getTile(x,y).isObstacle()) {
+        if (x < 0 || y < 0 || x >= targetDungeon.getWidth() || y >= targetDungeon.getHeight() || targetDungeon.getTile(x, y).isObstacle()) {
             return null;
         }
         Deque<Point> points = new ArrayDeque<>();
         points.add(obtainPoint(x, y));
 
-        while(!points.isEmpty()) {
+        while (!points.isEmpty()) {
             Point next = points.remove();
             int px = next.getX();
             int py = next.getY();
 
-            if(px < 0 || py < 0 || px >= targetDungeon.getWidth() || py >= targetDungeon.getHeight() || alreadyChecked[px][py] || targetDungeon.getTile(px,py).isObstacle()) {
+            if (px < 0 || py < 0 || px >= targetDungeon.getWidth() || py >= targetDungeon.getHeight() || alreadyChecked[px][py] || targetDungeon.getTile(px, py).isObstacle()) {
 
             } else {
                 alreadyChecked[px][py] = true;
 
-                if(VisitedArea.NOT_VISITED.equals(targetDungeon.getVisitedareaMap()[px][py])) {
-                    for(Point p : allPoints) {
+                if (VisitedArea.NOT_VISITED.equals(targetDungeon.getVisitedareaMap()[px][py])) {
+                    for (Point p : allPoints) {
                         pointPool.free(p);
                     }
                     return obtainPoint(px, py);
@@ -112,10 +112,10 @@ public class ExplorationActivity implements Activity {
                 newPoints.add(obtainPoint(px, py - 1));
                 newPoints.add(obtainPoint(px, py + 1));
                 newPoints.add(obtainPoint(px + 1, py));
-                newPoints.add(obtainPoint(px-1, py));
+                newPoints.add(obtainPoint(px - 1, py));
 
-                if(Config.Engine.ENABLE_8_WAYS_PATHFINDING) {
-                    newPoints.add(obtainPoint(px  +1, py -1));
+                if (Config.Engine.ENABLE_8_WAYS_PATHFINDING) {
+                    newPoints.add(obtainPoint(px + 1, py - 1));
                     newPoints.add(obtainPoint(px - 1, py + 1));
                     newPoints.add(obtainPoint(px - 1, py - 1));
                     newPoints.add(obtainPoint(px + 1, py + 1));
@@ -132,7 +132,7 @@ public class ExplorationActivity implements Activity {
 
     private Point obtainPoint(int x, int y) {
         point = pointPool.obtain();
-        point.update(x,y);
+        point.update(x, y);
         allPoints.add(point);
         return point;
     }

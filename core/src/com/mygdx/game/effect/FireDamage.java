@@ -22,7 +22,7 @@ public class FireDamage implements Effect {
 
     @Override
     public void update() {
-        counter -= 60 * Gdx.graphics.getDeltaTime();
+        counter -= 60 * Gdx.graphics.getRawDeltaTime();
 
         if(counter <= 0) {
             counter = 60;

@@ -148,7 +148,7 @@ public class CombatSample extends SampleBase {
 
     @Override
     public boolean scrolled(int amount) {
-        float delta = Gdx.graphics.getDeltaTime();
+        float delta = Gdx.graphics.getRawDeltaTime();
         CameraPositionController.INSTANCE.updateZoomLevel(amount * delta);
         camera.update();
         return true;
@@ -156,7 +156,7 @@ public class CombatSample extends SampleBase {
 
     @Override
     public boolean keyDown(int keycode) {
-        float delta = Gdx.graphics.getDeltaTime();
+        float delta = Gdx.graphics.getRawDeltaTime();
 
         if (keycode == Input.Keys.LEFT) {
             camera.position.x -= 20.0 * delta;

@@ -43,7 +43,7 @@ public class MovementActivity implements Activity {
     public boolean isDone() {
         int a = Math.abs(actor.getX() - targetX);
         int b = Math.abs(actor.getY() - targetY);
-        return (done || (Math.sqrt(a*a + b*b) <= range));
+        return (done || (Math.sqrt(a * a + b * b) <= range));
     }
 
     @Override
@@ -132,13 +132,14 @@ public class MovementActivity implements Activity {
     @Override
     public void countDown() {
         counter = (counter + 1) % (speed);
-        if(path == null || path.isDone())
+        if (actorMovementHandler.hasPath(actor)) {
             actorMovementHandler.updateActorOffsetCoordinates(actor, speed);
+        }
     }
 
     @Override
     public boolean isTriggered() {
-        return counter == speed -1;
+        return counter == speed - 1;
     }
 
     @Override

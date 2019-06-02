@@ -43,6 +43,9 @@ public class ObjectFactory {
 
             if (LightSource.class.isAssignableFrom(clazz))
                 LightSourceRegistry.INSTANCE.add(map2D, (LightSource) object);
+
+            // todo set objects to obstacle
+            // map2D.getTile((float)object.getX(), (float)object.getY()).
         }
         return object;
     }

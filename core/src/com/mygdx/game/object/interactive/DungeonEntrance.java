@@ -55,6 +55,11 @@ public class DungeonEntrance implements InteractiveObject {
         return coordinates;
     }
 
+    @Override
+    public float getWorldMapSize() {
+        return 1f;
+    }
+
     public Map2D getTo() {
         return to;
     }

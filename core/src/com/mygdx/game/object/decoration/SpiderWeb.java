@@ -31,4 +31,9 @@ public class SpiderWeb implements WorldObject, AnimatedObject {
     public Point getCoordinates() {
         return this.coordinates;
     }
+
+    @Override
+    public float getWorldMapSize() {
+        return 1f;
+    }
 }

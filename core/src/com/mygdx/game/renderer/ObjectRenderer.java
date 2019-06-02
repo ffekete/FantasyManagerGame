@@ -54,7 +54,7 @@ public class ObjectRenderer implements Renderer {
                         if(dungeon.getVisitedareaMap()[(int)worldObject.getX()][(int) worldObject.getY()] == VisitedArea.VISIBLE)
                             animationRegistry.get((AnimatedObject) worldObject).drawKeyFrame(spriteBatch, worldObject.getX(), worldObject.getY(), 1, Direction.RIGHT);
                     } else {
-                        spriteBatch.draw(textureRegistry.getForobject(worldObject.getClass()), worldObject.getX(), worldObject.getY(), 0, 0, 1, 1, 1, 1, 0, 0, 0, textureRegistry.getForobject(worldObject.getClass()).getWidth(), textureRegistry.getForobject(worldObject.getClass()).getHeight(), false, false);
+                        spriteBatch.draw(textureRegistry.getForobject(worldObject.getClass()), worldObject.getX(), worldObject.getY(), 0, 0, 1, 1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0, 0, 0, textureRegistry.getForobject(worldObject.getClass()).getWidth(), textureRegistry.getForobject(worldObject.getClass()).getHeight(), false, false);
                     }
                 }
         }
