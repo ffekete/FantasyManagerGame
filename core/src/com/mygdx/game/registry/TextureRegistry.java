@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.item.potion.SmallHealingPotion;
+import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.map.TileBase;
 import com.mygdx.game.map.dungeon.Tile;
 import com.mygdx.game.item.shield.MediumShield;
@@ -52,6 +53,7 @@ public class TextureRegistry {
                 .put(MediumShield.class, new Texture(Gdx.files.internal("MediumShield.png")))
                 .put(PoisonFang.class, new Texture(Gdx.files.internal("PoisonFang.png")))
                 .put(FlameTongue.class, new Texture(Gdx.files.internal("Flametongue.png")))
+                .put(JadeStaff.class, new Texture(Gdx.files.internal("JadeStaff.png")))
                 .build();
 
         mapTextures = ImmutableMap.<TileBase, Texture>builder()

@@ -12,9 +12,11 @@ import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Warrior;
+import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.map.dungeon.MapGenerator;
@@ -52,6 +54,7 @@ public class CombatSample extends SampleBase {
     Viewport infoViewPort;
     BitmapFont bitmapFont;
     Actor hero;
+    Actor hero2;
 
     @Override
     public void create() {
@@ -72,11 +75,15 @@ public class CombatSample extends SampleBase {
         Gdx.input.setInputProcessor(this);
 
         hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(1).Y(1));
+        hero2 = ActorFactory.INSTANCE.create(Wizard.class, dungeon, Placement.FIXED.X(3).Y(1));
+
         //Actor hero2 = ActorFactory.INSTANCE.create(Priest.class, dungeon, Placement.RANDOM);
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.equip(new MediumShield());
+
+        hero2.equip(new JadeStaff());
 
         Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(5).Y(0));
         Actor s2 = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(0).Y(5));

@@ -1,6 +1,14 @@
 package com.mygdx.game.logic.activity.manager;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.hero.Warrior;
+import com.mygdx.game.actor.hero.Wizard;
+import com.mygdx.game.actor.monster.Goblin;
+import com.mygdx.game.actor.monster.Orc;
+import com.mygdx.game.actor.monster.Skeleton;
+import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.manager.decision.ConsumeHealingpotionDecision;
 import com.mygdx.game.logic.activity.manager.decision.Decision;
 import com.mygdx.game.logic.activity.manager.decision.DungeonVisitingDecision;
@@ -15,28 +23,65 @@ import com.mygdx.game.logic.activity.manager.decision.WanderingDecision;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class ActivityManager {
 
-    private List<Decision> decisionTable;
+    private Map<Class<? extends Actor>, List<Decision>> decisionTable;
 
     public ActivityManager() {
-        decisionTable = new LinkedList<>();
-        decisionTable.add(new ConsumeHealingpotionDecision());
-        decisionTable.add(new EquipDecision());
-        decisionTable.add(new MoveAndAttackDecision());
-        decisionTable.add(new MovePickupDecision());
-        decisionTable.add(new EatingDecision());
-        decisionTable.add(new LeaveDungeonDecision());
-        decisionTable.add(new DungeonVisitingDecision());
-        decisionTable.add(new ExplorationDecision());
-        decisionTable.add(new MovePickupEatDecision());
-        decisionTable.add(new WanderingDecision());
+
+        decisionTable = ImmutableMap.<Class<? extends Actor>, List<Decision>>builder()
+
+                .put(Warrior.class, ImmutableList.of(
+                        new ConsumeHealingpotionDecision(),
+                        new EquipDecision(),
+                        new MoveAndAttackDecision(),
+                        new MovePickupDecision(),
+                        new EatingDecision(),
+                        new LeaveDungeonDecision(),
+                        new DungeonVisitingDecision(),
+                        new ExplorationDecision(),
+                        new MovePickupEatDecision(),
+                        new WanderingDecision())
+                )
+
+                .put(Wizard.class, ImmutableList.of(
+                        new ConsumeHealingpotionDecision(),
+                        new EquipDecision(),
+                        new MoveAndAttackDecision(),
+                        new MovePickupDecision(),
+                        new EatingDecision(),
+                        new LeaveDungeonDecision(),
+                        new DungeonVisitingDecision(),
+                        new ExplorationDecision(),
+                        new MovePickupEatDecision(),
+                        new WanderingDecision())
+                )
+
+                .put(Skeleton.class, ImmutableList.of(
+                        new MoveAndAttackDecision(),
+                        new WanderingDecision())
+                )
+
+
+                .put(Orc.class, ImmutableList.of(
+                        new MoveAndAttackDecision(),
+                        new WanderingDecision())
+                )
+
+
+                .put(Goblin.class, ImmutableList.of(
+                        new MoveAndAttackDecision(),
+                        new WanderingDecision())
+                )
+
+                .build();
     }
 
     public void manage(Actor actor) {
-        for (int i = 0; i < decisionTable.size(); i++) {
-            if(decisionTable.get(i).decide(actor)) {
+        for (int i = 0; i < decisionTable.get(actor.getClass()).size(); i++) {
+            if (decisionTable.get(actor.getClass()).get(i).decide(actor)) {
                 break;
             }
         }

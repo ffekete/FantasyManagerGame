@@ -6,10 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
-import com.mygdx.game.actor.hero.Priest;
-import com.mygdx.game.actor.hero.Ranger;
-import com.mygdx.game.actor.hero.Rogue;
-import com.mygdx.game.actor.hero.Warrior;
+import com.mygdx.game.actor.hero.*;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Orc;
 import com.mygdx.game.actor.monster.Skeleton;
@@ -26,10 +23,11 @@ import java.util.Map;
 
 public class FullBodyActorAnimation implements ActorAnimation {
 
-    private Texture warriorTexture = new Texture(Gdx.files.internal("Warrior.png"));
-    private Texture skeletonTexture = new Texture(Gdx.files.internal("Skeleton.png"));
-    private Texture goblinTexture = new Texture(Gdx.files.internal("goblin.png"));
-    private Texture orcTexture = new Texture(Gdx.files.internal("orc.png"));
+    private Texture warriorTexture = new Texture(Gdx.files.internal("actors/Warrior.png"));
+    private Texture skeletonTexture = new Texture(Gdx.files.internal("actors/Skeleton.png"));
+    private Texture goblinTexture = new Texture(Gdx.files.internal("actors/goblin.png"));
+    private Texture orcTexture = new Texture(Gdx.files.internal("actors/orc.png"));
+    private Texture wizardTexture = new Texture(Gdx.files.internal("actors/Wizard.png"));
 
     private float phase = 0;
 
@@ -76,6 +74,7 @@ public class FullBodyActorAnimation implements ActorAnimation {
             .put(Skeleton.class, skeletonTexture)
             .put(Goblin.class, goblinTexture)
             .put(Orc.class, orcTexture)
+            .put(Wizard.class, wizardTexture)
             .build();
 
     @Override

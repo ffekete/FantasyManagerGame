@@ -45,6 +45,7 @@ public class Config {
         public static final int FLAME_TONGUE_POWER = 10;
         public static final int POISON_FANG_POWER = 10;
         public static final int SHORT_SWORD_POWER = 5;
+        public static final int JADE_STAFF_POWER = 4;
     }
 
     public static class Screen {
