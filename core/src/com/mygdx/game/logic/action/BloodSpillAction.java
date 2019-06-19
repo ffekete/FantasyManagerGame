@@ -10,6 +10,8 @@ import com.mygdx.game.renderer.direction.DirectionSelector;
 
 public class BloodSpillAction implements Action {
 
+    private final BloodEffectSelector bloodEffectSelector = BloodEffectSelector.INSTANCE;
+
     private final int x;
     private final int y;
     private final Texture texture;
@@ -17,10 +19,10 @@ public class BloodSpillAction implements Action {
 
     private float phase = 0f;
 
-    public BloodSpillAction(int x, int y) {
+    public BloodSpillAction(int x, int y, Class<? extends Actor> actorClass) {
         this.x = x;
         this.y = y;
-        this.texture = new Texture(Gdx.files.internal("effects/BloodEffect.png"));
+        this.texture = bloodEffectSelector.selectFor(actorClass);
     }
 
     @Override
