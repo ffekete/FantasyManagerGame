@@ -4,6 +4,8 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.actor.component.attribute.Attributes;
 import com.mygdx.game.item.weapon.Weapon;
+import com.mygdx.game.logic.action.BloodSpillAction;
+import com.mygdx.game.registry.ActionRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -94,6 +96,7 @@ public class AttackController {
         if(toHit < hitThreshold - evasion) {
             victim.setHp(victim.getHp() - Math.max(1, damage - getDamageProtection(victim)));
             weapon.onHit(victim, attacker);
+            ActionRegistry.INSTANCE.add(attacker.getCurrentMap(), new BloodSpillAction(victim.getX(), victim.getY()));
         }
     }
 

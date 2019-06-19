@@ -68,8 +68,8 @@ public class TextureRegistry {
         });
 
         objectTextures = ImmutableMap.<Class<? extends WorldObject>, Texture>builder()
-                .put(DungeonEntrance.class, new Texture(Gdx.files.internal("DungeonEntrance.jpg")))
-                .put(Tree.class, new Texture(Gdx.files.internal("object/tree.png")))
+                .put(DungeonEntrance.class, new Texture(Gdx.files.internal("DungeonEntrance.png")))
+                .put(Tree.class, new Texture(Gdx.files.internal("object/Tree.png")))
                 .build();
     }
 
