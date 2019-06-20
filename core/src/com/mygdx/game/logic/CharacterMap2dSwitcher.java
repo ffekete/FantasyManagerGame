@@ -18,7 +18,6 @@ public class CharacterMap2dSwitcher {
     private final ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     private final CameraPositionController cameraPositionController = CameraPositionController.INSTANCE;
     private final MapRegistry mapRegistry = MapRegistry.INSTANCE;
-    private final LightSourceRegistry lightSourceRegistry = LightSourceRegistry.INSTANCE;
 
     public void switchTo(Map2D to, Map2D from, Actor actor) {
         actorRegistry.remove(from, actor);
@@ -28,10 +27,6 @@ public class CharacterMap2dSwitcher {
         actor.setCoordinates(entrance.getCoordinates());
 
         actorRegistry.add(to, actor);
-        LightSource lightSource = lightSourceRegistry.getFor(actor);
-
-        lightSourceRegistry.remove(from, lightSource);
-        lightSourceRegistry.add(to, lightSource);
 
         if(cameraPositionController.getFocusedOn() == actor) {
             mapRegistry.setCurrentMapToShow(to);
