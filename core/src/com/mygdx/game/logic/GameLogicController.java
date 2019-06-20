@@ -3,12 +3,13 @@ package com.mygdx.game.logic;
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.map.Map2D;
+import com.mygdx.game.actor.regenerator.RegeneratorImpl;
 import com.mygdx.game.effect.manager.EffectManager;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisibilityMask;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
@@ -56,6 +57,9 @@ public class GameLogicController {
             });
             spellManager.update();
             effectmanager.update();
+            for(RegeneratorImpl regenerator: RegeneratorImpl.values()) {
+                regenerator.regenerateAll();
+            }
         }
         if(Config.SHOW_ELAPSED_TIME)
             System.out.println("Elapsed time in GameLogicUpdater " + (System.currentTimeMillis() - start));
