@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.SpriteBatchRegistry;
 import com.mygdx.game.renderer.direction.DirectionSelector;
 
@@ -78,6 +79,11 @@ public class SwingAttackAction implements Action {
     @Override
     public boolean isFinished() {
         return finished;
+    }
+
+    @Override
+    public void setCoordinates(Point newCoordinates) {
+
     }
 
 

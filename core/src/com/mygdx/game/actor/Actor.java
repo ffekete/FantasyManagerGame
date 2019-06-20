@@ -5,6 +5,7 @@ import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.item.spelltome.SpellTome;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Equipable;
@@ -61,6 +62,11 @@ public interface Actor {
     void die(Actor killer);
     int getAttackRange();
     void setAttribute(Attributes attribute, int value);
+    int getMana();
+    void setMana(int value);
+    int getMaxMana();
+    SpellTome getSpellTome();
+    void setSpellTome(SpellTome spellTome);
 
 
     // ******************   BodyPartsBasedActorAnimation  ********************

@@ -33,10 +33,12 @@ public class ActorRenderer implements Renderer {
 
     TextureRegion textureRegion;
     TextureRegion healthBarRegion;
+    TextureRegion manaBarRegion;
 
     public ActorRenderer() {
         this.textureRegion = new TextureRegion(textureRegistry.getFor(GuiComponent.HUD), 0, 150, textureRegistry.getFor(GuiComponent.HUD).getWidth(), textureRegistry.getFor(GuiComponent.HUD).getHeight());
         this.healthBarRegion = new TextureRegion(textureRegistry.getFor(GuiComponent.HUD), 340, 30, 500, 40);
+        this.manaBarRegion = new TextureRegion(textureRegistry.getFor(GuiComponent.HUD), 340, 110, 500, 40);
     }
 
     @Override
@@ -53,6 +55,10 @@ public class ActorRenderer implements Renderer {
 
             // show health bar
             spriteBatch.draw(healthBarRegion, actor.getX() + actor.getxOffset() + 0.2f, actor.getY() + actor.getyOffset() + 1, 1.8f * ((float) actor.getHp() / actor.getMaxHp()), 0.1f);
+
+            // show mana bar
+            spriteBatch.draw(manaBarRegion, actor.getX() + actor.getxOffset() + 0.2f, actor.getY() + actor.getyOffset() + 1.1f, 1.8f * ((float) actor.getMana() / actor.getMaxMana()), 0.1f);
+
 
             // show shield
             if (actor.getLeftHandItem() != null) {

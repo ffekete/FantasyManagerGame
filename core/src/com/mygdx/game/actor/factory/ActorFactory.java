@@ -30,13 +30,11 @@ public class ActorFactory {
             actor.setCurrentMap(map);
             placementStrategy.place(actor, map);
             AnimationRegistry.INSTANCE.add(actor, new FullBodyActorAnimation());
-            LightSource lightSource = new ActorLightSource(actor, Color.valueOf(Config.Actor.LIGHT_SOURCE_COLOR), 6, LightSourceType.Ambient);
-            LightSourceRegistry.INSTANCE.add(map, lightSource);
-            LightSourceRegistry.INSTANCE.add(actor, lightSource);
             SkillPopulator.WeaponSkillPopulatorStrategy.RANDOM.populate(actor);
             SkillPopulator.MagicSkillPopulatorStrategy.RANDOM.populate(actor);
             AttributePopulator.ClassSpecificAttrbutePopulator.populate(actor);
             actor.setHp(actor.getMaxHp());
+            actor.setMana(actor.getMaxMana());
         }
         return actor;
     }

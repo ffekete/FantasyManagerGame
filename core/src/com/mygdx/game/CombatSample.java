@@ -96,6 +96,9 @@ public class CombatSample extends SampleBase {
         hero.setName("Adavark");
         hero.getWeaponSkills().put(WeaponSkill.Sword, 5);
         hero.setRightHandItem(new FlameTongue());
+
+        //hero2.setMana(0);
+
         CameraPositionController.INSTANCE.focusOn(hero);
 
     }

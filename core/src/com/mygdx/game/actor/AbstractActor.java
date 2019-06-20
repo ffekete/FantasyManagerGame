@@ -6,6 +6,7 @@ import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.item.spelltome.SpellTome;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.effect.Effect;
 import com.mygdx.game.effect.AttackSpeedReduction;
@@ -46,6 +47,8 @@ public abstract class AbstractActor implements Actor {
     private int actualHp;
     private int hpModifier = 3;
 
+    private int actualMana;
+
     private Equipable leftHand = null;
     private Equipable rightHand = null;
 
@@ -54,6 +57,8 @@ public abstract class AbstractActor implements Actor {
     private Map2D currentMap;
 
     private Armor wornArmor = null;
+
+    private SpellTome spellTome;
 
     public AbstractActor() {
         this.hungerLevel = Config.BASE_HUNGER_LEVEL;
@@ -314,5 +319,30 @@ public abstract class AbstractActor implements Actor {
     @Override
     public void setAttribute(Attributes attribute, int value) {
         this.baseAttributes.put(attribute, value);
+    }
+
+    @Override
+    public int getMana() {
+        return actualMana;
+    }
+
+    @Override
+    public void setMana(int value) {
+        actualMana = value;
+    }
+
+    @Override
+    public int getMaxMana() {
+        return (this.getAttribute(Attributes.Wisdom) + this.getAttribute(Attributes.Intelligence) / 2);
+    }
+
+    @Override
+    public SpellTome getSpellTome() {
+        return spellTome;
+    }
+
+    @Override
+    public void setSpellTome(SpellTome spellTome) {
+        this.spellTome = spellTome;
     }
 }

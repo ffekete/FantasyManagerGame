@@ -2,6 +2,7 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.common.SelectionUtils;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.food.Food;
 import com.mygdx.game.logic.activity.Activity;
@@ -25,7 +26,7 @@ public class MovePickupEatDecision implements Decision {
             List<Item> items = itemRegistry.getAllItems(actor.getCurrentMap());
             if(!items.isEmpty()) {
                 // find food
-                Food food = (Food) DecisionUtils.findClosestItem(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE, Food.class);
+                Food food = (Food) SelectionUtils.findClosestItem(actor, items, Config.Item.PICK_UP_ITEM_DISTANCE, Food.class);
                 if(food != null) {
                     // go for it
                     Activity activity = new MovePickupEatActivity(Config.Activity.MOVE_PICKUP_EAT_PRIORITY)

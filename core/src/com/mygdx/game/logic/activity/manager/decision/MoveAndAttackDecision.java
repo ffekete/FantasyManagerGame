@@ -2,6 +2,7 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.common.SelectionUtils;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.CompoundActivity;
 import com.mygdx.game.logic.activity.compound.MoveThenAttackActivity;
@@ -35,7 +36,7 @@ public class MoveAndAttackDecision implements Decision {
         if (!actor.getActivityStack().contains(MoveThenAttackActivity.class) &&
                 !actor.getActivityStack().contains(SimpleAttackActivity.class)) {
 
-            Actor enemy = DecisionUtils.findClosestEnemy(actor, actorRegistry.getActors(actor.getCurrentMap()), Config.ATTACK_DISTANCE);
+            Actor enemy = SelectionUtils.findClosestEnemy(actor, actorRegistry.getActors(actor.getCurrentMap()), Config.ATTACK_DISTANCE);
             if (enemy != null) {
                 if (distance(actor.getCoordinates(), enemy.getCoordinates()) > actor.getAttackRange()) {
 

@@ -15,6 +15,7 @@ import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 
+import com.mygdx.game.registry.VisibilityMapRegistry;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -66,6 +67,15 @@ public class MoveAndAttackDecisionTest {
         actorRegistry.add(dungeon, hero);
         actorRegistry.add(dungeon, skeleton);
         actorRegistry.add(dungeon, skeleton2);
+
+        dungeon.getVisitedareaMap()[1][1] = VisitedArea.VISIBLE;
+        dungeon.getVisitedareaMap()[0][5] = VisitedArea.VISIBLE;
+        dungeon.getVisitedareaMap()[5][0] = VisitedArea.VISIBLE;
+
+        VisibilityMapRegistry.INSTANCE.getFor(dungeon).setValue(0,5, hero);
+        VisibilityMapRegistry.INSTANCE.getFor(dungeon).setValue(5,0, hero);
+        VisibilityMapRegistry.INSTANCE.getFor(dungeon).setValue(1,1, skeleton);
+        VisibilityMapRegistry.INSTANCE.getFor(dungeon).setValue(1,1, skeleton2);
 
         // when
 

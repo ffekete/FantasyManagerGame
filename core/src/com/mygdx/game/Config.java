@@ -48,6 +48,11 @@ public class Config {
         public static final int JADE_STAFF_POWER = 4;
     }
 
+    public static class Spell {
+        public final static int FIREBALL_RANGE = 3;
+        public final static int FIREBALL_MANA_COST = 5;
+    }
+
     public static class Screen {
         public static final int WIDTH = 1920;
         public static final int HEIGHT = 1080;
@@ -59,6 +64,7 @@ public class Config {
 
         public static final int HEALING_POTION_CONSUME_PRIORITY = 10;
         public static final int EQUIP_PRIORITY = 10;
+        public static final int OFFENSIVE_SPELL_CAST_PRIORITY = 96;
         public static final int ATTACK_PRIORITY = 96;
         public static final int MOVE_THEN_ATTACK_PRIORITY = 96;
         public static final int MOVE_PICKUP_PRIORITY = 97;

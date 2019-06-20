@@ -9,17 +9,7 @@ import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Orc;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.logic.activity.Activity;
-import com.mygdx.game.logic.activity.manager.decision.ConsumeHealingpotionDecision;
-import com.mygdx.game.logic.activity.manager.decision.Decision;
-import com.mygdx.game.logic.activity.manager.decision.DungeonVisitingDecision;
-import com.mygdx.game.logic.activity.manager.decision.EatingDecision;
-import com.mygdx.game.logic.activity.manager.decision.EquipDecision;
-import com.mygdx.game.logic.activity.manager.decision.ExplorationDecision;
-import com.mygdx.game.logic.activity.manager.decision.LeaveDungeonDecision;
-import com.mygdx.game.logic.activity.manager.decision.MoveAndAttackDecision;
-import com.mygdx.game.logic.activity.manager.decision.MovePickupDecision;
-import com.mygdx.game.logic.activity.manager.decision.MovePickupEatDecision;
-import com.mygdx.game.logic.activity.manager.decision.WanderingDecision;
+import com.mygdx.game.logic.activity.manager.decision.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,6 +39,7 @@ public class ActivityManager {
                 .put(Wizard.class, ImmutableList.of(
                         new ConsumeHealingpotionDecision(),
                         new EquipDecision(),
+                        new OffensiveSpellCastDecision(),
                         new MoveAndAttackDecision(),
                         new MovePickupDecision(),
                         new EatingDecision(),

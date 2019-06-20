@@ -12,6 +12,7 @@ import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
+import com.mygdx.game.spell.manager.SpellManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class GameLogicController {
     private final ActorRegistry actorRegistry;
     private final ActivityManager activityManager;
     private final EffectManager effectmanager;
+    private final SpellManager spellManager;
 
     private MapRegistry mapRegistry = MapRegistry.INSTANCE;
     private DayTimeCalculator dayTimeCalculator = DayTimeCalculator.INSTANCE;
@@ -30,6 +32,7 @@ public class GameLogicController {
         this.actorRegistry = actorRegistry;
         this.activityManager = new ActivityManager();
         effectmanager = EffectManager.INSTANCE;
+        spellManager = SpellManager.INSTANCE;
     }
 
     public void update() {
@@ -51,6 +54,7 @@ public class GameLogicController {
                     });
                 }
             });
+            spellManager.update();
             effectmanager.update();
         }
         if(Config.SHOW_ELAPSED_TIME)
