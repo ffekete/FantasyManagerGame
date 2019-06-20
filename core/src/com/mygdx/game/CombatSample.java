@@ -74,8 +74,8 @@ public class CombatSample extends SampleBase {
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
-        hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(1).Y(1));
-        hero2 = ActorFactory.INSTANCE.create(Wizard.class, dungeon, Placement.FIXED.X(3).Y(1));
+        hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(3).Y(1));
+        hero2 = ActorFactory.INSTANCE.create(Wizard.class, dungeon, Placement.FIXED.X(0).Y(0));
 
         //Actor hero2 = ActorFactory.INSTANCE.create(Priest.class, dungeon, Placement.RANDOM);
         hero.getInventory().add(new SmallHealingPotion());

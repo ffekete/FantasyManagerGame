@@ -9,4 +9,5 @@ public interface Spell {
     void finish();
     boolean isFinished();
     int getManaCost();
+    int getArea();
 }

@@ -56,6 +56,8 @@ public class Config {
     public static class Spell {
         public final static int FIREBALL_RANGE = 3;
         public final static int FIREBALL_MANA_COST = 5;
+
+        public final static int FIREBOLT_MANA_COST = 3;
     }
 
     public static class Screen {
