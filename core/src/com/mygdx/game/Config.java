@@ -12,6 +12,7 @@ public class Config {
     public static class Rules {
         public static final int MANA_REGENERATION_PERIOD = 150;
         public static final int HP_REGENERATION_PERIOD = 300;
+        public static final int SPELL_CAST_FREQUENCY = 120;
     }
 
     public static class Engine {
@@ -58,6 +59,11 @@ public class Config {
         public final static int FIREBALL_MANA_COST = 5;
 
         public final static int FIREBOLT_MANA_COST = 3;
+        public static final int SLOW_MANA_COST = 2;
+
+        public final static int FIREBALL_STRENGTH = 8;
+        public final static int FIREBOLT_STRENGTH = 3;
+        public static final int SLOW_STRENGTH = 4;
     }
 
     public static class Screen {

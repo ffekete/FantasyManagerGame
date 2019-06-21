@@ -13,7 +13,7 @@ public class OffensiveSpellCastActivity implements Activity {
     private final Spell spell;
     private final Actor caster;
     private final Actor target;
-    private int counter = 60;
+    private int counter = Config.Rules.SPELL_CAST_FREQUENCY;
     private boolean firstRun = true;
 
 
@@ -72,7 +72,7 @@ public class OffensiveSpellCastActivity implements Activity {
 
     @Override
     public void clear() {
-        System.out.println("casting");
+
     }
 
     @Override

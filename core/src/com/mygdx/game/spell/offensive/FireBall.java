@@ -1,30 +1,33 @@
-package com.mygdx.game.spell;
+package com.mygdx.game.spell.offensive;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.effect.FireDamage;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.action.Action;
+import com.mygdx.game.logic.action.ExplosionAction;
 import com.mygdx.game.logic.action.FireboltAction;
-import com.mygdx.game.logic.action.SmallExplosionAction;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.ActionRegistry;
+import com.mygdx.game.registry.EffectRegistry;
+import com.mygdx.game.spell.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class FireBolt implements Spell, FireSpell, DestructiveSpell {
+public class FireBall implements Spell, FireSpell, OffensiveSpell {
 
     private Point start;
     private Point end;
     private List<Point> path;
-    private Action flameAction;
-    private ProjectilePathCalculator projectilePathCalculator = new ProjectilePathCalculator();
+    Action flameAction;
+    ProjectilePathCalculator projectilePathCalculator = new ProjectilePathCalculator();
     private Map2D map;
     private Actor caster;
     private Actor target;
 
-    public FireBolt() {
+    public FireBall() {
         path = new ArrayList<>();
     }
 
@@ -42,15 +45,17 @@ public class FireBolt implements Spell, FireSpell, DestructiveSpell {
 
     @Override
     public void update() {
-        if (!path.isEmpty())
+        if(!path.isEmpty())
             flameAction.setCoordinates(path.remove(0));
     }
 
     @Override
     public void finish() {
-        ActionRegistry.INSTANCE.add(map, new SmallExplosionAction(end.getX(), end.getY()));
-        new FireDamage(caster).calculate(target, new Random().nextInt(3) + 6);
-        caster.setMana(caster.getMana() - Config.Spell.FIREBOLT_MANA_COST);
+        ActionRegistry.INSTANCE.add(map, new ExplosionAction(end.getX(), end.getY()));
+        new FireAreaDamage(caster).calculate(end, map, Config.Spell.FIREBALL_RANGE, new Random().nextInt(5) + 12);
+        caster.setMana(caster.getMana() - Config.Spell.FIREBALL_MANA_COST);
+        EffectRegistry.INSTANCE.add(new FireDamage(1, 5, target, caster), target);
+
     }
 
     @Override
@@ -60,12 +65,17 @@ public class FireBolt implements Spell, FireSpell, DestructiveSpell {
 
     @Override
     public int getManaCost() {
-        return Config.Spell.FIREBOLT_MANA_COST;
+        return Config.Spell.FIREBALL_MANA_COST;
     }
 
     @Override
     public int getArea() {
-        return 0;
+        return Config.Spell.FIREBALL_RANGE;
+    }
+
+    @Override
+    public int getStrength() {
+        return Config.Spell.FIREBALL_STRENGTH;
     }
 
     private void calculatePath() {

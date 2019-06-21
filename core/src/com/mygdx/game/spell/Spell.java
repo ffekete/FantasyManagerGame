@@ -10,4 +10,5 @@ public interface Spell {
     boolean isFinished();
     int getManaCost();
     int getArea();
+    int getStrength();
 }

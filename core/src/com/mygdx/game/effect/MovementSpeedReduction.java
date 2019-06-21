@@ -1,10 +1,10 @@
 package com.mygdx.game.effect;
 
-public class AttackSpeedReduction implements Effect, DebuffEffect {
+public class MovementSpeedReduction implements Effect, DebuffEffect {
 
     private final int strength;
 
-    public AttackSpeedReduction(int strength) {
+    public MovementSpeedReduction(int strength) {
         this.strength = strength;
     }
 

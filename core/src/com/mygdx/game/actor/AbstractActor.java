@@ -5,6 +5,7 @@ import com.mygdx.game.actor.component.attribute.Attributes;
 import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.inventory.Inventory;
+import com.mygdx.game.effect.MovementSpeedReduction;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.spelltome.SpellTome;
 import com.mygdx.game.map.Map2D;
@@ -139,7 +140,12 @@ public abstract class AbstractActor implements Actor {
     }
 
     public int getMovementSpeed() {
-        return 40 - getAttribute(Attributes.Dexterity);
+        int baseSpeed = 40 - getAttribute(Attributes.Dexterity);
+
+        int modifier = effectRegistry.getAll(this).stream().filter(effect -> MovementSpeedReduction.class.equals(effect.getClass())).map(Effect::getPower).reduce(0, (a, b) -> a+b);
+
+        return baseSpeed - modifier;
+
     }
 
     @Override

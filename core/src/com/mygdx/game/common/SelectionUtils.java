@@ -30,8 +30,8 @@ public class SelectionUtils {
             int a = actorForClosestEnemy.getX();
             int b = actorForClosestEnemy.getY();
 
-            float distance = Math.abs(x-a)*Math.abs(x-a) + Math.abs(y-b) * Math.abs(y-b);
-            if(distance < maxDistance) {
+            double distance = Math.sqrt(Math.abs(x-a)*Math.abs(x-a) + Math.abs(y-b) * Math.abs(y-b));
+            if(distance <= maxDistance) {
                 selectedActors.add(actorForClosestEnemy);
             }
         }
