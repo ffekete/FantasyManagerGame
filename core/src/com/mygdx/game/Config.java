@@ -64,6 +64,7 @@ public class Config {
         public final static int FIREBALL_STRENGTH = 8;
         public final static int FIREBOLT_STRENGTH = 3;
         public static final int SLOW_STRENGTH = 4;
+        public static final int SLOW_MOVEMENT_SPEED_REDUCE_AMOUNT = -60;
     }
 
     public static class Screen {

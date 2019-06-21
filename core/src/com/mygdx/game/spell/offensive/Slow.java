@@ -3,9 +3,6 @@ package com.mygdx.game.spell.offensive;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.MovementSpeedReduction;
-import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.action.Action;
-import com.mygdx.game.logic.action.FireboltAction;
 import com.mygdx.game.logic.action.SlowAction;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.ActionRegistry;
@@ -43,7 +40,7 @@ public class Slow implements OffensiveSpell, Spell, EarthSpell, DebuffSpell {
 
         caster.setMana(caster.getMana() - Config.Spell.SLOW_MANA_COST);
 
-        EffectRegistry.INSTANCE.add(new MovementSpeedReduction(-140), target);
+        EffectRegistry.INSTANCE.add(new MovementSpeedReduction(Config.Spell.SLOW_MOVEMENT_SPEED_REDUCE_AMOUNT), target);
     }
 
     @Override

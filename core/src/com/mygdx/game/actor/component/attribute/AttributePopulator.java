@@ -46,6 +46,18 @@ public interface AttributePopulator {
             }
         },
 
+        SkeletonWarrior {
+            @Override
+            public void populateFor(Actor actor) {
+                actor.setAttribute(Attributes.Strength, new Random().nextInt(10) + 10);
+                actor.setAttribute(Attributes.Endurance, new Random().nextInt(10) + 10);
+                actor.setAttribute(Attributes.Dexterity, new Random().nextInt(5) + 10);
+                actor.setAttribute(Attributes.Reflexes, 5);
+                actor.setAttribute(Attributes.Intelligence, 0);
+                actor.setAttribute(Attributes.Wisdom, 0);
+            }
+        },
+
         Goblin {
             @Override
             public void populateFor(Actor actor) {
@@ -73,6 +85,7 @@ public interface AttributePopulator {
         static final Map<Class<? extends Actor>, ClassSpecificAttrbutePopulator> attributePopulatorMap = ImmutableMap.<Class<? extends Actor>, ClassSpecificAttrbutePopulator>builder()
                 .put(com.mygdx.game.actor.hero.Warrior.class, Warrior)
                 .put(com.mygdx.game.actor.monster.Skeleton.class, Skeleton)
+                .put(com.mygdx.game.actor.monster.SkeletonWarrior.class, SkeletonWarrior)
                 .put(com.mygdx.game.actor.monster.Goblin.class, Goblin)
                 .put(com.mygdx.game.actor.monster.Orc.class, Orc)
                 .put(com.mygdx.game.actor.hero.Wizard.class, Wizard)

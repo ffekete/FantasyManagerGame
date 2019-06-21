@@ -8,6 +8,7 @@ import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Orc;
 import com.mygdx.game.actor.monster.Skeleton;
+import com.mygdx.game.actor.monster.SkeletonWarrior;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.manager.decision.*;
 
@@ -47,6 +48,11 @@ public class ActivityManager {
                         new DungeonVisitingDecision(),
                         new ExplorationDecision(),
                         new MovePickupEatDecision(),
+                        new WanderingDecision())
+                )
+
+                .put(SkeletonWarrior.class, ImmutableList.of(
+                        new MoveAndAttackDecision(),
                         new WanderingDecision())
                 )
 

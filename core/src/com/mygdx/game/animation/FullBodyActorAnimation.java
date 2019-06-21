@@ -10,6 +10,7 @@ import com.mygdx.game.actor.hero.*;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Orc;
 import com.mygdx.game.actor.monster.Skeleton;
+import com.mygdx.game.actor.monster.SkeletonWarrior;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.single.ConsumeHealingPotion;
 import com.mygdx.game.logic.activity.single.ExplorationActivity;
@@ -28,6 +29,7 @@ public class FullBodyActorAnimation implements ActorAnimation {
     private Texture goblinTexture = new Texture(Gdx.files.internal("actors/goblin.png"));
     private Texture orcTexture = new Texture(Gdx.files.internal("actors/orc.png"));
     private Texture wizardTexture = new Texture(Gdx.files.internal("actors/Wizard.png"));
+    private Texture skeletonWarriorTexture = new Texture(Gdx.files.internal("actors/SkeletonWarrior.png"));
 
     private float phase = 0;
 
@@ -75,6 +77,7 @@ public class FullBodyActorAnimation implements ActorAnimation {
             .put(Goblin.class, goblinTexture)
             .put(Orc.class, orcTexture)
             .put(Wizard.class, wizardTexture)
+            .put(SkeletonWarrior.class, skeletonWarriorTexture)
             .build();
 
     @Override
