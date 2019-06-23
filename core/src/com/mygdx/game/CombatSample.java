@@ -82,6 +82,7 @@ public class CombatSample extends SampleBase {
         hero.equip(new MediumShield());
 
         hero2.equip(new JadeStaff());
+        hero2.addExperiencePoints(2100);
 
         Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(5).Y(0));
         Actor s2 = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(0).Y(5));

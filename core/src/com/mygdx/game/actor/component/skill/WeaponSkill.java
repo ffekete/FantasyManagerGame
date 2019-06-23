@@ -6,7 +6,7 @@ import com.mygdx.game.item.weapon.twohandedsword.TwoHandedSword;
 
 import java.util.Map;
 
-public enum WeaponSkill {
+public enum WeaponSkill implements Skill {
 
     Warhammer(ImmutableMap.<Class<? extends Weapon>, Float>builder()
             .put(com.mygdx.game.item.weapon.warhammer.Warhammer.class, 1f)

@@ -1,6 +1,7 @@
 package com.mygdx.game.spell;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.component.skill.MagicSkill;
 
 public class FireDamage {
 
@@ -11,7 +12,7 @@ public class FireDamage {
     }
 
     public void calculate(Actor target, int damage) {
-        target.setHp(target.getHp() - damage);
+        target.setHp(target.getHp() - damage - initiator.getSkillLevel(MagicSkill.FireMagic));
 
         if (target.getHp() <= 0)
             target.die(initiator);

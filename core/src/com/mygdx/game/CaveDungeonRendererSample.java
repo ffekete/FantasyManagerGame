@@ -11,6 +11,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Warrior;
+import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Orc;
 import com.mygdx.game.actor.monster.Skeleton;
@@ -18,6 +19,7 @@ import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.shield.SmallShiled;
+import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
@@ -52,6 +54,7 @@ public class CaveDungeonRendererSample extends SampleBase {
     Viewport infoViewPort;
     BitmapFont bitmapFont;
     Actor hero;
+    Actor hero2;
 
     @Override
     public void create() {
@@ -72,6 +75,10 @@ public class CaveDungeonRendererSample extends SampleBase {
         Gdx.input.setInputProcessor(this);
 
         hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.RANDOM);
+        hero2 = ActorFactory.INSTANCE.create(Wizard.class, dungeon, Placement.RANDOM);
+
+        hero2.equip(new JadeStaff());
+
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());

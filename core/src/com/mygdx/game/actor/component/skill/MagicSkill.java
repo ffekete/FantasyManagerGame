@@ -1,6 +1,6 @@
 package com.mygdx.game.actor.component.skill;
 
-public enum MagicSkill {
+public enum MagicSkill implements Skill {
 
     FireMagic,
     ColdMagic,

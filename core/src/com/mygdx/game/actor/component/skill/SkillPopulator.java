@@ -13,7 +13,7 @@ public interface SkillPopulator {
     enum WeaponSkillPopulatorStrategy implements SkillPopulator {
 
         RANDOM((actor) -> {
-            for(WeaponSkill s : actor.getWeaponSkills().keySet()) {
+            for(WeaponSkill s : WeaponSkill.values()) {
                 actor.getWeaponSkills().put(s, new Random().nextInt(Config.Actor.MAX_STARTER_SKILL_LEVEL));
             }
         }),
@@ -39,7 +39,7 @@ public interface SkillPopulator {
     enum MagicSkillPopulatorStrategy implements SkillPopulator {
 
         RANDOM((actor) -> {
-            for(MagicSkill s : actor.getMagicSkills().keySet()) {
+            for(MagicSkill s : MagicSkill.values()) {
                 actor.getMagicSkills().put(s, new Random().nextInt(Config.Actor.MAX_STARTER_SKILL_LEVEL));
             }
         }),

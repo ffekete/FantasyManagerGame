@@ -5,6 +5,7 @@ import com.mygdx.game.logic.attack.AttackController;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.EffectRegistry;
+import com.mygdx.game.registry.SkillFocusRegistry;
 
 public class ActorDeathHandler {
 
@@ -16,6 +17,7 @@ public class ActorDeathHandler {
         ActorMovementHandler.INSTANCE.clearPath(actor);
         AttackController.INSTANCE.clearAttackingHistory(actor);
         EffectRegistry.INSTANCE.removeAll(actor);
+        SkillFocusRegistry.INSTANCE.remove(actor);
     }
 
     private ActorDeathHandler() {

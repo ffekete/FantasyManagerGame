@@ -3,6 +3,7 @@ package com.mygdx.game.actor;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.component.attribute.Attributes;
 import com.mygdx.game.actor.component.skill.MagicSkill;
+import com.mygdx.game.actor.component.skill.Skill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.effect.MovementSpeedReduction;
@@ -22,6 +23,7 @@ import com.mygdx.game.logic.activity.stack.ActivityStack;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.registry.EffectRegistry;
 import com.mygdx.game.registry.LightSourceRegistry;
+import com.mygdx.game.rules.levelup.LevelUpController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +39,7 @@ public abstract class AbstractActor implements Actor {
     private Map<WeaponSkill, Integer> weaponSkills;
     private Map<MagicSkill, Integer> magicSkills;
     private EffectRegistry effectRegistry = EffectRegistry.INSTANCE;
+    private LevelUpController levelUpController = new LevelUpController();
 
     private Point coordinates;
     private int hungerLevel;
@@ -60,6 +63,13 @@ public abstract class AbstractActor implements Actor {
     private Armor wornArmor = null;
 
     private SpellTome spellTome;
+
+    private long experiencePoints = 0L;
+    private int level = 1;
+
+    private List<Skill> skillFocusDefinition;
+
+    private int unspentSkillPoints = 0;
 
     public AbstractActor() {
         this.hungerLevel = Config.BASE_HUNGER_LEVEL;
@@ -297,9 +307,7 @@ public abstract class AbstractActor implements Actor {
         System.out.println(getName() + " I'm killed by " + killer.getName());
         activityStack.getCurrent().cancel();
         ActorDeathHandler.INSTANCE.kill(this);
-        LightSource lightSource = LightSourceRegistry.INSTANCE.getFor(this);
-        LightSourceRegistry.INSTANCE.remove(getCurrentMap(), lightSource);
-        LightSourceRegistry.INSTANCE.remove(this);
+        levelUpController.calculate(killer, this);
     }
 
     @Override
@@ -350,5 +358,61 @@ public abstract class AbstractActor implements Actor {
     @Override
     public void setSpellTome(SpellTome spellTome) {
         this.spellTome = spellTome;
+    }
+
+    @Override
+    public void addExperiencePoints(long value) {
+        this.experiencePoints += value;
+    }
+
+    @Override
+    public long getExperiencePoints() {
+        return experiencePoints;
+    }
+
+    @Override
+    public int getLevel() {
+        return level;
+    }
+
+    @Override
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    @Override
+    public List<Skill> getSkillFocusDefinition() {
+        return skillFocusDefinition;
+    }
+
+    @Override
+    public void setSkillFocusDefinition(List<Skill> skills) {
+        this.skillFocusDefinition = skills;
+    }
+
+    @Override
+    public int getSkillLevel(Skill skill) {
+        return WeaponSkill.class.isAssignableFrom(skill.getClass()) ? getWeaponSkills().get(skill) : getMagicSkills().get(skill);
+    }
+
+    @Override
+    public void setUnspentSkillPoints(int points) {
+        this.unspentSkillPoints = points;
+    }
+
+    @Override
+    public int getUnspentSkillPoints() {
+        return this.unspentSkillPoints;
+    }
+
+    @Override
+    public void increaseSkillLevel(Skill skill) {
+        if(WeaponSkill.class.isAssignableFrom(skill.getClass())) {
+            int actualLevel = getWeaponSkills().get(skill);
+            getWeaponSkills().put((WeaponSkill) skill, actualLevel + 1);
+        } else {
+            int actualLevel = getMagicSkills().get(skill);
+            getMagicSkills().put((MagicSkill) skill, actualLevel + 1);
+        }
     }
 }

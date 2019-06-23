@@ -2,6 +2,7 @@ package com.mygdx.game.actor;
 
 import com.mygdx.game.actor.component.attribute.Attributes;
 import com.mygdx.game.actor.component.skill.MagicSkill;
+import com.mygdx.game.actor.component.skill.Skill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.item.Item;
@@ -68,6 +69,14 @@ public interface Actor {
     SpellTome getSpellTome();
     void setSpellTome(SpellTome spellTome);
 
+    void addExperiencePoints(long value);
+    long getExperiencePoints();
+
+    List<Skill> getSkillFocusDefinition();
+    void setSkillFocusDefinition(List<Skill> skills);
+
+    int getSkillLevel(Skill skill);
+
 
     // ******************   BodyPartsBasedActorAnimation  ********************
     Activity getCurrentActivity();
@@ -76,4 +85,12 @@ public interface Actor {
 
     Map<WeaponSkill, Integer> getWeaponSkills();
     Map<MagicSkill, Integer> getMagicSkills();
+
+    int getLevel();
+    void setLevel(int level);
+
+    void setUnspentSkillPoints(int points);
+    int getUnspentSkillPoints();
+
+    void increaseSkillLevel(Skill skill);
 }

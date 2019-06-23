@@ -1,6 +1,7 @@
 package com.mygdx.game.spell;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.common.SelectionUtils;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
@@ -19,7 +20,7 @@ public class FireAreaDamage {
 
         List<Actor> affectedActors = SelectionUtils.findAllEnemiesWithinRange(center, map, distance);
         for(int i = 0; i < affectedActors.size(); i++) {
-            affectedActors.get(i).setHp(affectedActors.get(i).getHp() - damage);
+            affectedActors.get(i).setHp(affectedActors.get(i).getHp() - damage - initiator.getSkillLevel(MagicSkill.FireMagic));
 
             if(affectedActors.get(i).getHp() <= 0)
                 affectedActors.get(i).die(initiator);
