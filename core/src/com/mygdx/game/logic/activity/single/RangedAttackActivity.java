@@ -23,7 +23,7 @@ public class RangedAttackActivity implements Activity, CooldownActivity {
     private AttackController attackController = AttackController.INSTANCE;
 
     private boolean firstRun = true;
-    private int priority = Config.Activity.ATTACK_PRIORITY;
+    private int priority = Config.Activity.RANGED_ATTACK_PRIORITY;
     private int counter = 0;
 
     private final Actor actor;
