@@ -2,9 +2,12 @@ package com.mygdx.game.logic.action;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.Direction;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.SpriteBatchRegistry;
+import com.mygdx.game.renderer.direction.DirectionSelector;
 
 public class BowAction implements Action {
 
@@ -12,16 +15,16 @@ public class BowAction implements Action {
 
     private Point coordinates;
     private float phase = 0f;
-    private Map2D map;
+    private Direction direction;
 
-    public BowAction(Point coordinates, Map2D map) {
-        this.coordinates = coordinates;
-        this.map = map;
+    public BowAction(Actor actor) {
+        this.coordinates = actor.getCoordinates();
+        this.direction = DirectionSelector.INSTANCE.getDirection(actor);
     }
 
     @Override
     public void update() {
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(bowTexture, coordinates.getX(), coordinates.getY(), 0.0f, 0.0f, 1, 1, 1, 1, 0.0f, (int)phase * 32 ,0, 32, 32, false, false);
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(bowTexture, coordinates.getX(), coordinates.getY(), 0.0f, 0.0f, 1, 1, 1, 1, 0.0f, (int)phase * 32 ,0, 32, 32, direction.equals(Direction.UP) || direction.equals(Direction.LEFT), false);
         phase += Gdx.graphics.getRawDeltaTime() * 10;
 
     }

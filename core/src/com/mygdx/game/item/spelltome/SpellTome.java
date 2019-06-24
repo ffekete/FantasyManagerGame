@@ -20,4 +20,8 @@ public class SpellTome {
     public Set<Spell> getSpells() {
         return spells;
     }
+
+    public void clear() {
+        spells.clear();
+    }
 }

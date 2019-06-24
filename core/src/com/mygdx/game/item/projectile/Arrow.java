@@ -35,7 +35,7 @@ public class Arrow implements Projectile {
         start = shooter.getCoordinates();
         end = target.getCoordinates();
         calculatePath();
-        arrowAction = new ArrowAction(shooter.getCoordinates(), target.getCoordinates(), shooter.getCurrentMap());
+        arrowAction = new ArrowAction(shooter, target.getCoordinates());
         ActionRegistry.INSTANCE.add(shooter.getCurrentMap(), arrowAction);
         this.shooter = shooter;
         this.target = target;

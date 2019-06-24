@@ -79,7 +79,7 @@ public class Config {
 
         public static final int HEALING_POTION_CONSUME_PRIORITY = 10;
         public static final int EQUIP_PRIORITY = 10;
-        public static final int OFFENSIVE_SPELL_CAST_PRIORITY = 96;
+        public static final int OFFENSIVE_SPELL_CAST_PRIORITY = 95;
         public static final int ATTACK_PRIORITY = 96;
         public static final int MOVE_THEN_ATTACK_PRIORITY = 96;
         public static final int MOVE_PICKUP_PRIORITY = 97;

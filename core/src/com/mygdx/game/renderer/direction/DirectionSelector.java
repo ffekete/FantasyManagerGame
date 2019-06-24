@@ -2,11 +2,7 @@ package com.mygdx.game.renderer.direction;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
-import com.mygdx.game.logic.activity.single.ExplorationActivity;
-import com.mygdx.game.logic.activity.single.MovementActivity;
-import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
-import com.mygdx.game.logic.activity.single.SimpleAttackActivity;
-import com.mygdx.game.logic.activity.single.WaitActivity;
+import com.mygdx.game.logic.activity.single.*;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.attack.AttackController;
 
@@ -26,7 +22,7 @@ public class DirectionSelector {
             return Direction.UP;
         }
 
-        if(SimpleAttackActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())) {
+        if(SimpleAttackActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass()) || RangedAttackActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())) {
             Direction direction = AttackController.INSTANCE.getAttackingDirection(actor);
             if(direction != null) {
                 return direction;

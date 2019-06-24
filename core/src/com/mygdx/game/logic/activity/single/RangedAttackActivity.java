@@ -56,7 +56,7 @@ public class RangedAttackActivity implements Activity, CooldownActivity {
     @Override
     public void update() {
         AttackController.INSTANCE.calculateAttack(actor, enemy);
-        action = new BowAction(actor.getCoordinates(), actor.getCurrentMap());
+        action = new BowAction(actor);
         actionRegistry.add(actor.getCurrentMap(), action);
         Projectile arrow = new Arrow((Bow)actor.getRightHandItem());
         arrow.init(actor, enemy);
