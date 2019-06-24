@@ -1,10 +1,12 @@
 package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.item.armor.BlackPlateMail;
 import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.shield.SmallShiled;
+import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 
@@ -110,10 +112,66 @@ public class EquipDecisionTest {
     }
 
     @Test
-    public void testShouldPass_shield_sameIsInInventory() {
+    public void testShouldFail_shield_sameIsInInventory() {
         Actor actor = new Warrior();
         actor.equip(new MediumShield());
         actor.getInventory().add(new MediumShield());
+
+        Decision decision = new EquipDecision();
+        boolean result = decision.decide(actor);
+        assertThat(result, is(false));
+    }
+
+    @Test
+    public void testShouldPass_betterWeaponSkillIsForNewItem_betterItemEquipped() {
+        Actor actor = new Warrior();
+        actor.equip(new FlameTongue());
+        actor.getInventory().add(new LongBow());
+
+        actor.getWeaponSkills().put(WeaponSkill.Sword, 0);
+        actor.getWeaponSkills().put(WeaponSkill.Bow, 1);
+
+        Decision decision = new EquipDecision();
+        boolean result = decision.decide(actor);
+        assertThat(result, is(true));
+    }
+
+    @Test
+    public void testShouldPass_betterWeaponSkillIsForNewItem() {
+        Actor actor = new Warrior();
+        actor.equip(new ShortSword());
+        actor.getInventory().add(new LongBow());
+
+        actor.getWeaponSkills().put(WeaponSkill.Sword, 0);
+        actor.getWeaponSkills().put(WeaponSkill.Bow, 1);
+
+        Decision decision = new EquipDecision();
+        boolean result = decision.decide(actor);
+        assertThat(result, is(true));
+    }
+
+    @Test
+    public void testShouldFail_equalWeaponSkillIsForNewItem() {
+        Actor actor = new Warrior();
+        actor.equip(new ShortSword());
+        actor.getInventory().add(new LongBow());
+
+        actor.getWeaponSkills().put(WeaponSkill.Sword, 1);
+        actor.getWeaponSkills().put(WeaponSkill.Bow, 1);
+
+        Decision decision = new EquipDecision();
+        boolean result = decision.decide(actor);
+        assertThat(result, is(true));
+    }
+
+    @Test
+    public void testShouldFail_equalWeaponSkillIsForNewItemEqualItem() {
+        Actor actor = new Warrior();
+        actor.equip(new ShortSword());
+        actor.getInventory().add(new ShortSword());
+
+        actor.getWeaponSkills().put(WeaponSkill.Sword, 1);
+        actor.getWeaponSkills().put(WeaponSkill.Bow, 1);
 
         Decision decision = new EquipDecision();
         boolean result = decision.decide(actor);

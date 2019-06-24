@@ -12,6 +12,17 @@ public interface AttributePopulator {
 
     enum ClassSpecificAttrbutePopulator implements AttributePopulator {
 
+        Ranger {
+            @Override
+            public void populateFor(Actor actor) {
+                actor.setAttribute(Attributes.Strength, new Random().nextInt(5) + 5);
+                actor.setAttribute(Attributes.Endurance, new Random().nextInt(10) + 10);
+                actor.setAttribute(Attributes.Dexterity, new Random().nextInt(10) + 10);
+                actor.setAttribute(Attributes.Reflexes, new Random().nextInt(10) + 10);
+                actor.setAttribute(Attributes.Intelligence, new Random().nextInt(5) + 5);
+                actor.setAttribute(Attributes.Wisdom, new Random().nextInt(5) + 5);
+            }
+        },
         Warrior {
             @Override
             public void populateFor(Actor actor) {
@@ -83,6 +94,7 @@ public interface AttributePopulator {
         };
 
         static final Map<Class<? extends Actor>, ClassSpecificAttrbutePopulator> attributePopulatorMap = ImmutableMap.<Class<? extends Actor>, ClassSpecificAttrbutePopulator>builder()
+                .put(com.mygdx.game.actor.hero.Ranger.class, Ranger)
                 .put(com.mygdx.game.actor.hero.Warrior.class, Warrior)
                 .put(com.mygdx.game.actor.monster.Skeleton.class, Skeleton)
                 .put(com.mygdx.game.actor.monster.SkeletonWarrior.class, SkeletonWarrior)

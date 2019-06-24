@@ -20,7 +20,7 @@ import java.util.List;
 
 import static com.mygdx.game.common.util.MathUtil.distance;
 
-public class MoveAndAttackDecision implements Decision {
+public class MoveAndRangedAttackDecision implements Decision {
 
     private final ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     private final ActorMovementHandler actorMovementHandler = ActorMovementHandler.INSTANCE;
@@ -29,17 +29,21 @@ public class MoveAndAttackDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
+        if(!Bow.class.isAssignableFrom(actor.getRightHandItem().getClass())) {
+            return false;
+        }
+
         // already attacking, the decision chain should end here
-        if(actor.getActivityStack().contains(MoveThenAttackActivity.class) ||
+        if(actor.getActivityStack().contains(RangedAttackActivity.class) ||
                 actor.getActivityStack().contains(SimpleAttackActivity.class) ||
-                actor.getActivityStack().contains(RangedAttackActivity.class)) {
+                actor.getActivityStack().contains(MoveThenAttackActivity.class)) {
             return true;
         }
 
-        if (!Bow.class.isAssignableFrom(actor.getRightHandItem().getClass()) &&
-                !actor.getActivityStack().contains(MoveThenAttackActivity.class) &&
-                !actor.getActivityStack().contains(RangedAttackActivity.class) &&
-                !actor.getActivityStack().contains(SimpleAttackActivity.class)) {
+        if (Bow.class.isAssignableFrom(actor.getRightHandItem().getClass()) &&
+                !actor.getActivityStack().contains(MoveThenAttackActivity.class) ||
+                !actor.getActivityStack().contains(SimpleAttackActivity.class) ||
+                !actor.getActivityStack().contains(RangedAttackActivity.class)) {
 
             Actor enemy = SelectionUtils.findClosestEnemy(actor, actorRegistry.getActors(actor.getCurrentMap()), Config.ATTACK_DISTANCE);
             if (enemy != null) {
@@ -70,15 +74,15 @@ public class MoveAndAttackDecision implements Decision {
                     int halfWay = path.size() / 2;
 
                     if (path.size() < actor.getAttackRange()) {
-                        actor.getActivityStack().add(new SimpleAttackActivity(actor, enemy));
+                        actor.getActivityStack().add(new RangedAttackActivity(actor, enemy));
                     } else {
                         actorMovementHandler.clearPath(actor);
                         List<PathFinder.Node> actorPath = new ArrayList<>();
-                        int start = enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(RangedAttackActivity.class) || enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(SimpleAttackActivity.class) ? 1 : halfWay;
+                        int start = halfWay;
                         int end = path.size();
 
                         // if enemy is already fighting
-                        if (SimpleAttackActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass())) {
+                        if (RangedAttackActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass())) {
                             start = 1;
                             end = path.size();
                         } else if (PreCalculatedMovementActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass())) {
@@ -88,37 +92,18 @@ public class MoveAndAttackDecision implements Decision {
                         for (int i = start; i < end; i++) {
                             actorPath.add(path.get(i));
                         }
-                        //actorMovementHandler.registerActorPath(actor, actorPath);
+
                         CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY);
                         compoundActivityForActor.add(new PreCalculatedMovementActivity(actor, actorPath));
-                        compoundActivityForActor.add(new SimpleAttackActivity(actor, enemy));
+                        compoundActivityForActor.add(new RangedAttackActivity(actor, enemy));
                         actor.getActivityStack().add(compoundActivityForActor);
 
                     }
 
-                    // todo what to do if the actor kills an enemy when this enemy is on its way towards the actor?
-                    // if enemy is not already fighting then give a path to this enemy as well to the actor
-                    if (!enemy.getActivityStack().contains(RangedAttackActivity.class) && !enemy.getActivityStack().contains(SimpleAttackActivity.class) && !enemy.getActivityStack().contains(MoveThenAttackActivity.class)) {
-                        enemy.getActivityStack().clear();
-                        if (path.size() < enemy.getAttackRange()) {
-                            enemy.getActivityStack().add(new SimpleAttackActivity(enemy, actor));
-                        } else {
-                            actorMovementHandler.clearPath(enemy);
-                            List<PathFinder.Node> enemyPath = new ArrayList<>();
-                            for (int i = halfWay - 1; i >= 0; i--) {
-                                enemyPath.add(path.get(i));
-                            }
-                            //actorMovementHandler.registerActorPath(enemy, enemyPath);
-                            CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY);
-                            compoundActivityForActor.add(new PreCalculatedMovementActivity(enemy, enemyPath));
-                            compoundActivityForActor.add(new SimpleAttackActivity(enemy, actor));
-                            enemy.getActivityStack().add(compoundActivityForActor);
-                        }
-                    }
-
                     return true;
                 } else {
-                    actor.getActivityStack().add(new SimpleAttackActivity(actor, enemy));
+                    actor.getActivityStack().add(new RangedAttackActivity(actor, enemy));
+                    return true;
                 }
             }
         }

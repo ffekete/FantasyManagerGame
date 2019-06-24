@@ -24,6 +24,7 @@ import java.util.Map;
 
 public class FullBodyActorAnimation implements ActorAnimation {
 
+    private Texture rangerTexture = new Texture(Gdx.files.internal("actors/Ranger.png"));
     private Texture warriorTexture = new Texture(Gdx.files.internal("actors/Warrior.png"));
     private Texture skeletonTexture = new Texture(Gdx.files.internal("actors/Skeleton.png"));
     private Texture goblinTexture = new Texture(Gdx.files.internal("actors/goblin.png"));
@@ -73,6 +74,7 @@ public class FullBodyActorAnimation implements ActorAnimation {
 
     private final Map<Class<? extends Actor>, Texture> textureMap = ImmutableMap.<Class<? extends Actor>, Texture>builder()
             .put(Warrior.class, warriorTexture)
+            .put(Ranger.class, rangerTexture)
             .put(Skeleton.class, skeletonTexture)
             .put(Goblin.class, goblinTexture)
             .put(Orc.class, orcTexture)

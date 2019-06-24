@@ -9,7 +9,7 @@ import com.mygdx.game.spell.offensive.Slow;
 
 import static com.mygdx.game.faction.Alignment.FRIENDLY;
 
-public class Wizard extends AbstractActor implements CasterHero {
+public class Wizard extends AbstractActor implements CasterHero, Hero {
 
     public Wizard() {
         setAlignment(FRIENDLY);

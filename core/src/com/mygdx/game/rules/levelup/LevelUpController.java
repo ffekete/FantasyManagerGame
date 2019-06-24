@@ -4,8 +4,8 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.Skill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
+import com.mygdx.game.actor.hero.Hero;
 import com.mygdx.game.actor.hero.MeleeHero;
-import com.mygdx.game.registry.SkillFocusRegistry;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +17,9 @@ public class LevelUpController {
     private ExperienceLevelMapper experienceLevelMapper = ExperienceLevelMapper.INSTANCE;
 
     public void calculate(Actor killer, Actor target) {
+
+        if(!Hero.class.isAssignableFrom(killer.getClass()))
+            return;
 
         long experience = monsterToExperienceMapper.getFor(target.getClass());
         System.out.println("gained experience " + experience + " " + killer.getLevel());

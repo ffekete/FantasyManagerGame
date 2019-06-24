@@ -26,7 +26,6 @@ public class SpellManager {
                 spellRegistry.remove(spell);
             }
         }
-
     }
 
 }

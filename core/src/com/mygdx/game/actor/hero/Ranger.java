@@ -4,7 +4,7 @@ import com.mygdx.game.actor.AbstractActor;
 import com.mygdx.game.actor.factory.SkillFocusFactory;
 import com.mygdx.game.faction.Alignment;
 
-public class Ranger extends AbstractActor implements MeleeHero {
+public class Ranger extends AbstractActor implements MeleeHero, Hero {
 
     public Ranger() {
         setAlignment(Alignment.FRIENDLY);

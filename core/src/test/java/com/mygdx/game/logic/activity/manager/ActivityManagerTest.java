@@ -1,11 +1,16 @@
 package com.mygdx.game.logic.activity.manager;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Skeleton;
+import com.mygdx.game.item.weapon.bow.LongBow;
+import com.mygdx.game.item.weapon.sword.ShortSword;
+import com.mygdx.game.logic.activity.manager.decision.MoveAndRangedAttackDecision;
 import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
+import com.mygdx.game.logic.activity.single.RangedAttackActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
@@ -20,13 +25,12 @@ import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class ActivityManagerTest {
 
-    private final ActorMovementHandler actorMovementHandler = ActorMovementHandler.INSTANCE;
-
     @Test
-    public void testFindClosestEnemyAndMove() throws InterruptedException {
+    public void testFindClosestEnemyAndMove_allMelee() throws InterruptedException {
         ActivityManager activityManager = new ActivityManager();
 
         VisibilityMask visibilityMask = new VisibilityMask(100, 100);
@@ -36,11 +40,14 @@ public class ActivityManagerTest {
         Actor hero = new Warrior();
         hero.setCoordinates(new Point(10, 10));
         hero.setCurrentMap(dungeon);
+        hero.equip(new ShortSword());
         Actor goblin = new Goblin();
+        goblin.equip(new ShortSword());
         goblin.setCoordinates(new Point(15, 15));
         goblin.setCurrentMap(dungeon);
 
         Actor skeleton = new Skeleton();
+        skeleton.equip(new ShortSword());
         skeleton.setCoordinates(Point.of(0,0));
         skeleton.setCurrentMap(dungeon);
 
@@ -108,6 +115,94 @@ public class ActivityManagerTest {
 
         assertThat(hero.getX(), is(11));
         assertThat(hero.getY(), is(11));
+
+    }
+
+    @Test
+    public void testFindClosestEnemyAndMove_rangedAttack() throws InterruptedException {
+        ActivityManager activityManager = new ActivityManager();
+
+        VisibilityMask visibilityMask = new VisibilityMask(100, 100);
+        Map2D dungeon = new DummyDungeonCreator().create(5);
+        VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
+
+        Actor hero = new Warrior();
+        hero.setCoordinates(new Point(10, 10));
+        hero.setCurrentMap(dungeon);
+        hero.getWeaponSkills().put(WeaponSkill.Bow, 2);
+        hero.equip(new LongBow());
+        Actor goblin = new Goblin();
+        goblin.equip(new ShortSword());
+        goblin.setCoordinates(new Point(15, 15));
+        goblin.setCurrentMap(dungeon);
+
+        Actor skeleton = new Skeleton();
+        skeleton.equip(new ShortSword());
+        skeleton.setCoordinates(Point.of(0,0));
+        skeleton.setCurrentMap(dungeon);
+
+        visibilityMask.setValue(15,15, hero);
+        visibilityMask.setValue(10,10, goblin);
+        visibilityMask.setValue(10,10, skeleton);
+
+        ActorRegistry.INSTANCE.add(dungeon, hero);
+        ActorRegistry.INSTANCE.add(dungeon, goblin);
+        ActorRegistry.INSTANCE.add(dungeon, skeleton);
+        MapRegistry.INSTANCE.add(dungeon);
+
+        activityManager.manage(hero);
+        activityManager.manage(goblin);
+
+        assertThat(hero.getActivityStack().contains(RangedAttackActivity.class), is(true));
+        assertThat(goblin.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+
+        // perform next task for goblin
+        for(int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
+            goblin.getActivityStack().performNext();
+            Thread.sleep(5); // this is needed for pathfinder to generate the path in time
+        }
+        assertThat(goblin.getX(), is(14));
+        assertThat(goblin.getY(), is(14));
+
+        activityManager.manage(skeleton);
+        assertThat(skeleton.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+
+
+        // perform next task for skeleton
+        for(int i = 0; i <= skeleton.getMovementSpeed() * 3; i++) {
+            skeleton.getActivityStack().performNext();
+            Thread.sleep(5); // this is needed for pathfinder to generate the path in time
+        }
+        assertThat(skeleton.getX(), is(1));
+        assertThat(skeleton.getY(), is(1));
+
+        // check target for goblin
+        MoveThenAttackActivity moveThenAttackActivity = (MoveThenAttackActivity) goblin.getActivityStack().getCurrent();
+        PreCalculatedMovementActivity movementActivity = (PreCalculatedMovementActivity) moveThenAttackActivity.getCurrentActivity();
+        assertThat(movementActivity.getTargetX(), is(10));
+        assertThat(movementActivity.getTargetY(), is(11));
+
+        // check target for warrior
+        RangedAttackActivity rangedAttackActivity = (RangedAttackActivity) hero.getActivityStack().getCurrent();
+        assertThat(rangedAttackActivity, is(notNullValue()));
+
+        // check target for skeleton
+        MoveThenAttackActivity moveThenAttackActivity3 = (MoveThenAttackActivity) skeleton.getActivityStack().getCurrent();
+        PreCalculatedMovementActivity movementActivity3 = (PreCalculatedMovementActivity) moveThenAttackActivity3.getCurrentActivity();
+        assertThat(movementActivity3.getTargetX(), is(10));
+        assertThat(movementActivity3.getTargetY(), is(9));
+
+//        // perform next task for hero
+//        for(int i = 0; i <= hero.getMovementSpeed() * 3; i++) {
+//            hero.getActivityStack().performNext();
+//            Thread.sleep(5); // this is needed for pathfinder to generate the path in time
+//        }
+
+        //for(int i = 0; i < hero.getAttackSpeed(); i++)
+        //hero.getActivitySta ck().performNext();
+
+        assertThat(hero.getX(), is(10));
+        assertThat(hero.getY(), is(10));
 
     }
 

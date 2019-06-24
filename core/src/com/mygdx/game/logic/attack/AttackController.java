@@ -3,6 +3,7 @@ package com.mygdx.game.logic.attack;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.actor.component.attribute.Attributes;
+import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.action.BloodSpillAction;
 import com.mygdx.game.registry.ActionRegistry;
@@ -54,6 +55,24 @@ public class AttackController {
 
     public Actor getTargetFor(Actor attacker) {
         return actors.get(attacker);
+    }
+
+    public boolean calculateRangedAttack(Actor attacker, Actor victim) {
+
+            int aim = 20
+                    + attacker.getAttribute(Attributes.Dexterity) * 2
+                    + attacker.getAttribute(Attributes.Reflexes)
+                    + attacker.getWeaponSkills().get(WeaponSkill.Bow) * 5;
+
+            int evade = victim.getAttribute(Attributes.Dexterity)
+                    + victim.getAttribute(Attributes.Reflexes) * 2;
+
+        int toHit = new Random().nextInt(100);
+
+        if(toHit < aim - evade) {
+            return true;
+        }
+        return false;
     }
 
     public void calculateAttack(Actor attacker, Actor victim) {

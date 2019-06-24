@@ -6,8 +6,11 @@ import com.mygdx.game.item.armor.Armor;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.activity.single.EquipActivity;
+import com.mygdx.game.logic.attack.WeaponSkillSelector;
 
 public class EquipDecision implements Decision {
+
+    private WeaponSkillSelector weaponSkillSelector = new WeaponSkillSelector();
 
     @Override
     public boolean decide(Actor actor) {
@@ -22,7 +25,8 @@ public class EquipDecision implements Decision {
                         return true;
                     }
                 } else if(Weapon.class.isAssignableFrom(equipable.getClass())) {
-                    if(actor.getRightHandItem() == null || actor.getRightHandItem().getPower() < equipable.getPower()) {
+
+                    if(actor.getRightHandItem() == null || (actor.getRightHandItem().getPower() < equipable.getPower() || weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable) >  weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) {
                         EquipActivity equipActivity = new EquipActivity(actor, equipable);
                         actor.getActivityStack().add(equipActivity);
                         return true;

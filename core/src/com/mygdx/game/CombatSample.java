@@ -11,6 +11,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
+import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.Skeleton;
@@ -18,6 +19,7 @@ import com.mygdx.game.actor.monster.SkeletonWarrior;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.effect.MovementSpeedReduction;
+import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.PoisonFang;
 import com.mygdx.game.map.Map2D;
@@ -33,6 +35,7 @@ import com.mygdx.game.registry.*;
 import com.mygdx.game.renderer.RendererBatch;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.utils.GdxUtils;
+import org.w3c.dom.ranges.Range;
 
 
 public class CombatSample extends SampleBase {
@@ -53,6 +56,7 @@ public class CombatSample extends SampleBase {
     BitmapFont bitmapFont;
     Actor hero;
     Actor hero2;
+    Actor hero3;
 
     @Override
     public void create() {
@@ -74,12 +78,14 @@ public class CombatSample extends SampleBase {
 
         hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(3).Y(1));
         hero2 = ActorFactory.INSTANCE.create(Wizard.class, dungeon, Placement.FIXED.X(0).Y(0));
+        hero3 = ActorFactory.INSTANCE.create(Ranger.class, dungeon, Placement.FIXED.X(1).Y(0));
 
-        //Actor hero2 = ActorFactory.INSTANCE.create(Priest.class, dungeon, Placement.RANDOM);
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.equip(new MediumShield());
+
+        hero3.equip(new LongBow());
 
         hero2.equip(new JadeStaff());
         hero2.addExperiencePoints(2100);
@@ -98,9 +104,7 @@ public class CombatSample extends SampleBase {
         hero.getWeaponSkills().put(WeaponSkill.Sword, 5);
         hero.setRightHandItem(new FlameTongue());
 
-        //hero2.setMana(0);
-
-        CameraPositionController.INSTANCE.focusOn(hero);
+        CameraPositionController.INSTANCE.focusOn(hero3);
 
     }
 

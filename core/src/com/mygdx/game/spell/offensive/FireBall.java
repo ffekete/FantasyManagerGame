@@ -26,6 +26,7 @@ public class FireBall implements Spell, FireSpell, OffensiveSpell {
     private Map2D map;
     private Actor caster;
     private Actor target;
+    private int delay = 2;
 
     public FireBall() {
         path = new ArrayList<>();
@@ -45,8 +46,11 @@ public class FireBall implements Spell, FireSpell, OffensiveSpell {
 
     @Override
     public void update() {
-        if(!path.isEmpty())
+        delay--;
+        if(delay == 0 && !path.isEmpty()) {
             flameAction.setCoordinates(path.remove(0));
+            delay = 2;
+        }
     }
 
     @Override

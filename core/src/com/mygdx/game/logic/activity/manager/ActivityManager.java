@@ -3,6 +3,7 @@ package com.mygdx.game.logic.activity.manager;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.Goblin;
@@ -24,9 +25,24 @@ public class ActivityManager {
 
         decisionTable = ImmutableMap.<Class<? extends Actor>, List<Decision>>builder()
 
+                .put(Ranger.class, ImmutableList.of(
+                        new ConsumeHealingpotionDecision(),
+                        new EquipDecision(),
+                        new MoveAndRangedAttackDecision(),
+                        new MoveAndAttackDecision(),
+                        new MovePickupDecision(),
+                        new EatingDecision(),
+                        new LeaveDungeonDecision(),
+                        new DungeonVisitingDecision(),
+                        new ExplorationDecision(),
+                        new MovePickupEatDecision(),
+                        new WanderingDecision())
+                )
+
                 .put(Warrior.class, ImmutableList.of(
                         new ConsumeHealingpotionDecision(),
                         new EquipDecision(),
+                        new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
                         new MovePickupDecision(),
                         new EatingDecision(),

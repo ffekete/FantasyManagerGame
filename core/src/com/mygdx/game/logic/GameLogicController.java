@@ -5,6 +5,7 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.regenerator.RegeneratorImpl;
 import com.mygdx.game.effect.manager.EffectManager;
+import com.mygdx.game.item.projectile.manager.ProjectileManager;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
@@ -25,6 +26,7 @@ public class GameLogicController {
     private final ActivityManager activityManager;
     private final EffectManager effectmanager;
     private final SpellManager spellManager;
+    private final ProjectileManager projectileManager;
 
     private MapRegistry mapRegistry = MapRegistry.INSTANCE;
     private DayTimeCalculator dayTimeCalculator = DayTimeCalculator.INSTANCE;
@@ -34,6 +36,7 @@ public class GameLogicController {
         this.activityManager = new ActivityManager();
         effectmanager = EffectManager.INSTANCE;
         spellManager = SpellManager.INSTANCE;
+        projectileManager = ProjectileManager.INSTANCE;
     }
 
     public void update() {
@@ -56,6 +59,7 @@ public class GameLogicController {
                 }
             });
             spellManager.update();
+            projectileManager.update();
             effectmanager.update();
             for(RegeneratorImpl regenerator: RegeneratorImpl.values()) {
                 regenerator.regenerateAll();
