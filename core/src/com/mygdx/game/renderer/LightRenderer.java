@@ -23,6 +23,7 @@ public class LightRenderer implements Renderer {
         spriteBatch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_DST_ALPHA);
 
         for(LightSource light : lightSourceRegistry.getFor(map)) {
+            light.update();
             spriteBatch.setColor(light.getColor());
             spriteBatch.draw(textureRegistry.getFor(light.getType()),light.getX() - light.getArea() / 2 + 0.5f, light.getY() - light.getArea() / 2 + 0.5f, (int)light.getArea(), (int)light.getArea());
         }

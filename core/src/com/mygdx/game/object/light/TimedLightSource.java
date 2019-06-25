@@ -1,30 +1,34 @@
 package com.mygdx.game.object.light;
 
 import com.badlogic.gdx.graphics.Color;
-import com.mygdx.game.actor.Actor;
+import com.mygdx.game.registry.LightSourceRegistry;
 
-public class ActorLightSource implements LightSource {
+public class TimedLightSource implements LightSource {
 
-    private final Actor actor;
+    private final int x;
+    private final int y;
     private final Color color;
     private final float area;
     private final LightSourceType lightSourceType;
+    private int counter;
 
-    public ActorLightSource(Actor actor, Color color, float area, LightSourceType lightSourceType) {
-        this.actor = actor;
+    public TimedLightSource(int x, int y, Color color, float area, LightSourceType lightSourceType, int counter) {
+        this.x = x;
+        this.y = y;
         this.color = color;
         this.area = area;
         this.lightSourceType = lightSourceType;
+        this.counter = counter;
     }
 
     @Override
     public float getX() {
-        return actor.getX() + actor.getxOffset();
+        return x;
     }
 
     @Override
     public float getY() {
-        return actor.getY() + actor.getyOffset();
+        return y;
     }
 
     @Override
@@ -39,7 +43,10 @@ public class ActorLightSource implements LightSource {
 
     @Override
     public void update() {
-
+        counter--;
+        if(counter < 0) {
+            LightSourceRegistry.INSTANCE.remove(this);
+        }
     }
 
     @Override

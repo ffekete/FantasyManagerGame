@@ -65,7 +65,7 @@ public class MoveAndAttackDecision implements Decision {
 
                 int halfWay = path.size() / 2;
 
-                if (path.size()-1 <= actor.getAttackRange()) {
+                if (path.size()-1 < actor.getAttackRange()) {
                     actor.getActivityStack().add(new SimpleAttackActivity(actor, enemy));
                 } else {
                     // need to move closer
@@ -88,7 +88,7 @@ public class MoveAndAttackDecision implements Decision {
                 // if enemy is not already fighting then give a path to this enemy as well to the actor
                 if (!enemy.getActivityStack().contains(RangedAttackActivity.class) && !enemy.getActivityStack().contains(SimpleAttackActivity.class) && !enemy.getActivityStack().contains(MoveThenAttackActivity.class)) {
                     enemy.getActivityStack().clear();
-                    if (path.size()-1 <= enemy.getAttackRange()) {
+                    if (path.size()-1 < enemy.getAttackRange()) {
                         enemy.getActivityStack().add(new SimpleAttackActivity(enemy, actor));
                     } else {
                         actorMovementHandler.clearPath(enemy);

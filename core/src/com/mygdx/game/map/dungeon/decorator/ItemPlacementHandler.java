@@ -23,11 +23,10 @@ public class ItemPlacementHandler {
 
         List<Class<? extends Item>> tier1Items = itemRegistry.getFor(Tier1.class);
 
-        for(int i = 0; i < 10; i++) {
+        for(int i = 0; i < new Random().nextInt(5) + 5; i++) {
             int r = new Random().nextInt(tier1Items.size());
             itemFactory.create(tier1Items.get(r), map, Placement.RANDOM);
         }
-
     }
 
 }

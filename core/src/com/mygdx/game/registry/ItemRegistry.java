@@ -14,6 +14,8 @@ import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.shield.SmallShiled;
+import com.mygdx.game.item.weapon.bow.LongBow;
+import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.PoisonFang;
 import com.mygdx.game.item.weapon.sword.ShortSword;
@@ -41,6 +43,10 @@ public class ItemRegistry {
                     .add(MediumShield.class)
                     // Sword
                     .add(ShortSword.class)
+                    // staff
+                    .add(JadeStaff.class)
+                    // bow
+                    .add(LongBow.class)
                     // Armor
                     .build())
 

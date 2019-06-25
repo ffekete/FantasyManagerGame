@@ -2,11 +2,12 @@ package com.mygdx.game.item.weapon.staff;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.logic.Point;
 
 import java.util.Random;
 
-public class JadeStaff implements Staff {
+public class JadeStaff implements Staff, Tier1 {
     @Override
     public int getDamage() {
         return new Random().nextInt(3) + 1;

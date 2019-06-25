@@ -7,9 +7,13 @@ import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.object.light.LightSourceType;
 
+import java.util.Random;
+
 public class StandingTorch implements WorldObject, LightSource, AnimatedObject {
 
     private Point coordinates;
+    private float flickering = 0.0f;
+    private int counter = 0;
 
     public StandingTorch(Point point) {
         coordinates = point;
@@ -27,7 +31,7 @@ public class StandingTorch implements WorldObject, LightSource, AnimatedObject {
 
     @Override
     public float getArea() {
-        return 4;
+        return 4 + flickering;
     }
 
     @Override
@@ -38,6 +42,16 @@ public class StandingTorch implements WorldObject, LightSource, AnimatedObject {
     @Override
     public LightSourceType getType() {
         return LightSourceType.Ambient;
+    }
+
+    @Override
+    public void update() {
+        counter += 1;
+
+        if(counter >= 5) {
+            flickering = new Random().nextFloat() / 5;
+            counter = 0;
+        }
     }
 
     @Override

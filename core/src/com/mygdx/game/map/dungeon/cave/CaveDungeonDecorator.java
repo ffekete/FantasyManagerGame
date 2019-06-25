@@ -3,6 +3,7 @@ package com.mygdx.game.map.dungeon.cave;
 import com.mygdx.game.Config;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.Decorator;
+import com.mygdx.game.map.dungeon.decorator.Decoration;
 import com.mygdx.game.object.decoration.SpiderWeb;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
@@ -21,8 +22,10 @@ public class CaveDungeonDecorator implements Decorator {
 
                 int mask = MapUtils.bitmask4bit(map, i,j);
 
-                if(mask == 3 && !map.getTile(i,j).isObstacle() && new Random().nextInt(Config.Dungeon.WORLD_OBJECT_SPAWN_RATE) == 0) {
-                    ObjectFactory.create(SpiderWeb.class, map, ObjectPlacement.FIXED.X(i).Y(j));
+                for(Decoration decoration : Decoration.values()) {
+                    if(decoration.place(map, mask, i,j)) {
+                        break;
+                    }
                 }
             }
         }

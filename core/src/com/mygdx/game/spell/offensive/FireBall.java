@@ -1,5 +1,6 @@
 package com.mygdx.game.spell.offensive;
 
+import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.FireDamage;
@@ -8,8 +9,11 @@ import com.mygdx.game.logic.action.Action;
 import com.mygdx.game.logic.action.ExplosionAction;
 import com.mygdx.game.logic.action.FireboltAction;
 import com.mygdx.game.map.Map2D;
+import com.mygdx.game.object.light.LightSourceType;
+import com.mygdx.game.object.light.TimedLightSource;
 import com.mygdx.game.registry.ActionRegistry;
 import com.mygdx.game.registry.EffectRegistry;
+import com.mygdx.game.registry.LightSourceRegistry;
 import com.mygdx.game.spell.*;
 
 import java.util.ArrayList;
@@ -59,7 +63,7 @@ public class FireBall implements Spell, FireSpell, OffensiveSpell {
         new FireAreaDamage(caster).calculate(end, map, Config.Spell.FIREBALL_RANGE, new Random().nextInt(5) + 12);
         caster.setMana(caster.getMana() - Config.Spell.FIREBALL_MANA_COST);
         EffectRegistry.INSTANCE.add(new FireDamage(1, 5, target, caster), target);
-
+        LightSourceRegistry.INSTANCE.add(map, new TimedLightSource(target.getX(), target.getY(), Color.RED, 15f, LightSourceType.Beam, 10));
     }
 
     @Override

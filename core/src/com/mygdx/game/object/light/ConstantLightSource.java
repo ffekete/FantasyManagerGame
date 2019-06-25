@@ -40,6 +40,11 @@ public class ConstantLightSource implements LightSource {
     }
 
     @Override
+    public void update() {
+
+    }
+
+    @Override
     public float getArea() {
         return area;
     }

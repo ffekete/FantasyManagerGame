@@ -9,5 +9,5 @@ public interface LightSource {
     float getArea();
     Color getColor();
     LightSourceType getType();
-
+    void update();
 }

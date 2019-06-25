@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.item.potion.SmallHealingPotion;
+import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.map.TileBase;
 import com.mygdx.game.map.dungeon.Tile;
@@ -46,14 +47,15 @@ public class TextureRegistry {
                 .build();
 
         textures = ImmutableMap.<Class, Texture>builder()
-                .put(ShortSword.class, new Texture(Gdx.files.internal("ShortSword.png")))
-                .put(Bread.class, new Texture(Gdx.files.internal("bread.png")))
-                .put(SmallHealingPotion.class, new Texture(Gdx.files.internal("HealingPotion.png")))
-                .put(SmallShiled.class, new Texture(Gdx.files.internal("SmallShield.png")))
-                .put(MediumShield.class, new Texture(Gdx.files.internal("MediumShield.png")))
-                .put(PoisonFang.class, new Texture(Gdx.files.internal("PoisonFang.png")))
-                .put(FlameTongue.class, new Texture(Gdx.files.internal("Flametongue.png")))
-                .put(JadeStaff.class, new Texture(Gdx.files.internal("JadeStaff.png")))
+                .put(ShortSword.class, new Texture(Gdx.files.internal("items/ShortSword.png")))
+                .put(Bread.class, new Texture(Gdx.files.internal("items/bread.png")))
+                .put(SmallHealingPotion.class, new Texture(Gdx.files.internal("items/HealingPotion.png")))
+                .put(SmallShiled.class, new Texture(Gdx.files.internal("items/SmallShield.png")))
+                .put(MediumShield.class, new Texture(Gdx.files.internal("items/MediumShield.png")))
+                .put(PoisonFang.class, new Texture(Gdx.files.internal("items/PoisonFang.png")))
+                .put(FlameTongue.class, new Texture(Gdx.files.internal("items/Flametongue.png")))
+                .put(JadeStaff.class, new Texture(Gdx.files.internal("items/JadeStaff.png")))
+                .put(LongBow.class, new Texture(Gdx.files.internal("items/LongBow.png")))
                 .build();
 
         mapTextures = ImmutableMap.<TileBase, Texture>builder()

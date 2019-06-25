@@ -105,7 +105,7 @@ public class CaveDungeonRendererSample extends SampleBase {
 
         hero.setName("Adavark");
         hero.equip(new FlameTongue());
-        CameraPositionController.INSTANCE.focusOn(hero2);
+        CameraPositionController.INSTANCE.focusOn(hero);
 
         StandingTorch standingTorch = ObjectFactory.create(StandingTorch.class, dungeon, ObjectPlacement.FIXED.X(hero.getX()).Y(hero.getY()));
     }
