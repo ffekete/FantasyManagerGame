@@ -2,9 +2,9 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.MeleeActor;
 import com.mygdx.game.common.SelectionUtils;
 import com.mygdx.game.item.weapon.RangedWeapon;
-import com.mygdx.game.item.weapon.bow.Bow;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.CompoundActivity;
 import com.mygdx.game.logic.activity.compound.MoveThenAttackActivity;
@@ -85,8 +85,8 @@ public class MoveAndAttackDecision implements Decision {
 
                 }
 
-                // if enemy is not already fighting then give a path to this enemy as well to the actor
-                if (!enemy.getActivityStack().contains(RangedAttackActivity.class) && !enemy.getActivityStack().contains(SimpleAttackActivity.class) && !enemy.getActivityStack().contains(MoveThenAttackActivity.class)) {
+                // if a melee enemy is not already fighting then give a path to this enemy as well to the actor
+                if (MeleeActor.class.isAssignableFrom(enemy.getClass()) && !enemy.getActivityStack().contains(RangedAttackActivity.class) && !enemy.getActivityStack().contains(SimpleAttackActivity.class) && !enemy.getActivityStack().contains(MoveThenAttackActivity.class)) {
                     enemy.getActivityStack().clear();
                     if (path.size()-1 < enemy.getAttackRange()) {
                         enemy.getActivityStack().add(new SimpleAttackActivity(enemy, actor));

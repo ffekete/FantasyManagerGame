@@ -1,11 +1,12 @@
 package com.mygdx.game.actor.monster;
 
 import com.mygdx.game.actor.AbstractActor;
+import com.mygdx.game.actor.MeleeActor;
 import com.mygdx.game.item.category.Tier1;
 
 import static com.mygdx.game.faction.Alignment.ENEMY;
 
-public class Goblin extends AbstractActor {
+public class Goblin extends AbstractActor implements MeleeActor {
 
     public Goblin() {
         this.setAlignment(ENEMY);

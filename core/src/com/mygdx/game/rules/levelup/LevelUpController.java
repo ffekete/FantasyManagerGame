@@ -5,7 +5,7 @@ import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.Skill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.hero.Hero;
-import com.mygdx.game.actor.hero.MeleeHero;
+import com.mygdx.game.actor.MeleeActor;
 
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +45,7 @@ public class LevelUpController {
             List<Skill> skillsNotMaxedAlready = skillFocus.stream().filter(skill -> killer.getSkillLevel(skill) < 6).collect(Collectors.toList());
 
 
-            if(MeleeHero.class.isAssignableFrom(killer.getClass())) {
+            if(MeleeActor.class.isAssignableFrom(killer.getClass())) {
                 if (skillsNotMaxedAlready.size() == 0) {
                     skillsNotMaxedAlready = Arrays.stream(WeaponSkill.values()).filter(weaponSkill -> killer.getSkillLevel(weaponSkill) < 6).collect(Collectors.toList());
                 }

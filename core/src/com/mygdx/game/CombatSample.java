@@ -76,19 +76,24 @@ public class CombatSample extends SampleBase {
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
-        hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(3).Y(1));
+        //hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(3).Y(1));
         hero2 = ActorFactory.INSTANCE.create(Wizard.class, dungeon, Placement.FIXED.X(0).Y(0));
-        hero3 = ActorFactory.INSTANCE.create(Ranger.class, dungeon, Placement.FIXED.X(0).Y(1));
+//        hero3 = ActorFactory.INSTANCE.create(Ranger.class, dungeon, Placement.FIXED.X(0).Y(1));
+//        hero3.getWeaponSkills().put(WeaponSkill.Bow, 2);
 
-        hero.getInventory().add(new SmallHealingPotion());
-        hero.getInventory().add(new SmallHealingPotion());
-        hero.getInventory().add(new SmallHealingPotion());
-        hero.equip(new MediumShield());
-
-        hero3.equip(new LongBow());
-
+//        hero.getInventory().add(new SmallHealingPotion());
+//        hero.getInventory().add(new SmallHealingPotion());
+//        hero.getInventory().add(new SmallHealingPotion());
+//        hero.equip(new MediumShield());
+//        hero.setName("Adavark");
+//        hero.getWeaponSkills().put(WeaponSkill.Sword, 5);
+//        hero.setRightHandItem(new FlameTongue());
+//
         hero2.equip(new JadeStaff());
         hero2.addExperiencePoints(2100);
+
+//        hero3.equip(new LongBow());
+//        hero3.addExperiencePoints(2200);
 
         Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(5).Y(0));
         Actor s2 = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(0).Y(5));
@@ -100,11 +105,8 @@ public class CombatSample extends SampleBase {
         MapRegistry.INSTANCE.setCurrentMapToShow(dungeon);
         MapRegistry.INSTANCE.add(dungeon);
 
-        hero.setName("Adavark");
-        hero.getWeaponSkills().put(WeaponSkill.Sword, 5);
-        hero.setRightHandItem(new FlameTongue());
 
-        CameraPositionController.INSTANCE.focusOn(hero3);
+        CameraPositionController.INSTANCE.focusOn(hero2);
 
     }
 

@@ -1,6 +1,7 @@
 package com.mygdx.game.actor.hero;
 
 import com.mygdx.game.actor.AbstractActor;
+import com.mygdx.game.actor.CasterActor;
 import com.mygdx.game.actor.factory.SkillFocusFactory;
 import com.mygdx.game.item.spelltome.SpellTome;
 import com.mygdx.game.spell.offensive.FireBall;
@@ -9,7 +10,7 @@ import com.mygdx.game.spell.offensive.Slow;
 
 import static com.mygdx.game.faction.Alignment.FRIENDLY;
 
-public class Wizard extends AbstractActor implements CasterHero, Hero {
+public class Wizard extends AbstractActor implements CasterActor, Hero {
 
     public Wizard() {
         setAlignment(FRIENDLY);

@@ -1,10 +1,11 @@
 package com.mygdx.game.actor.monster;
 
 import com.mygdx.game.actor.AbstractActor;
+import com.mygdx.game.actor.MeleeActor;
 
 import static com.mygdx.game.faction.Alignment.ENEMY;
 
-public class Orc extends AbstractActor  {
+public class Orc extends AbstractActor implements MeleeActor {
 
     public Orc() {
         this.setAlignment(ENEMY);
