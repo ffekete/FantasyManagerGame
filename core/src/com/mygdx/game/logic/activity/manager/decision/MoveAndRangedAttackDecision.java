@@ -3,6 +3,7 @@ package com.mygdx.game.logic.activity.manager.decision;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.common.SelectionUtils;
+import com.mygdx.game.item.weapon.RangedWeapon;
 import com.mygdx.game.item.weapon.bow.Bow;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.CompoundActivity;
@@ -40,7 +41,7 @@ public class MoveAndRangedAttackDecision implements Decision {
             return true;
         }
 
-        if (Bow.class.isAssignableFrom(actor.getRightHandItem().getClass()) &&
+        if (RangedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass()) &&
                 !actor.getActivityStack().contains(MoveThenAttackActivity.class) ||
                 !actor.getActivityStack().contains(SimpleAttackActivity.class) ||
                 !actor.getActivityStack().contains(RangedAttackActivity.class)) {

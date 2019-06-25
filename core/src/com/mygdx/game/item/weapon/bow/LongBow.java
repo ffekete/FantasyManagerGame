@@ -2,11 +2,12 @@ package com.mygdx.game.item.weapon.bow;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.item.weapon.RangedWeapon;
 import com.mygdx.game.logic.Point;
 
 import java.util.Random;
 
-public class LongBow implements Bow {
+public class LongBow implements Bow, RangedWeapon {
     @Override
     public int getDamage() {
         return new Random().nextInt(4) + 4;

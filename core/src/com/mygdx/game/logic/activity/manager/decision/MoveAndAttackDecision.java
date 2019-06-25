@@ -3,13 +3,12 @@ package com.mygdx.game.logic.activity.manager.decision;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.common.SelectionUtils;
+import com.mygdx.game.item.weapon.RangedWeapon;
 import com.mygdx.game.item.weapon.bow.Bow;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.CompoundActivity;
 import com.mygdx.game.logic.activity.compound.MoveThenAttackActivity;
-import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
-import com.mygdx.game.logic.activity.single.RangedAttackActivity;
-import com.mygdx.game.logic.activity.single.SimpleAttackActivity;
+import com.mygdx.game.logic.activity.single.*;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.registry.ActorRegistry;
@@ -29,99 +28,96 @@ public class MoveAndAttackDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
+        // this will be handled by a different decision class
+        if(RangedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass()))
+            return false;
+
         // already attacking, the decision chain should end here
-        if(actor.getActivityStack().contains(MoveThenAttackActivity.class) ||
+        if (actor.getActivityStack().contains(MoveThenAttackActivity.class) ||
                 actor.getActivityStack().contains(SimpleAttackActivity.class) ||
                 actor.getActivityStack().contains(RangedAttackActivity.class)) {
             return true;
         }
 
-        if (!Bow.class.isAssignableFrom(actor.getRightHandItem().getClass()) &&
-                !actor.getActivityStack().contains(MoveThenAttackActivity.class) &&
-                !actor.getActivityStack().contains(RangedAttackActivity.class) &&
-                !actor.getActivityStack().contains(SimpleAttackActivity.class)) {
+        Actor enemy = SelectionUtils.findClosestEnemy(actor, actorRegistry.getActors(actor.getCurrentMap()), Config.ATTACK_DISTANCE);
+        if (enemy != null) {
+            if (distance(actor.getCoordinates(), enemy.getCoordinates()) > actor.getAttackRange()) {
 
-            Actor enemy = SelectionUtils.findClosestEnemy(actor, actorRegistry.getActors(actor.getCurrentMap()), Config.ATTACK_DISTANCE);
-            if (enemy != null) {
-                if (distance(actor.getCoordinates(), enemy.getCoordinates()) > actor.getAttackRange()) {
+                actor.getActivityStack().clear();
 
-                    actor.getActivityStack().clear();
+                PathFinder pathFinder = mapRegistry.getPathFinderFor(actor.getCurrentMap());
 
-                    PathFinder pathFinder = mapRegistry.getPathFinderFor(actor.getCurrentMap());
+                long startDate = System.currentTimeMillis();
+                List<PathFinder.Node> path;
 
-                    long startDate = System.currentTimeMillis();
-                    List<PathFinder.Node> path;
-                    if (PreCalculatedMovementActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass())) {
+                // if enemy is already moving
+                if (PreCalculatedMovementActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass())) {
 
-                        PreCalculatedMovementActivity movementActivity = ((PreCalculatedMovementActivity) enemy.getActivityStack().getCurrent().getCurrentActivity());
-                        Point target;
-                        if(movementActivity == null) {
-                            target = enemy.getCoordinates();
-                        } else {
-                            target = Point.of(movementActivity.getTargetX(), movementActivity.getTargetY());
-                        }
+                    PreCalculatedMovementActivity movementActivity = ((PreCalculatedMovementActivity) enemy.getActivityStack().getCurrent().getCurrentActivity());
 
-                        path = pathFinder.findAStar(actor.getCoordinates(), target);
-                    } else {
-                        path = pathFinder.findAStar(actor.getCoordinates(), enemy.getCoordinates());
-                    }
-                    System.out.println("Pathfinding took " + (System.currentTimeMillis() - startDate));
+                    Point target = Point.of(movementActivity.getTargetX(), movementActivity.getTargetY());
 
-                    int halfWay = path.size() / 2;
-
-                    if (path.size() < actor.getAttackRange()) {
-                        actor.getActivityStack().add(new SimpleAttackActivity(actor, enemy));
-                    } else {
-                        actorMovementHandler.clearPath(actor);
-                        List<PathFinder.Node> actorPath = new ArrayList<>();
-                        int start = enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(RangedAttackActivity.class) || enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(SimpleAttackActivity.class) ? 1 : halfWay;
-                        int end = path.size();
-
-                        // if enemy is already fighting
-                        if (SimpleAttackActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass())) {
-                            start = 1;
-                            end = path.size();
-                        } else if (PreCalculatedMovementActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass())) {
-                            start = 1;
-                            end = path.size();
-                        }
-                        for (int i = start; i < end; i++) {
-                            actorPath.add(path.get(i));
-                        }
-                        //actorMovementHandler.registerActorPath(actor, actorPath);
-                        CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY);
-                        compoundActivityForActor.add(new PreCalculatedMovementActivity(actor, actorPath));
-                        compoundActivityForActor.add(new SimpleAttackActivity(actor, enemy));
-                        actor.getActivityStack().add(compoundActivityForActor);
-
-                    }
-
-                    // todo what to do if the actor kills an enemy when this enemy is on its way towards the actor?
-                    // if enemy is not already fighting then give a path to this enemy as well to the actor
-                    if (!enemy.getActivityStack().contains(RangedAttackActivity.class) && !enemy.getActivityStack().contains(SimpleAttackActivity.class) && !enemy.getActivityStack().contains(MoveThenAttackActivity.class)) {
-                        enemy.getActivityStack().clear();
-                        if (path.size() < enemy.getAttackRange()) {
-                            enemy.getActivityStack().add(new SimpleAttackActivity(enemy, actor));
-                        } else {
-                            actorMovementHandler.clearPath(enemy);
-                            List<PathFinder.Node> enemyPath = new ArrayList<>();
-                            for (int i = halfWay - 1; i >= 0; i--) {
-                                enemyPath.add(path.get(i));
-                            }
-                            //actorMovementHandler.registerActorPath(enemy, enemyPath);
-                            CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY);
-                            compoundActivityForActor.add(new PreCalculatedMovementActivity(enemy, enemyPath));
-                            compoundActivityForActor.add(new SimpleAttackActivity(enemy, actor));
-                            enemy.getActivityStack().add(compoundActivityForActor);
-                        }
-                    }
-
-                    return true;
+                    path = pathFinder.findAStar(actor.getCoordinates(), target);
                 } else {
-                    actor.getActivityStack().add(new SimpleAttackActivity(actor, enemy));
+                    path = pathFinder.findAStar(actor.getCoordinates(), enemy.getCoordinates());
                 }
+                System.out.println("Pathfinding took " + (System.currentTimeMillis() - startDate));
+
+                int halfWay = path.size() / 2;
+
+                if (path.size()-1 <= actor.getAttackRange()) {
+                    actor.getActivityStack().add(new SimpleAttackActivity(actor, enemy));
+                } else {
+                    // need to move closer
+                    actorMovementHandler.clearPath(actor);
+                    List<PathFinder.Node> actorPath = new ArrayList<>();
+                    int start = isActorAlreadyFighting(enemy) ? 1 : halfWay;
+                    int end = path.size();
+
+                    for (int i = start; i < end; i++) {
+                        actorPath.add(path.get(i));
+                    }
+                    //actorMovementHandler.registerActorPath(actor, actorPath);
+                    CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY);
+                    compoundActivityForActor.add(new PreCalculatedMovementActivity(actor, actorPath));
+                    compoundActivityForActor.add(new SimpleAttackActivity(actor, enemy));
+                    actor.getActivityStack().add(compoundActivityForActor);
+
+                }
+
+                // if enemy is not already fighting then give a path to this enemy as well to the actor
+                if (!enemy.getActivityStack().contains(RangedAttackActivity.class) && !enemy.getActivityStack().contains(SimpleAttackActivity.class) && !enemy.getActivityStack().contains(MoveThenAttackActivity.class)) {
+                    enemy.getActivityStack().clear();
+                    if (path.size()-1 <= enemy.getAttackRange()) {
+                        enemy.getActivityStack().add(new SimpleAttackActivity(enemy, actor));
+                    } else {
+                        actorMovementHandler.clearPath(enemy);
+                        List<PathFinder.Node> enemyPath = new ArrayList<>();
+
+                        for (int i = halfWay - 1; i >= 0; i--) {
+                            enemyPath.add(path.get(i));
+                        }
+
+                        //actorMovementHandler.registerActorPath(enemy, enemyPath);
+                        CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY);
+                        compoundActivityForActor.add(new PreCalculatedMovementActivity(enemy, enemyPath));
+                        compoundActivityForActor.add(new SimpleAttackActivity(enemy, actor));
+                        enemy.getActivityStack().add(compoundActivityForActor);
+                    }
+                }
+                return true;
+            } else {
+                actor.getActivityStack().add(new SimpleAttackActivity(actor, enemy));
             }
         }
+
         return false;
+    }
+
+    private boolean isActorAlreadyFighting(Actor enemy) {
+        return enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(PreCalculatedMovementActivity.class) ||
+                enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(OffensiveSpellCastActivity.class) ||
+                enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(RangedAttackActivity.class) ||
+                enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(SimpleAttackActivity.class);
     }
 }

@@ -28,64 +28,6 @@ public class MoveAndRangedAttackDecisionTest {
     private final MapRegistry mapRegistry = MapRegistry.INSTANCE;
 
     @Test
-    public void decideTest_shouldFail_rangedEquipped() {
-        // given
-        Map2D dungeon = new DummyDungeonCreator().create(5);
-        VisitedArea[][] map = new VisitedArea[Config.Dungeon.DUNGEON_WIDTH][Config.Dungeon.DUNGEON_HEIGHT];
-
-        for (int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
-            for (int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {
-                map[i][j] = VisitedArea.NOT_VISITED;
-            }
-        }
-
-        map[5][5] = VisitedArea.VISIBLE;
-        map[1][1] = VisitedArea.VISIBLE;
-
-        dungeon.setVisitedAreaMap(map);
-
-        mapRegistry.setCurrentMapToShow(dungeon);
-        mapRegistry.add(dungeon);
-
-        Actor hero = new Warrior();
-        hero.setCoordinates(Point.of(1,1));
-        hero.setCurrentMap(dungeon);
-        hero.setRightHandItem(new LongBow());
-
-        Actor skeleton = new Skeleton();
-        skeleton.setCoordinates(Point.of(0,5));
-        skeleton.setRightHandItem(new ShortSword());
-        skeleton.setCurrentMap(dungeon);
-
-        Actor skeleton2 = new Skeleton();
-        skeleton2.setCoordinates(Point.of(5,0));
-        skeleton2.setRightHandItem(new ShortSword());
-        skeleton2.setCurrentMap(dungeon);
-
-        MoveAndAttackDecision moveAndAttackDecision = new MoveAndAttackDecision();
-
-        actorRegistry.add(dungeon, hero);
-        actorRegistry.add(dungeon, skeleton);
-        actorRegistry.add(dungeon, skeleton2);
-
-        dungeon.getVisitedareaMap()[1][1] = VisitedArea.VISIBLE;
-        dungeon.getVisitedareaMap()[0][5] = VisitedArea.VISIBLE;
-        dungeon.getVisitedareaMap()[5][0] = VisitedArea.VISIBLE;
-
-        VisibilityMapRegistry.INSTANCE.getFor(dungeon).setValue(0,5, hero);
-        VisibilityMapRegistry.INSTANCE.getFor(dungeon).setValue(5,0, hero);
-        VisibilityMapRegistry.INSTANCE.getFor(dungeon).setValue(1,1, skeleton);
-        VisibilityMapRegistry.INSTANCE.getFor(dungeon).setValue(1,1, skeleton2);
-
-        // when
-
-        boolean decisionResult = moveAndAttackDecision.decide(hero);
-
-        // then
-        assertThat(decisionResult, is(false));
-    }
-
-    @Test
     public void decideTest_ranged() {
         // given
         Map2D dungeon = new DummyDungeonCreator().create(5);
@@ -171,6 +113,100 @@ public class MoveAndRangedAttackDecisionTest {
         assertThat(skeleton2.getActivityStack().getSize(), is(2));
         heroActivity = hero.getActivityStack().getCurrent();
         assertThat(RangedAttackActivity.class.isAssignableFrom(heroActivity.getCurrentClass()), is(true));
+        skeletonActivity = skeleton.getActivityStack().getCurrent();
+        assertThat(PreCalculatedMovementActivity.class.isAssignableFrom(skeletonActivity.getCurrentClass()), is(true));
+        skeletonActivity2 = skeleton2.getActivityStack().getCurrent();
+        assertThat(PreCalculatedMovementActivity.class.isAssignableFrom(skeletonActivity2.getCurrentClass()), is(true));
+
+
+    }
+
+    @Test
+    public void decideTest_shouldFail_meleeWeaponEquipped() {
+        // given
+        Map2D dungeon = new DummyDungeonCreator().create(5);
+        VisitedArea[][] map = new VisitedArea[Config.Dungeon.DUNGEON_WIDTH][Config.Dungeon.DUNGEON_HEIGHT];
+
+        for (int i = 0; i < Config.Dungeon.DUNGEON_WIDTH; i++) {
+            for (int j = 0; j < Config.Dungeon.DUNGEON_HEIGHT; j++) {
+                map[i][j] = VisitedArea.NOT_VISITED;
+            }
+        }
+
+        map[5][5] = VisitedArea.VISIBLE;
+        map[1][1] = VisitedArea.VISIBLE;
+
+        dungeon.setVisitedAreaMap(map);
+
+        mapRegistry.setCurrentMapToShow(dungeon);
+        mapRegistry.add(dungeon);
+
+        Actor hero = new Warrior();
+        hero.setCoordinates(Point.of(1,1));
+        hero.setCurrentMap(dungeon);
+        hero.setRightHandItem(new ShortSword());
+
+        Actor skeleton = new Skeleton();
+        skeleton.setCoordinates(Point.of(0,5));
+        skeleton.setRightHandItem(new ShortSword());
+        skeleton.setCurrentMap(dungeon);
+
+        Actor skeleton2 = new Skeleton();
+        skeleton2.setCoordinates(Point.of(5,0));
+        skeleton2.setRightHandItem(new ShortSword());
+        skeleton2.setCurrentMap(dungeon);
+
+        MoveAndRangedAttackDecision moveAndRangedAttackDecision = new MoveAndRangedAttackDecision();
+
+        actorRegistry.add(dungeon, hero);
+        actorRegistry.add(dungeon, skeleton);
+        actorRegistry.add(dungeon, skeleton2);
+
+        dungeon.getVisitedareaMap()[1][1] = VisitedArea.VISIBLE;
+        dungeon.getVisitedareaMap()[0][5] = VisitedArea.VISIBLE;
+        dungeon.getVisitedareaMap()[5][0] = VisitedArea.VISIBLE;
+
+        VisibilityMapRegistry.INSTANCE.getFor(dungeon).setValue(0,5, hero);
+        VisibilityMapRegistry.INSTANCE.getFor(dungeon).setValue(5,0, hero);
+        VisibilityMapRegistry.INSTANCE.getFor(dungeon).setValue(1,1, skeleton);
+        VisibilityMapRegistry.INSTANCE.getFor(dungeon).setValue(1,1, skeleton2);
+
+        // when
+
+        boolean decisionResult = moveAndRangedAttackDecision.decide(hero);
+        boolean decisionResultForSkeleton = new MoveAndAttackDecision().decide(skeleton);
+        boolean decisionResultForSkeleton2 = new MoveAndAttackDecision().decide(skeleton2);
+
+        // then
+        assertThat(decisionResult, is(false));
+        assertThat(decisionResultForSkeleton, is(true));
+        assertThat(decisionResultForSkeleton2, is(true));
+
+        assertThat(hero.getActivityStack().getSize(), is(2));
+        assertThat(skeleton.getActivityStack().getSize(), is(2));
+        assertThat(skeleton2.getActivityStack().getSize(), is(2));
+        Activity heroActivity = hero.getActivityStack().getCurrent();
+        assertThat(RangedAttackActivity.class.isAssignableFrom(heroActivity.getCurrentClass()), is(false));
+        Activity skeletonActivity = skeleton.getActivityStack().getCurrent();
+        assertThat(PreCalculatedMovementActivity.class.isAssignableFrom(skeletonActivity.getCurrentClass()), is(true));
+        Activity skeletonActivity2 = skeleton2.getActivityStack().getCurrent();
+        assertThat(PreCalculatedMovementActivity.class.isAssignableFrom(skeletonActivity2.getCurrentClass()), is(true));
+
+        // then run again
+        decisionResult = moveAndRangedAttackDecision.decide(hero);
+        decisionResultForSkeleton = new MoveAndAttackDecision().decide(skeleton);
+        decisionResultForSkeleton2 = new MoveAndAttackDecision().decide(skeleton2);
+
+        // then
+        assertThat(decisionResult, is(false));
+        assertThat(decisionResultForSkeleton, is(true));
+        assertThat(decisionResultForSkeleton2, is(true));
+
+        assertThat(hero.getActivityStack().getSize(), is(2));
+        assertThat(skeleton.getActivityStack().getSize(), is(2));
+        assertThat(skeleton2.getActivityStack().getSize(), is(2));
+        heroActivity = hero.getActivityStack().getCurrent();
+        assertThat(RangedAttackActivity.class.isAssignableFrom(heroActivity.getCurrentClass()), is(false));
         skeletonActivity = skeleton.getActivityStack().getCurrent();
         assertThat(PreCalculatedMovementActivity.class.isAssignableFrom(skeletonActivity.getCurrentClass()), is(true));
         skeletonActivity2 = skeleton2.getActivityStack().getCurrent();
