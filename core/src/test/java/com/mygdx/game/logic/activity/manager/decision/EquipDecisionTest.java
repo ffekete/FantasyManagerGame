@@ -90,6 +90,17 @@ public class EquipDecisionTest {
     }
 
     @Test
+    public void testShouldFail_shield_twoHandedWeaponInRightHand() {
+        Actor actor = new Warrior();
+        actor.equip(new LongBow());
+        actor.getInventory().add(new SmallShiled());
+
+        Decision decision = new EquipDecision();
+        boolean result = decision.decide(actor);
+        assertThat(result, is(false));
+    }
+
+    @Test
     public void testShouldPass_shield_betterIsInInventory() {
         Actor actor = new Warrior();
         actor.equip(new ShortSword());

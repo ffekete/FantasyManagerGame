@@ -12,10 +12,12 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Warrior;
+import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
@@ -67,8 +69,6 @@ public class WorldMapSample extends SampleBase {
     MapGenerator mapGenerator = new WorldMapGenerator();
     DungeonFactory dungeonFactory = DungeonFactory.INSTANCE;
 
-    LinkedWorldObjectFactory objectFactory = LinkedWorldObjectFactory.INSTANCE;
-
     ShapeRenderer shapeRenderer;
 
     @Override
@@ -87,7 +87,7 @@ public class WorldMapSample extends SampleBase {
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 
-        hero = ActorFactory.INSTANCE.create(Warrior.class, worldMap, Placement.FIXED.X(10).Y(10));
+        hero = ActorFactory.INSTANCE.create(Wizard.class, worldMap, Placement.FIXED.X(10).Y(10));
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
@@ -111,7 +111,7 @@ public class WorldMapSample extends SampleBase {
 
         hero.setName("Adavark");
 
-        hero.equip(new FlameTongue());
+        hero.equip(new JadeStaff());
 
         MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
 

@@ -27,6 +27,7 @@ import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.MapGenerator;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
+import com.mygdx.game.map.dungeon.factory.DungeonFactory;
 import com.mygdx.game.object.decoration.StandingTorch;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
@@ -70,7 +71,7 @@ public class CaveDungeonRendererSample extends SampleBase {
         spriteBatch.enableBlending();
         SpriteBatchRegistry.INSTANCE.setSpriteBatch(spriteBatch);
 
-        dungeon = dungeonCreator.create(3);
+        dungeon = DungeonFactory.INSTANCE.create(CaveDungeonCreator.class);
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
 

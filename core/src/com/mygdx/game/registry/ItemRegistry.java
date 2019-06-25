@@ -19,6 +19,7 @@ import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.PoisonFang;
 import com.mygdx.game.item.weapon.sword.ShortSword;
+import com.mygdx.game.item.weapon.sword.ShortSwordPlusOne;
 import com.mygdx.game.map.Map2D;
 
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class ItemRegistry {
                     // Potion
                     // Shield
                     // Sword
+                    .add(ShortSwordPlusOne.class)
                     // Armor
                     .build())
 

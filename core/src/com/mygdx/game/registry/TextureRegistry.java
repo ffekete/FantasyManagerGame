@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
+import com.mygdx.game.item.weapon.sword.ShortSwordPlusOne;
 import com.mygdx.game.map.TileBase;
 import com.mygdx.game.map.dungeon.Tile;
 import com.mygdx.game.item.shield.MediumShield;
@@ -48,6 +49,7 @@ public class TextureRegistry {
 
         textures = ImmutableMap.<Class, Texture>builder()
                 .put(ShortSword.class, new Texture(Gdx.files.internal("items/ShortSword.png")))
+                .put(ShortSwordPlusOne.class, new Texture(Gdx.files.internal("items/ShortSword.png")))
                 .put(Bread.class, new Texture(Gdx.files.internal("items/bread.png")))
                 .put(SmallHealingPotion.class, new Texture(Gdx.files.internal("items/HealingPotion.png")))
                 .put(SmallShiled.class, new Texture(Gdx.files.internal("items/SmallShield.png")))
