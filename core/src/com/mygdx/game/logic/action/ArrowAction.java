@@ -26,7 +26,21 @@ public class ArrowAction implements Action {
 
     @Override
     public void update() {
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(arrowTexture, coordinates.getX(), coordinates.getY(), 0.0f, 0.0f, 1, 1, 1, 1, 0.0f, 0 ,0, 32, 32, direction.equals(Direction.LEFT), false);
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(arrowTexture, coordinates.getX(), coordinates.getY(), getOriginXBasedOnDirection(), getOriginXBasedOnDirection(), 1, 1, 1, 1, getRotationBasedOnDirection(), 0 ,0, 32, 32, direction.equals(Direction.LEFT), false);
+    }
+
+    private float getRotationBasedOnDirection() {
+        if (direction.equals(Direction.UP))
+         return 90.f;
+
+        if (direction.equals(Direction.DOWN))
+            return -90.f;
+
+        return  0.0f;
+    }
+
+    private float getOriginXBasedOnDirection() {
+        return direction.equals(Direction.UP) || direction.equals(Direction.DOWN) ? 0.5f : 0.0f;
     }
 
     @Override

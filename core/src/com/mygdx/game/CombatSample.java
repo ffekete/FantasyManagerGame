@@ -78,7 +78,7 @@ public class CombatSample extends SampleBase {
 
         hero = ActorFactory.INSTANCE.create(Warrior.class, dungeon, Placement.FIXED.X(3).Y(1));
         hero2 = ActorFactory.INSTANCE.create(Wizard.class, dungeon, Placement.FIXED.X(0).Y(0));
-        hero3 = ActorFactory.INSTANCE.create(Ranger.class, dungeon, Placement.FIXED.X(6).Y(0));
+        hero3 = ActorFactory.INSTANCE.create(Ranger.class, dungeon, Placement.FIXED.X(0).Y(1));
 
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
