@@ -7,6 +7,7 @@ import com.mygdx.game.map.Cluster;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.object.AnimatedObject;
+import com.mygdx.game.object.ContainerObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.TextureRegistry;
@@ -54,9 +55,18 @@ public class ObjectRenderer implements Renderer {
                         if(dungeon.getVisitedareaMap()[(int)worldObject.getX()][(int) worldObject.getY()] == VisitedArea.VISIBLE)
                             animationRegistry.get((AnimatedObject) worldObject).drawKeyFrame(spriteBatch, worldObject.getX(), worldObject.getY(), 1, Direction.RIGHT);
                     } else {
-                        spriteBatch.draw(textureRegistry.getForobject(worldObject.getClass()), worldObject.getX(), worldObject.getY(), 0, 0, 1, 1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0, 0, 0, textureRegistry.getForobject(worldObject.getClass()).getWidth(), textureRegistry.getForobject(worldObject.getClass()).getHeight(), false, false);
+                        spriteBatch.draw(textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)), worldObject.getX(), worldObject.getY(), 0, 0, 1, 1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0, 0, 0, textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)).getWidth(), textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)).getHeight(), false, false);
                     }
                 }
         }
+    }
+
+    private int getIndex(WorldObject object) {
+        if(!ContainerObject.class.isAssignableFrom(object.getClass()))
+            return 0;
+        if(((ContainerObject) object).isOpened()) {
+            return 1;
+        }
+        return 0;
     }
 }

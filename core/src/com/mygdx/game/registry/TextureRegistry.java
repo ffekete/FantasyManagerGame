@@ -11,6 +11,7 @@ import com.mygdx.game.map.TileBase;
 import com.mygdx.game.map.dungeon.Tile;
 import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.decoration.TreasureChest;
 import com.mygdx.game.object.decoration.Tree;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.map.worldmap.WorldMapTile;
@@ -22,6 +23,8 @@ import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.object.light.LightSourceType;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class TextureRegistry {
@@ -32,7 +35,7 @@ public class TextureRegistry {
     private Map<Class, Texture> textures;
     private Map<LightSourceType, Texture> lightTextures;
     private Map<TileBase, Texture> mapTextures;
-    private Map<Class<? extends WorldObject>, Texture> objectTextures;
+    private Map<Class<? extends WorldObject>, List<Texture>> objectTextures;
 
     public TextureRegistry() {
 
@@ -73,9 +76,10 @@ public class TextureRegistry {
             texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         });
 
-        objectTextures = ImmutableMap.<Class<? extends WorldObject>, Texture>builder()
-                .put(DungeonEntrance.class, new Texture(Gdx.files.internal("DungeonEntrance.png")))
-                .put(Tree.class, new Texture(Gdx.files.internal("object/Tree.png")))
+        objectTextures = ImmutableMap.<Class<? extends WorldObject>, List<Texture>>builder()
+                .put(DungeonEntrance.class, Arrays.asList(new Texture(Gdx.files.internal("DungeonEntrance.png"))))
+                .put(Tree.class, Arrays.asList(new Texture(Gdx.files.internal("object/Tree.png"))))
+                .put(TreasureChest.class, Arrays.asList(new Texture(Gdx.files.internal("object/TreasureChest.png")), new Texture(Gdx.files.internal("object/OpenTreasureChest.png"))))
                 .build();
     }
 
@@ -87,7 +91,7 @@ public class TextureRegistry {
         return lightTextures.get(lightSourceType);
     }
 
-    public Texture getForobject(Class<? extends WorldObject> objectClass) {
+    public List<Texture> getForobject(Class<? extends WorldObject> objectClass) {
         return objectTextures.get(objectClass);
     }
 

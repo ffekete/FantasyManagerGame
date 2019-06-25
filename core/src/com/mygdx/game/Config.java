@@ -108,6 +108,7 @@ public class Config {
 
         public static final int TILE_VARIATION_FREQUENCY = 20;
         public static final int WORLD_OBJECT_SPAWN_RATE = 10;
+        public static final int CHEST_SPAWN_RATE = 90;
     }
 
 

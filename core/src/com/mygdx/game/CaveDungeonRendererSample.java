@@ -84,29 +84,12 @@ public class CaveDungeonRendererSample extends SampleBase {
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
 
-        for (int i = 0; i < 5; i++) {
-            Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.RANDOM);
-            s.equip(new ShortSword());
-        }
-
-        for (int i = 0; i < 5; i++) {
-            Actor s = ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.RANDOM);
-            s.equip(new ShortSword());
-        }
-
-        for (int i = 0; i < 5; i++) {
-            Actor s = ActorFactory.INSTANCE.create(Orc.class, dungeon, Placement.RANDOM);
-            s.equip(new ShortSword());
-            s.equip(new SmallShiled());
-
-        }
-
         MapRegistry.INSTANCE.setCurrentMapToShow(dungeon);
         MapRegistry.INSTANCE.add(dungeon);
 
         hero.setName("Adavark");
         hero.equip(new FlameTongue());
-        CameraPositionController.INSTANCE.focusOn(hero);
+        CameraPositionController.INSTANCE.focusOn(hero2);
 
         StandingTorch standingTorch = ObjectFactory.create(StandingTorch.class, dungeon, ObjectPlacement.FIXED.X(hero.getX()).Y(hero.getY()));
     }
