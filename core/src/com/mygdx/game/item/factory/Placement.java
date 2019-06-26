@@ -18,6 +18,7 @@ public enum Placement implements ItemPlacementStrategy {
 
             } while(map.getTile(x,y).isObstacle());
 
+            System.out.println("placing item to " + x + " " + y);
             item.setCoordinates(new Point(x,y));
         }
 

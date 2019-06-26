@@ -68,6 +68,10 @@ public class Config {
         public final static int FIREBOLT_STRENGTH = 3;
         public static final int SLOW_STRENGTH = 4;
         public static final int SLOW_MOVEMENT_SPEED_REDUCE_AMOUNT = -60;
+
+        public static final int POISON_CLOUD_RANGE = 3;
+        public static final int POISON_CLOUD_STRENGTH = 10;
+        public static int POISON_CLOUD_MANA_COST = 7;
     }
 
     public static class Screen {

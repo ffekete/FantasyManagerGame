@@ -9,6 +9,7 @@ import com.mygdx.game.actor.hero.Hero;
 import com.mygdx.game.item.spelltome.SpellTome;
 import com.mygdx.game.spell.offensive.FireBall;
 import com.mygdx.game.spell.offensive.FireBolt;
+import com.mygdx.game.spell.offensive.PoisonCloud;
 import com.mygdx.game.spell.offensive.Slow;
 
 import java.util.Random;
@@ -22,7 +23,7 @@ public class Lich extends AbstractActor implements CasterActor {
         setAlignment(ENEMY);
 
         SpellTome spellTome = new SpellTome();
-        spellTome.add(new FireBall());
+        spellTome.add(new PoisonCloud());
 
         this.setSpellTome(spellTome);
 

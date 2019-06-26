@@ -76,6 +76,8 @@ public class DungeonFactory {
                 Class<? extends Actor> actorClass = dungeonTheme.getMonsters(MonsterTier.Tier4).get(new Random().nextInt(dungeonTheme.getMonsters(MonsterTier.Tier4).size()));
                 Actor actor = ActorFactory.INSTANCE.create(actorClass, dungeon, Placement.RANDOM);
                 actor.equip(WeaponProvider.INSTANCE.getFor(Tier4.class));
+                actor.setHp(actor.getMaxHp());
+                actor.setMana(actor.getMaxMana());
             }
         }
 

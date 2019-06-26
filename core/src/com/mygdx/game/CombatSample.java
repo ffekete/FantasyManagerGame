@@ -14,6 +14,7 @@ import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
+import com.mygdx.game.actor.monster.Lich;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.actor.monster.SkeletonWarrior;
 import com.mygdx.game.common.SampleBase;
@@ -98,9 +99,11 @@ public class CombatSample extends SampleBase {
         Actor s = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(5).Y(0));
         Actor s2 = ActorFactory.INSTANCE.create(Skeleton.class, dungeon, Placement.FIXED.X(0).Y(5));
         Actor s3 = ActorFactory.INSTANCE.create(SkeletonWarrior.class, dungeon, Placement.FIXED.X(0).Y(6));
+        Actor s4 = ActorFactory.INSTANCE.create(Lich.class, dungeon, Placement.FIXED.X(1).Y(6));
         s.setRightHandItem(new ShortSword());
         s2.setRightHandItem(new ShortSword());
         s3.setRightHandItem(new PoisonFang());
+        s4.setRightHandItem(new PoisonFang());
 
         MapRegistry.INSTANCE.setCurrentMapToShow(dungeon);
         MapRegistry.INSTANCE.add(dungeon);
