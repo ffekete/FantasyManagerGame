@@ -2,6 +2,7 @@ package com.mygdx.game.logic.activity.single;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.common.util.MathUtil;
 import com.mygdx.game.logic.action.Action;
 import com.mygdx.game.logic.action.SwingAttackAction;
 import com.mygdx.game.logic.activity.Activity;
@@ -53,9 +54,11 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
 
     @Override
     public void update() {
-        AttackController.INSTANCE.calculateAttack(actor, enemy);
-        action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), actor);
-        actionRegistry.add(actor.getCurrentMap(), action);
+        if(MathUtil.distance(actor.getCoordinates(), enemy.getCoordinates()) <= 1) {
+            AttackController.INSTANCE.calculateAttack(actor, enemy);
+            action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), actor);
+            actionRegistry.add(actor.getCurrentMap(), action);
+        }
     }
 
     @Override
@@ -121,18 +124,16 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
 
     @Override
     public boolean isCancellable() {
+        if(MathUtil.distance(actor.getCoordinates(), enemy.getCoordinates()) > actor.getAttackRange()) {
+            System.out.println("Enemy is too far away");
+            return true;
+        }
         // enemy is gone
         if (!actorRegistry.getActors(actor.getCurrentMap()).contains(enemy)) {
             System.out.println("Enemy is killed by someone else");
             return true;
         }
 
-        int distance = (int)Math.sqrt(Math.abs(actor.getX() - enemy.getX()) * (Math.abs(actor.getX() - enemy.getX()) + Math.abs(actor.getY() - enemy.getY()) * Math.abs(actor.getY() - enemy.getY())));
-
-        if(distance > actor.getAttackRange()) {
-            System.out.println("Enemy ran away + " + distance + " " + actor.getAttackRange());
-            return true;
-        }
 //        if(actor.getHp() < actor.getMaxHp() * 0.1) {
 //            System.out.println("I've had enough! [" + actor.getName() + "]");
 //            return true;

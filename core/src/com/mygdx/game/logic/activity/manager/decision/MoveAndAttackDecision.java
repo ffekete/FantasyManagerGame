@@ -40,6 +40,7 @@ public class MoveAndAttackDecision implements Decision {
         }
 
         Actor enemy = SelectionUtils.findClosestEnemy(actor, actorRegistry.getActors(actor.getCurrentMap()), Config.ATTACK_DISTANCE);
+
         if (enemy != null) {
             if (distance(actor.getCoordinates(), enemy.getCoordinates()) > actor.getAttackRange()) {
 
@@ -82,7 +83,6 @@ public class MoveAndAttackDecision implements Decision {
                     compoundActivityForActor.add(new PreCalculatedMovementActivity(actor, actorPath));
                     compoundActivityForActor.add(new SimpleAttackActivity(actor, enemy));
                     actor.getActivityStack().add(compoundActivityForActor);
-
                 }
 
                 // if a melee enemy is not already fighting then give a path to this enemy as well to the actor

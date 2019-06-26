@@ -11,6 +11,7 @@ import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.InteractiveObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.interactive.DungeonEntrance;
+import com.mygdx.game.object.interactive.Ladder;
 import com.mygdx.game.registry.ObjectRegistry;
 
 import java.util.List;
@@ -23,9 +24,9 @@ public class LeaveDungeonDecision implements Decision {
     public boolean decide(Actor actor) {
         if(Alignment.FRIENDLY.equals(actor.getAlignment()) && !Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType()) && actor.getCurrentMap().areAllLevelsExplored() && !actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
             // find dungeon entrance
-            List<WorldObject> entrances = objectRegistry.getObject(actor.getCurrentMap(), DungeonEntrance.class).get();
+            List<WorldObject> entrances = objectRegistry.getObject(actor.getCurrentMap(), Ladder.class).get();
             for (WorldObject worldObject : entrances) {
-                if (!((DungeonEntrance)worldObject).getTo().equals(actor.getCurrentMap())) {
+                if (!((Ladder)worldObject).getTo().equals(actor.getCurrentMap())) {
                     MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY);
 
                     moveAndInteractActivity.add(new MovementActivity(actor, (int)worldObject.getX(), (int)worldObject.getY(), 1, new PathFinder()));

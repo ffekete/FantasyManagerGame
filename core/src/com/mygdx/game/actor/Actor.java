@@ -76,6 +76,8 @@ public interface Actor {
     void setSkillFocusDefinition(List<Skill> skills);
 
     int getSkillLevel(Skill skill);
+    int getMoney();
+    void addMoney(int amount);
 
 
     // ******************   BodyPartsBasedActorAnimation  ********************

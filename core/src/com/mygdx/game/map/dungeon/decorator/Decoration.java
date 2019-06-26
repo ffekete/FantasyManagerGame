@@ -29,7 +29,7 @@ public enum Decoration implements DecorationItem {
             if(mask == 0 && !map.getTile(x,y).isObstacle() && new Random().nextInt(Config.Dungeon.CHEST_SPAWN_RATE) == 0) {
                 com.mygdx.game.object.decoration.TreasureChest treasureChest = ObjectFactory.create(com.mygdx.game.object.decoration.TreasureChest.class, map, ObjectPlacement.FIXED.X(x).Y(y));
 
-                for(int i = 0; i < 5; i++) {
+                for(int i = 0; i < new Random().nextInt(2) + 1; i++) {
                     Class<? extends Item> itemClass = ItemRegistry.INSTANCE.getFor(Tier1.class).get(new Random().nextInt(ItemRegistry.INSTANCE.getFor(Tier1.class).size()));
                     try {
                         treasureChest.add(itemClass.newInstance());
@@ -39,6 +39,8 @@ public enum Decoration implements DecorationItem {
                         e.printStackTrace();
                     }
                 }
+
+                treasureChest.setMoney(new Random().nextInt(20) + 10);
 
                 return true;
             }

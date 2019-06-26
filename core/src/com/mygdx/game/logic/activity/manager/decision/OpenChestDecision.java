@@ -7,6 +7,7 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
 import com.mygdx.game.logic.activity.single.InteractActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.map.Cluster;
 import com.mygdx.game.map.Map2D;
@@ -54,6 +55,7 @@ public class OpenChestDecision implements Decision {
                 }
 
                 if (closestObject != null && ((TreasureChest) closestObject).getSize() > 0) {
+                    ActorMovementHandler.INSTANCE.clearPath(actor);
                     MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY);
 
                     moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1, new PathFinder()));

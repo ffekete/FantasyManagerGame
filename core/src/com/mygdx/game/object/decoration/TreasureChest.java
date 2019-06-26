@@ -19,6 +19,7 @@ public class TreasureChest implements WorldObject, InteractiveObject, ContainerO
 
     private Point coordinates;
     private boolean opened = false;
+    private int money;
 
     public TreasureChest(Point point) {
         coordinates = point;
@@ -56,12 +57,14 @@ public class TreasureChest implements WorldObject, InteractiveObject, ContainerO
             System.out.println(actor.getName() + " found " + item + " in a chest");
             actor.getInventory().add(item);
         }
+        actor.addMoney(money);
+        money = 0;
         this.opened = true;
     }
 
     @Override
     public boolean canInteract(Actor actor) {
-        return getSize() > 0;
+        return getSize() > 0 || money > 0;
     }
 
     @Override
@@ -89,5 +92,15 @@ public class TreasureChest implements WorldObject, InteractiveObject, ContainerO
     @Override
     public boolean isOpened() {
         return opened;
+    }
+
+    @Override
+    public void setMoney(int amount) {
+        this.money += amount;
+    }
+
+    @Override
+    public int getMoney() {
+        return money;
     }
 }

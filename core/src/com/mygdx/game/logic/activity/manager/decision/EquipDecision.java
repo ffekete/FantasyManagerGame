@@ -30,6 +30,10 @@ public class EquipDecision implements Decision {
                 } else if (Weapon.class.isAssignableFrom(equipable.getClass())) {
 
                     if (actor.getRightHandItem() == null || (actor.getRightHandItem().getPower() < equipable.getPower() || weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable) > weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) {
+                        if(actor.getRightHandItem() != null) {
+                            System.out.println("Weapon skill for old: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()));
+                            System.out.println("Weapon skill for new: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable));
+                        }
                         EquipActivity equipActivity = new EquipActivity(actor, equipable);
                         actor.getActivityStack().add(equipActivity);
                         return true;

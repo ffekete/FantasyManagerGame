@@ -20,6 +20,7 @@ import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.PoisonFang;
 import com.mygdx.game.item.weapon.sword.ShortSword;
+import com.mygdx.game.object.interactive.Ladder;
 import com.mygdx.game.object.light.LightSourceType;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
 
@@ -77,7 +78,8 @@ public class TextureRegistry {
         });
 
         objectTextures = ImmutableMap.<Class<? extends WorldObject>, List<Texture>>builder()
-                .put(DungeonEntrance.class, Arrays.asList(new Texture(Gdx.files.internal("DungeonEntrance.png"))))
+                .put(DungeonEntrance.class, Arrays.asList(new Texture(Gdx.files.internal("object/DungeonEntrance.png"))))
+                .put(Ladder.class, Arrays.asList(new Texture(Gdx.files.internal("object/Ladder.png"))))
                 .put(Tree.class, Arrays.asList(new Texture(Gdx.files.internal("object/Tree.png"))))
                 .put(TreasureChest.class, Arrays.asList(new Texture(Gdx.files.internal("object/TreasureChest.png")), new Texture(Gdx.files.internal("object/OpenTreasureChest.png"))))
                 .build();

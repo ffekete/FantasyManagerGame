@@ -65,6 +65,8 @@ public abstract class AbstractActor implements Actor {
 
     private int unspentSkillPoints = 0;
 
+    private int money;
+
     public AbstractActor() {
         this.hungerLevel = Config.BASE_HUNGER_LEVEL;
         this.baseAttributes = new HashMap<>();
@@ -408,5 +410,16 @@ public abstract class AbstractActor implements Actor {
             int actualLevel = getMagicSkills().get(skill);
             getMagicSkills().put((MagicSkill) skill, actualLevel + 1);
         }
+    }
+
+    @Override
+    public int getMoney() {
+        return money;
+    }
+
+    @Override
+    public void addMoney(int amount) {
+        this.money += amount;
+        System.out.println("Received " + amount + " of money, new amount: " + money);
     }
 }

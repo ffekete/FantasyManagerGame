@@ -3,6 +3,7 @@ package com.mygdx.game.logic;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.interactive.DungeonEntrance;
+import com.mygdx.game.object.interactive.Ladder;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.LightSourceRegistry;
@@ -23,7 +24,7 @@ public class CharacterMap2dSwitcher {
         actorRegistry.remove(from, actor);
         actor.setCurrentMap(to);
 
-        DungeonEntrance entrance = (DungeonEntrance) objectRegistry.getObject(to, DungeonEntrance.class).get().get(0);
+        Ladder entrance = (Ladder) objectRegistry.getObject(to, Ladder.class).get().get(0);
         actor.setCoordinates(entrance.getCoordinates());
 
         actorRegistry.add(to, actor);

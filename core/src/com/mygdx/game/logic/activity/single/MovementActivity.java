@@ -160,5 +160,12 @@ public class MovementActivity implements Activity {
         return this;
     }
 
+    public int getCounter() {
+        return counter;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
 
 }

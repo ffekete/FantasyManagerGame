@@ -11,5 +11,7 @@ public interface ContainerObject extends WorldObject {
     List<Item> removeItems();
     int getSize();
     boolean isOpened();
+    void setMoney(int amount);
+    int getMoney();
 
 }
