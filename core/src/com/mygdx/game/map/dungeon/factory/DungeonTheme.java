@@ -15,7 +15,7 @@ public enum DungeonTheme {
             .put(MonsterTier.Tier1, Arrays.asList(Skeleton.class))
             .put(MonsterTier.Tier2, Arrays.asList(SkeletonWarrior.class))
             .put(MonsterTier.Tier3, Collections.emptyList())
-            .put(MonsterTier.Tier4, Collections.emptyList())
+            .put(MonsterTier.Tier4, Arrays.asList(Lich.class))
             .put(MonsterTier.Boss, Collections.emptyList())
             .build()
     ),

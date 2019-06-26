@@ -6,10 +6,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
-import com.mygdx.game.actor.monster.Goblin;
-import com.mygdx.game.actor.monster.Orc;
-import com.mygdx.game.actor.monster.Skeleton;
-import com.mygdx.game.actor.monster.SkeletonWarrior;
+import com.mygdx.game.actor.monster.*;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.manager.decision.*;
 
@@ -83,6 +80,12 @@ public class ActivityManager {
                         new WanderingDecision())
                 )
 
+                .put(Lich.class, ImmutableList.of(
+                        new OffensiveSpellCastDecision(),
+                        new MoveAndRangedAttackDecision(),
+                        new MoveAndAttackDecision(),
+                        new WanderingDecision())
+                )
 
                 .put(Orc.class, ImmutableList.of(
                         new MoveAndRangedAttackDecision(),

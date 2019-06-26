@@ -1,15 +1,9 @@
 package com.mygdx.game.map.dungeon.cave;
 
-import com.mygdx.game.Config;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.Decorator;
 import com.mygdx.game.map.dungeon.decorator.Decoration;
-import com.mygdx.game.object.decoration.SpiderWeb;
-import com.mygdx.game.object.factory.ObjectFactory;
-import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.utils.MapUtils;
-
-import java.util.Random;
 
 public class CaveDungeonDecorator implements Decorator {
 

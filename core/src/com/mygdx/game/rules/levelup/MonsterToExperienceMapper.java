@@ -2,10 +2,7 @@ package com.mygdx.game.rules.levelup;
 
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.actor.monster.Goblin;
-import com.mygdx.game.actor.monster.Orc;
-import com.mygdx.game.actor.monster.Skeleton;
-import com.mygdx.game.actor.monster.SkeletonWarrior;
+import com.mygdx.game.actor.monster.*;
 
 import java.util.Map;
 
@@ -21,6 +18,7 @@ public class MonsterToExperienceMapper {
             .put(Goblin.class, 50L)
             .put(Skeleton.class, 70L)
             .put(SkeletonWarrior.class, 100L)
+            .put(Lich.class, 1000L)
             .build();
 
     public long getFor(Class<? extends Actor> clazz) {
