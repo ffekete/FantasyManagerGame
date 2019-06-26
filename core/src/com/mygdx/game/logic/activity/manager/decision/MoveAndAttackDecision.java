@@ -29,12 +29,13 @@ public class MoveAndAttackDecision implements Decision {
     public boolean decide(Actor actor) {
 
         // this will be handled by a different decision class
-        if(RangedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass()))
+        if (RangedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass()))
             return false;
 
         // already attacking, the decision chain should end here
         if (actor.getActivityStack().contains(MoveThenAttackActivity.class) ||
                 actor.getActivityStack().contains(SimpleAttackActivity.class) ||
+                actor.getActivityStack().contains(OffensiveSpellCastActivity.class) ||
                 actor.getActivityStack().contains(RangedAttackActivity.class)) {
             return true;
         }
@@ -66,7 +67,7 @@ public class MoveAndAttackDecision implements Decision {
 
                 int halfWay = path.size() / 2;
 
-                if (path.size()-1 < actor.getAttackRange()) {
+                if (path.size() - 1 <= actor.getAttackRange()) {
                     actor.getActivityStack().add(new SimpleAttackActivity(actor, enemy));
                 } else {
                     // need to move closer
@@ -86,9 +87,13 @@ public class MoveAndAttackDecision implements Decision {
                 }
 
                 // if a melee enemy is not already fighting then give a path to this enemy as well to the actor
-                if (MeleeActor.class.isAssignableFrom(enemy.getClass()) && !enemy.getActivityStack().contains(RangedAttackActivity.class) && !enemy.getActivityStack().contains(SimpleAttackActivity.class) && !enemy.getActivityStack().contains(MoveThenAttackActivity.class)) {
+                if (!enemy.getActivityStack().contains(RangedAttackActivity.class)
+                        && !enemy.getActivityStack().contains(SimpleAttackActivity.class)
+                        && !enemy.getActivityStack().contains(OffensiveSpellCastActivity.class)
+                        && !enemy.getActivityStack().contains(MoveThenAttackActivity.class)) {
+
                     enemy.getActivityStack().clear();
-                    if (path.size()-1 < enemy.getAttackRange()) {
+                    if (path.size() - 1 < enemy.getAttackRange()) {
                         enemy.getActivityStack().add(new SimpleAttackActivity(enemy, actor));
                     } else {
                         actorMovementHandler.clearPath(enemy);

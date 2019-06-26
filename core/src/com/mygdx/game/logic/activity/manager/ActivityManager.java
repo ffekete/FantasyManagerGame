@@ -59,6 +59,7 @@ public class ActivityManager {
                         new ConsumeHealingpotionDecision(),
                         new EquipDecision(),
                         new OffensiveSpellCastDecision(),
+                        new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
                         new OpenChestDecision(),
                         new MovePickupDecision(),
@@ -71,23 +72,27 @@ public class ActivityManager {
                 )
 
                 .put(SkeletonWarrior.class, ImmutableList.of(
+                        new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
                         new WanderingDecision())
                 )
 
                 .put(Skeleton.class, ImmutableList.of(
+                        new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
                         new WanderingDecision())
                 )
 
 
                 .put(Orc.class, ImmutableList.of(
+                        new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
                         new WanderingDecision())
                 )
 
 
                 .put(Goblin.class, ImmutableList.of(
+                        new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
                         new WanderingDecision())
                 )

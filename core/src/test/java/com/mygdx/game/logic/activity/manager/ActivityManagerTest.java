@@ -51,6 +51,11 @@ public class ActivityManagerTest {
         skeleton.setCoordinates(Point.of(0,0));
         skeleton.setCurrentMap(dungeon);
 
+        Actor skeleton2 = new Skeleton();
+        skeleton2.setCurrentMap(dungeon);
+        skeleton2.setCoordinates(Point.of(5,5));
+        skeleton2.equip(new ShortSword());
+
         visibilityMask.setValue(15,15, hero);
         visibilityMask.setValue(10,10, goblin);
         visibilityMask.setValue(10,10, skeleton);
@@ -58,13 +63,16 @@ public class ActivityManagerTest {
         ActorRegistry.INSTANCE.add(dungeon, hero);
         ActorRegistry.INSTANCE.add(dungeon, goblin);
         ActorRegistry.INSTANCE.add(dungeon, skeleton);
+        ActorRegistry.INSTANCE.add(dungeon, skeleton2);
         MapRegistry.INSTANCE.add(dungeon);
 
         activityManager.manage(hero);
         activityManager.manage(goblin);
+        activityManager.manage(skeleton2);
 
         assertThat(hero.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
         assertThat(goblin.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+        assertThat(skeleton2.getActivityStack().contains(MoveThenAttackActivity.class), is(false));
 
         // perform next task for goblin
         for(int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
@@ -115,6 +123,15 @@ public class ActivityManagerTest {
 
         assertThat(hero.getX(), is(11));
         assertThat(hero.getY(), is(11));
+
+        visibilityMask.setValue(11,11, skeleton2);
+        activityManager.manage(skeleton2);
+
+        MoveThenAttackActivity moveThenAttackActivity4 = (MoveThenAttackActivity) skeleton2.getActivityStack().getCurrent();
+        PreCalculatedMovementActivity movementActivity4 = (PreCalculatedMovementActivity) moveThenAttackActivity4.getCurrentActivity();
+        assertThat(movementActivity4.getTargetX(), is(13));
+        assertThat(movementActivity4.getTargetY(), is(11));
+
 
     }
 
