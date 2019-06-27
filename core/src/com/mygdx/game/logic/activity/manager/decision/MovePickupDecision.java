@@ -2,7 +2,8 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.common.SelectionUtils;
+import com.mygdx.game.logic.selector.ItemSelector;
+import com.mygdx.game.logic.selector.SelectionUtils;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.compound.MovePickupActivity;
@@ -17,6 +18,7 @@ import java.util.List;
 public class MovePickupDecision implements Decision {
 
     private final ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
+    private final ItemSelector itemSelector = new ItemSelector();
 
     @Override
     public boolean decide(Actor actor) {
@@ -24,7 +26,7 @@ public class MovePickupDecision implements Decision {
             List<Item> Items = itemRegistry.getAllItems(actor.getCurrentMap());
             if(!Items.isEmpty()) {
                 // find Items
-                Item item = SelectionUtils.findClosestItem(actor, Items, Config.Item.PICK_UP_ITEM_DISTANCE, Item.class);
+                Item item = itemSelector.findClosestItem(actor, Items, Config.Item.PICK_UP_ITEM_DISTANCE, Item.class);
                 if(item != null) {
                     // go for it
                     actor.setxOffset(0.0f);

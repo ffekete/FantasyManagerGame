@@ -2,8 +2,8 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.actor.MeleeActor;
-import com.mygdx.game.common.SelectionUtils;
+import com.mygdx.game.logic.selector.ClosestEnemySelector;
+import com.mygdx.game.logic.selector.SelectionUtils;
 import com.mygdx.game.item.weapon.RangedWeapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.CompoundActivity;
@@ -24,6 +24,7 @@ public class MoveAndAttackDecision implements Decision {
     private final ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     private final ActorMovementHandler actorMovementHandler = ActorMovementHandler.INSTANCE;
     private final MapRegistry mapRegistry = MapRegistry.INSTANCE;
+    private final ClosestEnemySelector closestEnemySelector = new ClosestEnemySelector();
 
     @Override
     public boolean decide(Actor actor) {
@@ -40,7 +41,7 @@ public class MoveAndAttackDecision implements Decision {
             return true;
         }
 
-        Actor enemy = SelectionUtils.findClosestEnemy(actor, actorRegistry.getActors(actor.getCurrentMap()), Config.ATTACK_DISTANCE);
+        Actor enemy = closestEnemySelector.find(actor, actorRegistry.getActors(actor.getCurrentMap()), Config.ATTACK_DISTANCE);
 
         if (enemy != null) {
             if (distance(actor.getCoordinates(), enemy.getCoordinates()) > actor.getAttackRange()) {

@@ -1,7 +1,6 @@
-package com.mygdx.game.logic.activity.manager.decision;
+package com.mygdx.game.logic.selector;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.common.SelectionUtils;
 import com.mygdx.game.effect.DebuffEffect;
 import com.mygdx.game.effect.Effect;
 import com.mygdx.game.registry.EffectRegistry;
@@ -15,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public enum SpellSelector implements Selector {
+public enum OffensiveSpellSelector implements Selector {
 
     Strongest {
 
@@ -32,10 +31,12 @@ public enum SpellSelector implements Selector {
                 return Optional.empty();
             }
 
+            AreaBasedEnemiesSelector areaBasedEnemiesSelector = new AreaBasedEnemiesSelector();
+
             // select the one that does not damage friends
             List<Spell> viableSpells = spells.stream()
                     .filter(spell -> {
-                        return SelectionUtils.findAllEnemiesWithinRange(target.getCoordinates(), actor.getCurrentMap(), spell.getArea())
+                        return areaBasedEnemiesSelector.findAllEnemiesWithinRange(target.getCoordinates(), actor.getCurrentMap(), spell.getArea())
                                 .stream().noneMatch(actor1 -> actor1.getAlignment().equals(actor.getAlignment()));
                     })
                     .collect(Collectors.toList());

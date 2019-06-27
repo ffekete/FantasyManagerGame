@@ -4,13 +4,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.MagicSkill;
-import com.mygdx.game.common.SelectionUtils;
-import com.mygdx.game.effect.FireDamage;
+import com.mygdx.game.logic.selector.AreaBasedEnemiesSelector;
+import com.mygdx.game.logic.selector.SelectionUtils;
 import com.mygdx.game.effect.Poison;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.action.Action;
-import com.mygdx.game.logic.action.ExplosionAction;
-import com.mygdx.game.logic.action.FireboltAction;
 import com.mygdx.game.logic.action.PoisonCloudAction;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.light.LightSourceType;
@@ -22,9 +19,10 @@ import com.mygdx.game.spell.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class PoisonCloud implements Spell, DarkSpell, OffensiveSpell {
+
+    private final AreaBasedEnemiesSelector areaBasedEnemiesSelector = new AreaBasedEnemiesSelector();
 
     private Point end;
     private List<Point> path;
@@ -55,7 +53,7 @@ public class PoisonCloud implements Spell, DarkSpell, OffensiveSpell {
 
         caster.setMana(caster.getMana() - Config.Spell.POISON_CLOUD_MANA_COST);
 
-        for(Actor actor: SelectionUtils.findAllEnemiesWithinRange(target.getCoordinates(), map,  Config.Spell.POISON_CLOUD_RANGE)) {
+        for(Actor actor: areaBasedEnemiesSelector.findAllEnemiesWithinRange(target.getCoordinates(), map,  Config.Spell.POISON_CLOUD_RANGE)) {
             EffectRegistry.INSTANCE.add(new Poison(actor.getMagicSkills().get(MagicSkill.DarkMagic) + 1, 20, actor, caster), actor);
         }
 

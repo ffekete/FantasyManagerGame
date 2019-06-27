@@ -1,4 +1,4 @@
-package com.mygdx.game.logic.activity.manager.decision;
+package com.mygdx.game.logic.selector;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.spell.Spell;
