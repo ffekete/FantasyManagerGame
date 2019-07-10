@@ -38,6 +38,10 @@ public class RangedAttackActivity implements Activity, CooldownActivity {
         actor.setyOffset(0);
     }
 
+    public Actor getTarget() {
+        return enemy;
+    }
+
     @Override
     public void countDown() {
         counter = (counter + 1) % actor.getAttackSpeed();

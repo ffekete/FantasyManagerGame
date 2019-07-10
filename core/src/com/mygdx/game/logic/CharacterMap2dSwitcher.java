@@ -25,7 +25,27 @@ public class CharacterMap2dSwitcher {
         actor.setCurrentMap(to);
 
         Ladder entrance = (Ladder) objectRegistry.getObject(to, Ladder.class).get().get(0);
-        actor.setCoordinates(entrance.getCoordinates());
+        Point enter = entrance.getCoordinates();
+
+        if(!actor.getCurrentMap().getTile(enter.getX() + 1, enter.getY()).isObstacle() &&
+                !actor.getCurrentMap().getTile(enter.getX() + 1, enter.getY()).isObstacle()) {
+            actor.setCoordinates(Point.of(enter.getX() + 1, enter.getY()));
+
+        } else if(!actor.getCurrentMap().getTile(enter.getX() - 1, enter.getY()).isObstacle() &&
+                !actor.getCurrentMap().getTile(enter.getX() - 1, enter.getY()).isObstacle()) {
+            actor.setCoordinates(Point.of(enter.getX() - 1, enter.getY()));
+
+        } else if(!actor.getCurrentMap().getTile(enter.getX(), enter.getY() + 1).isObstacle() &&
+                !actor.getCurrentMap().getTile(enter.getX(), enter.getY() + 1).isObstacle()) {
+            actor.setCoordinates(Point.of(enter.getX() , enter.getY() + 1));
+
+        } else if(!actor.getCurrentMap().getTile(enter.getX() , enter.getY() - 1).isObstacle() &&
+                !actor.getCurrentMap().getTile(enter.getX(), enter.getY() - 1).isObstacle()) {
+            actor.setCoordinates(Point.of(enter.getX(), enter.getY() - 1));
+        } else {
+            throw new RuntimeException("Entry area is surrounded");
+        }
+
 
         actorRegistry.add(to, actor);
 

@@ -104,4 +104,8 @@ public class OffensiveSpellCastActivity implements Activity {
     public int compareTo(Activity o) {
         return Integer.compare(getPriority(), o.getPriority());
     }
+
+    public Actor getTarget() {
+        return target;
+    }
 }

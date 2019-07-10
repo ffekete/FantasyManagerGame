@@ -20,7 +20,7 @@ public class SlowAction implements Action {
 
     @Override
     public void update() {
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(texture, coordinates.getX(), coordinates.getY(), 0.0f, 0.0f, 1, 1, 1, 1, 0.0f, (int)phase * 32 ,0, 32, 32, false, false);
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(texture, coordinates.getX(), coordinates.getY() -0.3f, 0.0f, 0.0f, 1, 1, 1, 1, 0.0f, (int)phase * 32 ,0, 32, 32, false, false);
         phase += Gdx.graphics.getRawDeltaTime() * 10;
     }
 

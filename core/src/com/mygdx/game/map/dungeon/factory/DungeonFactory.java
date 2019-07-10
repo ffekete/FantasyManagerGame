@@ -45,6 +45,10 @@ public class DungeonFactory {
 
         Dungeon dungeon = dungeonGenerator.create(3);
 
+        if (dungeon != null) {
+            decoratorMap.get(clazz).decorate(dungeon);
+            itemPlacementHandler.place(dungeon);
+        }
 
         if(!dungeonTheme.getMonsters(MonsterTier.Tier1).isEmpty()) {
             for (int i = 0; i < 10; i++) {
@@ -87,11 +91,6 @@ public class DungeonFactory {
                 Actor actor = ActorFactory.INSTANCE.create(actorClass, dungeon, Placement.RANDOM);
                 actor.equip(WeaponProvider.INSTANCE.getFor(Legendary.class));
             }
-        }
-
-        if (dungeon != null) {
-            decoratorMap.get(clazz).decorate(dungeon);
-            itemPlacementHandler.place(dungeon);
         }
 
         return dungeon;

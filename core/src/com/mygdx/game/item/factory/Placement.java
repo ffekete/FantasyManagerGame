@@ -16,7 +16,7 @@ public enum Placement implements ItemPlacementStrategy {
                 x = new Random().nextInt(map.getWidth());
                 y = new Random().nextInt(map.getHeight());
 
-            } while(map.getTile(x,y).isObstacle());
+            } while(map.isObstacle(x,y) || map.getTile(x,y).isObstacle());
 
             System.out.println("placing item to " + x + " " + y);
             item.setCoordinates(new Point(x,y));

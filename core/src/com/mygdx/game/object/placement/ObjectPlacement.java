@@ -16,7 +16,9 @@ public enum ObjectPlacement implements ObjectPlacementStrategy {
                 x = new Random().nextInt(map.getWidth());
                 y = new Random().nextInt(map.getHeight());
 
-            } while(map.getTile(x,y).isObstacle());
+            } while(map.isObstacle(x,y) || map.getTile(x,y).isObstacle());
+
+            map.setObstacle(x,y,true);
 
             object.setCoordinates(new Point(x,y));
         }
@@ -40,6 +42,7 @@ public enum ObjectPlacement implements ObjectPlacementStrategy {
         @Override
         public void place(WorldObject object, Map2D map) {
             object.setCoordinates(new Point(x, y));
+            map.setObstacle(x,y,true);
         }
 
         public ObjectPlacement X(int xValue) {

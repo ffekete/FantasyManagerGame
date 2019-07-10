@@ -10,6 +10,9 @@ import com.mygdx.game.logic.Point;
 import java.util.Random;
 
 public class LongBow implements Bow, Tier1, TwohandedWeapon {
+
+    private Point coordinates;
+
     @Override
     public int getDamage() {
         return new Random().nextInt(4) + 4;
@@ -47,16 +50,16 @@ public class LongBow implements Bow, Tier1, TwohandedWeapon {
 
     @Override
     public void setCoordinates(Point point) {
-
+        this.coordinates = point;
     }
 
     @Override
     public int getX() {
-        return 0;
+        return coordinates.getX();
     }
 
     @Override
     public int getY() {
-        return 0;
+        return coordinates.getY();
     }
 }

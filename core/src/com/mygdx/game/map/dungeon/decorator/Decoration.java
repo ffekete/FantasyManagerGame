@@ -16,7 +16,7 @@ public enum Decoration implements DecorationItem {
     SpiderWeb {
         @Override
         public boolean place(Map2D map, int mask, int x, int y) {
-            if(mask == 3 && !map.getTile(x,y).isObstacle() && new Random().nextInt(Config.Dungeon.WORLD_OBJECT_SPAWN_RATE) == 0) {
+            if(mask == 3 && !map.isObstacle(x,y) && new Random().nextInt(Config.Dungeon.WORLD_OBJECT_SPAWN_RATE) == 0) {
                 ObjectFactory.create(com.mygdx.game.object.decoration.SpiderWeb.class, map, ObjectPlacement.FIXED.X(x).Y(y));
                 return true;
             }
@@ -26,7 +26,7 @@ public enum Decoration implements DecorationItem {
     TreasureChest {
         @Override
         public boolean place(Map2D map, int mask, int x, int y) {
-            if(mask == 0 && !map.getTile(x,y).isObstacle() && new Random().nextInt(Config.Dungeon.CHEST_SPAWN_RATE) == 0) {
+            if(mask == 0 && !map.isObstacle(x,y) && new Random().nextInt(Config.Dungeon.CHEST_SPAWN_RATE) == 0) {
                 com.mygdx.game.object.decoration.TreasureChest treasureChest = ObjectFactory.create(com.mygdx.game.object.decoration.TreasureChest.class, map, ObjectPlacement.FIXED.X(x).Y(y));
 
                 for(int i = 0; i < new Random().nextInt(2) + 1; i++) {

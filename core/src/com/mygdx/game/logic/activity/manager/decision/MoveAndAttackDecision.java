@@ -88,10 +88,15 @@ public class MoveAndAttackDecision implements Decision {
                 }
 
                 // if a melee enemy is not already fighting then give a path to this enemy as well to the actor
-                if (!enemy.getActivityStack().contains(RangedAttackActivity.class)
-                        && !enemy.getActivityStack().contains(SimpleAttackActivity.class)
-                        && !enemy.getActivityStack().contains(OffensiveSpellCastActivity.class)
-                        && !enemy.getActivityStack().contains(MoveThenAttackActivity.class)) {
+                if (
+                        (!enemy.getActivityStack().contains(RangedAttackActivity.class)
+                                && !enemy.getActivityStack().contains(SimpleAttackActivity.class)
+                                && !enemy.getActivityStack().contains(OffensiveSpellCastActivity.class)
+                                && !enemy.getActivityStack().contains(MoveThenAttackActivity.class)) || (
+                                (RangedAttackActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass()) && ((RangedAttackActivity) enemy.getActivityStack().getCurrent()).getTarget().equals(actor)) ||
+                                        (SimpleAttackActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass()) && ((SimpleAttackActivity) enemy.getActivityStack().getCurrent().getCurrentActivity()).getTarget().equals(actor)) ||
+                                        (MovementActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass()) && ((MovementActivity) enemy.getActivityStack().getCurrent().getCurrentActivity()).getTargetX() == actor.getX() && ((MovementActivity) enemy.getActivityStack().getCurrent().getCurrentActivity()).getTargetY() == actor.getY() ) ||
+                                        (OffensiveSpellCastActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass()) && ((OffensiveSpellCastActivity) enemy.getActivityStack().getCurrent()).getTarget().equals(actor)))) {
 
                     enemy.getActivityStack().clear();
                     if (path.size() - 1 < enemy.getAttackRange()) {

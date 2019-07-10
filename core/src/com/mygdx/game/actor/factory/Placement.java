@@ -16,7 +16,7 @@ public enum Placement implements ActorPlacementStrategy {
                 x = new Random().nextInt(map.getWidth());
                 y = new Random().nextInt(map.getHeight());
 
-            } while(map.getTile(x,y).isObstacle());
+            } while(map.isObstacle(x,y) || map.getTile(x,y).isObstacle());
 
             actor.setCoordinates(new Point(x,y));
         }

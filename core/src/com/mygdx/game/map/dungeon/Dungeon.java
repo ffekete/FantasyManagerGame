@@ -22,11 +22,14 @@ public class Dungeon implements Map2D {
     private final DungeonType dungeonType;
     private Dungeon nextLevel = null;
     private Dungeon previousLevel = null;
+    private boolean[][] obstacle;
 
     public Dungeon(int width, int height, DungeonType dungeonType) {
         this.height = height;
         this.width = width;
         this.dungeonType = dungeonType;
+
+        obstacle = new boolean[width][height];
 
         visibilityCalculator = new VisibilityCalculator(width, height);
 
@@ -87,7 +90,7 @@ public class Dungeon implements Map2D {
 
         for (int i = 0; i < visitedareaMap.length; i++) {
             for (int j = 0; j < visitedareaMap[0].length; j++) {
-                if(!getTile(i,j).isObstacle()) {
+                if(!obstacle[i][j] && !getTile(i,j).isObstacle()) {
                     if(visitedareaMap[i][j].equals(VisitedArea.VISIBLE) || visitedareaMap[i][j].equals(VisitedArea.VISITED_BUT_NOT_VISIBLE)) {
                         visited++;
                     } else {
@@ -128,6 +131,16 @@ public class Dungeon implements Map2D {
     @Override
     public MapType getMapType() {
         return mapType;
+    }
+
+    @Override
+    public boolean isObstacle(int x, int y) {
+        return obstacle[x][y];
+    }
+
+    @Override
+    public void setObstacle(int x, int y, boolean value) {
+        obstacle[x][y] = value;
     }
 
     @Override

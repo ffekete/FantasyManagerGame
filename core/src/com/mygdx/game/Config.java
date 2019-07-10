@@ -89,6 +89,7 @@ public class Config {
         public static final int OFFENSIVE_SPELL_CAST_PRIORITY = 95;
         public static final int ATTACK_PRIORITY = 96;
         public static final int MOVE_THEN_ATTACK_PRIORITY = 96;
+        public static final int OPEN_CHEST_PRIORITY = 97;
         public static final int MOVE_PICKUP_PRIORITY = 97;
         public static final int PICKUP_PRIORITY = 97;
         public static final int MOVE_PICKUP_EAT_PRIORITY = 98;

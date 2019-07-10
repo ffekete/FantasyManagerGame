@@ -18,6 +18,7 @@ public class WorldMap implements Map2D {
     private final MapType mapType = MapType.WORLD_MAP;
     private Point defaultSpawningPoint;
     private int[][] tileVariation;
+    private boolean[][] obstacle;
 
     public WorldMap(int width, int height) {
         this.height = height;
@@ -25,10 +26,13 @@ public class WorldMap implements Map2D {
 
         visibilityCalculator = new VisibilityCalculator(width, height);
 
+        obstacle = new boolean[width][height];
+
         visitedareaMap = new VisitedArea[width][height];
         for(int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 visitedareaMap[i][j] = VisitedArea.NOT_VISITED;
+                obstacle[i][j] = false;
             }
         }
         this.worldMap = new WorldMapTile[width][height];
@@ -73,13 +77,23 @@ public class WorldMap implements Map2D {
     }
 
     @Override
+    public boolean isObstacle(int x, int y) {
+        return obstacle[x][y];
+    }
+
+    @Override
+    public void setObstacle(int x, int y, boolean value) {
+        obstacle[x][y] = value;
+    }
+
+    @Override
     public boolean isExplored() {
         int visited = 0;
         int unvisited = 0;
 
         for (int i = 0; i < visitedareaMap.length; i++) {
             for (int j = 0; j < visitedareaMap[0].length; j++) {
-                if(!getTile(i,j).isObstacle()) {
+                if(!obstacle[i][j]) {
                     if(visitedareaMap[i][j].equals(VisitedArea.VISIBLE) || visitedareaMap[i][j].equals(VisitedArea.VISITED_BUT_NOT_VISIBLE)) {
                         visited++;
                     } else {

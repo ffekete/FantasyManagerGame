@@ -56,7 +56,7 @@ public class OpenChestDecision implements Decision {
 
                 if (closestObject != null && ((TreasureChest) closestObject).getSize() > 0) {
                     ActorMovementHandler.INSTANCE.clearPath(actor);
-                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY);
+                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.OPEN_CHEST_PRIORITY);
 
                     moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1, new PathFinder()));
                     moveAndInteractActivity.add(new InteractActivity(actor, (InteractiveObject) closestObject));

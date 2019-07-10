@@ -59,11 +59,11 @@ public class FlameTongue implements OneHandedItem, Sword, Legendary {
 
     @Override
     public int getX() {
-        return 0;
+        return coordinates.getX();
     }
 
     @Override
     public int getY() {
-        return 0;
+        return coordinates.getY();
     }
 }

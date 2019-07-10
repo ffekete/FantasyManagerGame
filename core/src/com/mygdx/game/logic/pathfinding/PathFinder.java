@@ -104,7 +104,9 @@ public class PathFinder {
             openNodes.remove(current);
             closedNodes.add(current);
 
-            if ((current.x == target.getX() && current.y == target.getY())) {
+            if ((current.x == target.getX() && current.y == target.getY()) ||
+                    map[target.getX()][target.getY()].tile == 1 && distance(current, new Node(0, target.getX(), target.getY())) < 2
+                    ) {
                 // hurra
                 Node c = current;
                 while (c != null) {
@@ -199,7 +201,7 @@ public class PathFinder {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
 
-                obstacleMap[i][j] = new Node(map.getTile(i, j).isObstacle() ? 1 : 0, i, j);
+                obstacleMap[i][j] = new Node(map.getTile(i, j).isObstacle() || map.isObstacle(i,j) ? 1 : 0, i, j);
             }
         }
     }

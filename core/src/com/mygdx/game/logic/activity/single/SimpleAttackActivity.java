@@ -14,6 +14,8 @@ import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 
+import java.awt.font.ShapeGraphicAttribute;
+
 public class SimpleAttackActivity implements Activity, CooldownActivity {
 
     private ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
@@ -29,6 +31,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     private final Actor enemy;
     private Action action;
     private boolean suspended = false;
+    private ShapeGraphicAttribute target;
 
     public SimpleAttackActivity(Actor actor, Actor enemy) {
         this.actor = actor;
@@ -151,4 +154,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
         return this;
     }
 
+    public Actor getTarget() {
+        return enemy;
+    }
 }
