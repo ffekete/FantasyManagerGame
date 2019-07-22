@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.google.inject.Guice;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.factory.ActorFactory;
@@ -61,6 +62,8 @@ public class CombatSample extends SampleBase {
 
     @Override
     public void create() {
+
+        Guice.createInjector(new DIConfig());
 
         infoCamera = new OrthographicCamera();
         infoViewPort = new FitViewport(1280, 720, infoCamera);

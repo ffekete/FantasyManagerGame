@@ -2,6 +2,7 @@ package com.mygdx.game.spell.offensive;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.effect.AttackSpeedReduction;
 import com.mygdx.game.effect.MovementSpeedReduction;
 import com.mygdx.game.logic.action.SlowAction;
 import com.mygdx.game.map.Map2D;
@@ -11,6 +12,7 @@ import com.mygdx.game.spell.DebuffSpell;
 import com.mygdx.game.spell.EarthSpell;
 import com.mygdx.game.spell.OffensiveSpell;
 import com.mygdx.game.spell.Spell;
+import com.mygdx.game.utils.Injector;
 
 public class Slow implements OffensiveSpell, Spell, EarthSpell, DebuffSpell {
 
@@ -36,11 +38,17 @@ public class Slow implements OffensiveSpell, Spell, EarthSpell, DebuffSpell {
 
     @Override
     public void finish() {
-        ActionRegistry.INSTANCE.add(map, new SlowAction(target.getCoordinates()));
+
+        SlowAction slowAction = Injector.getInstance(SlowAction.class);
+
+        slowAction.setCoordinates(target.getCoordinates());
+
+        ActionRegistry.INSTANCE.add(map, slowAction);
 
         caster.setMana(caster.getMana() - Config.Spell.SLOW_MANA_COST);
 
         EffectRegistry.INSTANCE.add(new MovementSpeedReduction(Config.Spell.SLOW_MOVEMENT_SPEED_REDUCE_AMOUNT), target);
+        EffectRegistry.INSTANCE.add(new AttackSpeedReduction(Config.Spell.SLOW_ATTACK_SPEED_REDUCE_AMOUNT), target);
     }
 
     @Override

@@ -1,26 +1,25 @@
 package com.mygdx.game.logic.action;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
+import com.google.inject.Inject;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.SpriteBatchRegistry;
+import com.mygdx.game.registry.TextureRegistry;
 
 public class SlowAction implements Action {
 
-    private final Texture texture = new Texture(Gdx.files.internal("effects/Slow.png"));
+    private TextureRegistry textureRegistry;
 
     private Point coordinates;
     private float phase = 0f;
 
-    public SlowAction(Point coordinates) {
-        this.coordinates = coordinates;
+    public SlowAction() {
 
     }
 
     @Override
     public void update() {
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(texture, coordinates.getX(), coordinates.getY() -0.3f, 0.0f, 0.0f, 1, 1, 1, 1, 0.0f, (int)phase * 32 ,0, 32, 32, false, false);
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(textureRegistry.getActionTexture(SlowAction.class), coordinates.getX(), coordinates.getY() -0.3f, 0.0f, 0.0f, 1, 1, 1, 1, 0.0f, (int)phase * 32 ,0, 32, 32, false, false);
         phase += Gdx.graphics.getRawDeltaTime() * 10;
     }
 
@@ -37,5 +36,10 @@ public class SlowAction implements Action {
     @Override
     public void setCoordinates(Point newCoordinates) {
         this.coordinates = newCoordinates;
+    }
+
+    @Inject
+    public void setTextureRegistry(TextureRegistry textureRegistry) {
+        this.textureRegistry = textureRegistry;
     }
 }
