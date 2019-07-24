@@ -131,8 +131,6 @@ public class ActivityManagerTest {
         PreCalculatedMovementActivity movementActivity4 = (PreCalculatedMovementActivity) moveThenAttackActivity4.getCurrentActivity();
         assertThat(movementActivity4.getTargetX(), is(13));
         assertThat(movementActivity4.getTargetY(), is(11));
-
-
     }
 
     @Test

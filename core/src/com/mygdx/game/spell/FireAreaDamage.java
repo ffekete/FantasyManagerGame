@@ -11,16 +11,18 @@ import java.util.List;
 
 public class FireAreaDamage {
 
-    private final Actor initiator;
+    public static final FireAreaDamage INSTANCE = new FireAreaDamage();
+
     private final AreaBasedEnemiesSelector areaBasedEnemiesSelector = new AreaBasedEnemiesSelector();
 
-    public FireAreaDamage(Actor initiator) {
-        this.initiator = initiator;
+    private FireAreaDamage() {
+
     }
 
-    public void calculate(Point center, Map2D map, int distance, int damage) {
+    public void calculate(Actor initiator, Point center, Map2D map, int distance, int damage) {
 
         List<Actor> affectedActors = areaBasedEnemiesSelector.findAllEnemiesWithinRange(center, map, distance);
+
         for(int i = 0; i < affectedActors.size(); i++) {
             affectedActors.get(i).setHp(affectedActors.get(i).getHp() - damage - initiator.getSkillLevel(MagicSkill.FireMagic));
 

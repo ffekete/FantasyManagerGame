@@ -60,7 +60,7 @@ public class FireBall implements Spell, FireSpell, OffensiveSpell {
     @Override
     public void finish() {
         ActionRegistry.INSTANCE.add(map, new ExplosionAction(end.getX(), end.getY()));
-        new FireAreaDamage(caster).calculate(end, map, Config.Spell.FIREBALL_RANGE, new Random().nextInt(5) + 12);
+        FireAreaDamage.INSTANCE.calculate(caster, end, map, Config.Spell.FIREBALL_RANGE, new Random().nextInt(5) + 12);
         caster.setMana(caster.getMana() - Config.Spell.FIREBALL_MANA_COST);
         EffectRegistry.INSTANCE.add(new FireDamage(1, 5, target, caster), target);
         LightSourceRegistry.INSTANCE.add(map, new TimedLightSource(target.getX(), target.getY(), Color.RED, 15f, LightSourceType.Beam, 10));
