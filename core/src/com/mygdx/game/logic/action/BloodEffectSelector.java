@@ -7,25 +7,31 @@ import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.*;
+import com.mygdx.game.resolver.ModdablePathResolver;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class BloodEffectSelector {
 
     public static final BloodEffectSelector INSTANCE = new BloodEffectSelector();
 
-    private final Map<Class <? extends Actor>, Texture> textures = ImmutableMap.<Class <? extends Actor>, Texture>builder()
-            .put(Skeleton.class, new Texture(Gdx.files.internal("effects/BoneDustEffect.png")))
-            .put(SkeletonWarrior.class, new Texture(Gdx.files.internal("effects/BoneDustEffect.png")))
-            .put(Lich.class, new Texture(Gdx.files.internal("effects/BoneDustEffect.png")))
-            .put(Warrior.class, new Texture(Gdx.files.internal("effects/BloodEffect.png")))
-            .put(Goblin.class, new Texture(Gdx.files.internal("effects/BloodEffect.png")))
-            .put(Orc.class, new Texture(Gdx.files.internal("effects/BloodEffect.png")))
+    private final ModdablePathResolver moddablePathResolver = new ModdablePathResolver();
+
+    private final Map<Class <? extends Actor>, Optional<Texture>> textures = ImmutableMap.<Class <? extends Actor>, Optional<Texture>>builder()
+            .put(Skeleton.class, moddablePathResolver.resolve("effects/BoneDustEffect.png"))
+            .put(SkeletonWarrior.class, moddablePathResolver.resolve("effects/BoneDustEffect.png"))
+            .put(Lich.class, moddablePathResolver.resolve("effects/BoneDustEffect.png"))
+            .put(Warrior.class, moddablePathResolver.resolve("effects/BloodEffect.png"))
+            .put(Goblin.class, moddablePathResolver.resolve("effects/BloodEffect.png"))
+            .put(Orc.class, moddablePathResolver.resolve("effects/BloodEffect.png"))
+
+            // default one
+            .put(Actor.class, moddablePathResolver.resolve("effects/BloodEffect.png"))
             .build();
 
-
     public Texture selectFor(Class<? extends Actor> clazz) {
-        return textures.getOrDefault(clazz, new Texture(Gdx.files.internal("effects/BloodEffect.png")));
+        return textures.getOrDefault(clazz, textures.get(Actor.class)).get();
     }
 
 

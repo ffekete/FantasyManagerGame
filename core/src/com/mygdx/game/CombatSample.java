@@ -63,8 +63,6 @@ public class CombatSample extends SampleBase {
     @Override
     public void create() {
 
-        Guice.createInjector(new DIConfig());
-
         infoCamera = new OrthographicCamera();
         infoViewPort = new FitViewport(1280, 720, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
@@ -160,7 +158,6 @@ public class CombatSample extends SampleBase {
         spriteBatch.dispose();
         textureRegistry.dispose();
         bitmapFont.dispose();
-        AnimationRegistry.INSTANCE.dispose();
     }
 
     @Override

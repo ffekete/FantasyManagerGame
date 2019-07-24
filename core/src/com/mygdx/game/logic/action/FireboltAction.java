@@ -6,10 +6,12 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.ActionRegistry;
 import com.mygdx.game.registry.SpriteBatchRegistry;
+import com.mygdx.game.registry.TextureRegistry;
+import com.mygdx.game.spell.offensive.FireBolt;
 
 public class FireboltAction implements Action {
 
-    private final Texture fireboltTexture = new Texture(Gdx.files.internal("effects/FireBolt.png"));
+    private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
 
     private Point coordinates;
     private Point targetCoordinates;
@@ -24,7 +26,7 @@ public class FireboltAction implements Action {
 
     @Override
     public void update() {
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(fireboltTexture, coordinates.getX(), coordinates.getY(), 0.0f, 0.0f, 1, 1, 1, 1, 0.0f, (int)phase * 32 ,0, 32, 32, false, false);
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(textureRegistry.getActionTexture(FireboltAction.class), coordinates.getX(), coordinates.getY(), 0.0f, 0.0f, 1, 1, 1, 1, 0.0f, (int)phase * 32 ,0, 32, 32, false, false);
         phase += Gdx.graphics.getRawDeltaTime() * 10;
         if(phase >= 3f) {
             phase = 0f;

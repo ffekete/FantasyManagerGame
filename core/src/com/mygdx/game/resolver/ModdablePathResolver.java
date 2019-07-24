@@ -4,24 +4,29 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.Optional;
+
 public class ModdablePathResolver implements PathResolver {
 
-    public Texture resolve(String path) {
+    @Override
+    public Optional<Texture> resolve(String path) {
 
-        FileHandle fileHandle = Gdx.files.internal("../mod/" + path);
+        try {
+            FileHandle fileHandle = Gdx.files.internal("../mod/" + path);
+            return Optional.of(new Texture(fileHandle));
+        } catch (Exception e) {
 
-        System.out.println(fileHandle.path());
-
-        if (fileHandle.exists() && !fileHandle.isDirectory()) {
-            return new Texture(fileHandle);
         }
 
-        fileHandle = Gdx.files.internal(path);
-        if (fileHandle.exists() && !fileHandle.isDirectory()) {
-            return new Texture(Gdx.files.internal(path));
+        try {
+            FileHandle fileHandle = Gdx.files.internal(path);
+            return Optional.of(new Texture(fileHandle));
+        } catch (Exception e) {
+
         }
 
-        return null;
+        return Optional.empty();
     }
+
 
 }

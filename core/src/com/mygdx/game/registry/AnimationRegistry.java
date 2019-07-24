@@ -10,7 +10,7 @@ import com.mygdx.game.object.AnimatedObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AnimationRegistry implements Disposable {
+public class AnimationRegistry {
 
     public static final AnimationRegistry INSTANCE = new AnimationRegistry();
 
@@ -41,10 +41,4 @@ public class AnimationRegistry implements Disposable {
         animations.remove(actor);
     }
 
-    @Override
-    public void dispose() {
-        for(ActorAnimation a: animations.values()) {
-            a.dispose();
-        }
-    }
 }

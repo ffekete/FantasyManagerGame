@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.decoration.SpiderWeb;
 import com.mygdx.game.object.decoration.StandingTorch;
+import com.mygdx.game.registry.TextureRegistry;
 
 import java.util.Map;
 
@@ -13,15 +14,12 @@ public class ObjectAnimations {
 
     public static final ObjectAnimations INSTANCE = new ObjectAnimations();
 
-    private final Map<Class<? extends AnimatedObject>, Texture> animationMap = ImmutableMap.<Class<? extends AnimatedObject>, Texture>builder()
-            .put(StandingTorch.class, new Texture(Gdx.files.internal("object/StandingTorch.png")))
-            .put(SpiderWeb.class, new Texture(Gdx.files.internal("object/SpiderWeb.png")))
-            .build();
+    private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
+
+
 
     private ObjectAnimations() {
     }
 
-    public Texture getFor(Class<? extends AnimatedObject> clazz) {
-        return animationMap.get(clazz);
-    }
+
 }

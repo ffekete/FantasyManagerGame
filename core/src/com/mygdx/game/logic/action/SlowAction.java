@@ -1,14 +1,13 @@
 package com.mygdx.game.logic.action;
 
 import com.badlogic.gdx.Gdx;
-import com.google.inject.Inject;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.SpriteBatchRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 
 public class SlowAction implements Action {
 
-    private TextureRegistry textureRegistry;
+    private TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
 
     private Point coordinates;
     private float phase = 0f;
@@ -36,10 +35,5 @@ public class SlowAction implements Action {
     @Override
     public void setCoordinates(Point newCoordinates) {
         this.coordinates = newCoordinates;
-    }
-
-    @Inject
-    public void setTextureRegistry(TextureRegistry textureRegistry) {
-        this.textureRegistry = textureRegistry;
     }
 }

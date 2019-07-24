@@ -6,6 +6,6 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.logic.activity.Activity;
 
-public interface ActorAnimation extends Disposable  {
+public interface ActorAnimation  {
     void drawKeyFrame(SpriteBatch spriteBatch, float x, float y, int scale, Direction direction, Activity activity, Class<? extends Actor> actorClass);
 }

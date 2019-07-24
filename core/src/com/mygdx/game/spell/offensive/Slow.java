@@ -39,7 +39,7 @@ public class Slow implements OffensiveSpell, Spell, EarthSpell, DebuffSpell {
     @Override
     public void finish() {
 
-        SlowAction slowAction = Injector.getInstance(SlowAction.class);
+        SlowAction slowAction = new SlowAction();
 
         slowAction.setCoordinates(target.getCoordinates());
 

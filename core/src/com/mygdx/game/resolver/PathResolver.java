@@ -1,5 +1,7 @@
 package com.mygdx.game.resolver;
 
+import java.util.Optional;
+
 public interface PathResolver<T> {
-    T resolve(String path);
+    Optional<T> resolve(String path);
 }

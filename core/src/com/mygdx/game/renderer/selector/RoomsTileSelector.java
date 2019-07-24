@@ -4,15 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.dungeon.DungeonType;
+import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.utils.MapUtils;
 
 public class RoomsTileSelector {
 
-    TextureRegion textureRegion;
-    long stamp = System.currentTimeMillis();
+    private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
+
+    private TextureRegion textureRegion;
 
     public RoomsTileSelector() {
-        textureRegion = new TextureRegion(new Texture(Gdx.files.internal("tiles/RoomTileset.png")));
+        textureRegion = new TextureRegion(textureRegistry.getFor(DungeonType.ROOMS));
     }
 
     public TextureRegion getFor(Map2D map, int x, int y) {

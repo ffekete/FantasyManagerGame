@@ -16,19 +16,13 @@ import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
 import com.mygdx.game.logic.activity.single.TimedIdleActivity;
 import com.mygdx.game.logic.activity.single.WaitActivity;
+import com.mygdx.game.registry.TextureRegistry;
 
 import java.util.Map;
 
 public class FullBodyActorAnimation implements ActorAnimation {
 
-    private Texture rangerTexture = new Texture(Gdx.files.internal("actors/Ranger.png"));
-    private Texture warriorTexture = new Texture(Gdx.files.internal("actors/Warrior.png"));
-    private Texture skeletonTexture = new Texture(Gdx.files.internal("actors/Skeleton.png"));
-    private Texture goblinTexture = new Texture(Gdx.files.internal("actors/goblin.png"));
-    private Texture orcTexture = new Texture(Gdx.files.internal("actors/orc.png"));
-    private Texture wizardTexture = new Texture(Gdx.files.internal("actors/Wizard.png"));
-    private Texture skeletonWarriorTexture = new Texture(Gdx.files.internal("actors/SkeletonWarrior.png"));
-    private Texture lichTexture = new Texture(Gdx.files.internal("actors/Lich.png"));
+    private TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
 
     private float phase = 0;
 
@@ -47,7 +41,7 @@ public class FullBodyActorAnimation implements ActorAnimation {
     }
 
     private Texture getTexture(Class<? extends Actor> actorClass) {
-        return textureMap.get(actorClass);
+        return textureRegistry.getForActor(actorClass);
     }
 
     private int getRow(Activity activity) {
@@ -68,24 +62,6 @@ public class FullBodyActorAnimation implements ActorAnimation {
             return AnimationPhase.WALK.column;
         }
         return AnimationPhase.ATTACK.column; // attack
-    }
-
-    private final Map<Class<? extends Actor>, Texture> textureMap = ImmutableMap.<Class<? extends Actor>, Texture>builder()
-            .put(Warrior.class, warriorTexture)
-            .put(Ranger.class, rangerTexture)
-            .put(Skeleton.class, skeletonTexture)
-            .put(Goblin.class, goblinTexture)
-            .put(Orc.class, orcTexture)
-            .put(Wizard.class, wizardTexture)
-            .put(SkeletonWarrior.class, skeletonWarriorTexture)
-            .put(Lich.class, lichTexture)
-            .build();
-
-    @Override
-    public void dispose() {
-        for(Texture t:textureMap.values()) {
-            t.dispose();
-        }
     }
 
     private enum AnimationPhase {

@@ -7,11 +7,12 @@ import com.mygdx.game.actor.Direction;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.SpriteBatchRegistry;
+import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.renderer.direction.DirectionSelector;
 
 public class BowAction implements Action {
 
-    private final Texture bowTexture = new Texture(Gdx.files.internal("effects/BowEffect.png"));
+    private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
 
     private Point coordinates;
     private float phase = 0f;
@@ -24,7 +25,7 @@ public class BowAction implements Action {
 
     @Override
     public void update() {
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(bowTexture, coordinates.getX(), coordinates.getY(), 0.0f, 0.0f, 1, 1, 1, 1, 0.0f, (int)phase * 32 ,0, 32, 32, direction.equals(Direction.UP) || direction.equals(Direction.LEFT), false);
+        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(textureRegistry.getActionTexture(BowAction.class), coordinates.getX(), coordinates.getY(), 0.0f, 0.0f, 1, 1, 1, 1, 0.0f, (int)phase * 32 ,0, 32, 32, direction.equals(Direction.UP) || direction.equals(Direction.LEFT), false);
         phase += Gdx.graphics.getRawDeltaTime() * 10;
 
     }
