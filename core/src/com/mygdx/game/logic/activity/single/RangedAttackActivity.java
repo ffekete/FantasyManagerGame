@@ -156,4 +156,7 @@ public class RangedAttackActivity implements Activity, CooldownActivity {
         return this;
     }
 
+    public Actor getEnemy() {
+        return enemy;
+    }
 }

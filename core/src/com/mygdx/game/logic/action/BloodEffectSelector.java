@@ -30,8 +30,8 @@ public class BloodEffectSelector {
             .put(Actor.class, moddablePathResolver.resolve("effects/BloodEffect.png"))
             .build();
 
-    public Texture selectFor(Class<? extends Actor> clazz) {
-        return textures.getOrDefault(clazz, textures.get(Actor.class)).get();
+    public Optional<Texture> selectFor(Class<? extends Actor> clazz) {
+        return textures.getOrDefault(clazz, textures.get(Actor.class));
     }
 
 

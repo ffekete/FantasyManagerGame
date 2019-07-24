@@ -9,13 +9,15 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.SpriteBatchRegistry;
 import com.mygdx.game.renderer.direction.DirectionSelector;
 
+import java.util.Optional;
+
 public class BloodSpillAction implements Action {
 
     private final BloodEffectSelector bloodEffectSelector = BloodEffectSelector.INSTANCE;
 
     private final int x;
     private final int y;
-    private final Texture texture;
+    private Texture texture;
     private boolean finished = false;
 
     private float phase = 0f;
@@ -23,7 +25,8 @@ public class BloodSpillAction implements Action {
     public BloodSpillAction(int x, int y, Class<? extends Actor> actorClass) {
         this.x = x;
         this.y = y;
-        this.texture = bloodEffectSelector.selectFor(actorClass);
+        Optional<Texture> texture = bloodEffectSelector.selectFor(actorClass);
+        texture.ifPresent(texture1 -> this.texture = texture1);
     }
 
     @Override
