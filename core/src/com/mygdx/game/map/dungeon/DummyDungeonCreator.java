@@ -1,11 +1,9 @@
 package com.mygdx.game.map.dungeon;
 
-import com.mygdx.game.map.Map2D;
-
-public class DummyDungeonCreator implements MapGenerator {
+public class DummyDungeonCreator implements DungeonGenerator {
 
     @Override
-    public Map2D create(int steps) {
+    public Dungeon create(int steps) {
         Dungeon dungeon = new Dungeon(100, 100, DungeonType.CAVE);
         for(int i = 0; i < 100; i++) {
             for(int j = 0; j < 100; j++) {

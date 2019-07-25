@@ -72,7 +72,7 @@ public class TextureRegistry {
                 .put(SlowAction.class, texturePathResolver.resolve("effects/Slow.png"))
                 .put(FireboltAction.class, texturePathResolver.resolve("effects/FireBolt.png"))
                 .put(BowAction.class, texturePathResolver.resolve("effects/BowEffect.png"))
-                .put(ArrowAction.class, texturePathResolver.resolve("effects/ArrowAction.png"))
+                .put(ArrowAction.class, texturePathResolver.resolve("effects/Arrow.png"))
                 .put(PoisonCloudAction.class, texturePathResolver.resolve("effects/PoisonCloud.png"))
                 .put(ExplosionAction.class, texturePathResolver.resolve("effects/ExplosionEffect.png"))
                 .put(SmallExplosionAction.class, texturePathResolver.resolve("effects/ExplosionEffect.png"))

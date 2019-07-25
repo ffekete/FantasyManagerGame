@@ -56,6 +56,7 @@ public class DungeonVisitingDecision implements Decision {
                         && closestObject != null
                         && DungeonEntrance.class.isAssignableFrom(closestObject.getClass())
                         && !((DungeonEntrance) closestObject).getTo().areAllLevelsExplored()) {
+                    actor.getActivityStack().clear();
                     MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY);
 
                     moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1, new PathFinder()));
@@ -67,7 +68,10 @@ public class DungeonVisitingDecision implements Decision {
                     return true;
                 }
             }
+        } else if (actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
+            return true;
         }
+
         return false;
     }
 

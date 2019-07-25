@@ -9,6 +9,7 @@ import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.ShortSword;
+import com.mygdx.game.logic.activity.manager.decision.MoveAndAttackDecision;
 import com.mygdx.game.logic.activity.manager.decision.MoveAndRangedAttackDecision;
 import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.activity.single.OffensiveSpellCastActivity;
@@ -309,6 +310,141 @@ public class ActivityManagerTest {
         PreCalculatedMovementActivity movementActivity3 = (PreCalculatedMovementActivity) moveThenAttackActivity3.getCurrentActivity();
         assertThat(movementActivity3.getTargetX(), is(10));
         assertThat(movementActivity3.getTargetY(), is(9));
+
+        assertThat(hero.getX(), is(10));
+        assertThat(hero.getY(), is(10));
+    }
+
+    @Test
+    public void testFindClosestEnemyAndMove_MeleeVsSpellCaster() throws InterruptedException {
+        ActivityManager activityManager = new ActivityManager();
+
+        VisibilityMask visibilityMask = new VisibilityMask(100, 100);
+        Map2D dungeon = new DummyDungeonCreator().create(5);
+        VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
+
+        Actor hero = new Wizard();
+        hero.setCoordinates(new Point(10, 10));
+        hero.setCurrentMap(dungeon);
+        hero.getWeaponSkills().put(WeaponSkill.Bow, 2);
+        hero.equip(new LongBow());
+        hero.setHp(1000);
+        hero.setMana(1000);
+
+        Actor goblin = new Goblin();
+        goblin.equip(new ShortSword());
+        goblin.setCoordinates(new Point(15, 15));
+        goblin.setCurrentMap(dungeon);
+        goblin.setHp(1000);
+
+        visibilityMask.setValue(15,15, hero);
+        visibilityMask.setValue(10,10, goblin);
+
+        ActorRegistry.INSTANCE.add(dungeon, hero);
+        ActorRegistry.INSTANCE.add(dungeon, goblin);
+
+        MapRegistry.INSTANCE.add(dungeon);
+
+        activityManager.manage(goblin);
+        activityManager.manage(hero);
+
+        assertThat(hero.getActivityStack().contains(OffensiveSpellCastActivity.class), is(true));
+        assertThat(goblin.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+    }
+
+    @Test
+    public void testFindClosestEnemyAndMove_rangedAttackVsMelee() throws InterruptedException {
+        ActivityManager activityManager = new ActivityManager();
+
+        VisibilityMask visibilityMask = new VisibilityMask(100, 100);
+        Map2D dungeon = new DummyDungeonCreator().create(5);
+        VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
+
+        Actor hero = new Warrior();
+        hero.setCoordinates(new Point(10, 10));
+        hero.setCurrentMap(dungeon);
+        hero.getWeaponSkills().put(WeaponSkill.Bow, 2);
+        hero.equip(new LongBow());
+        hero.setHp(1000);
+
+        Actor goblin = new Goblin();
+        goblin.equip(new ShortSword());
+        goblin.setCoordinates(new Point(15, 15));
+        goblin.setCurrentMap(dungeon);
+        goblin.setHp(1000);
+
+
+
+        visibilityMask.setValue(15,15, hero);
+        visibilityMask.setValue(10,10, goblin);
+
+        ActorRegistry.INSTANCE.add(dungeon, hero);
+        ActorRegistry.INSTANCE.add(dungeon, goblin);
+
+        MapRegistry.INSTANCE.add(dungeon);
+
+        activityManager.manage(goblin);
+        activityManager.manage(hero);
+
+
+        assertThat(hero.getActivityStack().contains(RangedAttackActivity.class), is(true));
+        assertThat(goblin.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+    }
+
+    @Test
+    public void testFindClosestEnemyAndMove_rangedAttackVsRangedAttack() throws InterruptedException {
+        ActivityManager activityManager = new ActivityManager();
+
+        VisibilityMask visibilityMask = new VisibilityMask(100, 100);
+        Map2D dungeon = new DummyDungeonCreator().create(5);
+        VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
+
+        Actor hero = new Warrior();
+        hero.setCoordinates(new Point(10, 10));
+        hero.setCurrentMap(dungeon);
+        hero.getWeaponSkills().put(WeaponSkill.Bow, 2);
+        hero.equip(new LongBow());
+        hero.setHp(1000);
+
+        Actor goblin = new Goblin();
+        goblin.equip(new LongBow());
+        goblin.getWeaponSkills().put(WeaponSkill.Bow, 2);
+        goblin.setCoordinates(new Point(15, 15));
+        goblin.setCurrentMap(dungeon);
+        goblin.setHp(1000);
+
+
+
+        visibilityMask.setValue(15,15, hero);
+        visibilityMask.setValue(10,10, goblin);
+
+        ActorRegistry.INSTANCE.add(dungeon, hero);
+        ActorRegistry.INSTANCE.add(dungeon, goblin);
+
+        MapRegistry.INSTANCE.add(dungeon);
+
+        activityManager.manage(hero);
+        activityManager.manage(goblin);
+
+        assertThat(hero.getActivityStack().contains(RangedAttackActivity.class), is(true));
+        assertThat(goblin.getActivityStack().contains(RangedAttackActivity.class), is(true));
+
+        // perform next task for goblin
+        for(int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
+            goblin.getActivityStack().performNext();
+            Thread.sleep(5); // this is needed for pathfinder to generate the path in time
+        }
+        assertThat(goblin.getX(), is(15));
+        assertThat(goblin.getY(), is(15));
+
+        // check target for goblin
+        RangedAttackActivity rangedAttackActivity = (RangedAttackActivity) goblin.getActivityStack().getCurrent();
+
+        assertThat(rangedAttackActivity.getEnemy(), is(hero));
+
+        // check target for warrior
+        RangedAttackActivity rangedAttackActivity2 = (RangedAttackActivity) hero.getActivityStack().getCurrent();
+        assertThat(rangedAttackActivity2.getEnemy(), is(goblin));
 
         assertThat(hero.getX(), is(10));
         assertThat(hero.getY(), is(10));

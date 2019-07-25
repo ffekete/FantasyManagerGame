@@ -22,6 +22,11 @@ public class LeaveDungeonDecision implements Decision {
 
     @Override
     public boolean decide(Actor actor) {
+
+        if(actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
+            return true;
+        }
+
         if(Alignment.FRIENDLY.equals(actor.getAlignment()) && !Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType()) && actor.getCurrentMap().areAllLevelsExplored() && !actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
             // find dungeon entrance
             List<WorldObject> entrances = objectRegistry.getObject(actor.getCurrentMap(), Ladder.class).get();

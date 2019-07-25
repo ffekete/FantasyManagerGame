@@ -43,13 +43,13 @@ public class LinkedWorldObjectFactory {
         placement2.place(object2, toMap);
 
         objectRegistry.add(fromMap,
-                new Cluster((int) object.getX() / Config.WorldMap.CLUSTER_DIVIDER,
-                        (int) object.getY() / Config.WorldMap.CLUSTER_DIVIDER),
+                Cluster.of((int) object.getX(),
+                        (int) object.getY()),
                 object);
 
         objectRegistry.add(toMap,
-                new Cluster((int) object2.getX() / Config.WorldMap.CLUSTER_DIVIDER,
-                        (int) object2.getY() / Config.WorldMap.CLUSTER_DIVIDER),
+                Cluster.of((int) object2.getX(),
+                        (int) object2.getY()),
                 object2);
 
         return object;

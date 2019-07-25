@@ -88,7 +88,7 @@ public class MoveAndAttackDecision implements Decision {
                 }
 
                 // if a melee enemy is not already fighting then give a path to this enemy as well to the actor
-                if (
+                if (!RangedWeapon.class.isAssignableFrom(enemy.getRightHandItem().getClass()) &&
                         (!enemy.getActivityStack().contains(RangedAttackActivity.class)
                                 && !enemy.getActivityStack().contains(SimpleAttackActivity.class)
                                 && !enemy.getActivityStack().contains(OffensiveSpellCastActivity.class)

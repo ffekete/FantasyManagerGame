@@ -3,6 +3,7 @@ package com.mygdx.game.logic.activity.stack;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.single.IdleActivity;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 
 import java.util.PriorityQueue;
 
@@ -76,6 +77,8 @@ public class ActivityStack {
     }
 
     public void add(Activity activity) {
+        actor.getActivityStack().clear();
+        ActorMovementHandler.INSTANCE.clearPath(actor);
         this.activities.offer(activity);
     }
 

@@ -9,14 +9,17 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
+import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.map.Map2D;
@@ -45,6 +48,7 @@ import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.renderer.RendererBatch;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.utils.GdxUtils;
+import org.w3c.dom.ranges.Range;
 
 import java.util.Random;
 
@@ -66,6 +70,7 @@ public class WorldMapSample extends SampleBase {
     Viewport infoViewPort;
     BitmapFont bitmapFont;
     Actor hero;
+    Actor ranger;
     MapGenerator mapGenerator = new WorldMapGenerator();
     DungeonFactory dungeonFactory = DungeonFactory.INSTANCE;
 
@@ -86,6 +91,11 @@ public class WorldMapSample extends SampleBase {
         worldMap = mapGenerator.create(0);
         textureRegistry = TextureRegistry.INSTANCE;
         Gdx.input.setInputProcessor(this);
+
+        ranger = ActorFactory.INSTANCE.create(Ranger.class, worldMap, Placement.FIXED.X(8).Y(10));
+        ranger.equip(new LongBow());
+        ranger.setName("Aragorn");
+        ranger.getWeaponSkills().put(WeaponSkill.Bow, 5);
 
         hero = ActorFactory.INSTANCE.create(Wizard.class, worldMap, Placement.FIXED.X(9).Y(10));
         hero.getInventory().add(new SmallHealingPotion());
