@@ -11,6 +11,8 @@ import com.mygdx.game.object.LinkedWorldObjectFactory;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.placement.ObjectPlacement;
 
+import com.mygdx.game.registry.ObjectRegistry;
+import org.junit.Before;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -19,6 +21,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class LeaveDungeonDecisionTest {
+
+    @Before
+    public void setUp() {
+        ObjectRegistry.INSTANCE.clear();
+    }
 
     @Test
     public void shouldFail_heroIsOnWorldMap() {
@@ -49,7 +56,7 @@ public class LeaveDungeonDecisionTest {
     }
 
     @Test
-    public void shouldFail_actorAlreadyLeaving() {
+    public void shouldReturnTrue_actorAlreadyLeaving() {
 
         Actor actor = new Warrior();
         WorldMap worldMap = new WorldMap(1, 1);
@@ -63,7 +70,7 @@ public class LeaveDungeonDecisionTest {
         Decision leaveDungeonDecision = new LeaveDungeonDecision();
 
         boolean result = leaveDungeonDecision.decide(actor);
-        assertThat(result, is(false));
+        assertThat(result, is(true));
     }
 
     @Test

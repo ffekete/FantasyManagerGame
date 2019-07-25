@@ -11,6 +11,7 @@ import com.mygdx.game.actor.monster.*;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
+import com.mygdx.game.item.potion.SmallManaPotion;
 import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.bow.LongBow;
@@ -93,6 +94,7 @@ public class TextureRegistry {
                 .put(ShortSwordPlusFour.class, texturePathResolver.resolve("items/ShortSword.png"))
                 .put(Bread.class, texturePathResolver.resolve("items/bread.png"))
                 .put(SmallHealingPotion.class, texturePathResolver.resolve("items/HealingPotion.png"))
+                .put(SmallManaPotion.class, texturePathResolver.resolve("items/ManaPotion.png"))
                 .put(SmallShiled.class, texturePathResolver.resolve("items/SmallShield.png"))
                 .put(MediumShield.class, texturePathResolver.resolve("items/MediumShield.png"))
                 .put(PoisonFang.class, texturePathResolver.resolve("items/PoisonFang.png"))

@@ -46,4 +46,8 @@ public class ObjectRegistry {
         return Optional.ofNullable(objects.get(map).get(cluster));
     }
 
+    public void clear() {
+        objects.clear();
+    }
+
 }

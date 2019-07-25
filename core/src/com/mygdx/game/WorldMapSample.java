@@ -19,6 +19,7 @@ import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.item.potion.SmallManaPotion;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.ShortSword;
@@ -96,11 +97,18 @@ public class WorldMapSample extends SampleBase {
         ranger.equip(new LongBow());
         ranger.setName("Aragorn");
         ranger.getWeaponSkills().put(WeaponSkill.Bow, 5);
+        ranger.getInventory().add(new SmallHealingPotion());
+        ranger.getInventory().add(new SmallHealingPotion());
+        ranger.getInventory().add(new SmallHealingPotion());
 
         hero = ActorFactory.INSTANCE.create(Wizard.class, worldMap, Placement.FIXED.X(9).Y(10));
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
+
+        hero.getInventory().add(new SmallManaPotion());
+        hero.getInventory().add(new SmallManaPotion());
+        hero.getInventory().add(new SmallManaPotion());
 
         CameraPositionController.INSTANCE.focusOn(hero);
 

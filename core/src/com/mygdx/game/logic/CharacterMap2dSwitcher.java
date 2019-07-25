@@ -33,9 +33,9 @@ public class CharacterMap2dSwitcher {
 
         Point enter;
 
-        if(ladders.isPresent()) {
+        if(ladders.isPresent() && !ladders.get().isEmpty()) {
             enter = ladders.get().get(0).getCoordinates();
-        } else if(entrances.isPresent()) {
+        } else if(entrances.isPresent() && !entrances.get().isEmpty()) {
             enter = entrances.get().get(0).getCoordinates();
         } else {
             throw new RuntimeException("No entrances found!");

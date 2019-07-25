@@ -30,6 +30,7 @@ public class Config {
 
     public static class Actor {
         public static final int LOW_HP_THRESHOLD_DIVIDER = 3;
+        public static final int LOW_MANA_THRESHOLD_DIVIDER = 3;
         public static final int MAX_STARTER_SKILL_LEVEL = 2;
         public static final String LIGHT_SOURCE_COLOR = "FF7733";
     }
@@ -43,6 +44,7 @@ public class Config {
         public static final int BREAD_HUNGER_LEVEL = 100;
         public static final int PICK_UP_ITEM_DISTANCE = 15;
         public static final int HEALING_POTION_STRENGTH = 20;
+        public static final int MANA_POTION_STRENGTH = 20;
 
         // power lists
         public static final int BLACK_PLATE_MAIL_POWER = 10;
@@ -84,7 +86,8 @@ public class Config {
 
     public static class Activity {
 
-        public static final int HEALING_POTION_CONSUME_PRIORITY = 9;
+        public static final int HEALING_POTION_CONSUME_PRIORITY = 8;
+        public static final int MANA_POTION_CONSUME_PRIORITY = 9;
         public static final int EQUIP_PRIORITY = 10;
         public static final int RANGED_ATTACK_PRIORITY = 90;
         public static final int OFFENSIVE_SPELL_CAST_PRIORITY = 91;

@@ -12,6 +12,7 @@ import com.mygdx.game.item.category.Tier3;
 import com.mygdx.game.item.category.Tier4;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallHealingPotion;
+import com.mygdx.game.item.potion.SmallManaPotion;
 import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.bow.LongBow;
@@ -36,6 +37,7 @@ public class ItemRegistry {
                     .add(Bread.class)
                     // Potion
                     .add(SmallHealingPotion.class)
+                    .add(SmallManaPotion.class)
                     // Shield
                     .add(SmallShiled.class)
                     .add(MediumShield.class)

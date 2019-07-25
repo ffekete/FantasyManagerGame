@@ -24,6 +24,7 @@ public class ActivityManager {
 
                 .put(Ranger.class, ImmutableList.of(
                         new ConsumeHealingpotionDecision(),
+                        new ConsumeManapotionDecision(),
                         new EquipDecision(),
                         new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
@@ -39,6 +40,7 @@ public class ActivityManager {
 
                 .put(Warrior.class, ImmutableList.of(
                         new ConsumeHealingpotionDecision(),
+                        new ConsumeManapotionDecision(),
                         new EquipDecision(),
                         new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
@@ -54,6 +56,7 @@ public class ActivityManager {
 
                 .put(Wizard.class, ImmutableList.of(
                         new ConsumeHealingpotionDecision(),
+                        new ConsumeManapotionDecision(),
                         new EquipDecision(),
                         new OffensiveSpellCastDecision(),
                         new MoveAndRangedAttackDecision(),
@@ -81,6 +84,7 @@ public class ActivityManager {
                 )
 
                 .put(Lich.class, ImmutableList.of(
+                        new ConsumeManapotionDecision(),
                         new OffensiveSpellCastDecision(),
                         new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
