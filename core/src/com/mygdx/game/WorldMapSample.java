@@ -19,6 +19,7 @@ import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallManaPotion;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
@@ -109,6 +110,10 @@ public class WorldMapSample extends SampleBase {
         hero.getInventory().add(new SmallManaPotion());
         hero.getInventory().add(new SmallManaPotion());
         hero.getInventory().add(new SmallManaPotion());
+
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
 
         CameraPositionController.INSTANCE.focusOn(hero);
 

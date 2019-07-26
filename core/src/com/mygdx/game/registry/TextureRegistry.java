@@ -96,7 +96,7 @@ public class TextureRegistry {
                 .put(Bread.class, texturePathResolver.resolve("items/bread.png"))
                 .put(SmallHealingPotion.class, texturePathResolver.resolve("items/HealingPotion.png"))
                 .put(SmallManaPotion.class, texturePathResolver.resolve("items/ManaPotion.png"))
-                .put(SmallAntiVenomPotion.class, texturePathResolver.resolve("items/AntiVenomPotion.png"))
+                .put(SmallAntiVenomPotion.class, texturePathResolver.resolve("items/AntiVenom.png"))
                 .put(SmallShiled.class, texturePathResolver.resolve("items/SmallShield.png"))
                 .put(MediumShield.class, texturePathResolver.resolve("items/MediumShield.png"))
                 .put(PoisonFang.class, texturePathResolver.resolve("items/PoisonFang.png"))

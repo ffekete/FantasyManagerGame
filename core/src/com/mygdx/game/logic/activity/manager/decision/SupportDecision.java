@@ -24,6 +24,7 @@ public class SupportDecision implements Decision {
         Optional<Actor> targetActor = actorRegistry.getActors(actor.getCurrentMap())
                 .stream()
                 .filter(target -> !target.equals(actor)
+                        && target.getAlignment().equals(actor.getAlignment())
                         && target.getCurrentMap().equals(actor.getCurrentMap())
                         && MathUtil.distance(actor.getCoordinates(), target.getCoordinates()) <= Config.Rules.FOLLOW_DISTANCE)
                 .findFirst();
