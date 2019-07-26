@@ -4,6 +4,7 @@ import com.mygdx.game.actor.component.attribute.Attributes;
 import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.Skill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
+import com.mygdx.game.actor.component.trait.Trait;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.spelltome.SpellTome;
@@ -18,6 +19,7 @@ import com.mygdx.game.logic.activity.stack.ActivityStack;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public interface Actor {
 
@@ -79,6 +81,8 @@ public interface Actor {
     int getMoney();
     void addMoney(int amount);
 
+    boolean hasTrait(Trait trait);
+    void addTrait(Trait trait);
 
     // ******************   BodyPartsBasedActorAnimation  ********************
     Activity getCurrentActivity();

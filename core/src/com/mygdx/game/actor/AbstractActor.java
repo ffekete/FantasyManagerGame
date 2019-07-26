@@ -5,6 +5,8 @@ import com.mygdx.game.actor.component.attribute.Attributes;
 import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.Skill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
+import com.mygdx.game.actor.component.trait.Trait;
+import com.mygdx.game.actor.component.trait.TraitList;
 import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.effect.AttackSpeedReduction;
 import com.mygdx.game.effect.Effect;
@@ -34,6 +36,7 @@ public abstract class AbstractActor implements Actor {
     private Map<MagicSkill, Integer> magicSkills;
     private EffectRegistry effectRegistry = EffectRegistry.INSTANCE;
     private LevelUpController levelUpController = new LevelUpController();
+    private TraitList traitList;
 
     private Point coordinates;
     private int hungerLevel;
@@ -68,6 +71,7 @@ public abstract class AbstractActor implements Actor {
     private int money;
 
     public AbstractActor() {
+        this.traitList = new TraitList();
         this.hungerLevel = Config.BASE_HUNGER_LEVEL;
         this.baseAttributes = new HashMap<>();
         this.weaponSkills = new HashMap<>();
@@ -421,5 +425,15 @@ public abstract class AbstractActor implements Actor {
     public void addMoney(int amount) {
         this.money += amount;
         System.out.println("Received " + amount + " of money, new amount: " + money);
+    }
+
+    @Override
+    public boolean hasTrait(Trait trait) {
+        return traitList.has(trait);
+    }
+
+    @Override
+    public void addTrait(Trait trait) {
+        traitList.add(trait);
     }
 }

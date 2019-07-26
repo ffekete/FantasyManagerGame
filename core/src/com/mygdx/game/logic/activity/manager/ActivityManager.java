@@ -34,6 +34,8 @@ public class ActivityManager {
                         new EatingDecision(),
                         new LeaveDungeonDecision(),
                         new DungeonVisitingDecision(),
+                        new FriendlySupportDecision(),
+                        new SupportDecision(),
                         new ExplorationDecision(),
                         new MovePickupEatDecision(),
                         new WanderingDecision())
@@ -51,6 +53,7 @@ public class ActivityManager {
                         new EatingDecision(),
                         new LeaveDungeonDecision(),
                         new DungeonVisitingDecision(),
+                        new FriendlySupportDecision(),
                         new ExplorationDecision(),
                         new MovePickupEatDecision(),
                         new WanderingDecision())
@@ -69,6 +72,7 @@ public class ActivityManager {
                         new EatingDecision(),
                         new LeaveDungeonDecision(),
                         new DungeonVisitingDecision(),
+                        new FriendlySupportDecision(),
                         new ExplorationDecision(),
                         new MovePickupEatDecision(),
                         new WanderingDecision())

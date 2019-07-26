@@ -13,6 +13,7 @@ public class Config {
         public static final int MANA_REGENERATION_PERIOD = 150;
         public static final int HP_REGENERATION_PERIOD = 300;
         public static final int SPELL_CAST_FREQUENCY = 120;
+        public static final double FOLLOW_DISTANCE = 15.d;
     }
 
     public static class Engine {
@@ -90,16 +91,17 @@ public class Config {
         public static final int MANA_POTION_CONSUME_PRIORITY = 8;
         public static final int ANTIVENOM_POTION_CONSUME_PRIORITY = 9;
         public static final int EQUIP_PRIORITY = 10;
-        public static final int RANGED_ATTACK_PRIORITY = 90;
-        public static final int OFFENSIVE_SPELL_CAST_PRIORITY = 91;
-        public static final int ATTACK_PRIORITY = 92;
-        public static final int MOVE_THEN_ATTACK_PRIORITY = 93;
-        public static final int OPEN_CHEST_PRIORITY = 94;
-        public static final int MOVE_PICKUP_PRIORITY = 95;
-        public static final int PICKUP_PRIORITY = 96;
-        public static final int MOVE_PICKUP_EAT_PRIORITY = 97;
-        public static final int EAT_PRIORITY = 98;
-        public static final int INTERACT_PRIORITY = 99;
+        public static final int RANGED_ATTACK_PRIORITY = 89;
+        public static final int OFFENSIVE_SPELL_CAST_PRIORITY = 90;
+        public static final int ATTACK_PRIORITY = 91;
+        public static final int MOVE_THEN_ATTACK_PRIORITY = 92;
+        public static final int OPEN_CHEST_PRIORITY = 93;
+        public static final int MOVE_PICKUP_PRIORITY = 94;
+        public static final int PICKUP_PRIORITY = 95;
+        public static final int MOVE_PICKUP_EAT_PRIORITY = 96;
+        public static final int EAT_PRIORITY = 97;
+        public static final int INTERACT_PRIORITY = 98;
+        public static final int SUPPORT_PRIORITY = 99;
         public static final int EXPLORATION_PRIORITY = 100;
         public static final int WAIT_PRIORITY = 101;
         public static final int MOVEMENT_PRIORITY = 120;
