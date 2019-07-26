@@ -2,6 +2,7 @@ package com.mygdx.game.registry;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.Effect;
+import com.mygdx.game.effect.Poison;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
 public class EffectRegistry {
 
@@ -30,7 +32,7 @@ public class EffectRegistry {
     }
 
     public Optional<Effect> hasEffect(Actor actor, Class<? extends Effect> effectClass) {
-        if(effects.containsKey(actor)) {
+        if (effects.containsKey(actor)) {
             return (effects.get(actor).stream().filter(effect -> effectClass.isAssignableFrom(effect.getClass())).findAny());
         }
         return Optional.empty();
@@ -42,10 +44,20 @@ public class EffectRegistry {
     }
 
     public void remove(Effect effect, Actor target) {
-        if(effects.containsKey(target))
+        if (effects.containsKey(target))
             effects.get(target).remove(effect);
     }
+
     public void removeAll(Actor actor) {
         effects.remove(actor);
+    }
+
+    public void removeAll(Actor actor, Class<? extends Effect> clazz) {
+        List<Effect> toBeRemoved = effects.get(actor).stream()
+                .filter(effect -> Poison.class.isAssignableFrom(clazz))
+                .collect(Collectors.toList());
+
+        effects.get(actor).removeAll(toBeRemoved);
+
     }
 }

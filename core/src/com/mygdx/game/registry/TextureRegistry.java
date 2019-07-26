@@ -10,6 +10,7 @@ import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.*;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.food.Bread;
+import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.potion.SmallManaPotion;
 import com.mygdx.game.item.shield.MediumShield;
@@ -95,6 +96,7 @@ public class TextureRegistry {
                 .put(Bread.class, texturePathResolver.resolve("items/bread.png"))
                 .put(SmallHealingPotion.class, texturePathResolver.resolve("items/HealingPotion.png"))
                 .put(SmallManaPotion.class, texturePathResolver.resolve("items/ManaPotion.png"))
+                .put(SmallAntiVenomPotion.class, texturePathResolver.resolve("items/AntiVenomPotion.png"))
                 .put(SmallShiled.class, texturePathResolver.resolve("items/SmallShield.png"))
                 .put(MediumShield.class, texturePathResolver.resolve("items/MediumShield.png"))
                 .put(PoisonFang.class, texturePathResolver.resolve("items/PoisonFang.png"))

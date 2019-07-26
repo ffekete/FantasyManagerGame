@@ -25,6 +25,7 @@ public class ActivityManager {
                 .put(Ranger.class, ImmutableList.of(
                         new ConsumeHealingpotionDecision(),
                         new ConsumeManapotionDecision(),
+                        new ConsumeAntiVenomPotionDecision(),
                         new EquipDecision(),
                         new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
@@ -41,6 +42,7 @@ public class ActivityManager {
                 .put(Warrior.class, ImmutableList.of(
                         new ConsumeHealingpotionDecision(),
                         new ConsumeManapotionDecision(),
+                        new ConsumeAntiVenomPotionDecision(),
                         new EquipDecision(),
                         new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
@@ -57,6 +59,7 @@ public class ActivityManager {
                 .put(Wizard.class, ImmutableList.of(
                         new ConsumeHealingpotionDecision(),
                         new ConsumeManapotionDecision(),
+                        new ConsumeAntiVenomPotionDecision(),
                         new EquipDecision(),
                         new OffensiveSpellCastDecision(),
                         new MoveAndRangedAttackDecision(),
@@ -92,13 +95,14 @@ public class ActivityManager {
                 )
 
                 .put(Orc.class, ImmutableList.of(
+                        new ConsumeAntiVenomPotionDecision(),
                         new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
                         new WanderingDecision())
                 )
 
-
                 .put(Goblin.class, ImmutableList.of(
+                        new ConsumeAntiVenomPotionDecision(),
                         new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
                         new WanderingDecision())

@@ -62,7 +62,7 @@ public class LeaveDungeonDecisionTest {
         WorldMap worldMap = new WorldMap(1, 1);
         Dungeon dungeon = mock(Dungeon.class);
         when(dungeon.areAllLevelsExplored()).thenReturn(true);
-        DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED, ObjectPlacement.FIXED);
+        DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(0).Y(0), ObjectPlacement.FIXED.X(0).Y(0));
 
         actor.setCurrentMap(dungeon);
         actor.getActivityStack().add(new MoveAndInteractActivity(1));
@@ -79,7 +79,7 @@ public class LeaveDungeonDecisionTest {
         WorldMap worldMap = new WorldMap(1, 1);
         Dungeon dungeon = mock(Dungeon.class);
         when(dungeon.areAllLevelsExplored()).thenReturn(true);
-        DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED, ObjectPlacement.FIXED);
+        DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(0).Y(0), ObjectPlacement.FIXED.X(0).Y(0));
 
         actor.setCurrentMap(dungeon);
 
@@ -92,10 +92,10 @@ public class LeaveDungeonDecisionTest {
     @Test
     public void shouldFail_actorCannotLeave() {
         Actor actor = new Skeleton();
-        WorldMap worldMap = new WorldMap(1, 1);
+        WorldMap worldMap = new WorldMap(100, 100);
         Dungeon dungeon = mock(Dungeon.class);
         when(dungeon.areAllLevelsExplored()).thenReturn(true);
-        DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED, ObjectPlacement.FIXED);
+        DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(0).Y(0), ObjectPlacement.FIXED.X(0).Y(0));
 
         actor.setCurrentMap(dungeon);
 
@@ -111,7 +111,7 @@ public class LeaveDungeonDecisionTest {
         WorldMap worldMap = new WorldMap(1, 1);
         Dungeon dungeon = mock(Dungeon.class);
         when(dungeon.areAllLevelsExplored()).thenReturn(true);
-        DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED, ObjectPlacement.FIXED);
+        DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(0).Y(0), ObjectPlacement.FIXED.X(0).Y(0));
 
         actor.setCurrentMap(worldMap);
 

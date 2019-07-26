@@ -86,8 +86,9 @@ public class Config {
 
     public static class Activity {
 
-        public static final int HEALING_POTION_CONSUME_PRIORITY = 8;
-        public static final int MANA_POTION_CONSUME_PRIORITY = 9;
+        public static final int HEALING_POTION_CONSUME_PRIORITY = 7;
+        public static final int MANA_POTION_CONSUME_PRIORITY = 8;
+        public static final int ANTIVENOM_POTION_CONSUME_PRIORITY = 9;
         public static final int EQUIP_PRIORITY = 10;
         public static final int RANGED_ATTACK_PRIORITY = 90;
         public static final int OFFENSIVE_SPELL_CAST_PRIORITY = 91;
