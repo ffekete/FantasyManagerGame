@@ -1,6 +1,7 @@
 package com.mygdx.game.logic.selector;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.component.trait.Trait;
 import com.mygdx.game.effect.DebuffEffect;
 import com.mygdx.game.effect.Effect;
 import com.mygdx.game.registry.EffectRegistry;
@@ -33,13 +34,8 @@ public enum OffensiveSpellSelector implements Selector {
 
             AreaBasedEnemiesSelector areaBasedEnemiesSelector = new AreaBasedEnemiesSelector();
 
-            // select the one that does not damage friends
-            List<Spell> viableSpells = spells.stream()
-                    .filter(spell -> {
-                        return areaBasedEnemiesSelector.findAllEnemiesWithinRange(target.getCoordinates(), actor.getCurrentMap(), spell.getArea())
-                                .stream().noneMatch(actor1 -> actor1.getAlignment().equals(actor.getAlignment()));
-                    })
-                    .collect(Collectors.toList());
+            // select the one that does not damage friends... or select lunatic spells!
+            List<Spell> viableSpells = actor.hasTrait(Trait.Lunatic) ? spells : getSafeAreaSpells(actor, target, spells, areaBasedEnemiesSelector);
 
             if(viableSpells.isEmpty())
                 return Optional.empty();
@@ -69,6 +65,15 @@ public enum OffensiveSpellSelector implements Selector {
                     .max(Comparator.comparing(Spell::getStrength));
             return spell;
         }
+    };
+
+    private static List<Spell> getSafeAreaSpells(Actor actor, Actor target, List<Spell> spells, AreaBasedEnemiesSelector areaBasedEnemiesSelector) {
+        return spells.stream()
+                        .filter(spell -> {
+                            return areaBasedEnemiesSelector.findAllEnemiesWithinRange(target.getCoordinates(), actor.getCurrentMap(), spell.getArea())
+                                    .stream().noneMatch(actor1 -> actor1.getAlignment().equals(actor.getAlignment()));
+                        })
+                        .collect(Collectors.toList());
     }
 
 }
