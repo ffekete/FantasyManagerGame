@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.registry.SpriteBatchRegistry;
+import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.renderer.direction.DirectionSelector;
 
 public class SwingAttackAction implements Action {
@@ -67,7 +67,7 @@ public class SwingAttackAction implements Action {
         }
 
         if((inc > 0 && angle < end) || (inc < 0 && angle > end))
-            SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(texture, x,y + 0.5f, originX,originY, 1, 1, 1, 1, angle, 0,0, texture.getWidth(),texture.getHeight(), direction == Direction.UP || direction == Direction.LEFT, false);
+            RendererToolsRegistry.INSTANCE.getSpriteBatch().draw(texture, x,y + 0.5f, originX,originY, 1, 1, 1, 1, angle, 0,0, texture.getWidth(),texture.getHeight(), direction == Direction.UP || direction == Direction.LEFT, false);
         else
             finished = true;
     }

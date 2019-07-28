@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,17 +12,14 @@ import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Ranger;
-import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
-import com.mygdx.game.actor.monster.Goblin;
-import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallManaPotion;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
-import com.mygdx.game.item.weapon.sword.ShortSword;
+import com.mygdx.game.logic.input.GameInputController;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.map.dungeon.MapGenerator;
@@ -36,23 +32,14 @@ import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.map.worldmap.WorldMapGenerator;
 import com.mygdx.game.item.potion.SmallHealingPotion;
-import com.mygdx.game.item.weapon.sword.FlameTongue;
-import com.mygdx.game.item.weapon.sword.PoisonFang;
 import com.mygdx.game.logic.GameLogicController;
-import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.time.DayTimeCalculator;
-import com.mygdx.game.registry.ActorRegistry;
-import com.mygdx.game.registry.AnimationRegistry;
-import com.mygdx.game.registry.ItemRegistry;
-import com.mygdx.game.registry.MapRegistry;
-import com.mygdx.game.registry.SpriteBatchRegistry;
-import com.mygdx.game.registry.TextureRegistry;
+import com.mygdx.game.registry.*;
+import com.mygdx.game.registry.RendererToolsRegistry;
+import com.mygdx.game.renderer.InfoScreenRenderer;
 import com.mygdx.game.renderer.RendererBatch;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.utils.GdxUtils;
-import org.w3c.dom.ranges.Range;
-
-import java.util.Random;
 
 
 public class WorldMapSample extends SampleBase {
@@ -60,14 +47,11 @@ public class WorldMapSample extends SampleBase {
     public final static SampleInfo SAMPLE_INFO = new SampleInfo(WorldMapSample.class);
 
     private OrthographicCamera camera;
-    private TextureRegistry textureRegistry;
 
     Map2D worldMap;
     Map2D dungeon;
     Map2D dungeon2;
-    ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
-    ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
-    GameLogicController gameLogicController = new GameLogicController(actorRegistry);
+    GameLogicController gameLogicController = GameLogicController.INSTANCE;
     OrthographicCamera infoCamera;
     Viewport infoViewPort;
     BitmapFont bitmapFont;
@@ -88,10 +72,12 @@ public class WorldMapSample extends SampleBase {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         camera = new OrthographicCamera(60, 60 * (h / w));
-        SpriteBatchRegistry.INSTANCE.setSpriteBatch(new SpriteBatch());
+
+        RendererToolsRegistry.INSTANCE.setSpriteBatch(new SpriteBatch());
+        RendererToolsRegistry.INSTANCE.setBitmapFont(bitmapFont);
 
         worldMap = mapGenerator.create(0);
-        textureRegistry = TextureRegistry.INSTANCE;
+
         Gdx.input.setInputProcessor(this);
 
         ranger = ActorFactory.INSTANCE.create(Ranger.class, worldMap, Placement.FIXED.X(8).Y(10));
@@ -143,30 +129,35 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public void render() {
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(camera.combined);
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().begin();
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(camera.combined);
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().begin();
 
         GdxUtils.clearScreen();
         CameraPositionController.INSTANCE.updateCamera(camera);
         gameLogicController.update();
         draw();
 
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().end();
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().end();
 
         infoViewPort.apply();
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(infoCamera.combined);
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().begin();
-        bitmapFont.draw(SpriteBatchRegistry.INSTANCE.getSpriteBatch(), "Hour: " + DayTimeCalculator.INSTANCE.getHour() + " Day: " + DayTimeCalculator.INSTANCE.getDay(), 10, 40);
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().end();
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(infoCamera.combined);
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().begin();
+
+        InfoScreenRenderer.INSTANCE.draw();
+
+        bitmapFont.draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "Hour: " + DayTimeCalculator.INSTANCE.getHour() + " Day: " + DayTimeCalculator.INSTANCE.getDay(), 10, 70);
+        bitmapFont.draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), GameLogicController.INSTANCE.isPaused() ? "Paused" : "", Config.Screen.CANVAS_WIDTH / 2, Config.Screen.HEIGHT / 2);
+
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().end();
     }
 
     public void draw() {
         //System.out.println(Gdx.graphics.getFramesPerSecond());
 
         if(Map2D.MapType.WORLD_MAP.equals(MapRegistry.INSTANCE.getCurrentMapToShow().getMapType()))
-            RendererBatch.WORLD_MAP.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), SpriteBatchRegistry.INSTANCE.getSpriteBatch());
+            RendererBatch.WORLD_MAP.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), RendererToolsRegistry.INSTANCE.getSpriteBatch());
         else
-            RendererBatch.DUNGEON.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), SpriteBatchRegistry.INSTANCE.getSpriteBatch());
+            RendererBatch.DUNGEON.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), RendererToolsRegistry.INSTANCE.getSpriteBatch());
 
         if (false) {
             // low fps test
@@ -190,7 +181,7 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public void dispose() {
-//        SpriteBatchRegistry.INSTANCE.getSpriteBatch().dispose();
+//        RendererToolsRegistry.INSTANCE.getSpriteBatch().dispose();
 //        textureRegistry.dispose();
 //        bitmapFont.dispose();
 //        AnimationRegistry.INSTANCE.dispose();
@@ -210,36 +201,10 @@ public class WorldMapSample extends SampleBase {
         return true;
     }
 
+
+
     @Override
     public boolean keyDown(int keycode) {
-        float delta = Gdx.graphics.getRawDeltaTime();
-
-        if(keycode == Input.Keys.SPACE) {
-            if(MapRegistry.INSTANCE.getCurrentMapToShow() == worldMap) {
-                MapRegistry.INSTANCE.setCurrentMapToShow(dungeon);
-            } else {
-                MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
-            }
-        }
-
-        if (keycode == Input.Keys.LEFT) {
-            camera.position.x -= 20.0 * delta;
-        }
-        if (keycode == Input.Keys.RIGHT) {
-            camera.position.x += 20.0 * delta;
-        }
-        if (keycode == Input.Keys.DOWN) {
-            camera.position.y -= 20.0 * delta;
-        }
-        if (keycode == Input.Keys.UP) {
-            camera.position.y += 20.0 * delta;
-        }
-
-        if (keycode == Input.Keys.F) {
-            CameraPositionController.INSTANCE.focusOn(hero);
-        }
-        camera.update();
-
-        return true;
+        return GameInputController.INSTANCE.handleKeyboardInput(keycode, camera, hero);
     }
 }

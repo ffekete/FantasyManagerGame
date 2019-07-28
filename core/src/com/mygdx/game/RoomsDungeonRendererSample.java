@@ -65,7 +65,7 @@ public class RoomsDungeonRendererSample extends SampleBase {
 
         spriteBatch = new SpriteBatch(150);
         spriteBatch.enableBlending();
-        SpriteBatchRegistry.INSTANCE.setSpriteBatch(spriteBatch);
+        RendererToolsRegistry.INSTANCE.setSpriteBatch(spriteBatch);
 
         dungeon = dungeonCreator.create(3);
         textureRegistry = TextureRegistry.INSTANCE;

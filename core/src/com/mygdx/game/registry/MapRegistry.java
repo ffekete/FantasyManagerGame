@@ -4,6 +4,7 @@ import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -14,6 +15,8 @@ public class MapRegistry {
 
     private Map2D currentMapToShow = null;
 
+    private Iterator<Map2D> iterator;
+
     private List<Map2D> maps;
     private Map<Map2D, PathFinder> pathFinderMap;
 
@@ -22,8 +25,23 @@ public class MapRegistry {
         pathFinderMap = new HashMap<>();
     }
 
+    public Map2D getNext() {
+        if(iterator.hasNext()) {
+            return iterator.next();
+        } else {
+            iterator = maps.iterator();
+            return iterator.next();
+        }
+    }
+
     public void add(Map2D map) {
-        maps.add(map);
+        if(maps.isEmpty()) {
+            maps.add(map);
+            iterator = maps.iterator();
+        }
+        else {
+            maps.add(map);
+        }
         PathFinder pathFinder = new PathFinder();
         pathFinder.init(map);
         pathFinderMap.put(map, pathFinder);

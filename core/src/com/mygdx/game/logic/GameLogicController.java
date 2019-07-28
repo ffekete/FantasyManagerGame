@@ -15,11 +15,14 @@ import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 import com.mygdx.game.spell.manager.SpellManager;
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameLogicController {
+
+    public final static GameLogicController INSTANCE = new GameLogicController(ActorRegistry.INSTANCE);
 
     private double counter = 0.0;
     private final ActorRegistry actorRegistry;
@@ -27,6 +30,8 @@ public class GameLogicController {
     private final EffectManager effectmanager;
     private final SpellManager spellManager;
     private final ProjectileManager projectileManager;
+
+    private boolean pauseGame = true;
 
     private MapRegistry mapRegistry = MapRegistry.INSTANCE;
     private DayTimeCalculator dayTimeCalculator = DayTimeCalculator.INSTANCE;
@@ -41,7 +46,13 @@ public class GameLogicController {
 
     public void update() {
         long start = System.currentTimeMillis();
+
+        if(pauseGame) {
+            return;
+        }
+
         counter += Gdx.graphics.getRawDeltaTime();
+
         if(counter > 0.025) {
             counter = 0;
 
@@ -82,5 +93,13 @@ public class GameLogicController {
                 VisibilityMapRegistry.INSTANCE.add(map, visibilityMask);
             }
         }
+    }
+
+    public void togglePause() {
+        this.pauseGame = !this.pauseGame;
+    }
+
+    public boolean isPaused() {
+        return pauseGame;
     }
 }

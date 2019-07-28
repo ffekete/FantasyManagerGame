@@ -1,13 +1,9 @@
 package com.mygdx.game.logic.action;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
-import com.mygdx.game.item.projectile.Arrow;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.map.Map2D;
-import com.mygdx.game.registry.SpriteBatchRegistry;
+import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.renderer.direction.DirectionSelector;
 
@@ -28,7 +24,7 @@ public class ArrowAction implements Action {
 
     @Override
     public void update() {
-        SpriteBatchRegistry.INSTANCE.getSpriteBatch().draw(textureRegistry.getActionTexture(ArrowAction.class), coordinates.getX(), coordinates.getY(), getOriginXBasedOnDirection(), getOriginXBasedOnDirection(), 1, 1, 1, 1, getRotationBasedOnDirection(), 0 ,0, 32, 32, direction.equals(Direction.LEFT), false);
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().draw(textureRegistry.getActionTexture(ArrowAction.class), coordinates.getX(), coordinates.getY(), getOriginXBasedOnDirection(), getOriginXBasedOnDirection(), 1, 1, 1, 1, getRotationBasedOnDirection(), 0 ,0, 32, 32, direction.equals(Direction.LEFT), false);
     }
 
     private float getRotationBasedOnDirection() {

@@ -12,7 +12,6 @@ import com.mygdx.game.spell.DebuffSpell;
 import com.mygdx.game.spell.EarthSpell;
 import com.mygdx.game.spell.OffensiveSpell;
 import com.mygdx.game.spell.Spell;
-import com.mygdx.game.utils.Injector;
 
 public class Slow implements OffensiveSpell, Spell, EarthSpell, DebuffSpell {
 

@@ -12,16 +12,11 @@ import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
-import com.mygdx.game.actor.monster.Goblin;
-import com.mygdx.game.actor.monster.Orc;
-import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.item.potion.SmallHealingPotion;
-import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
-import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.map.Map2D;
@@ -69,7 +64,7 @@ public class CaveDungeonRendererSample extends SampleBase {
 
         spriteBatch = new SpriteBatch(150);
         spriteBatch.enableBlending();
-        SpriteBatchRegistry.INSTANCE.setSpriteBatch(spriteBatch);
+        RendererToolsRegistry.INSTANCE.setSpriteBatch(spriteBatch);
 
         dungeon = DungeonFactory.INSTANCE.create(CaveDungeonCreator.class);
         textureRegistry = TextureRegistry.INSTANCE;

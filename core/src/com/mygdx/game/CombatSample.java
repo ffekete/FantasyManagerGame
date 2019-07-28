@@ -7,29 +7,20 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.google.inject.Guice;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
-import com.mygdx.game.actor.hero.Ranger;
-import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.Lich;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.actor.monster.SkeletonWarrior;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
-import com.mygdx.game.effect.MovementSpeedReduction;
-import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.PoisonFang;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.map.dungeon.MapGenerator;
-import com.mygdx.game.item.potion.SmallHealingPotion;
-import com.mygdx.game.item.shield.MediumShield;
-import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.GameLogicController;
 import com.mygdx.game.logic.time.DayTimeCalculator;
@@ -37,7 +28,6 @@ import com.mygdx.game.registry.*;
 import com.mygdx.game.renderer.RendererBatch;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.utils.GdxUtils;
-import org.w3c.dom.ranges.Range;
 
 
 public class CombatSample extends SampleBase {
@@ -72,7 +62,7 @@ public class CombatSample extends SampleBase {
         camera = new OrthographicCamera(60, 60 * (h / w));
         spriteBatch = new SpriteBatch();
         spriteBatch.enableBlending();
-        SpriteBatchRegistry.INSTANCE.setSpriteBatch(spriteBatch);
+        RendererToolsRegistry.INSTANCE.setSpriteBatch(spriteBatch);
 
         dungeon = dungeonCreator.create(0);
         textureRegistry = TextureRegistry.INSTANCE;
