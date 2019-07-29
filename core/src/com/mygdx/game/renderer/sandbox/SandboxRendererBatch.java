@@ -1,13 +1,14 @@
-package com.mygdx.game.renderer;
+package com.mygdx.game.renderer.sandbox;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.map.Map2D;
+import com.mygdx.game.renderer.*;
 
 import java.util.Arrays;
 import java.util.List;
 
-public enum RendererBatch implements Renderer {
+public enum SandboxRendererBatch implements Renderer {
 
     WORLD_MAP(
             Arrays.asList(WorldMapRenderer.INSTANCE,
@@ -29,7 +30,7 @@ public enum RendererBatch implements Renderer {
 
     List<Renderer> renderers;
 
-    RendererBatch(List<Renderer> renderers) {
+    SandboxRendererBatch(List<Renderer> renderers) {
         this.renderers = renderers;
     }
 

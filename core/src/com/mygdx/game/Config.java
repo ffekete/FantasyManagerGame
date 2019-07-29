@@ -125,4 +125,7 @@ public class Config {
     }
 
 
+    public static class Object {
+        public static final float WOODEN_WALL_WORLD_MAP_SIZE = 0.9f;
+    }
 }

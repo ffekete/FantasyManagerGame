@@ -20,7 +20,7 @@ import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.ShortSword;
-import com.mygdx.game.logic.GameLogicController;
+import com.mygdx.game.logic.controller.SandboxGameLogicController;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.MapGenerator;
@@ -29,7 +29,7 @@ import com.mygdx.game.object.decoration.StandingTorch;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.*;
-import com.mygdx.game.renderer.RendererBatch;
+import com.mygdx.game.renderer.sandbox.SandboxRendererBatch;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.renderer.gui.ActorGuiRenderer;
 import com.mygdx.game.utils.GdxUtils;
@@ -47,7 +47,7 @@ public class RoomsDungeonRendererSample extends SampleBase {
     Map2D dungeon;
     ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
-    GameLogicController gameLogicController = new GameLogicController(actorRegistry);
+    SandboxGameLogicController sandboxGameLogicController = new SandboxGameLogicController(actorRegistry);
     OrthographicCamera infoCamera;
     Viewport infoViewPort;
     BitmapFont bitmapFont;
@@ -116,7 +116,7 @@ public class RoomsDungeonRendererSample extends SampleBase {
         spriteBatch.begin();
         GdxUtils.clearScreen();
         CameraPositionController.INSTANCE.updateCamera(camera);
-        gameLogicController.update();
+        sandboxGameLogicController.update();
         draw();
 
         infoViewPort.apply();
@@ -129,7 +129,7 @@ public class RoomsDungeonRendererSample extends SampleBase {
 
     public void draw() {
 //        System.out.println(Gdx.graphics.getFramesPerSecond());
-        RendererBatch.DUNGEON.draw(dungeon, spriteBatch);
+        SandboxRendererBatch.DUNGEON.draw(dungeon, spriteBatch);
 
         if (false) {
             // low fps test

@@ -4,23 +4,27 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.logic.GameLogicController;
+import com.mygdx.game.logic.GameState;
+import com.mygdx.game.logic.controller.GameFlowControllerFacade;
+import com.mygdx.game.logic.controller.SandboxGameLogicController;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 
 import java.util.Optional;
 
-public class GameInputController {
+public class SandboxGameInputController {
 
-    public static final GameInputController INSTANCE = new GameInputController();
+    public static final SandboxGameInputController INSTANCE = new SandboxGameInputController();
 
     private final CameraPositionController cameraPositionController = CameraPositionController.INSTANCE;
 
-
-
-    public boolean handleKeyboardInput(int keycode, Camera camera, Actor selectedActor) {
+    public boolean handleKeyboardInput(int keycode, Camera camera) {
         float delta = Gdx.graphics.getRawDeltaTime();
+
+        if(keycode == Input.Keys.B) {
+            GameFlowControllerFacade.INSTANCE.setGameState(GameState.Builder);
+        }
 
         if(keycode == Input.Keys.N) {
             if(CameraPositionController.INSTANCE.isFocusedOn()) {
@@ -42,7 +46,7 @@ public class GameInputController {
         }
 
         if(keycode == Input.Keys.SPACE) {
-            GameLogicController.INSTANCE.togglePause();
+            SandboxGameLogicController.INSTANCE.togglePause();
         }
 
         if (keycode == Input.Keys.LEFT) {
@@ -62,8 +66,8 @@ public class GameInputController {
             cameraPositionController.offset(0f, 20.0f * delta);
         }
 
-        if (keycode == Input.Keys.F && selectedActor != null) {
-            CameraPositionController.INSTANCE.focusOn(selectedActor);
+        if (keycode == Input.Keys.F && cameraPositionController.getFocusedOn() != null) {
+            CameraPositionController.INSTANCE.focusOn(cameraPositionController.getFocusedOn());
         }
         camera.update();
 

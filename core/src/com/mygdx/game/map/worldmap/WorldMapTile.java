@@ -4,7 +4,8 @@ import com.mygdx.game.map.TileBase;
 
 public enum WorldMapTile implements TileBase {
     EMPTY(true, 1),
-    GRASS(false, 1);
+    GRASS(false, 1),
+    WOODEN_WALL(true, 1);
 
     private boolean obstacle;
     private int variation;

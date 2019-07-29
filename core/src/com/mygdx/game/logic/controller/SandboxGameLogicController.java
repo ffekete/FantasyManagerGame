@@ -1,4 +1,4 @@
-package com.mygdx.game.logic;
+package com.mygdx.game.logic.controller;
 
 import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Config;
@@ -15,14 +15,13 @@ import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 import com.mygdx.game.spell.manager.SpellManager;
-import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameLogicController {
+public class SandboxGameLogicController implements Controller {
 
-    public final static GameLogicController INSTANCE = new GameLogicController(ActorRegistry.INSTANCE);
+    public final static SandboxGameLogicController INSTANCE = new SandboxGameLogicController(ActorRegistry.INSTANCE);
 
     private double counter = 0.0;
     private final ActorRegistry actorRegistry;
@@ -36,7 +35,7 @@ public class GameLogicController {
     private MapRegistry mapRegistry = MapRegistry.INSTANCE;
     private DayTimeCalculator dayTimeCalculator = DayTimeCalculator.INSTANCE;
 
-    public GameLogicController(ActorRegistry actorRegistry) {
+    public SandboxGameLogicController(ActorRegistry actorRegistry) {
         this.actorRegistry = actorRegistry;
         this.activityManager = new ActivityManager();
         effectmanager = EffectManager.INSTANCE;
@@ -44,16 +43,17 @@ public class GameLogicController {
         projectileManager = ProjectileManager.INSTANCE;
     }
 
+    @Override
     public void update() {
         long start = System.currentTimeMillis();
 
-        if(pauseGame) {
+        if (pauseGame) {
             return;
         }
 
         counter += Gdx.graphics.getRawDeltaTime();
 
-        if(counter > 0.025) {
+        if (counter > 0.025) {
             counter = 0;
 
             dayTimeCalculator.update();
@@ -61,7 +61,7 @@ public class GameLogicController {
             calculateVisibilityForMaps();
 
             MapRegistry.INSTANCE.getMaps().forEach(map -> {
-                if(actorRegistry.containsAnyHeroes(map)) {
+                if (actorRegistry.containsAnyHeroes(map)) {
                     actorRegistry.getActors(map).forEach(actor -> {
                         actor.increaseHunger(1);
                         actor.getActivityStack().performNext();
@@ -72,17 +72,17 @@ public class GameLogicController {
             spellManager.update();
             projectileManager.update();
             effectmanager.update();
-            for(RegeneratorImpl regenerator: RegeneratorImpl.values()) {
+            for (RegeneratorImpl regenerator : RegeneratorImpl.values()) {
                 regenerator.regenerateAll();
             }
         }
-        if(Config.SHOW_ELAPSED_TIME)
+        if (Config.SHOW_ELAPSED_TIME)
             System.out.println("Elapsed time in GameLogicUpdater " + (System.currentTimeMillis() - start));
     }
 
     private void calculateVisibilityForMaps() {
-        for(Map2D map : mapRegistry.getMaps()) {
-            if(actorRegistry.containsAnyHeroes(map)) {
+        for (Map2D map : mapRegistry.getMaps()) {
+            if (actorRegistry.containsAnyHeroes(map)) {
                 List<Actor> coordinatesForVisibilityCalculation = new ArrayList<>();
                 // get all actors in the list
                 coordinatesForVisibilityCalculation.addAll(actorRegistry.getActors(map));
@@ -95,10 +95,12 @@ public class GameLogicController {
         }
     }
 
+    @Override
     public void togglePause() {
         this.pauseGame = !this.pauseGame;
     }
 
+    @Override
     public boolean isPaused() {
         return pauseGame;
     }

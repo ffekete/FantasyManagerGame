@@ -19,7 +19,8 @@ import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallManaPotion;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
-import com.mygdx.game.logic.input.GameInputController;
+import com.mygdx.game.logic.controller.GameFlowControllerFacade;
+import com.mygdx.game.logic.input.GameInputControllerFacade;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.map.dungeon.MapGenerator;
@@ -32,12 +33,12 @@ import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.map.worldmap.WorldMapGenerator;
 import com.mygdx.game.item.potion.SmallHealingPotion;
-import com.mygdx.game.logic.GameLogicController;
+import com.mygdx.game.logic.controller.SandboxGameLogicController;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.registry.*;
 import com.mygdx.game.registry.RendererToolsRegistry;
-import com.mygdx.game.renderer.InfoScreenRenderer;
-import com.mygdx.game.renderer.RendererBatch;
+import com.mygdx.game.renderer.RenderingFacade;
+import com.mygdx.game.renderer.sandbox.InfoScreenRenderer;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.utils.GdxUtils;
 
@@ -51,7 +52,7 @@ public class WorldMapSample extends SampleBase {
     Map2D worldMap;
     Map2D dungeon;
     Map2D dungeon2;
-    GameLogicController gameLogicController = GameLogicController.INSTANCE;
+    SandboxGameLogicController sandboxGameLogicController = SandboxGameLogicController.INSTANCE;
     OrthographicCamera infoCamera;
     Viewport infoViewPort;
     BitmapFont bitmapFont;
@@ -65,6 +66,7 @@ public class WorldMapSample extends SampleBase {
     @Override
     public void create() {
 
+        shapeRenderer = new ShapeRenderer();
         infoCamera = new OrthographicCamera();
         infoViewPort = new FitViewport(Config.Screen.CANVAS_WIDTH, Config.Screen.HEIGHT, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
@@ -75,6 +77,9 @@ public class WorldMapSample extends SampleBase {
 
         RendererToolsRegistry.INSTANCE.setSpriteBatch(new SpriteBatch());
         RendererToolsRegistry.INSTANCE.setBitmapFont(bitmapFont);
+        RendererToolsRegistry.INSTANCE.setShapeRenderer(shapeRenderer);
+        RendererToolsRegistry.INSTANCE.setCamera(camera);
+        RendererToolsRegistry.INSTANCE.setInfoCamera(infoCamera);
 
         worldMap = mapGenerator.create(0);
 
@@ -124,7 +129,6 @@ public class WorldMapSample extends SampleBase {
 
         MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
 
-        shapeRenderer = new ShapeRenderer();
     }
 
     @Override
@@ -134,11 +138,17 @@ public class WorldMapSample extends SampleBase {
 
         GdxUtils.clearScreen();
         CameraPositionController.INSTANCE.updateCamera(camera);
-        gameLogicController.update();
-        draw();
+
+        GameFlowControllerFacade.INSTANCE.update();
+
+        RenderingFacade.INSTANCE.draw();
 
         RendererToolsRegistry.INSTANCE.getSpriteBatch().end();
 
+        renderInfoScreen();
+    }
+
+    private void renderInfoScreen() {
         infoViewPort.apply();
         RendererToolsRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(infoCamera.combined);
         RendererToolsRegistry.INSTANCE.getSpriteBatch().begin();
@@ -146,29 +156,12 @@ public class WorldMapSample extends SampleBase {
         InfoScreenRenderer.INSTANCE.draw();
 
         bitmapFont.draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "Hour: " + DayTimeCalculator.INSTANCE.getHour() + " Day: " + DayTimeCalculator.INSTANCE.getDay(), 10, 70);
-        bitmapFont.draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), GameLogicController.INSTANCE.isPaused() ? "Paused" : "", Config.Screen.CANVAS_WIDTH / 2, Config.Screen.HEIGHT / 2);
+        bitmapFont.draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), SandboxGameLogicController.INSTANCE.isPaused() ? "Paused" : "", Config.Screen.CANVAS_WIDTH / 2, Config.Screen.HEIGHT / 2);
 
         RendererToolsRegistry.INSTANCE.getSpriteBatch().end();
     }
 
-    public void draw() {
-        //System.out.println(Gdx.graphics.getFramesPerSecond());
 
-        if(Map2D.MapType.WORLD_MAP.equals(MapRegistry.INSTANCE.getCurrentMapToShow().getMapType()))
-            RendererBatch.WORLD_MAP.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), RendererToolsRegistry.INSTANCE.getSpriteBatch());
-        else
-            RendererBatch.DUNGEON.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), RendererToolsRegistry.INSTANCE.getSpriteBatch());
-
-        if (false) {
-            // low fps test
-            try {
-                Thread.sleep(30);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
 
     @Override
     public void resize(int width, int height) {
@@ -205,6 +198,6 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public boolean keyDown(int keycode) {
-        return GameInputController.INSTANCE.handleKeyboardInput(keycode, camera, hero);
+        return GameInputControllerFacade.INSTANCE.processInput(keycode, camera);
     }
 }
