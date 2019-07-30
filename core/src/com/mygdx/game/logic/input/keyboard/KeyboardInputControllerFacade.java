@@ -1,11 +1,11 @@
-package com.mygdx.game.logic.input;
+package com.mygdx.game.logic.input.keyboard;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
 
-public class GameInputControllerFacade {
+public class KeyboardInputControllerFacade {
 
-    public static final GameInputControllerFacade INSTANCE = new GameInputControllerFacade();
+    public static final KeyboardInputControllerFacade INSTANCE = new KeyboardInputControllerFacade();
 
     private final GameFlowControllerFacade gameFlowControllerFacade = GameFlowControllerFacade.INSTANCE;
 

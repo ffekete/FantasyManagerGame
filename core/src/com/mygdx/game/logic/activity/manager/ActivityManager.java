@@ -7,6 +7,7 @@ import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.*;
+import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.manager.decision.*;
 
@@ -21,6 +22,9 @@ public class ActivityManager {
     public ActivityManager() {
 
         decisionTable = ImmutableMap.<Class<? extends Actor>, List<Decision>>builder()
+
+                .put(Builder.class, ImmutableList.of(
+                        new MoveAndBuildDecision()))
 
                 .put(Ranger.class, ImmutableList.of(
                         new ConsumeHealingpotionDecision(),

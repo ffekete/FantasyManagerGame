@@ -1,52 +1,37 @@
-package com.mygdx.game.logic.input;
+package com.mygdx.game.logic.input.keyboard;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.GameState;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
-import com.mygdx.game.logic.controller.SandboxGameLogicController;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 
-import java.util.Optional;
+public class BuildingGameInputController {
 
-public class SandboxGameInputController {
-
-    public static final SandboxGameInputController INSTANCE = new SandboxGameInputController();
+    public static final BuildingGameInputController INSTANCE = new BuildingGameInputController();
 
     private final CameraPositionController cameraPositionController = CameraPositionController.INSTANCE;
+    private final ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
+    private final MapRegistry mapRegistry = MapRegistry.INSTANCE;
 
     public boolean handleKeyboardInput(int keycode, Camera camera) {
         float delta = Gdx.graphics.getRawDeltaTime();
 
         if(keycode == Input.Keys.B) {
-            GameFlowControllerFacade.INSTANCE.setGameState(GameState.Builder);
-        }
-
-        if(keycode == Input.Keys.N) {
-            if(CameraPositionController.INSTANCE.isFocusedOn()) {
-                Optional<Actor> nextActor = ActorRegistry.INSTANCE.getNext(MapRegistry.INSTANCE.getCurrentMapToShow());
-                nextActor.ifPresent(CameraPositionController.INSTANCE::focusOn);
-            }
-        }
-
-        if (keycode == Input.Keys.M) {
-            if(!CameraPositionController.INSTANCE.isFocusedOn()) {
-                MapRegistry.INSTANCE.setCurrentMapToShow(MapRegistry.INSTANCE.getNext());
-                cameraPositionController.update();
+            GameFlowControllerFacade.INSTANCE.setGameState(GameState.Sandbox);
+            for(Actor actor : actorRegistry.getActors(mapRegistry.getCurrentMapToShow())) {
+                actor.getActivityStack().clear();
             }
         }
 
         if (keycode == Input.Keys.ESCAPE) {
             Gdx.app.exit();
             System.exit(0);
-        }
-
-        if(keycode == Input.Keys.SPACE) {
-            SandboxGameLogicController.INSTANCE.togglePause();
         }
 
         if (keycode == Input.Keys.LEFT) {
@@ -66,9 +51,6 @@ public class SandboxGameInputController {
             cameraPositionController.offset(0f, 20.0f * delta);
         }
 
-        if (keycode == Input.Keys.F && cameraPositionController.getFocusedOn() != null) {
-            CameraPositionController.INSTANCE.focusOn(cameraPositionController.getFocusedOn());
-        }
         camera.update();
 
         return true;

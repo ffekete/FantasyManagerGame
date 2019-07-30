@@ -13,6 +13,7 @@ import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Wizard;
+import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
@@ -20,7 +21,8 @@ import com.mygdx.game.item.potion.SmallManaPotion;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
-import com.mygdx.game.logic.input.GameInputControllerFacade;
+import com.mygdx.game.logic.input.keyboard.KeyboardInputControllerFacade;
+import com.mygdx.game.logic.input.mouse.MouseInputControllerFacade;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.map.dungeon.MapGenerator;
@@ -58,6 +60,8 @@ public class WorldMapSample extends SampleBase {
     BitmapFont bitmapFont;
     Actor hero;
     Actor ranger;
+    Actor builder;
+
     MapGenerator mapGenerator = new WorldMapGenerator();
     DungeonFactory dungeonFactory = DungeonFactory.INSTANCE;
 
@@ -85,6 +89,8 @@ public class WorldMapSample extends SampleBase {
 
         Gdx.input.setInputProcessor(this);
 
+        builder = ActorFactory.INSTANCE.create(Builder.class, worldMap, Placement.FIXED.X(7).Y(10));
+
         ranger = ActorFactory.INSTANCE.create(Ranger.class, worldMap, Placement.FIXED.X(8).Y(10));
         ranger.equip(new LongBow());
         ranger.setName("Aragorn");
@@ -106,7 +112,7 @@ public class WorldMapSample extends SampleBase {
         hero.getInventory().add(new SmallAntiVenomPotion());
         hero.getInventory().add(new SmallAntiVenomPotion());
 
-        CameraPositionController.INSTANCE.focusOn(hero);
+        //CameraPositionController.INSTANCE.focusOn(hero);
 
         dungeon = dungeonFactory.create(CaveDungeonCreator.class);
         dungeon2 = dungeonFactory.create(DungeonWithRoomsCreator.class);
@@ -181,9 +187,13 @@ public class WorldMapSample extends SampleBase {
     }
 
     @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return MouseInputControllerFacade.INSTANCE.mouseMoved(screenX, screenY);
+    }
+
+    @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        //dungeon = dungeonCreator.create();
-        return true;
+        return MouseInputControllerFacade.INSTANCE.touchDown(screenX, screenY, pointer, button);
     }
 
     @Override
@@ -198,6 +208,6 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public boolean keyDown(int keycode) {
-        return GameInputControllerFacade.INSTANCE.processInput(keycode, camera);
+        return KeyboardInputControllerFacade.INSTANCE.processInput(keycode, camera);
     }
 }

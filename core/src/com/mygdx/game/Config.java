@@ -100,6 +100,7 @@ public class Config {
         public static final int PICKUP_PRIORITY = 95;
         public static final int MOVE_PICKUP_EAT_PRIORITY = 96;
         public static final int EAT_PRIORITY = 97;
+        public static final int BUILD_PRIORITY = 98;
         public static final int INTERACT_PRIORITY = 98;
         public static final int SUPPORT_PRIORITY = 99;
         public static final int EXPLORATION_PRIORITY = 100;
@@ -126,6 +127,6 @@ public class Config {
 
 
     public static class Object {
-        public static final float WOODEN_WALL_WORLD_MAP_SIZE = 0.9f;
+        public static final float WOODEN_WALL_WORLD_MAP_SIZE = 1f;
     }
 }

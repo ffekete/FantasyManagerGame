@@ -1,6 +1,5 @@
 package com.mygdx.game.registry;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
@@ -8,7 +7,9 @@ import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.*;
+import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.item.buildertool.Hammer;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallHealingPotion;
@@ -32,10 +33,11 @@ import com.mygdx.game.object.decoration.Tree;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.interactive.Ladder;
 import com.mygdx.game.object.light.LightSourceType;
+import com.mygdx.game.object.wall.IncompleteWoodenWall;
+import com.mygdx.game.object.wall.WoodenWall;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
 import com.mygdx.game.resolver.ModdablePathResolver;
 import com.mygdx.game.resolver.PathResolver;
-import com.mygdx.game.spell.offensive.PoisonCloud;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,14 +62,20 @@ public class TextureRegistry {
     public TextureRegistry(PathResolver<Texture> texturePathResolver) {
 
         characterAnimationTextures = ImmutableMap.<Class<? extends Actor>, Optional<Texture>>builder()
+                // Heroes
                 .put(Ranger.class, texturePathResolver.resolve("actors/Ranger.png"))
                 .put(Warrior.class, texturePathResolver.resolve("actors/Warrior.png"))
+                .put(Wizard.class, texturePathResolver.resolve("actors/Wizard.png"))
+
+                // Monsters
                 .put(Skeleton.class, texturePathResolver.resolve("actors/Skeleton.png"))
                 .put(Goblin.class, texturePathResolver.resolve("actors/goblin.png"))
                 .put(Orc.class, texturePathResolver.resolve("actors/orc.png"))
-                .put(Wizard.class, texturePathResolver.resolve("actors/Wizard.png"))
                 .put(SkeletonWarrior.class, texturePathResolver.resolve("actors/SkeletonWarrior.png"))
                 .put(Lich.class, texturePathResolver.resolve("actors/Lich.png"))
+
+                // workers
+                .put(Builder.class, texturePathResolver.resolve("actors/worker/Builder.png"))
                 .build();
 
         actionTextures = ImmutableMap.<Class<? extends Action>, Optional<Texture>>builder()
@@ -103,6 +111,7 @@ public class TextureRegistry {
                 .put(FlameTongue.class, texturePathResolver.resolve("items/Flametongue.png"))
                 .put(JadeStaff.class, texturePathResolver.resolve("items/JadeStaff.png"))
                 .put(LongBow.class, texturePathResolver.resolve("items/LongBow.png"))
+                .put(Hammer.class, texturePathResolver.resolve("effects/Hammer.png"))
                 .build();
 
         mapTextures = ImmutableMap.<TileBase, Optional<Texture>>builder()
@@ -123,6 +132,9 @@ public class TextureRegistry {
                 .put(Tree.class, Arrays.asList(texturePathResolver.resolve("object/Tree.png")))
                 .put(TreasureChest.class, Arrays.asList(texturePathResolver.resolve("object/TreasureChest.png"),
                         texturePathResolver.resolve("object/OpenTreasureChest.png")))
+                // Wall
+                .put(IncompleteWoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/IncompleteWall.png")))
+                .put(WoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWall.png")))
                 .build();
 
         dungeonTilesetTextures = ImmutableMap.<DungeonType, Optional<Texture>>builder()

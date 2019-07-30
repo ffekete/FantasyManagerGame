@@ -1,5 +1,6 @@
 package com.mygdx.game.registry;
 
+import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.map.Cluster;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.WorldObject;
@@ -29,7 +30,7 @@ public class ObjectRegistry {
     }
 
     public Optional<List<WorldObject>> getObject(Map2D map, Class<? extends WorldObject> object) {
-            return Optional.of(objects.get(map).keySet().stream().flatMap(cluster -> objects.get(map).get(cluster).stream()).filter(object1 -> object1.getClass().equals(object)).collect(Collectors.toList()));
+            return Optional.of(objects.get(map).keySet().stream().flatMap(cluster -> objects.get(map).get(cluster).stream()).filter(object1 -> object.isAssignableFrom(object1.getClass())).collect(Collectors.toList()));
     }
 
     public Optional<Set<WorldObject>> getObjects(Map2D map, Cluster cluster, Class<? extends WorldObject> clazz) {
@@ -50,4 +51,7 @@ public class ObjectRegistry {
         objects.clear();
     }
 
+    public void remove(Map2D currentMap, WorldObject object) {
+        objects.get(currentMap).get(Cluster.of(object.getX(), object.getY())).remove(object);
+    }
 }

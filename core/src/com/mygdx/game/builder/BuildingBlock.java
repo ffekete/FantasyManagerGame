@@ -1,9 +1,11 @@
 package com.mygdx.game.builder;
 
-public interface BuildingBlock<T> {
+import com.mygdx.game.object.WorldObject;
+
+public interface BuildingBlock<T> extends WorldObject {
 
     void addProgress(float percentage);
-    T finish();
+    Class<T> finish();
     boolean isFinished();
-
+    float getProgress();
 }

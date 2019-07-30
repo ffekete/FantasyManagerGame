@@ -5,6 +5,7 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.attribute.AttributePopulator;
 import com.mygdx.game.actor.component.skill.SkillPopulator;
+import com.mygdx.game.actor.worker.Worker;
 import com.mygdx.game.animation.FullBodyActorAnimation;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.light.ActorLightSource;
@@ -30,9 +31,15 @@ public class ActorFactory {
             actor.setCurrentMap(map);
             placementStrategy.place(actor, map);
             AnimationRegistry.INSTANCE.add(actor, new FullBodyActorAnimation());
-            SkillPopulator.WeaponSkillPopulatorStrategy.RANDOM.populate(actor);
-            SkillPopulator.MagicSkillPopulatorStrategy.RANDOM.populate(actor);
-            AttributePopulator.ClassSpecificAttrbutePopulator.populate(actor);
+
+            if(!Worker.class.isAssignableFrom(clazz)) {
+                SkillPopulator.WeaponSkillPopulatorStrategy.RANDOM.populate(actor);
+                SkillPopulator.MagicSkillPopulatorStrategy.RANDOM.populate(actor);
+                AttributePopulator.ClassSpecificAttrbutePopulator.populate(actor);
+            } else {
+                // todo worker skill and attributes comes here
+            }
+
             actor.setHp(actor.getMaxHp());
             actor.setMana(actor.getMaxMana());
         }

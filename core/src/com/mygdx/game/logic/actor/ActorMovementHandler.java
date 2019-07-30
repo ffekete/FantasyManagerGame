@@ -4,6 +4,8 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.pathfinding.PathFinder;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.registry.ActorRegistry;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +17,7 @@ public class ActorMovementHandler {
     public static final ActorMovementHandler INSTANCE = new ActorMovementHandler();
 
     private final Map<Actor, List<PathFinder.Node>> paths;
+    private final ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
 
     private Map<Actor, Direction> directions = new HashMap<>();
 
@@ -53,6 +56,13 @@ public class ActorMovementHandler {
 
     public boolean hasPath(Actor actor) {
         return paths.get(actor) != null && !paths.get(actor).isEmpty();
+    }
+
+    public void clearPathForAll(Map2D map2D) {
+        for(Actor actor : actorRegistry.getActors(map2D)) {
+            if (paths.containsKey(actor))
+                paths.get(actor).clear();
+        }
     }
 
     public void clearPath(Actor actor) {

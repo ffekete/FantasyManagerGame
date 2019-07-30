@@ -1,35 +1,15 @@
-package com.mygdx.game.builder;
+package com.mygdx.game.object.wall;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.map.worldmap.WorldMapTile;
 import com.mygdx.game.object.WorldObject;
 
-public class WoodenWall implements BuildingBlock, WorldObject {
+public class WoodenWall implements Wall, WorldObject {
 
-
-    private float progress;
     private Point coordinates;
 
-    public WoodenWall() {
-        this.progress = 0f;
-    }
-
-    @Override
-    public void addProgress(float percentage) {
-        this.progress += percentage;
-    }
-
-
-
-    @Override
-    public WorldMapTile finish() {
-        return WorldMapTile.WOODEN_WALL;
-    }
-
-    @Override
-    public boolean isFinished() {
-        return progress >= 100f;
+    public WoodenWall(Point coordinates) {
+        this.coordinates = coordinates;
     }
 
     @Override
