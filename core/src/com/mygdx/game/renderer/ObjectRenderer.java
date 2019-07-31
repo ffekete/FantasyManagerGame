@@ -47,19 +47,19 @@ public class ObjectRenderer implements Renderer {
 
         // draw objects
         int startY = (int) rendererToolsRegistry.getCamera().position.y;
-        int lengthY = (int) rendererToolsRegistry.getCamera().viewportHeight - (int) rendererToolsRegistry.getCamera().position.y;
+        int lengthY = (int) rendererToolsRegistry.getCamera().viewportHeight;
 
         int startX = (int) rendererToolsRegistry.getCamera().position.x;
-        int lengthX = (int) rendererToolsRegistry.getCamera().viewportWidth - (int) rendererToolsRegistry.getCamera().position.x;
+        int lengthX = (int) rendererToolsRegistry.getCamera().viewportWidth;
 
 
-        for (int i = Math.max(0, startX - lengthX); i < Math.min(lengthX, dungeon.getWidth() - 1); i++) {
-            for (int j = Math.min(lengthY, dungeon.getHeight() - 1); j > Math.max(0, startY - lengthY); j--) {
+        for (int i = Math.max(0, startX - lengthX / 2); i < Math.min(startX  + lengthX / 2, dungeon.getWidth() - 1); i++) {
+            for (int j = Math.min(startY + lengthY / 2, dungeon.getHeight() - 1); j > Math.max(0, startY - lengthY / 2); j--) {
                 WorldObject worldObject = objectRegistry.getObjectGrid().get(dungeon)[i][j];
                 if (worldObject != null) {
 
                     if (TileableObject.class.isAssignableFrom(worldObject.getClass())) {
-                        spriteBatch.draw(WallTileSelector.INSTANCE.getFor(objectRegistry.getObjectGrid().get(dungeon), (int) worldObject.getX(), (int) worldObject.getY()), worldObject.getX(), worldObject.getY(), 1, 1);
+                        spriteBatch.draw(WallTileSelector.INSTANCE.getFor(objectRegistry.getObjectGrid().get(dungeon), worldObject), worldObject.getX(), worldObject.getY(), 1, 1);
                     } else if (AnimatedObject.class.isAssignableFrom(worldObject.getClass())) {
                         if (dungeon.getVisitedareaMap()[(int) worldObject.getX()][(int) worldObject.getY()] == VisitedArea.VISIBLE)
                             animationRegistry.get((AnimatedObject) worldObject).drawKeyFrame(spriteBatch, worldObject.getX(), worldObject.getY(), 1, Direction.RIGHT);

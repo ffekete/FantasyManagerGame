@@ -13,8 +13,8 @@ public enum SandboxRendererBatch implements Renderer {
     WORLD_MAP(
             Arrays.asList(WorldMapRenderer.INSTANCE,
                     ItemRenderer.INSTANCE,
-                    ActorRenderer.INSTANCE,
                     ObjectRenderer.INSTANCE,
+                    ActorRenderer.INSTANCE,
                     LightRenderer.INSTANCE
             )
     ),
@@ -22,8 +22,8 @@ public enum SandboxRendererBatch implements Renderer {
     DUNGEON(
             Arrays.asList(DungeonRenderer.INSTANCE,
                     ItemRenderer.INSTANCE,
-                    ActorRenderer.INSTANCE,
                     ObjectRenderer.INSTANCE,
+                    ActorRenderer.INSTANCE,
                     LightRenderer.INSTANCE
             )
     );

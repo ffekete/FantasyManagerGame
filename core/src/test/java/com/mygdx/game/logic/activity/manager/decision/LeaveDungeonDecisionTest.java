@@ -62,6 +62,8 @@ public class LeaveDungeonDecisionTest {
         WorldMap worldMap = new WorldMap(1, 1);
         Dungeon dungeon = mock(Dungeon.class);
         when(dungeon.areAllLevelsExplored()).thenReturn(true);
+        when(dungeon.getWidth()).thenReturn(40);
+        when(dungeon.getHeight()).thenReturn(40);
         DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(0).Y(0), ObjectPlacement.FIXED.X(0).Y(0));
 
         actor.setCurrentMap(dungeon);
@@ -79,6 +81,8 @@ public class LeaveDungeonDecisionTest {
         WorldMap worldMap = new WorldMap(1, 1);
         Dungeon dungeon = mock(Dungeon.class);
         when(dungeon.areAllLevelsExplored()).thenReturn(true);
+        when(dungeon.getWidth()).thenReturn(40);
+        when(dungeon.getHeight()).thenReturn(40);
         DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(0).Y(0), ObjectPlacement.FIXED.X(0).Y(0));
 
         actor.setCurrentMap(dungeon);
@@ -95,6 +99,8 @@ public class LeaveDungeonDecisionTest {
         WorldMap worldMap = new WorldMap(100, 100);
         Dungeon dungeon = mock(Dungeon.class);
         when(dungeon.areAllLevelsExplored()).thenReturn(true);
+        when(dungeon.getWidth()).thenReturn(40);
+        when(dungeon.getHeight()).thenReturn(40);
         DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(0).Y(0), ObjectPlacement.FIXED.X(0).Y(0));
 
         actor.setCurrentMap(dungeon);
@@ -111,6 +117,8 @@ public class LeaveDungeonDecisionTest {
         WorldMap worldMap = new WorldMap(1, 1);
         Dungeon dungeon = mock(Dungeon.class);
         when(dungeon.areAllLevelsExplored()).thenReturn(true);
+        when(dungeon.getWidth()).thenReturn(40);
+        when(dungeon.getHeight()).thenReturn(40);
         DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(0).Y(0), ObjectPlacement.FIXED.X(0).Y(0));
 
         actor.setCurrentMap(worldMap);

@@ -17,15 +17,16 @@ public class WallTileSelector {
     private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
 
     private TextureRegion textureRegion;
-    private ObjectRegistry objectRegistry = ObjectRegistry.INSTANCE;
 
     public WallTileSelector() {
-        textureRegion = new TextureRegion(textureRegistry.getForobject(WoodenWall.class).get(0));
+
     }
 
-    public TextureRegion getFor(WorldObject[][] worldObjects, int x, int y) {
+    public TextureRegion getFor(WorldObject[][] worldObjects, WorldObject worldObject) {
 
-        int mask = MapUtils.bitmask4bit(worldObjects, x,y);
+        textureRegion = new TextureRegion(textureRegistry.getForobject(worldObject.getClass()).get(0));
+
+        int mask = MapUtils.bitmask4bit(worldObjects, (int) worldObject.getX(), (int) worldObject.getY());
 
         // rock
         textureRegion.setRegion((mask % 4) * 16, (mask / 4) * 16, 16, 16);

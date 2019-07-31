@@ -76,7 +76,7 @@ public class SandboxGameLogicController implements Controller {
                 regenerator.regenerateAll();
             }
         }
-        if (Config.SHOW_ELAPSED_TIME)
+        if (Config.SHOW_ELAPSED_TIME && System.currentTimeMillis() - start > 0)
             System.out.println("Elapsed time in GameLogicUpdater " + (System.currentTimeMillis() - start));
     }
 

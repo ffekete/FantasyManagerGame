@@ -24,11 +24,14 @@ public class CharacterMap2dSwitcherTest {
         Actor wizard = new Wizard();
         wizard.setCurrentMap(from);
 
+        DungeonEntrance dungeonEntrance = new DungeonEntrance(to, from);
+        dungeonEntrance.setCoordinates(Point.of(5,5));
+
         Ladder ladder = new Ladder(from, to);
         ladder.setCoordinates(Point.of(8,8));
 
         ActorRegistry.INSTANCE.add(from, wizard);
-        ObjectRegistry.INSTANCE.add(to, Cluster.of(5,5), new DungeonEntrance(to, from));
+        ObjectRegistry.INSTANCE.add(to, Cluster.of(5,5), dungeonEntrance);
         ObjectRegistry.INSTANCE.add(to, Cluster.of(8,8), ladder);
 
         CharacterMap2dSwitcher characterMap2dSwitcher = CharacterMap2dSwitcher.INSTANCE;

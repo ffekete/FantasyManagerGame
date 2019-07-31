@@ -3,13 +3,14 @@ package com.mygdx.game.object.decoration;
 import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.AnimatedObject;
+import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.object.light.LightSourceType;
 
 import java.util.Random;
 
-public class StandingTorch implements WorldObject, LightSource, AnimatedObject {
+public class StandingTorch implements WorldObject, LightSource, AnimatedObject, Obstacle {
 
     private Point coordinates;
     private float flickering = 0.0f;

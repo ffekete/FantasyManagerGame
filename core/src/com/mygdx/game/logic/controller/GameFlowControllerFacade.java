@@ -50,6 +50,14 @@ public class GameFlowControllerFacade implements Controller {
         return gameState;
     }
 
+    public void toggleGameState() {
+        if(gameState.equals(GameState.Sandbox)) {
+            gameState = GameState.Builder;
+        } else {
+            gameState = GameState.Sandbox;
+        }
+    }
+
     public void setGameState(GameState gameState) {
         this.gameState = gameState;
     }

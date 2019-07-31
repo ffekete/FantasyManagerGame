@@ -8,6 +8,7 @@ public class Config {
     public static final int BASE_HUNGER_LEVEL = 0;
     public static final int BASE_HUNGER_LIMIT = 1000;
     public static final boolean SHOW_ELAPSED_TIME = false;
+    public static final boolean SHOW_ELAPSED_TIME_IN_RENDERER = false;
 
     public static class Rules {
         public static final int MANA_REGENERATION_PERIOD = 150;
@@ -18,7 +19,7 @@ public class Config {
 
     public static class Engine {
         public static final int NUMBER_OF_THREADS = 4;
-        public static final boolean ENABLE_8_WAYS_PATHFINDING = false;
+        public static final boolean ENABLE_8_WAYS_PATHFINDING = true;
     }
 
     public static final int ATTACK_DISTANCE = 15;

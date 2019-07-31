@@ -2,9 +2,17 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
@@ -21,6 +29,7 @@ import com.mygdx.game.item.potion.SmallManaPotion;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
+import com.mygdx.game.logic.input.InputConfigurer;
 import com.mygdx.game.logic.input.keyboard.KeyboardInputControllerFacade;
 import com.mygdx.game.logic.input.mouse.MouseInputControllerFacade;
 import com.mygdx.game.map.Map2D;
@@ -67,13 +76,23 @@ public class WorldMapSample extends SampleBase {
 
     ShapeRenderer shapeRenderer;
 
+    ImageButton buildButton;
+    Stage stage;
+
     @Override
     public void create() {
+
+        stage = new Stage();
 
         shapeRenderer = new ShapeRenderer();
         infoCamera = new OrthographicCamera();
         infoViewPort = new FitViewport(Config.Screen.CANVAS_WIDTH, Config.Screen.HEIGHT, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
+
+        Drawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButton.png"))));
+        Drawable drawable2 = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButtonDown.png"))));
+
+        configureButtons(drawable, drawable2);
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
@@ -87,7 +106,7 @@ public class WorldMapSample extends SampleBase {
 
         worldMap = mapGenerator.create(0);
 
-        Gdx.input.setInputProcessor(this);
+        InputConfigurer.INSTANCE.setInputProcessor(stage, this);
 
         builder = ActorFactory.INSTANCE.create(Builder.class, worldMap, Placement.FIXED.X(7).Y(10));
 
@@ -137,8 +156,33 @@ public class WorldMapSample extends SampleBase {
 
     }
 
+    private void configureButtons(Drawable drawable, Drawable drawable2) {
+        buildButton = new ImageButton(drawable, drawable2);
+        buildButton.setPosition(-20, 30);
+
+        //Table myTable = new Table();
+        //myTable.setFillParent(true); // <-- sets initial table to fill it's parent (in this case the stage)
+        //ScrollPane myScrollpane = new ScrollPane(buildButton); // <-- Add actors to hold by scrollpane
+
+        // myTable.add(myScrollpane);
+        //stage.addActor(myTable);
+
+        buildButton.addListener(new ClickListener() {
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                GameFlowControllerFacade.INSTANCE.toggleGameState();
+                return true;
+            }
+
+        });
+
+        stage.addActor(buildButton);
+    }
+
     @Override
     public void render() {
+
         RendererToolsRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(camera.combined);
         RendererToolsRegistry.INSTANCE.getSpriteBatch().begin();
 
@@ -147,11 +191,20 @@ public class WorldMapSample extends SampleBase {
 
         GameFlowControllerFacade.INSTANCE.update();
 
+        long start = System.currentTimeMillis();
+
         RenderingFacade.INSTANCE.draw();
+
+        stage.act();
+        stage.draw();
 
         RendererToolsRegistry.INSTANCE.getSpriteBatch().end();
 
         renderInfoScreen();
+
+        if(Config.SHOW_ELAPSED_TIME_IN_RENDERER) {
+            System.out.println("elapsed time in rendering: " + (System.currentTimeMillis() - start));
+        }
     }
 
     private void renderInfoScreen() {

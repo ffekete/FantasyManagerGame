@@ -27,6 +27,7 @@ public class ObjectRegistry {
 
     public void add(Map2D map, Cluster cluster, WorldObject worldObject) {
         objects.computeIfAbsent(map, value -> new HashMap<>());
+
         objects.get(map).computeIfAbsent(cluster, value -> new HashSet<>());
         objects.get(map).get(cluster).add(worldObject);
 

@@ -1,6 +1,7 @@
 package com.mygdx.game.object.placement;
 
 import com.mygdx.game.map.Map2D;
+import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.logic.Point;
 
@@ -18,7 +19,8 @@ public enum ObjectPlacement implements ObjectPlacementStrategy {
 
             } while(map.isObstacle(x,y) || map.getTile(x,y).isObstacle());
 
-            map.setObstacle(x,y,true);
+            if(Obstacle.class.isAssignableFrom(object.getClass()))
+                map.setObstacle(x,y,true);
 
             object.setCoordinates(new Point(x,y));
         }
@@ -42,7 +44,8 @@ public enum ObjectPlacement implements ObjectPlacementStrategy {
         @Override
         public void place(WorldObject object, Map2D map) {
             object.setCoordinates(new Point(x, y));
-            map.setObstacle(x,y,true);
+            if(Obstacle.class.isAssignableFrom(object.getClass()))
+                map.setObstacle(x,y,true);
         }
 
         public ObjectPlacement X(int xValue) {

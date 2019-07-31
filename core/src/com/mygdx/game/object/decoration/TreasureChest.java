@@ -5,13 +5,14 @@ import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.ContainerObject;
 import com.mygdx.game.object.InteractiveObject;
+import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TreasureChest implements WorldObject, InteractiveObject, ContainerObject {
+public class TreasureChest implements WorldObject, InteractiveObject, ContainerObject, Obstacle {
 
     private final float worldMapSize = 1f;
 

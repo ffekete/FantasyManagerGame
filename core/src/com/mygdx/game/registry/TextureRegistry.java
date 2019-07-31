@@ -133,9 +133,8 @@ public class TextureRegistry {
                 .put(TreasureChest.class, Arrays.asList(texturePathResolver.resolve("object/TreasureChest.png"),
                         texturePathResolver.resolve("object/OpenTreasureChest.png")))
                 // Wall
-                .put(IncompleteWoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/IncompleteWall.png")))
+                .put(IncompleteWoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallTilesetIncomplete.png")))
                 .put(WoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallTileset.png")))
-                //.put(WoodenWall.class, Arrays.asList(texturePathResolver.resolve("tiles/RoomTileset.png")))
                 .build();
 
         dungeonTilesetTextures = ImmutableMap.<DungeonType, Optional<Texture>>builder()
