@@ -115,9 +115,9 @@ public class TextureRegistry {
                 .build();
 
         mapTextures = ImmutableMap.<TileBase, Optional<Texture>>builder()
-                .put(WorldMapTile.GRASS, texturePathResolver.resolve("terrain.jpg"))
+                .put(WorldMapTile.GRASS, texturePathResolver.resolve("Terrain.png"))
                 .put(Tile.STONE_WALL, texturePathResolver.resolve("wall.png"))
-                .put(Tile.FLOOR, texturePathResolver.resolve("terrain.jpg"))
+                .put(Tile.FLOOR, texturePathResolver.resolve("Terrain.png"))
                 .put(Tile.EMPTY, texturePathResolver.resolve("void.png"))
                 .build();
 
@@ -134,7 +134,8 @@ public class TextureRegistry {
                         texturePathResolver.resolve("object/OpenTreasureChest.png")))
                 // Wall
                 .put(IncompleteWoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/IncompleteWall.png")))
-                .put(WoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWall.png")))
+                .put(WoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallTileset.png")))
+                //.put(WoodenWall.class, Arrays.asList(texturePathResolver.resolve("tiles/RoomTileset.png")))
                 .build();
 
         dungeonTilesetTextures = ImmutableMap.<DungeonType, Optional<Texture>>builder()

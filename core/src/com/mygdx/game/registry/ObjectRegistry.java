@@ -16,17 +16,22 @@ import java.util.stream.Collectors;
 public class ObjectRegistry {
 
     private final Map<Map2D, Map<Cluster, Set<WorldObject>>> objects;
+    private Map<Map2D, WorldObject[][]> objectGrid; // for drawing only
 
     public static final ObjectRegistry INSTANCE = new ObjectRegistry();
 
     private ObjectRegistry() {
         objects = new HashMap<>();
+        objectGrid = new HashMap<>();
     }
 
     public void add(Map2D map, Cluster cluster, WorldObject worldObject) {
         objects.computeIfAbsent(map, value -> new HashMap<>());
         objects.get(map).computeIfAbsent(cluster, value -> new HashSet<>());
         objects.get(map).get(cluster).add(worldObject);
+
+        objectGrid.computeIfAbsent(map, v -> new WorldObject[map.getWidth()][map.getHeight()]);
+        objectGrid.get(map)[(int)worldObject.getX()][(int)worldObject.getY()] = worldObject;
     }
 
     public Optional<List<WorldObject>> getObject(Map2D map, Class<? extends WorldObject> object) {
@@ -53,5 +58,9 @@ public class ObjectRegistry {
 
     public void remove(Map2D currentMap, WorldObject object) {
         objects.get(currentMap).get(Cluster.of(object.getX(), object.getY())).remove(object);
+    }
+
+    public Map<Map2D, WorldObject[][]> getObjectGrid() {
+        return objectGrid;
     }
 }

@@ -2,9 +2,10 @@ package com.mygdx.game.object.wall;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.WorldObject;
 
-public class WoodenWall implements Wall, WorldObject {
+public class WoodenWall implements Wall, WorldObject, TileableObject {
 
     private Point coordinates;
 
