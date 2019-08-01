@@ -23,7 +23,7 @@ import com.mygdx.game.renderer.selector.WallTileSelector;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObjectRenderer implements Renderer {
+public class ObjectRenderer implements Renderer<Map2D> {
 
     public static final ObjectRenderer INSTANCE = new ObjectRenderer();
     public final VisibilityMapRegistry visibilityMapRegistry = VisibilityMapRegistry.INSTANCE;

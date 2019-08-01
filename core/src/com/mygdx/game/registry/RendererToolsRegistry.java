@@ -4,6 +4,12 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.logic.GameState;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RendererToolsRegistry {
 
@@ -14,6 +20,9 @@ public class RendererToolsRegistry {
     private ShapeRenderer shapeRenderer;
     private Camera camera;
     private Camera infoCamera;
+    private Viewport infoViewPort;
+
+    private Map<GameState, Stage> stages = new HashMap<>();
 
 
     public SpriteBatch getSpriteBatch() {
@@ -56,5 +65,22 @@ public class RendererToolsRegistry {
         this.infoCamera = infoCamera;
     }
 
-    private RendererToolsRegistry() {}
+    private RendererToolsRegistry() {
+    }
+
+    public void addStage(GameState gameState, Stage stage) {
+        this.stages.put(gameState, stage);
+    }
+
+    public Stage getStage(GameState gameState) {
+        return this.stages.get(gameState);
+    }
+
+    public void setInfoViewPort(Viewport infoViewPort) {
+        this.infoViewPort = infoViewPort;
+    }
+
+    public Viewport getInfoViewPort() {
+        return infoViewPort;
+    }
 }

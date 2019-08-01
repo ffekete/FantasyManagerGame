@@ -1,10 +1,15 @@
 package com.mygdx.game.renderer.building;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.mygdx.game.logic.GameState;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.RendererToolsRegistry;
+import com.mygdx.game.renderer.camera.CameraPositionController;
+import com.mygdx.game.renderer.sandbox.InfoScreenRenderer;
+import com.mygdx.game.utils.GdxUtils;
 
 public class BuildingRenderer {
 
@@ -13,15 +18,32 @@ public class BuildingRenderer {
     private final RendererToolsRegistry rendererToolsRegistry = RendererToolsRegistry.INSTANCE;
 
     public void draw() {
+
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(RendererToolsRegistry.INSTANCE.getCamera().combined);
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().begin();
+
+        GdxUtils.clearScreen();
+        CameraPositionController.INSTANCE.updateCamera((OrthographicCamera) RendererToolsRegistry.INSTANCE.getCamera());
+
         if(Map2D.MapType.WORLD_MAP.equals(MapRegistry.INSTANCE.getCurrentMapToShow().getMapType()))
             BuildingRendererBatch.WORLD_MAP.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), RendererToolsRegistry.INSTANCE.getSpriteBatch());
         else
             BuildingRendererBatch.DUNGEON.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), RendererToolsRegistry.INSTANCE.getSpriteBatch());
 
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().end();
+
         rendererToolsRegistry.getShapeRenderer().setProjectionMatrix(rendererToolsRegistry.getCamera().combined);
 
         drawGrid();
+
         rendererToolsRegistry.getShapeRenderer().end();
+
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().begin();
+        InfoScreenRenderer.INSTANCE.draw();
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().end();
+
+        rendererToolsRegistry.getStage(GameState.Builder).act();
+        rendererToolsRegistry.getStage(GameState.Builder).draw();
     }
 
     private void drawGrid() {

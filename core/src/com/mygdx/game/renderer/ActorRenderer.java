@@ -21,7 +21,7 @@ import com.mygdx.game.registry.VisibilityMapRegistry;
 import com.mygdx.game.renderer.direction.DirectionSelector;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
 
-public class ActorRenderer implements Renderer {
+public class ActorRenderer implements Renderer<Map2D> {
 
     public static final ActorRenderer INSTANCE = new ActorRenderer();
 

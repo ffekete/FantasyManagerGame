@@ -7,7 +7,7 @@ import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.registry.LightSourceRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 
-public class LightRenderer implements Renderer {
+public class LightRenderer implements Renderer<Map2D> {
 
     public static final LightRenderer INSTANCE = new LightRenderer();
 

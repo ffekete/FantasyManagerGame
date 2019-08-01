@@ -13,7 +13,7 @@ import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.renderer.selector.CaveTileSelector;
 import com.mygdx.game.renderer.selector.RoomsTileSelector;
 
-public class DungeonRenderer implements Renderer {
+public class DungeonRenderer implements Renderer<Map2D> {
 
     public static final DungeonRenderer INSTANCE = new DungeonRenderer();
     public final CameraPositionController cameraPositionController = CameraPositionController.INSTANCE;

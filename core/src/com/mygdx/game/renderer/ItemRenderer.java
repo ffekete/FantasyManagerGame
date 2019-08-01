@@ -11,7 +11,7 @@ import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 
-public class ItemRenderer implements Renderer {
+public class ItemRenderer implements Renderer<Map2D> {
 
     public static final ItemRenderer INSTANCE = new ItemRenderer();
 

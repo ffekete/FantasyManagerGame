@@ -12,7 +12,7 @@ import com.mygdx.game.registry.VisibilityMapRegistry;
 import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 
-public class WorldMapRenderer implements Renderer {
+public class WorldMapRenderer implements Renderer<Map2D> {
 
     public static final WorldMapRenderer INSTANCE = new WorldMapRenderer();
 

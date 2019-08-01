@@ -27,6 +27,10 @@ public class SandboxGameInputController {
             GameFlowControllerFacade.INSTANCE.setGameState(GameState.Builder);
         }
 
+        if(keycode == Input.Keys.I) {
+            GameFlowControllerFacade.INSTANCE.setGameState(GameState.Inventory);
+        }
+
         if(keycode == Input.Keys.N) {
             if(CameraPositionController.INSTANCE.isFocusedOn()) {
                 Optional<Actor> nextActor = ActorRegistry.INSTANCE.getNext(MapRegistry.INSTANCE.getCurrentMapToShow());

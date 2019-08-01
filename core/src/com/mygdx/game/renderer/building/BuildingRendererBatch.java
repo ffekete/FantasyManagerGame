@@ -8,7 +8,7 @@ import com.mygdx.game.renderer.*;
 import java.util.Arrays;
 import java.util.List;
 
-public enum BuildingRendererBatch implements Renderer {
+public enum BuildingRendererBatch implements Renderer<Map2D> {
 
     WORLD_MAP(
             Arrays.asList(WorldMapRenderer.INSTANCE,

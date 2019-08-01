@@ -12,6 +12,8 @@ public class KeyboardInputControllerFacade {
     public boolean processInput(int keyCode, Camera camera) {
 
         switch (gameFlowControllerFacade.getGameState()) {
+            case Inventory:
+                return InventoryGameInputController.INSTANCE.handleKeyboardInput(keyCode, camera);
             case Builder:
                 return BuildingGameInputController.INSTANCE.handleKeyboardInput(keyCode, camera);
             case Sandbox:

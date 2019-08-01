@@ -28,6 +28,7 @@ import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallManaPotion;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
+import com.mygdx.game.logic.GameState;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
 import com.mygdx.game.input.InputConfigurer;
 import com.mygdx.game.input.keyboard.KeyboardInputControllerFacade;
@@ -77,12 +78,16 @@ public class WorldMapSample extends SampleBase {
     ShapeRenderer shapeRenderer;
 
     ImageButton buildButton;
-    Stage stage;
+    Stage sandboxStage;
+    Stage builderStage;
+    Stage inventoryStage;
 
     @Override
     public void create() {
 
-        stage = new Stage();
+        sandboxStage = new Stage();
+        builderStage = new Stage();
+        inventoryStage = new Stage();
 
         shapeRenderer = new ShapeRenderer();
         infoCamera = new OrthographicCamera();
@@ -103,10 +108,14 @@ public class WorldMapSample extends SampleBase {
         RendererToolsRegistry.INSTANCE.setShapeRenderer(shapeRenderer);
         RendererToolsRegistry.INSTANCE.setCamera(camera);
         RendererToolsRegistry.INSTANCE.setInfoCamera(infoCamera);
+        RendererToolsRegistry.INSTANCE.addStage(GameState.Sandbox, sandboxStage);
+        RendererToolsRegistry.INSTANCE.addStage(GameState.Builder, builderStage);
+        RendererToolsRegistry.INSTANCE.addStage(GameState.Inventory, inventoryStage);
+        RendererToolsRegistry.INSTANCE.setInfoViewPort(infoViewPort);
 
         worldMap = mapGenerator.create(0);
 
-        InputConfigurer.INSTANCE.setInputProcessor(stage, this);
+        InputConfigurer.INSTANCE.setInputProcessor(sandboxStage, this);
 
         builder = ActorFactory.INSTANCE.create(Builder.class, worldMap, Placement.FIXED.X(7).Y(10));
 
@@ -157,15 +166,20 @@ public class WorldMapSample extends SampleBase {
     }
 
     private void configureButtons(Drawable drawable, Drawable drawable2) {
-        buildButton = new ImageButton(drawable, drawable2);
+        sandboxStage.addActor(getBuildButton(drawable, drawable2));
+        builderStage.addActor(getBuildButton(drawable, drawable2));
+    }
+
+    private ImageButton getBuildButton(Drawable drawable, Drawable drawable2) {
+        ImageButton buildButton = new ImageButton(drawable, drawable2);
         buildButton.setPosition(-20, 30);
 
         //Table myTable = new Table();
-        //myTable.setFillParent(true); // <-- sets initial table to fill it's parent (in this case the stage)
+        //myTable.setFillParent(true); // <-- sets initial table to fill it's parent (in this case the sandboxStage)
         //ScrollPane myScrollpane = new ScrollPane(buildButton); // <-- Add actors to hold by scrollpane
 
         // myTable.add(myScrollpane);
-        //stage.addActor(myTable);
+        //sandboxStage.addActor(myTable);
 
         buildButton.addListener(new ClickListener() {
 
@@ -176,51 +190,21 @@ public class WorldMapSample extends SampleBase {
             }
 
         });
-
-        stage.addActor(buildButton);
+        return buildButton;
     }
 
     @Override
     public void render() {
-
-        RendererToolsRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(camera.combined);
-        RendererToolsRegistry.INSTANCE.getSpriteBatch().begin();
-
-        GdxUtils.clearScreen();
-        CameraPositionController.INSTANCE.updateCamera(camera);
-
         GameFlowControllerFacade.INSTANCE.update();
 
         long start = System.currentTimeMillis();
 
         RenderingFacade.INSTANCE.draw();
 
-        stage.act();
-        stage.draw();
-
-        RendererToolsRegistry.INSTANCE.getSpriteBatch().end();
-
-        renderInfoScreen();
-
-        if(Config.SHOW_ELAPSED_TIME_IN_RENDERER) {
+        if (Config.SHOW_ELAPSED_TIME_IN_RENDERER) {
             System.out.println("elapsed time in rendering: " + (System.currentTimeMillis() - start));
         }
     }
-
-    private void renderInfoScreen() {
-        infoViewPort.apply();
-        RendererToolsRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(infoCamera.combined);
-        RendererToolsRegistry.INSTANCE.getSpriteBatch().begin();
-
-        InfoScreenRenderer.INSTANCE.draw();
-
-        bitmapFont.draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "Hour: " + DayTimeCalculator.INSTANCE.getHour() + " Day: " + DayTimeCalculator.INSTANCE.getDay(), 10, 70);
-        bitmapFont.draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), SandboxGameLogicController.INSTANCE.isPaused() ? "Paused" : "", Config.Screen.CANVAS_WIDTH / 2, Config.Screen.HEIGHT / 2);
-
-        RendererToolsRegistry.INSTANCE.getSpriteBatch().end();
-    }
-
-
 
     @Override
     public void resize(int width, int height) {
