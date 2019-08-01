@@ -1,4 +1,4 @@
-package com.mygdx.game.logic.input.mouse;
+package com.mygdx.game.input.mouse;
 
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
 

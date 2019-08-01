@@ -3,10 +3,12 @@ package com.mygdx.game.object.wall;
 import com.mygdx.game.Config;
 import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.TileableObject;
+import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
 
-public class IncompleteWoodenWall implements Wall, BuildingBlock<WoodenWall>, TileableObject {
+public class IncompleteWoodenWall implements Wall, BuildingBlock<WoodenWall>, TileableWallObject, Obstacle {
 
     private float progress;
     private Point coordinates;

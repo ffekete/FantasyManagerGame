@@ -8,4 +8,6 @@ public interface BuildingBlock<T> extends WorldObject {
     Class<T> finish();
     boolean isFinished();
     float getProgress();
+    float getX();
+    float getY();
 }

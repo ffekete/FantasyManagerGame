@@ -1,4 +1,4 @@
-package com.mygdx.game.logic.input.mouse.processor;
+package com.mygdx.game.input.mouse.processor;
 
 import com.mygdx.game.builder.BuilderTool;
 import com.mygdx.game.logic.Point;
@@ -6,6 +6,7 @@ import com.mygdx.game.map.Cluster;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
+import com.mygdx.game.object.wall.IncompleteWoodenWall;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.MapRegistry;
@@ -23,9 +24,10 @@ public class BuilderMouseActionProcessor {
     private final ObjectRegistry objectRegistry = ObjectRegistry.INSTANCE;
     private final MapRegistry mapRegistry = MapRegistry.INSTANCE;
     private final ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
+    private final BuildingActionValidator buildingActionValidator = new BuildingActionValidator();
 
     public boolean onClick(Point realWorldCoord) {
-        if (noObjectsOnCell(realWorldCoord) && noCharactersOnCell(realWorldCoord) && noItemsOnCell(realWorldCoord)) {
+        if (noObjectsOnCell(realWorldCoord) && noCharactersOnCell(realWorldCoord) && noItemsOnCell(realWorldCoord) && buildingActionValidator.validate(mapRegistry.getCurrentMapToShow(), realWorldCoord.getX(), realWorldCoord.getY(), builderTool.getSelectedBlock())) {
             ObjectFactory.create(builderTool.getSelectedBlock(), mapRegistry.getCurrentMapToShow(), ObjectPlacement.FIXED.X(realWorldCoord.getX()).Y(realWorldCoord.getY()));
             return true;
         }

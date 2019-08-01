@@ -33,8 +33,10 @@ import com.mygdx.game.object.decoration.Tree;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.interactive.Ladder;
 import com.mygdx.game.object.light.LightSourceType;
+import com.mygdx.game.object.wall.IncompleteWoodenDoorWall;
 import com.mygdx.game.object.wall.IncompleteWoodenWall;
 import com.mygdx.game.object.wall.WoodenWall;
+import com.mygdx.game.object.wall.WoodenWallDoor;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
 import com.mygdx.game.resolver.ModdablePathResolver;
 import com.mygdx.game.resolver.PathResolver;
@@ -134,7 +136,9 @@ public class TextureRegistry {
                         texturePathResolver.resolve("object/OpenTreasureChest.png")))
                 // Wall
                 .put(IncompleteWoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallTilesetIncomplete.png")))
+                .put(IncompleteWoodenDoorWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallDoorTilesetIncomplete.png")))
                 .put(WoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallTileset.png")))
+                .put(WoodenWallDoor.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallDoorTileset.png")))
                 .build();
 
         dungeonTilesetTextures = ImmutableMap.<DungeonType, Optional<Texture>>builder()

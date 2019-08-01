@@ -1,4 +1,4 @@
-package com.mygdx.game.logic.input.keyboard;
+package com.mygdx.game.input.keyboard;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;

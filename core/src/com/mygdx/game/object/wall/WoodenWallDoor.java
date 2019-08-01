@@ -7,11 +7,11 @@ import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
 
-public class WoodenWall implements Wall, WorldObject, TileableWallObject, Obstacle {
+public class WoodenWallDoor implements Wall, WorldObject, TileableWallObject {
 
     private Point coordinates;
 
-    public WoodenWall(Point coordinates) {
+    public WoodenWallDoor(Point coordinates) {
         this.coordinates = coordinates;
     }
 

@@ -1,5 +1,6 @@
 package com.mygdx.game.logic.activity.manager;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.hero.Warrior;
@@ -54,17 +55,17 @@ public class ActivityManagerTest {
 
         Actor skeleton = new Skeleton();
         skeleton.equip(new ShortSword());
-        skeleton.setCoordinates(Point.of(0,0));
+        skeleton.setCoordinates(Point.of(0, 0));
         skeleton.setCurrentMap(dungeon);
 
         Actor skeleton2 = new Skeleton();
         skeleton2.setCurrentMap(dungeon);
-        skeleton2.setCoordinates(Point.of(5,5));
+        skeleton2.setCoordinates(Point.of(5, 5));
         skeleton2.equip(new ShortSword());
 
-        visibilityMask.setValue(15,15, hero);
-        visibilityMask.setValue(10,10, goblin);
-        visibilityMask.setValue(10,10, skeleton);
+        visibilityMask.setValue(15, 15, hero);
+        visibilityMask.setValue(10, 10, goblin);
+        visibilityMask.setValue(10, 10, skeleton);
 
         ActorRegistry.INSTANCE.add(dungeon, hero);
         ActorRegistry.INSTANCE.add(dungeon, goblin);
@@ -81,24 +82,34 @@ public class ActivityManagerTest {
         assertThat(skeleton2.getActivityStack().contains(MoveThenAttackActivity.class), is(false));
 
         // perform next task for goblin
-        for(int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
+        for (int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
             goblin.getActivityStack().performNext();
             Thread.sleep(5); // this is needed for pathfinder to generate the path in time
         }
-        assertThat(goblin.getX(), is(14));
-        assertThat(goblin.getY(), is(14));
+        if (Config.Engine.ENABLE_8_WAYS_PATHFINDING) {
+            assertThat(goblin.getX(), is(13));
+            assertThat(goblin.getY(), is(13));
+        } else {
+            assertThat(goblin.getX(), is(14));
+            assertThat(goblin.getY(), is(14));
+        }
 
         activityManager.manage(skeleton);
         assertThat(skeleton.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
 
 
         // perform next task for skeleton
-        for(int i = 0; i <= skeleton.getMovementSpeed() * 3; i++) {
+        for (int i = 0; i <= skeleton.getMovementSpeed() * 3; i++) {
             skeleton.getActivityStack().performNext();
             Thread.sleep(5); // this is needed for pathfinder to generate the path in time
         }
-        assertThat(skeleton.getX(), is(2));
-        assertThat(skeleton.getY(), is(0));
+        if (Config.Engine.ENABLE_8_WAYS_PATHFINDING) {
+            assertThat(skeleton.getX(), is(2));
+            assertThat(skeleton.getY(), is(2));
+        } else {
+            assertThat(skeleton.getX(), is(2));
+            assertThat(skeleton.getY(), is(0));
+        }
 
         // check target for goblin
         MoveThenAttackActivity moveThenAttackActivity = (MoveThenAttackActivity) goblin.getActivityStack().getCurrent();
@@ -109,30 +120,53 @@ public class ActivityManagerTest {
         // check target for warrior
         MoveThenAttackActivity moveThenAttackActivity2 = (MoveThenAttackActivity) hero.getActivityStack().getCurrent();
         PreCalculatedMovementActivity movementActivity2 = (PreCalculatedMovementActivity) moveThenAttackActivity2.getCurrentActivity();
-        assertThat(movementActivity2.getTargetX(), is(13));
-        assertThat(movementActivity2.getTargetY(), is(12));
+        if (Config.Engine.ENABLE_8_WAYS_PATHFINDING) {
+            assertThat(movementActivity2.getTargetX(), is(12));
+            assertThat(movementActivity2.getTargetY(), is(12));
+        } else {
+            assertThat(movementActivity2.getTargetX(), is(13));
+            assertThat(movementActivity2.getTargetY(), is(12));
+        }
 
         // check target for skeleton
         MoveThenAttackActivity moveThenAttackActivity3 = (MoveThenAttackActivity) skeleton.getActivityStack().getCurrent();
         PreCalculatedMovementActivity movementActivity3 = (PreCalculatedMovementActivity) moveThenAttackActivity3.getCurrentActivity();
-        assertThat(movementActivity3.getTargetX(), is(13));
-        assertThat(movementActivity3.getTargetY(), is(11));
+
+        if (Config.Engine.ENABLE_8_WAYS_PATHFINDING) {
+            assertThat(movementActivity3.getTargetX(), is(11));
+            assertThat(movementActivity3.getTargetY(), is(11));
+        } else {
+            assertThat(movementActivity3.getTargetX(), is(13));
+            assertThat(movementActivity3.getTargetY(), is(11));
+        }
 
         // perform next task for hero
-        for(int i = 0; i <= hero.getMovementSpeed() * 3; i++) {
+        for (int i = 0; i <= hero.getMovementSpeed() * 3; i++) {
             hero.getActivityStack().performNext();
             Thread.sleep(5); // this is needed for pathfinder to generate the path in time
         }
-        assertThat(hero.getX(), is(11));
-        assertThat(hero.getY(), is(11));
 
-        visibilityMask.setValue(11,11, skeleton2);
+        if (Config.Engine.ENABLE_8_WAYS_PATHFINDING) {
+            assertThat(hero.getX(), is(12));
+            assertThat(hero.getY(), is(12));
+        } else {
+            assertThat(hero.getX(), is(11));
+            assertThat(hero.getY(), is(11));
+        }
+
+        visibilityMask.setValue(hero.getX(), hero.getY(), skeleton2);
+
         activityManager.manage(skeleton2);
 
         MoveThenAttackActivity moveThenAttackActivity4 = (MoveThenAttackActivity) skeleton2.getActivityStack().getCurrent();
         PreCalculatedMovementActivity movementActivity4 = (PreCalculatedMovementActivity) moveThenAttackActivity4.getCurrentActivity();
-        assertThat(movementActivity4.getTargetX(), is(13));
-        assertThat(movementActivity4.getTargetY(), is(11));
+        if (Config.Engine.ENABLE_8_WAYS_PATHFINDING) {
+            assertThat(movementActivity4.getTargetX(), is(11));
+            assertThat(movementActivity4.getTargetY(), is(11));
+        } else {
+            assertThat(movementActivity4.getTargetX(), is(13));
+            assertThat(movementActivity4.getTargetY(), is(11));
+        }
     }
 
     @Test
@@ -156,17 +190,17 @@ public class ActivityManagerTest {
 
         Actor skeleton = new Skeleton();
         skeleton.equip(new ShortSword());
-        skeleton.setCoordinates(Point.of(0,0));
+        skeleton.setCoordinates(Point.of(0, 0));
         skeleton.setCurrentMap(dungeon);
 
         Actor skeleton2 = new Skeleton();
         skeleton2.setCurrentMap(dungeon);
-        skeleton2.setCoordinates(Point.of(5,5));
+        skeleton2.setCoordinates(Point.of(5, 5));
         skeleton2.equip(new ShortSword());
 
-        visibilityMask.setValue(15,15, hero);
-        visibilityMask.setValue(10,10, goblin);
-        visibilityMask.setValue(10,10, skeleton);
+        visibilityMask.setValue(15, 15, hero);
+        visibilityMask.setValue(10, 10, goblin);
+        visibilityMask.setValue(10, 10, skeleton);
 
         ActorRegistry.INSTANCE.add(dungeon, hero);
         ActorRegistry.INSTANCE.add(dungeon, goblin);
@@ -183,7 +217,7 @@ public class ActivityManagerTest {
         assertThat(skeleton2.getActivityStack().contains(MoveThenAttackActivity.class), is(false));
 
         // perform next task for goblin
-        for(int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
+        for (int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
             goblin.getActivityStack().performNext();
             Thread.sleep(5); // this is needed for pathfinder to generate the path in time
         }
@@ -195,7 +229,7 @@ public class ActivityManagerTest {
 
 
         // perform next task for skeleton
-        for(int i = 0; i <= skeleton.getMovementSpeed() * 3; i++) {
+        for (int i = 0; i <= skeleton.getMovementSpeed() * 3; i++) {
             skeleton.getActivityStack().performNext();
             Thread.sleep(5); // this is needed for pathfinder to generate the path in time
         }
@@ -221,14 +255,14 @@ public class ActivityManagerTest {
         assertThat(movementActivity3.getTargetY(), is(11));
 
         // perform next task for hero
-        for(int i = 0; i <= hero.getMovementSpeed() * 3; i++) {
+        for (int i = 0; i <= hero.getMovementSpeed() * 3; i++) {
             hero.getActivityStack().performNext();
             Thread.sleep(5); // this is needed for pathfinder to generate the path in time
         }
         assertThat(hero.getX(), is(11));
         assertThat(hero.getY(), is(11));
 
-        visibilityMask.setValue(11,11, skeleton2);
+        visibilityMask.setValue(11, 11, skeleton2);
         activityManager.manage(skeleton2);
 
         MoveThenAttackActivity moveThenAttackActivity4 = (MoveThenAttackActivity) skeleton2.getActivityStack().getCurrent();
@@ -257,12 +291,12 @@ public class ActivityManagerTest {
 
         Actor skeleton = new Skeleton();
         skeleton.equip(new ShortSword());
-        skeleton.setCoordinates(Point.of(0,0));
+        skeleton.setCoordinates(Point.of(0, 0));
         skeleton.setCurrentMap(dungeon);
 
-        visibilityMask.setValue(15,15, hero);
-        visibilityMask.setValue(10,10, goblin);
-        visibilityMask.setValue(10,10, skeleton);
+        visibilityMask.setValue(15, 15, hero);
+        visibilityMask.setValue(10, 10, goblin);
+        visibilityMask.setValue(10, 10, skeleton);
 
         ActorRegistry.INSTANCE.add(dungeon, hero);
         ActorRegistry.INSTANCE.add(dungeon, goblin);
@@ -276,7 +310,7 @@ public class ActivityManagerTest {
         assertThat(goblin.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
 
         // perform next task for goblin
-        for(int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
+        for (int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
             goblin.getActivityStack().performNext();
             Thread.sleep(5); // this is needed for pathfinder to generate the path in time
         }
@@ -288,7 +322,7 @@ public class ActivityManagerTest {
 
 
         // perform next task for skeleton
-        for(int i = 0; i <= skeleton.getMovementSpeed() * 3; i++) {
+        for (int i = 0; i <= skeleton.getMovementSpeed() * 3; i++) {
             skeleton.getActivityStack().performNext();
             Thread.sleep(5); // this is needed for pathfinder to generate the path in time
         }
@@ -337,8 +371,8 @@ public class ActivityManagerTest {
         goblin.setCurrentMap(dungeon);
         goblin.setHp(1000);
 
-        visibilityMask.setValue(15,15, hero);
-        visibilityMask.setValue(10,10, goblin);
+        visibilityMask.setValue(15, 15, hero);
+        visibilityMask.setValue(10, 10, goblin);
 
         ActorRegistry.INSTANCE.add(dungeon, hero);
         ActorRegistry.INSTANCE.add(dungeon, goblin);
@@ -374,9 +408,8 @@ public class ActivityManagerTest {
         goblin.setHp(1000);
 
 
-
-        visibilityMask.setValue(15,15, hero);
-        visibilityMask.setValue(10,10, goblin);
+        visibilityMask.setValue(15, 15, hero);
+        visibilityMask.setValue(10, 10, goblin);
 
         ActorRegistry.INSTANCE.add(dungeon, hero);
         ActorRegistry.INSTANCE.add(dungeon, goblin);
@@ -414,9 +447,8 @@ public class ActivityManagerTest {
         goblin.setHp(1000);
 
 
-
-        visibilityMask.setValue(15,15, hero);
-        visibilityMask.setValue(10,10, goblin);
+        visibilityMask.setValue(15, 15, hero);
+        visibilityMask.setValue(10, 10, goblin);
 
         ActorRegistry.INSTANCE.add(dungeon, hero);
         ActorRegistry.INSTANCE.add(dungeon, goblin);
@@ -430,7 +462,7 @@ public class ActivityManagerTest {
         assertThat(goblin.getActivityStack().contains(RangedAttackActivity.class), is(true));
 
         // perform next task for goblin
-        for(int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
+        for (int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
             goblin.getActivityStack().performNext();
             Thread.sleep(5); // this is needed for pathfinder to generate the path in time
         }
@@ -473,12 +505,12 @@ public class ActivityManagerTest {
 
         Actor skeleton = new Skeleton();
         skeleton.equip(new ShortSword());
-        skeleton.setCoordinates(Point.of(0,0));
+        skeleton.setCoordinates(Point.of(0, 0));
         skeleton.setCurrentMap(dungeon);
 
-        visibilityMask.setValue(15,15, hero);
-        visibilityMask.setValue(10,10, goblin);
-        visibilityMask.setValue(10,10, skeleton);
+        visibilityMask.setValue(15, 15, hero);
+        visibilityMask.setValue(10, 10, goblin);
+        visibilityMask.setValue(10, 10, skeleton);
 
         ActorRegistry.INSTANCE.add(dungeon, hero);
         ActorRegistry.INSTANCE.add(dungeon, goblin);
@@ -492,7 +524,7 @@ public class ActivityManagerTest {
         assertThat(goblin.getActivityStack().contains(RangedAttackActivity.class), is(true));
 
         // perform next task for goblin
-        for(int i = 0; i <= goblin.getAttackSpeed() * 3; i++) {
+        for (int i = 0; i <= goblin.getAttackSpeed() * 3; i++) {
             goblin.getActivityStack().performNext();
             Thread.sleep(5); // this is needed for pathfinder to generate the path in time
         }
@@ -504,7 +536,7 @@ public class ActivityManagerTest {
 
 
         // perform next task for skeleton
-        for(int i = 0; i <= skeleton.getMovementSpeed() * 3; i++) {
+        for (int i = 0; i <= skeleton.getMovementSpeed() * 3; i++) {
             skeleton.getActivityStack().performNext();
             Thread.sleep(5); // this is needed for pathfinder to generate the path in time
         }
@@ -529,7 +561,6 @@ public class ActivityManagerTest {
         assertThat(hero.getX(), is(10));
         assertThat(hero.getY(), is(10));
     }
-
 
 
 }

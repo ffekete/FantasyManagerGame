@@ -3,6 +3,7 @@ package com.mygdx.game.renderer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Config;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.visibility.VisibilityMask;
@@ -26,7 +27,7 @@ public class ItemRenderer implements Renderer {
         for (Item item : itemRegistry.getAllItems(dungeon)) {
             if (!visibilityMask.getValue(item.getX(), item.getY()).isEmpty()) {
                 Texture actualTexture = textureRegistry.getFor(item.getClass());
-                spriteBatch.draw(actualTexture, item.getX(), item.getY(), 0, 0, 1, 1, 1, 1, 0, 0, 0, actualTexture.getWidth(), actualTexture.getHeight(), false, false);
+                spriteBatch.draw(actualTexture, item.getX(), item.getY(), 0, 0, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, 0, 0, 0, actualTexture.getWidth(), actualTexture.getHeight(), false, false);
             }
         }
     }

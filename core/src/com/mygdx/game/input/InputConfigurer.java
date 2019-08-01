@@ -1,4 +1,4 @@
-package com.mygdx.game.logic.input;
+package com.mygdx.game.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;

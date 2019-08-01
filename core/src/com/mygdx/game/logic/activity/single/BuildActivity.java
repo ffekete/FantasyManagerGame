@@ -10,6 +10,7 @@ import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.ActionRegistry;
+import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 
@@ -81,6 +82,7 @@ public class BuildActivity implements Activity {
     @Override
     public void clear() {
         objectRegistry.remove(actor.getCurrentMap(), object);
+        actor.getCurrentMap().setObstacle((int)object.getX(), (int)object.getY(), false);
         ObjectFactory.create(object.finish(), actor.getCurrentMap(), ObjectPlacement.FIXED.X((int)object.getX()).Y((int)object.getY()));
     }
 

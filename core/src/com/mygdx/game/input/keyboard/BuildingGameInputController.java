@@ -1,12 +1,14 @@
-package com.mygdx.game.logic.input.keyboard;
+package com.mygdx.game.input.keyboard;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.builder.BuilderTool;
 import com.mygdx.game.logic.GameState;
-import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
+import com.mygdx.game.object.wall.IncompleteWoodenDoorWall;
+import com.mygdx.game.object.wall.IncompleteWoodenWall;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
@@ -27,6 +29,14 @@ public class BuildingGameInputController {
             for(Actor actor : actorRegistry.getActors(mapRegistry.getCurrentMapToShow())) {
                 actor.getActivityStack().clear();
             }
+        }
+
+        if(keycode == Input.Keys.W) {
+            BuilderTool.INSTANCE.setBlockToBuild(IncompleteWoodenWall.class);
+        }
+
+        if(keycode == Input.Keys.D) {
+            BuilderTool.INSTANCE.setBlockToBuild(IncompleteWoodenDoorWall.class);
         }
 
         if (keycode == Input.Keys.ESCAPE) {

@@ -43,7 +43,7 @@ public class BodyPartsBasedActorAnimation implements ActorAnimation {
     }
 
     @Override
-    public void drawKeyFrame(SpriteBatch spriteBatch, float x, float y, int scale, Direction direction, Activity activity, Class<? extends Actor> actorClass) {
+    public void drawKeyFrame(SpriteBatch spriteBatch, float x, float y, float scale, Direction direction, Activity activity, Class<? extends Actor> actorClass) {
 
         if(!phaseMapper.containsKey(activity.getCurrentClass())) {
             return;
