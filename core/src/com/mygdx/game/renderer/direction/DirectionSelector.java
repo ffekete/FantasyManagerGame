@@ -12,6 +12,7 @@ public class DirectionSelector {
 
     public Direction getDirection(Actor actor) {
         if(PreCalculatedMovementActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())
+                || BuildActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())
                 || MovementActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())
                 || ExplorationActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())) {
             return ActorMovementHandler.INSTANCE.getDirection(actor);

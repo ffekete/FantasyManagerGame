@@ -1,12 +1,12 @@
 package com.mygdx.game.logic.controller;
 
-import com.mygdx.game.actor.inventory.Inventory;
+import com.mygdx.game.actor.Actor;
 
 public class InventoryGameLogicController implements Controller {
 
     public final static InventoryGameLogicController INSTANCE = new InventoryGameLogicController();
 
-    private Inventory inventory;
+    private Actor actor;
 
     public InventoryGameLogicController() {
 
@@ -27,11 +27,11 @@ public class InventoryGameLogicController implements Controller {
         return true;
     }
 
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
+    public Actor getActor() {
+        return actor;
     }
 
-    public Inventory getInventory() {
-        return inventory;
+    public void setActor(Actor actor) {
+        this.actor = actor;
     }
 }

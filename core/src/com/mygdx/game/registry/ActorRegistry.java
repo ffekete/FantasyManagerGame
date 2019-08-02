@@ -3,6 +3,7 @@ package com.mygdx.game.registry;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.faction.Alignment;
+import com.mygdx.game.renderer.camera.CameraPositionController;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -39,9 +40,10 @@ public class ActorRegistry {
             freshStart = true;
             iterator = getActors(map2D).iterator();
         }
-        while (iterator.hasNext()) {
+
+        while (iterator.hasNext() ) {
             Actor actor = iterator.next();
-            if (actor.getAlignment().equals(Alignment.FRIENDLY)) {
+            if (actor.getAlignment().equals(Alignment.FRIENDLY) && !actor.equals(CameraPositionController.INSTANCE.getFocusedOn())) {
                 iterators.put(map2D, iterator);
                 return Optional.of(actor);
             }

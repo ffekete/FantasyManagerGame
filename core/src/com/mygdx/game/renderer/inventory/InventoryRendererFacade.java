@@ -12,7 +12,7 @@ public class InventoryRendererFacade {
     private final RendererToolsRegistry rendererToolsRegistry = RendererToolsRegistry.INSTANCE;
 
     public void draw() {
-        inventoryRenderer.draw(inventoryGameLogicController.getInventory(), rendererToolsRegistry.getSpriteBatch());
+        inventoryRenderer.draw(inventoryGameLogicController.getActor(), rendererToolsRegistry.getSpriteBatch());
     }
 
 }

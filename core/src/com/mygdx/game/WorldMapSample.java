@@ -46,13 +46,10 @@ import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.map.worldmap.WorldMapGenerator;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.logic.controller.SandboxGameLogicController;
-import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.registry.*;
 import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.renderer.RenderingFacade;
-import com.mygdx.game.renderer.sandbox.InfoScreenRenderer;
 import com.mygdx.game.renderer.camera.CameraPositionController;
-import com.mygdx.game.utils.GdxUtils;
 
 
 public class WorldMapSample extends SampleBase {
@@ -155,7 +152,6 @@ public class WorldMapSample extends SampleBase {
         MapRegistry.INSTANCE.add(worldMap);
         MapRegistry.INSTANCE.add(dungeon);
         MapRegistry.INSTANCE.add(dungeon2);
-        MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
 
         hero.setName("Adavark");
 

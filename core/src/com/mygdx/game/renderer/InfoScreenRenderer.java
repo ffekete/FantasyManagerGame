@@ -1,4 +1,4 @@
-package com.mygdx.game.renderer.sandbox;
+package com.mygdx.game.renderer;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.logic.controller.SandboxGameLogicController;

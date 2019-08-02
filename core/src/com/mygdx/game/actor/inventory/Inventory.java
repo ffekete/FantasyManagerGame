@@ -4,6 +4,7 @@ import com.mygdx.game.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Inventory {
     private final List<Item> inventory;
@@ -26,6 +27,17 @@ public class Inventory {
 
     public boolean has(Class clazz) {
         return inventory.parallelStream().anyMatch(item -> clazz.isAssignableFrom(item.getClass()));
+    }
+
+    public Optional<Item> get(int index) {
+        if(inventory.size() <= index)
+            return Optional.empty();
+
+        return Optional.ofNullable(inventory.get(index));
+    }
+
+    public int size() {
+        return inventory.size();
     }
 
     public long count(Class<? extends Item> clazz) {

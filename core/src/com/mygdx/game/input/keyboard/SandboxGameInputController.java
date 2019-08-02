@@ -7,6 +7,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.GameState;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
+import com.mygdx.game.logic.controller.InventoryGameLogicController;
 import com.mygdx.game.logic.controller.SandboxGameLogicController;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
@@ -27,7 +28,8 @@ public class SandboxGameInputController {
             GameFlowControllerFacade.INSTANCE.setGameState(GameState.Builder);
         }
 
-        if(keycode == Input.Keys.I) {
+        if(keycode == Input.Keys.I && CameraPositionController.INSTANCE.getFocusedOn() != null) {
+            InventoryGameLogicController.INSTANCE.setActor(cameraPositionController.getFocusedOn());
             GameFlowControllerFacade.INSTANCE.setGameState(GameState.Inventory);
         }
 

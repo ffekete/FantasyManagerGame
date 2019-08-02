@@ -13,7 +13,7 @@ public class ConsumeAntiVenomPotionDecision implements Decision {
 
     @Override
     public boolean decide(Actor actor) {
-        if (actor.getActivityStack().contains(ConsumeAntiVenomPotionDecision.class)) {
+        if (actor.getActivityStack().contains(ConsumeAntiVenomPotion.class)) {
             return true;
         }
 
