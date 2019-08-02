@@ -12,4 +12,8 @@ public class Ranger extends AbstractActor implements MeleeActor, Hero {
         setSkillFocusDefinition(SkillFocusFactory.Ranger.create());
     }
 
+    @Override
+    public String getActorClass() {
+        return "Ranger";
+    }
 }

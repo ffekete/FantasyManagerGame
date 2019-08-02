@@ -24,4 +24,9 @@ public class Wizard extends AbstractActor implements CasterActor, Hero {
 
         setSkillFocusDefinition(SkillFocusFactory.Wizard.create());
     }
+
+    @Override
+    public String getActorClass() {
+        return "Wizard";
+    }
 }

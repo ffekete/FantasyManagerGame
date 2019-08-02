@@ -30,4 +30,9 @@ public class SkeletonWarrior extends AbstractActor implements MeleeActor {
     public int getHungerLevel() {
         return 0;
     }
+
+    @Override
+    public String getActorClass() {
+        return "Skeleton warrior";
+    }
 }

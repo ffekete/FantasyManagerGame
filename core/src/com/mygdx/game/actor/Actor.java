@@ -84,6 +84,8 @@ public interface Actor {
     boolean hasTrait(Trait trait);
     void addTrait(Trait trait);
 
+    String getActorClass();
+
     // ******************   BodyPartsBasedActorAnimation  ********************
     Activity getCurrentActivity();
 

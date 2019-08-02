@@ -23,6 +23,7 @@ import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.stack.ActivityStack;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.EffectRegistry;
+import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.rules.levelup.LevelUpController;
 
 import java.util.*;
@@ -307,6 +308,9 @@ public abstract class AbstractActor implements Actor {
         System.out.println(getName() + " I'm killed by " + killer.getName());
         activityStack.getCurrent().cancel();
         ActorDeathHandler.INSTANCE.kill(this);
+        if(this.equals(CameraPositionController.INSTANCE.getFocusedOn())) {
+            CameraPositionController.INSTANCE.removeFocus();
+        }
         levelUpController.calculate(killer, this);
     }
 

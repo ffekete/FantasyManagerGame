@@ -17,6 +17,7 @@ public class RendererToolsRegistry {
 
     private SpriteBatch spriteBatch;
     private BitmapFont bitmapFont;
+    private BitmapFont bitmapFontSmall;
     private ShapeRenderer shapeRenderer;
     private Camera camera;
     private Camera infoCamera;
@@ -82,5 +83,13 @@ public class RendererToolsRegistry {
 
     public Viewport getInfoViewPort() {
         return infoViewPort;
+    }
+
+    public BitmapFont getBitmapFontSmall() {
+        return bitmapFontSmall;
+    }
+
+    public void setBitmapFontSmall(BitmapFont bitmapFontSmall) {
+        this.bitmapFontSmall = bitmapFontSmall;
     }
 }

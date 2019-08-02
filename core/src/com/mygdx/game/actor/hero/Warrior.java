@@ -12,4 +12,9 @@ public class Warrior extends AbstractActor implements MeleeActor, Hero {
         setAlignment(FRIENDLY);
         setSkillFocusDefinition(SkillFocusFactory.Warrior.create());
     }
+
+    @Override
+    public String getActorClass() {
+        return "Warrior";
+    }
 }

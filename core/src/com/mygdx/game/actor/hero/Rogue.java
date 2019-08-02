@@ -11,4 +11,9 @@ public class Rogue extends AbstractActor implements MeleeActor, Hero {
         setAlignment(Alignment.FRIENDLY);
         setSkillFocusDefinition(SkillFocusFactory.Warrior.create());
     }
+
+    @Override
+    public String getActorClass() {
+        return "Rogue";
+    }
 }

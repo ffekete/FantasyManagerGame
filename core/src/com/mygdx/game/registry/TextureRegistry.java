@@ -6,6 +6,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
+import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.actor.monster.*;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.item.Item;
@@ -24,6 +25,7 @@ import com.mygdx.game.map.TileBase;
 import com.mygdx.game.map.dungeon.DungeonType;
 import com.mygdx.game.map.dungeon.Tile;
 import com.mygdx.game.map.worldmap.WorldMapTile;
+import com.mygdx.game.menu.MenuItem;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.decoration.SpiderWeb;
@@ -60,8 +62,13 @@ public class TextureRegistry {
     private Map<Class<? extends Actor>, Optional<Texture>> characterAnimationTextures;
     private Map<Class<? extends AnimatedObject>, Optional<Texture>> objectAnimationTextures;
     private Map<DungeonType, Optional<Texture>> dungeonTilesetTextures;
+    private Map<MenuItem, Optional<Texture>> menuItems;
 
     public TextureRegistry(PathResolver<Texture> texturePathResolver) {
+
+        menuItems = ImmutableMap.<MenuItem, Optional<Texture>>builder()
+                .put(MenuItem.Inventory, texturePathResolver.resolve("menu/Inventory.png"))
+                .build();
 
         characterAnimationTextures = ImmutableMap.<Class<? extends Actor>, Optional<Texture>>builder()
                 // Heroes
@@ -189,6 +196,10 @@ public class TextureRegistry {
             return itemTextures.get(clazz).get();
         }
         return null;
+    }
+
+    public Texture getFor(MenuItem menuItem) {
+        return menuItems.get(menuItem).get();
     }
 
     public void dispose() {

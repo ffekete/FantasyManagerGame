@@ -64,7 +64,7 @@ public class ActorRenderer implements Renderer<Map2D> {
             // show shield
             if (actor.getLeftHandItem() != null) {
                 Texture itemTexture = textureRegistry.getFor(actor.getLeftHandItem().getClass());
-                spriteBatch.draw(itemTexture, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), 0, 0, 1, 1, 1, 1, 0, 0, 0, itemTexture.getHeight(), itemTexture.getWidth(), directionSelector.getDirection(actor).equals(Direction.LEFT) || directionSelector.getDirection(actor).equals(Direction.UP), false);
+                spriteBatch.draw(itemTexture, actor.getX() + actor.getxOffset() + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, actor.getY() + actor.getyOffset() + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, 0, 0, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, 0, 0, 0, itemTexture.getHeight(), itemTexture.getWidth(), directionSelector.getDirection(actor).equals(Direction.LEFT) || directionSelector.getDirection(actor).equals(Direction.UP), false);
             }
 
             if (ExplorationActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getClass())) {

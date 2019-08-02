@@ -30,4 +30,9 @@ public class Orc extends AbstractActor implements MeleeActor {
     public int getHungerLevel() {
         return 0;
     }
+
+    @Override
+    public String getActorClass() {
+        return "Orc warrior";
+    }
 }

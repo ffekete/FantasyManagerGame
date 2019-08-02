@@ -17,11 +17,12 @@ public class SandboxRenderer {
 
     public void draw() {
 
+        CameraPositionController.INSTANCE.updateCamera((OrthographicCamera) RendererToolsRegistry.INSTANCE.getCamera());
+
         RendererToolsRegistry.INSTANCE.getSpriteBatch().setProjectionMatrix(RendererToolsRegistry.INSTANCE.getCamera().combined);
         RendererToolsRegistry.INSTANCE.getSpriteBatch().begin();
 
         GdxUtils.clearScreen();
-        CameraPositionController.INSTANCE.updateCamera((OrthographicCamera) RendererToolsRegistry.INSTANCE.getCamera());
 
         if(Map2D.MapType.WORLD_MAP.equals(MapRegistry.INSTANCE.getCurrentMapToShow().getMapType()))
             SandboxRendererBatch.WORLD_MAP.draw(MapRegistry.INSTANCE.getCurrentMapToShow(), RendererToolsRegistry.INSTANCE.getSpriteBatch());

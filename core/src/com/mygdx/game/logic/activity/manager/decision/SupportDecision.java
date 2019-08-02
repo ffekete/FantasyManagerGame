@@ -26,6 +26,7 @@ public class SupportDecision implements Decision {
                 .filter(target -> !target.equals(actor)
                         && target.getAlignment().equals(actor.getAlignment())
                         && target.getCurrentMap().equals(actor.getCurrentMap())
+                        && !target.getActivityStack().contains(SupportActivity.class)
                         && MathUtil.distance(actor.getCoordinates(), target.getCoordinates()) <= Config.Rules.FOLLOW_DISTANCE)
                 .findFirst();
 

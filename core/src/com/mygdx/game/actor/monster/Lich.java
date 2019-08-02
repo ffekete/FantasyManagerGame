@@ -4,6 +4,7 @@ import com.mygdx.game.actor.AbstractActor;
 import com.mygdx.game.actor.CasterActor;
 import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
+import com.mygdx.game.actor.component.trait.Trait;
 import com.mygdx.game.actor.factory.SkillFocusFactory;
 import com.mygdx.game.actor.hero.Hero;
 import com.mygdx.game.item.spelltome.SpellTome;
@@ -27,8 +28,15 @@ public class Lich extends AbstractActor implements CasterActor {
 
         this.setSpellTome(spellTome);
 
+        addTrait(Trait.Lunatic);
+
         getMagicSkills().put(MagicSkill.FireMagic, new Random().nextInt(4) + 1);
         getMagicSkills().put(MagicSkill.DarkMagic, new Random().nextInt(4) + 1);
         getWeaponSkills().put(WeaponSkill.Sword, new Random().nextInt(3) + 1);
+    }
+
+    @Override
+    public String getActorClass() {
+        return "Lich priest";
     }
 }

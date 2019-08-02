@@ -18,6 +18,8 @@ public class ItemRenderer implements Renderer<Map2D> {
     private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
     private final ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
 
+    private final float offset = (1f - Config.Engine.ACTOR_HEIGHT) / 2f;
+
     @Override
     public void draw(Map2D dungeon, SpriteBatch spriteBatch) {
         VisibilityMask visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(dungeon);
@@ -27,7 +29,7 @@ public class ItemRenderer implements Renderer<Map2D> {
         for (Item item : itemRegistry.getAllItems(dungeon)) {
             if (!visibilityMask.getValue(item.getX(), item.getY()).isEmpty()) {
                 Texture actualTexture = textureRegistry.getFor(item.getClass());
-                spriteBatch.draw(actualTexture, item.getX(), item.getY(), 0, 0, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, 0, 0, 0, actualTexture.getWidth(), actualTexture.getHeight(), false, false);
+                spriteBatch.draw(actualTexture, item.getX(), item.getY() + offset, 0, 0, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, 0, 0, 0, actualTexture.getWidth(), actualTexture.getHeight(), false, false);
             }
         }
     }

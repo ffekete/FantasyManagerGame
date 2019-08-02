@@ -8,4 +8,9 @@ public class Builder extends AbstractActor implements Worker {
     public Builder() {
         setAlignment(Alignment.FRIENDLY);
     }
+
+    @Override
+    public String getActorClass() {
+        return "Builder";
+    }
 }

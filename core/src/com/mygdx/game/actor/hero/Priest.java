@@ -12,4 +12,8 @@ public class Priest extends AbstractActor implements CasterActor, Hero {
         setSkillFocusDefinition(SkillFocusFactory.Priest.create());
     }
 
+    @Override
+    public String getActorClass() {
+        return "Priest";
+    }
 }

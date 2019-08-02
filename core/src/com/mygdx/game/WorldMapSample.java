@@ -17,22 +17,27 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
+import com.mygdx.game.actor.component.trait.Trait;
 import com.mygdx.game.actor.factory.ActorFactory;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Ranger;
+import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallManaPotion;
+import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
+import com.mygdx.game.item.weapon.sword.ShortSwordPlusFour;
 import com.mygdx.game.logic.GameState;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
 import com.mygdx.game.input.InputConfigurer;
 import com.mygdx.game.input.keyboard.KeyboardInputControllerFacade;
 import com.mygdx.game.input.mouse.MouseInputControllerFacade;
+import com.mygdx.game.logic.controller.InventoryGameLogicController;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.map.dungeon.MapGenerator;
@@ -65,8 +70,10 @@ public class WorldMapSample extends SampleBase {
     OrthographicCamera infoCamera;
     Viewport infoViewPort;
     BitmapFont bitmapFont;
+    BitmapFont bitmapFontSmall;
     Actor hero;
     Actor ranger;
+    Actor warrior;
     Actor builder;
 
     MapGenerator mapGenerator = new WorldMapGenerator();
@@ -88,8 +95,9 @@ public class WorldMapSample extends SampleBase {
 
         shapeRenderer = new ShapeRenderer();
         infoCamera = new OrthographicCamera();
-        infoViewPort = new FitViewport(Config.Screen.CANVAS_WIDTH, Config.Screen.HEIGHT, infoCamera);
+        infoViewPort = new FitViewport(Config.Screen.WIDTH, Config.Screen.HEIGHT, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
+        bitmapFontSmall = new BitmapFont(Gdx.files.internal("fonts/font25.fnt"));
 
         Drawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButton.png"))));
         Drawable drawable2 = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButtonDown.png"))));
@@ -109,12 +117,21 @@ public class WorldMapSample extends SampleBase {
         RendererToolsRegistry.INSTANCE.addStage(GameState.Builder, builderStage);
         RendererToolsRegistry.INSTANCE.addStage(GameState.Inventory, inventoryStage);
         RendererToolsRegistry.INSTANCE.setInfoViewPort(infoViewPort);
+        RendererToolsRegistry.INSTANCE.setBitmapFontSmall(bitmapFontSmall);
+
 
         worldMap = mapGenerator.create(0);
 
         InputConfigurer.INSTANCE.setInputProcessor(sandboxStage, this);
 
         builder = ActorFactory.INSTANCE.create(Builder.class, worldMap, Placement.FIXED.X(7).Y(10));
+
+        warrior = ActorFactory.INSTANCE.create(Warrior.class, worldMap, Placement.FIXED.X(8).Y(11));
+        warrior.equip(new ShortSwordPlusFour());
+        warrior.equip(new MediumShield());
+        warrior.setName("Boromir");
+        warrior.addTrait(Trait.Friendly);
+        warrior.getInventory().add(new SmallAntiVenomPotion());
 
         ranger = ActorFactory.INSTANCE.create(Ranger.class, worldMap, Placement.FIXED.X(8).Y(10));
         ranger.equip(new LongBow());
@@ -136,8 +153,33 @@ public class WorldMapSample extends SampleBase {
         hero.getInventory().add(new SmallAntiVenomPotion());
         hero.getInventory().add(new SmallAntiVenomPotion());
         hero.getInventory().add(new SmallAntiVenomPotion());
-
-        //CameraPositionController.INSTANCE.focusOn(hero);
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
+        hero.getInventory().add(new SmallAntiVenomPotion());
 
         dungeon = dungeonFactory.create(CaveDungeonCreator.class);
         dungeon2 = dungeonFactory.create(DungeonWithRoomsCreator.class);
@@ -153,7 +195,7 @@ public class WorldMapSample extends SampleBase {
         MapRegistry.INSTANCE.add(dungeon);
         MapRegistry.INSTANCE.add(dungeon2);
 
-        hero.setName("Adavark");
+        hero.setName("Gandalf");
 
         hero.equip(new JadeStaff());
 
@@ -163,19 +205,35 @@ public class WorldMapSample extends SampleBase {
 
     private void configureButtons(Drawable drawable, Drawable drawable2) {
         sandboxStage.addActor(getBuildButton(drawable, drawable2));
+        sandboxStage.addActor(getInventoryButton(drawable, drawable2));
         builderStage.addActor(getBuildButton(drawable, drawable2));
+    }
+
+
+    private ImageButton getInventoryButton(Drawable drawable, Drawable drawable2) {
+        ImageButton inventoryButton = new ImageButton(drawable, drawable2);
+
+        //inventoryButton.setPosition(-20, 110);
+        inventoryButton.setBounds(-20, 110, 128, 128);
+
+        inventoryButton.addListener(new ClickListener() {
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if(CameraPositionController.INSTANCE.getFocusedOn() != null) {
+                    InventoryGameLogicController.INSTANCE.setActor(CameraPositionController.INSTANCE.getFocusedOn());
+                    GameFlowControllerFacade.INSTANCE.setGameState(GameState.Inventory);
+                }
+                return true;
+            }
+
+        });
+        return inventoryButton;
     }
 
     private ImageButton getBuildButton(Drawable drawable, Drawable drawable2) {
         ImageButton buildButton = new ImageButton(drawable, drawable2);
-        buildButton.setPosition(-20, 30);
-
-        //Table myTable = new Table();
-        //myTable.setFillParent(true); // <-- sets initial table to fill it's parent (in this case the sandboxStage)
-        //ScrollPane myScrollpane = new ScrollPane(buildButton); // <-- Add actors to hold by scrollpane
-
-        // myTable.add(myScrollpane);
-        //sandboxStage.addActor(myTable);
+        buildButton.setBounds(-20, 30, 128, 128);
 
         buildButton.addListener(new ClickListener() {
 
