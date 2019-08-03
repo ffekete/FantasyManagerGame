@@ -66,4 +66,14 @@ public class FlameTongue implements OneHandedItem, Sword, Legendary {
     public int getY() {
         return coordinates.getY();
     }
+
+    @Override
+    public String getDescription() {
+        return "";
+    }
+
+    @Override
+    public String getName() {
+        return "";
+    }
 }

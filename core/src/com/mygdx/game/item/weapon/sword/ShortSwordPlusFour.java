@@ -62,4 +62,14 @@ public class ShortSwordPlusFour implements OneHandedItem, Sword, Tier4 {
     public int getY() {
         return this.coordinates.getY();
     }
+
+    @Override
+    public String getDescription() {
+        return "Legendary short sword enhanced\n by elven blacksmith.";
+    }
+
+    @Override
+    public String getName() {
+        return "Short sword +4";
+    }
 }

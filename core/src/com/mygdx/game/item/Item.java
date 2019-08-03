@@ -6,4 +6,6 @@ public interface Item {
     void setCoordinates(Point point);
     int getX();
     int getY();
+    String getDescription();
+    String getName();
 }

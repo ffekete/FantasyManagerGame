@@ -5,9 +5,9 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.input.mouse.processor.BuilderMouseActionProcessor;
 import com.mygdx.game.registry.RendererToolsRegistry;
 
-public class BuilderInputController implements Controller {
+public class BuilderMoueInputController implements Controller {
 
-    public static final BuilderInputController INSTANCE = new BuilderInputController();
+    public static final BuilderMoueInputController INSTANCE = new BuilderMoueInputController();
 
     private final BuilderMouseActionProcessor builderMouseActionProcessor = BuilderMouseActionProcessor.INSTANCE;
 

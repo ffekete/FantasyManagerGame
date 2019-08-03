@@ -49,4 +49,14 @@ public class MediumShield implements Shield, Tier1 {
     public int getY() {
         return this.coordinates.getY();
     }
+
+    @Override
+    public String getDescription() {
+        return "Medium sized shield, effective \n against arrows.";
+    }
+
+    @Override
+    public String getName() {
+        return "Medium shield";
+    }
 }

@@ -5,9 +5,9 @@ import com.mygdx.game.input.mouse.processor.SandboxMouseActionProcessor;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.RendererToolsRegistry;
 
-public class SandboxInputController implements Controller {
+public class SandboxMouseInputController implements Controller {
 
-    public static final SandboxInputController INSTANCE = new SandboxInputController();
+    public static final SandboxMouseInputController INSTANCE = new SandboxMouseInputController();
 
     private SandboxMouseActionProcessor sandboxMouseActionProcessor = SandboxMouseActionProcessor.INSTANCE;
 

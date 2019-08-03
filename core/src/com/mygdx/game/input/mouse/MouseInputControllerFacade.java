@@ -7,17 +7,19 @@ public class MouseInputControllerFacade implements Controller {
     public static final MouseInputControllerFacade INSTANCE = new MouseInputControllerFacade();
 
     private final GameFlowControllerFacade gameFlowControllerFacade = GameFlowControllerFacade.INSTANCE;
-    private final BuilderInputController builderInputController = BuilderInputController.INSTANCE;
-    private final SandboxInputController sandboxInputController = SandboxInputController.INSTANCE;
-
+    private final BuilderMoueInputController builderMoueInputController = BuilderMoueInputController.INSTANCE;
+    private final SandboxMouseInputController sandboxMouseInputController = SandboxMouseInputController.INSTANCE;
+    private final InventoryMouseInputController inventoryMouseInputController = InventoryMouseInputController.INSTANCE;
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         switch (gameFlowControllerFacade.getGameState()) {
+            case Inventory:
+                return inventoryMouseInputController.touchDown(screenX, screenY, pointer, button);
             case Builder:
-                return builderInputController.touchDown(screenX, screenY, pointer, button);
+                return builderMoueInputController.touchDown(screenX, screenY, pointer, button);
             case Sandbox:
-                return sandboxInputController.touchDown(screenX, screenY, pointer, button);
+                return sandboxMouseInputController.touchDown(screenX, screenY, pointer, button);
             default:
                 return false;
         }
@@ -26,10 +28,12 @@ public class MouseInputControllerFacade implements Controller {
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         switch (gameFlowControllerFacade.getGameState()) {
+            case Inventory:
+                return inventoryMouseInputController.mouseMoved(screenX, screenY);
             case Builder:
-                return builderInputController.mouseMoved(screenX, screenY);
+                return builderMoueInputController.mouseMoved(screenX, screenY);
             case Sandbox:
-                return sandboxInputController.mouseMoved(screenX, screenY);
+                return sandboxMouseInputController.mouseMoved(screenX, screenY);
             default:
                 return false;
         }

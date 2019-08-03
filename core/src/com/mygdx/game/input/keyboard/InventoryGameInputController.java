@@ -12,6 +12,7 @@ import com.mygdx.game.object.wall.IncompleteWoodenWall;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
+import com.mygdx.game.renderer.inventory.InventoryRenderer;
 
 public class InventoryGameInputController {
 
@@ -20,6 +21,7 @@ public class InventoryGameInputController {
     public boolean handleKeyboardInput(int keycode, Camera camera) {
 
         if(keycode == Input.Keys.I) {
+            InventoryRenderer.INSTANCE.setItemText(null);
             GameFlowControllerFacade.INSTANCE.setGameState(GameState.Sandbox);
         }
 

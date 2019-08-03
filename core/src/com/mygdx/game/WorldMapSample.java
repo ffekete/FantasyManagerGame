@@ -71,6 +71,7 @@ public class WorldMapSample extends SampleBase {
     Viewport infoViewPort;
     BitmapFont bitmapFont;
     BitmapFont bitmapFontSmall;
+    BitmapFont bitmapFontSmallest;
     Actor hero;
     Actor ranger;
     Actor warrior;
@@ -98,6 +99,7 @@ public class WorldMapSample extends SampleBase {
         infoViewPort = new FitViewport(Config.Screen.WIDTH, Config.Screen.HEIGHT, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
         bitmapFontSmall = new BitmapFont(Gdx.files.internal("fonts/font25.fnt"));
+        bitmapFontSmallest = new BitmapFont(Gdx.files.internal("fonts/font15.fnt"));
 
         Drawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButton.png"))));
         Drawable drawable2 = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButtonDown.png"))));
@@ -118,6 +120,7 @@ public class WorldMapSample extends SampleBase {
         RendererToolsRegistry.INSTANCE.addStage(GameState.Inventory, inventoryStage);
         RendererToolsRegistry.INSTANCE.setInfoViewPort(infoViewPort);
         RendererToolsRegistry.INSTANCE.setBitmapFontSmall(bitmapFontSmall);
+        RendererToolsRegistry.INSTANCE.setBitmapFontSmallest(bitmapFontSmallest);
 
 
         worldMap = mapGenerator.create(0);
@@ -180,6 +183,8 @@ public class WorldMapSample extends SampleBase {
         hero.getInventory().add(new SmallAntiVenomPotion());
         hero.getInventory().add(new SmallAntiVenomPotion());
         hero.getInventory().add(new SmallAntiVenomPotion());
+
+        hero.addExperiencePoints(100000);
 
         dungeon = dungeonFactory.create(CaveDungeonCreator.class);
         dungeon2 = dungeonFactory.create(DungeonWithRoomsCreator.class);

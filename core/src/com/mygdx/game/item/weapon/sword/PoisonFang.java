@@ -63,4 +63,14 @@ public class PoisonFang implements OneHandedItem, Sword, Legendary {
     public int getY() {
         return coordinates.getY();
     }
+
+    @Override
+    public String getDescription() {
+        return "Forged by the mighty goblin wich king.";
+    }
+
+    @Override
+    public String getName() {
+        return "Poison Fang";
+    }
 }

@@ -62,4 +62,14 @@ public class LongBow implements Bow, Tier1, TwohandedWeapon {
     public int getY() {
         return coordinates.getY();
     }
+
+    @Override
+    public String getDescription() {
+        return "Simple longbow.";
+    }
+
+    @Override
+    public String getName() {
+        return "Longbow";
+    }
 }

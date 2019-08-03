@@ -43,4 +43,14 @@ public class BlackPlateMail implements Armor, Tier3 {
     public int getY() {
         return coordinates.getY();
     }
+
+    @Override
+    public String getDescription() {
+        return "Forged in the Black Mountains.";
+    }
+
+    @Override
+    public String getName() {
+        return "Black plate mail";
+    }
 }

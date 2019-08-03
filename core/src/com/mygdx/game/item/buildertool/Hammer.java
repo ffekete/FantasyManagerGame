@@ -19,4 +19,14 @@ public class Hammer implements Item {
     public int getY() {
         return 0;
     }
+
+    @Override
+    public String getDescription() {
+        return "Pain old hammer";
+    }
+
+    @Override
+    public String getName() {
+        return "Hammer";
+    }
 }

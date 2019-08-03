@@ -29,6 +29,16 @@ public class Bread implements Food, Tier1 {
         return coordinates.getY();
     }
 
+    @Override
+    public String getDescription() {
+        return "Tasty bread.";
+    }
+
+    @Override
+    public String getName() {
+        return "Bread";
+    }
+
 
     @Override
     public int getNutritionAmount() {

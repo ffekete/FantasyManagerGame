@@ -8,6 +8,7 @@ import com.mygdx.game.logic.Point;
 
 public class SmallManaPotion implements Consumable, ManaPotion, Tier1 {
 
+    public static final String DESCRIPTION = "Adds " + Config.Item.MANA_POTION_STRENGTH + " to mana.";
     private Point coordinates = new Point(0,0);
 
     @Override
@@ -28,5 +29,15 @@ public class SmallManaPotion implements Consumable, ManaPotion, Tier1 {
     @Override
     public int getY() {
         return coordinates.getY();
+    }
+
+    @Override
+    public String getDescription() {
+        return DESCRIPTION;
+    }
+
+    @Override
+    public String getName() {
+        return "Small mana potion";
     }
 }

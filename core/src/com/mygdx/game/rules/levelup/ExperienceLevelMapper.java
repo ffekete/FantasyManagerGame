@@ -26,7 +26,7 @@ public class ExperienceLevelMapper {
             .build();
 
     public long getForLevel(long level) {
-        return experienceTable.get(level);
+        return experienceTable.getOrDefault(level, 100000L);
     }
 
     public long getForExperiancePoints(long experiencePoints) {

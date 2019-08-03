@@ -62,4 +62,14 @@ public class ShortSwordPlusOne implements OneHandedItem, Sword, Tier2 {
     public int getY() {
         return this.coordinates.getY();
     }
+
+    @Override
+    public String getDescription() {
+        return "A short sword enhanced by the mighty blacksmith.";
+    }
+
+    @Override
+    public String getName() {
+        return "Short sword +1";
+    }
 }

@@ -29,4 +29,14 @@ public class SmallHealingPotion implements Consumable, HealingPotion, Tier1 {
     public int getY() {
         return coordinates.getY();
     }
+
+    @Override
+    public String getDescription() {
+        return "Heals " + Config.Item.HEALING_POTION_STRENGTH + " amount of health.";
+    }
+
+    @Override
+    public String getName() {
+        return "Small healing potion";
+    }
 }

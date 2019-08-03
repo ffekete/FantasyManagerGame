@@ -63,4 +63,14 @@ public class ShortSword implements OneHandedItem, Sword, Tier1 {
     public int getY() {
         return this.coordinates.getY();
     }
+
+    @Override
+    public String getDescription() {
+        return "Simple sharp sword.";
+    }
+
+    @Override
+    public String getName() {
+        return "Short sword";
+    }
 }

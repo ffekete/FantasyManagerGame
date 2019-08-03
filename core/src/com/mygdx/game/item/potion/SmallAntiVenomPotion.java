@@ -32,4 +32,14 @@ public class SmallAntiVenomPotion implements Consumable, AntiVenomPotion, Tier1 
     public int getY() {
         return coordinates.getY();
     }
+
+    @Override
+    public String getDescription() {
+        return "Cures all poisons.";
+    }
+
+    @Override
+    public String getName() {
+        return "Antivenom potion";
+    }
 }

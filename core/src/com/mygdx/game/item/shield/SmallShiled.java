@@ -41,6 +41,16 @@ public class SmallShiled implements Shield, Tier1 {
     }
 
     @Override
+    public String getDescription() {
+        return "Small wooden shield.";
+    }
+
+    @Override
+    public String getName() {
+        return "Small shield";
+    }
+
+    @Override
     public int getDefense() {
         return defense;
     }

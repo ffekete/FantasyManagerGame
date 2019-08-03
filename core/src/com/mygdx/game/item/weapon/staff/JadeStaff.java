@@ -61,4 +61,14 @@ public class JadeStaff implements Staff, Tier1, TwohandedWeapon {
     public int getY() {
         return coordinates.getY();
     }
+
+    @Override
+    public String getDescription() {
+        return "Staff with a jade on top.";
+    }
+
+    @Override
+    public String getName() {
+        return "Jade staff";
+    }
 }

@@ -18,6 +18,7 @@ public class RendererToolsRegistry {
     private SpriteBatch spriteBatch;
     private BitmapFont bitmapFont;
     private BitmapFont bitmapFontSmall;
+    private BitmapFont bitmapFontSmallest;
     private ShapeRenderer shapeRenderer;
     private Camera camera;
     private Camera infoCamera;
@@ -91,5 +92,13 @@ public class RendererToolsRegistry {
 
     public void setBitmapFontSmall(BitmapFont bitmapFontSmall) {
         this.bitmapFontSmall = bitmapFontSmall;
+    }
+
+    public BitmapFont getBitmapFontSmallest() {
+        return bitmapFontSmallest;
+    }
+
+    public void setBitmapFontSmallest(BitmapFont bitmapFontSmallest) {
+        this.bitmapFontSmallest = bitmapFontSmallest;
     }
 }
