@@ -1,5 +1,6 @@
 package com.mygdx.game.input.mouse.processor;
 
+import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.controller.InventoryGameLogicController;
 import com.mygdx.game.registry.ActorRegistry;
@@ -7,6 +8,10 @@ import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.renderer.inventory.InventoryRenderer;
+
+import java.util.Optional;
+
+import static com.mygdx.game.renderer.inventory.InventoryRenderer.*;
 
 public class InventoryMouseActionProcessor {
 
@@ -43,6 +48,23 @@ public class InventoryMouseActionProcessor {
 
         InventoryRenderer.INSTANCE.setItemText(null);
 
+        getInventoryArea(screenX, screenY).ifPresent(c -> {
+            int length = (INVENTORY_LEFT_Y - INVENTORY_RIGHT_Y);
+            int index = c.getX() + (c.getY()) * INVENTORY_ROW_LENGTH;
+            System.out.println(c.getX() + " " + c.getY() + " " + index);
+            Optional<Item> item = InventoryGameLogicController.INSTANCE.getActor().getInventory().get(index);
+            item.ifPresent(item1 -> InventoryRenderer.INSTANCE.setItemText(item1.getName() + "\n\n" + item1.getDescription()));
+        });
+
         return false;
+    }
+
+
+    private Optional<Point> getInventoryArea(int x, int y) {
+        if (x < INVENTORY_LEFT_X || x > INVENTORY_RIGHT_X || y < INVENTORY_RIGHT_Y || y > INVENTORY_LEFT_Y) {
+            return Optional.empty();
+        }
+
+        return Optional.of(Point.of((x - INVENTORY_LEFT_X) / 64, (INVENTORY_LEFT_Y - y + 15) / 64));
     }
 }
