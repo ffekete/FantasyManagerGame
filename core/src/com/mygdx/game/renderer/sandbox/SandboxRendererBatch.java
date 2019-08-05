@@ -12,6 +12,7 @@ public enum SandboxRendererBatch implements Renderer<Map2D> {
 
     WORLD_MAP(
             Arrays.asList(WorldMapRenderer.INSTANCE,
+                    GroundObjectRenderer.INSTANCE,
                     ItemRenderer.INSTANCE,
                     ActorRenderer.INSTANCE,
                     ObjectRenderer.INSTANCE,
@@ -21,6 +22,7 @@ public enum SandboxRendererBatch implements Renderer<Map2D> {
 
     DUNGEON(
             Arrays.asList(DungeonRenderer.INSTANCE,
+                    GroundObjectRenderer.INSTANCE,
                     ItemRenderer.INSTANCE,
                     ActorRenderer.INSTANCE,
                     ObjectRenderer.INSTANCE,

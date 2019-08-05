@@ -4,25 +4,27 @@ import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.floor.Floor;
 
 public class MapUtils {
 
-    public static int bitmask4bit(WorldObject[][] worldObjects, int x, int y) {
+    public static int bitmask4bit(WorldObject[][][] worldObjects, int x, int y, Class clazz) {
         int mask = 0;
+        int index = Floor.class.isAssignableFrom(clazz) ? 0 : 1;
 
-        if (y + 1 >= worldObjects[0].length || (worldObjects[x][y + 1] != null && TileableWallObject.class.isAssignableFrom(worldObjects[x][y + 1].getClass()))) {
+        if (y + 1 >= worldObjects[0].length || (worldObjects[x][y + 1][index] != null && clazz.isAssignableFrom(worldObjects[x][y + 1][index].getClass()))) {
             mask += 1;
         }
 
-        if (x + 1 >= worldObjects.length || (worldObjects[x + 1][y] != null && TileableWallObject.class.isAssignableFrom(worldObjects[x + 1][y].getClass()))) {
+        if (x + 1 >= worldObjects.length || (worldObjects[x + 1][y][index] != null && clazz.isAssignableFrom(worldObjects[x + 1][y][index].getClass()))) {
             mask += 2;
         }
 
-        if (y - 1 < 0 || (worldObjects[x][y - 1] != null && TileableWallObject.class.isAssignableFrom(worldObjects[x][y - 1].getClass()))) {
+        if (y - 1 < 0 || (worldObjects[x][y - 1][index] != null && clazz.isAssignableFrom(worldObjects[x][y - 1][index].getClass()))) {
             mask += 4;
         }
 
-        if (x - 1 < 0 || (worldObjects[x - 1][y] != null && TileableWallObject.class.isAssignableFrom(worldObjects[x - 1][y].getClass()))) {
+        if (x - 1 < 0 || (worldObjects[x - 1][y][index] != null && clazz.isAssignableFrom(worldObjects[x - 1][y][index].getClass()))) {
             mask += 8;
         }
 

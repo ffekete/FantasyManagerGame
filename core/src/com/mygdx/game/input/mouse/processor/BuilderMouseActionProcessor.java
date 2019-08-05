@@ -5,6 +5,7 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Cluster;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.factory.ObjectFactory;
+import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.wall.IncompleteWoodenWall;
 import com.mygdx.game.registry.ActorRegistry;
@@ -46,12 +47,10 @@ public class BuilderMouseActionProcessor {
     }
 
     private boolean noObjectsOnCell(Point worldCoord) {
-        Optional<Set<WorldObject>> objects = objectRegistry.getObjects(mapRegistry.getCurrentMapToShow(), Cluster.of(worldCoord.getX(), worldCoord.getY()));
+        Class classToPlace = builderTool.getSelectedBlock();
+        int index = Floor.class.isAssignableFrom(classToPlace) ? 0 : 1;
 
-        return objects.map(worldObjects -> worldObjects
-                .stream()
-                .noneMatch((object -> (int) object.getX() == worldCoord.getX() && (int) object.getY() == worldCoord.getY())))
-                .orElse(true);
+        return objectRegistry.getObjectGrid().get(mapRegistry.getCurrentMapToShow())[worldCoord.getX()][worldCoord.getY()][index] == null;
     }
 
 }

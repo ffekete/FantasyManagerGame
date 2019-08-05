@@ -17,7 +17,7 @@ public class BuildingActionValidator {
 
     private Map<Class<? extends BuildingBlock>, CustomPredicate> validator = ImmutableMap.<Class<? extends BuildingBlock>, CustomPredicate>builder()
             .put(IncompleteWoodenDoorWall.class, (Map2D map, int x, int y, Class<? extends BuildingBlock> block) -> {
-                return MapUtils.bitmask4bit(ObjectRegistry.INSTANCE.getObjectGrid().get(map), x, y) == 10;
+                return MapUtils.bitmask4bit(ObjectRegistry.INSTANCE.getObjectGrid().get(map), x, y, IncompleteWoodenDoorWall.class) == 10;
             }).build();
 
     public boolean validate(Map2D map, int x, int y, Class<? extends BuildingBlock> blockClass) {

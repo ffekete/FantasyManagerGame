@@ -4,6 +4,7 @@ import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.map.Cluster;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.floor.Floor;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 public class ObjectRegistry {
 
     private final Map<Map2D, Map<Cluster, Set<WorldObject>>> objects;
-    private Map<Map2D, WorldObject[][]> objectGrid; // for drawing only
+    private Map<Map2D, WorldObject[][][]> objectGrid; // for drawing only
 
     public static final ObjectRegistry INSTANCE = new ObjectRegistry();
 
@@ -31,8 +32,13 @@ public class ObjectRegistry {
         objects.get(map).computeIfAbsent(cluster, value -> new HashSet<>());
         objects.get(map).get(cluster).add(worldObject);
 
-        objectGrid.computeIfAbsent(map, v -> new WorldObject[map.getWidth()][map.getHeight()]);
-        objectGrid.get(map)[(int)worldObject.getX()][(int)worldObject.getY()] = worldObject;
+        objectGrid.computeIfAbsent(map, v -> new WorldObject[map.getWidth()][map.getHeight()][2]);
+
+        if(Floor.class.isAssignableFrom(worldObject.getClass()))
+            objectGrid.get(map)[(int)worldObject.getX()][(int)worldObject.getY()][0] = worldObject;
+        else {
+            objectGrid.get(map)[(int)worldObject.getX()][(int)worldObject.getY()][1] = worldObject;
+        }
     }
 
     public Optional<List<WorldObject>> getObject(Map2D map, Class<? extends WorldObject> object) {
@@ -61,7 +67,7 @@ public class ObjectRegistry {
         objects.get(currentMap).get(Cluster.of(object.getX(), object.getY())).remove(object);
     }
 
-    public Map<Map2D, WorldObject[][]> getObjectGrid() {
+    public Map<Map2D, WorldObject[][][]> getObjectGrid() {
         return objectGrid;
     }
 }

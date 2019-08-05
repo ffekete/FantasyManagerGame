@@ -32,6 +32,8 @@ import com.mygdx.game.object.decoration.SpiderWeb;
 import com.mygdx.game.object.decoration.StandingTorch;
 import com.mygdx.game.object.decoration.TreasureChest;
 import com.mygdx.game.object.decoration.Tree;
+import com.mygdx.game.object.floor.IncompleteWoodenFloor;
+import com.mygdx.game.object.floor.WoodenFloor;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.interactive.Ladder;
 import com.mygdx.game.object.light.LightSourceType;
@@ -145,7 +147,10 @@ public class TextureRegistry {
                 .put(IncompleteWoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallTilesetIncomplete.png")))
                 .put(IncompleteWoodenDoorWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallDoorTilesetIncomplete.png")))
                 .put(WoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallTileset.png")))
-                .put(WoodenWallDoor.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallDoorTileset.png")))
+
+                // floor
+                .put(WoodenFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/WoodenFloor.png")))
+                .put(IncompleteWoodenFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/IncompleteWoodenFloor.png")))
                 .build();
 
         dungeonTilesetTextures = ImmutableMap.<DungeonType, Optional<Texture>>builder()

@@ -7,6 +7,8 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.builder.BuilderTool;
 import com.mygdx.game.logic.GameState;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
+import com.mygdx.game.object.floor.IncompleteWoodenFloor;
+import com.mygdx.game.object.floor.WoodenFloor;
 import com.mygdx.game.object.wall.IncompleteWoodenDoorWall;
 import com.mygdx.game.object.wall.IncompleteWoodenWall;
 import com.mygdx.game.registry.ActorRegistry;
@@ -29,6 +31,10 @@ public class BuildingGameInputController {
             for(Actor actor : actorRegistry.getActors(mapRegistry.getCurrentMapToShow())) {
                 actor.getActivityStack().clear();
             }
+        }
+
+        if(keycode == Input.Keys.F) {
+            BuilderTool.INSTANCE.setBlockToBuild(IncompleteWoodenFloor.class);
         }
 
         if(keycode == Input.Keys.W) {
