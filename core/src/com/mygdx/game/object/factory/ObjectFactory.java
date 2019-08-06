@@ -1,20 +1,29 @@
 package com.mygdx.game.object.factory;
 
+import com.mygdx.game.actor.Actor;
 import com.mygdx.game.animation.object.WorldObjectAnimation;
+import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.map.Cluster;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.house.House;
+import com.mygdx.game.object.house.HouseBuiltDetector;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.object.placement.ObjectPlacement;
-import com.mygdx.game.registry.AnimationRegistry;
-import com.mygdx.game.registry.LightSourceRegistry;
-import com.mygdx.game.registry.ObjectRegistry;
+import com.mygdx.game.object.wall.Wall;
+import com.mygdx.game.registry.*;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ObjectFactory {
+
+    private static final HouseBuilder houseBuilder = HouseBuilder.INSTANCE;
 
     public static <T extends WorldObject> T create(Class<T> clazz, Map2D map2D, ObjectPlacement objectPlacement) {
 
@@ -38,6 +47,8 @@ public class ObjectFactory {
 
             ObjectRegistry.INSTANCE.add(map2D, Cluster.of(object.getX(), object.getY()), object);
 
+            HouseBuilder.buildHouse(clazz, map2D, object);
+
             if (AnimatedObject.class.isAssignableFrom(clazz))
                 AnimationRegistry.INSTANCE.add((AnimatedObject) object, new WorldObjectAnimation((AnimatedObject) object));
 
@@ -49,5 +60,7 @@ public class ObjectFactory {
         }
         return object;
     }
+
+
 
 }

@@ -34,6 +34,8 @@ import com.mygdx.game.object.decoration.TreasureChest;
 import com.mygdx.game.object.decoration.Tree;
 import com.mygdx.game.object.floor.IncompleteWoodenFloor;
 import com.mygdx.game.object.floor.WoodenFloor;
+import com.mygdx.game.object.furniture.Bed;
+import com.mygdx.game.object.furniture.WoodenBed;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.interactive.Ladder;
 import com.mygdx.game.object.light.LightSourceType;
@@ -151,6 +153,9 @@ public class TextureRegistry {
                 // floor
                 .put(WoodenFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/WoodenFloor.png")))
                 .put(IncompleteWoodenFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/IncompleteWoodenFloor.png")))
+
+                // furniture
+                .put(WoodenBed.class, Arrays.asList(texturePathResolver.resolve("object/furniture/WoodenBed.png")))
                 .build();
 
         dungeonTilesetTextures = ImmutableMap.<DungeonType, Optional<Texture>>builder()

@@ -8,7 +8,7 @@ import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
 
-public class IncompleteWoodenWall implements Wall, BuildingBlock<WoodenWall>, TileableWallObject, Obstacle {
+public class IncompleteWoodenWall implements Wall, BuildingBlock<WoodenWall>, TileableWallObject, Obstacle, IncompleteWall {
 
     private float progress;
     private Point coordinates;
