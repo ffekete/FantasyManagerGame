@@ -82,7 +82,9 @@ public class BuildActivity implements Activity {
     @Override
     public void clear() {
         objectRegistry.remove(actor.getCurrentMap(), object);
-        actor.getCurrentMap().setObstacle((int)object.getX(), (int)object.getY(), false);
+
+        //actor.getCurrentMap().setObstacle((int)object.getX(), (int)object.getY(), false);
+
         ObjectFactory.create(object.finish(), actor.getCurrentMap(), ObjectPlacement.FIXED.X((int)object.getX()).Y((int)object.getY()));
     }
 

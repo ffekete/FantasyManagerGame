@@ -1,15 +1,17 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -43,6 +45,7 @@ import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.map.dungeon.MapGenerator;
 import com.mygdx.game.map.dungeon.factory.DungeonFactory;
 import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
+import com.mygdx.game.menu.MenuItem;
 import com.mygdx.game.object.LinkedWorldObjectFactory;
 import com.mygdx.game.object.decoration.Tree;
 import com.mygdx.game.object.factory.ObjectFactory;
@@ -101,10 +104,7 @@ public class WorldMapSample extends SampleBase {
         bitmapFontSmall = new BitmapFont(Gdx.files.internal("fonts/font25.fnt"));
         bitmapFontSmallest = new BitmapFont(Gdx.files.internal("fonts/font15.fnt"));
 
-        Drawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButton.png"))));
-        Drawable drawable2 = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButtonDown.png"))));
 
-        configureButtons(drawable, drawable2);
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
@@ -122,6 +122,8 @@ public class WorldMapSample extends SampleBase {
         RendererToolsRegistry.INSTANCE.setBitmapFontSmall(bitmapFontSmall);
         RendererToolsRegistry.INSTANCE.setBitmapFontSmallest(bitmapFontSmallest);
 
+
+        configureButtons();
 
         worldMap = mapGenerator.create(0);
 
@@ -208,18 +210,35 @@ public class WorldMapSample extends SampleBase {
 
     }
 
-    private void configureButtons(Drawable drawable, Drawable drawable2) {
-        sandboxStage.addActor(getBuildButton(drawable, drawable2));
-        sandboxStage.addActor(getInventoryButton(drawable, drawable2));
+    private void configureButtons() {
+
+        Drawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButton.png"))));
+        Drawable drawable2 = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButtonDown.png"))));
+
+        HorizontalGroup horizontalGroup = new HorizontalGroup().pad(10, 10, 10, 10);
+
+        horizontalGroup.bottom().left().wrap(false);
+
+        horizontalGroup.addActor(getBuildButton(drawable, drawable2));
+        horizontalGroup.addActor(getInventoryButton(drawable, drawable2));
+
+        sandboxStage.addActor(horizontalGroup);
         builderStage.addActor(getBuildButton(drawable, drawable2));
     }
 
 
-    private ImageButton getInventoryButton(Drawable drawable, Drawable drawable2) {
-        ImageButton inventoryButton = new ImageButton(drawable, drawable2);
+    private TextButton getInventoryButton(Drawable drawable, Drawable drawable2) {
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.font = RendererToolsRegistry.INSTANCE.getBitmapFont();
+        textButtonStyle.fontColor = Color.WHITE;
+        textButtonStyle.up = drawable;
+        textButtonStyle.down = drawable2;
+        textButtonStyle.checked = drawable;
 
-        //inventoryButton.setPosition(-20, 110);
-        inventoryButton.setBounds(-20, 110, 128, 128);
+        TextButton inventoryButton = new TextButton("In", textButtonStyle);
+
+        inventoryButton.setWidth(32);
+        inventoryButton.setHeight(32);
 
         inventoryButton.addListener(new ClickListener() {
 
@@ -238,7 +257,8 @@ public class WorldMapSample extends SampleBase {
 
     private ImageButton getBuildButton(Drawable drawable, Drawable drawable2) {
         ImageButton buildButton = new ImageButton(drawable, drawable2);
-        buildButton.setBounds(-20, 30, 128, 128);
+        buildButton.setWidth(32);
+        buildButton.setHeight(32);
 
         buildButton.addListener(new ClickListener() {
 

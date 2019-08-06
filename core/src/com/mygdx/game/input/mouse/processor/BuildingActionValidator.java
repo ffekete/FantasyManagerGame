@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.wall.IncompleteWoodenDoorWall;
+import com.mygdx.game.object.wall.Wall;
 import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.utils.MapUtils;
 
@@ -17,7 +18,7 @@ public class BuildingActionValidator {
 
     private Map<Class<? extends BuildingBlock>, CustomPredicate> validator = ImmutableMap.<Class<? extends BuildingBlock>, CustomPredicate>builder()
             .put(IncompleteWoodenDoorWall.class, (Map2D map, int x, int y, Class<? extends BuildingBlock> block) -> {
-                return MapUtils.bitmask4bit(ObjectRegistry.INSTANCE.getObjectGrid().get(map), x, y, IncompleteWoodenDoorWall.class) == 10;
+                return MapUtils.bitmask4bit(ObjectRegistry.INSTANCE.getObjectGrid().get(map), x, y, Wall.class) == 10;
             }).build();
 
     public boolean validate(Map2D map, int x, int y, Class<? extends BuildingBlock> blockClass) {

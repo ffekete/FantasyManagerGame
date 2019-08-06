@@ -28,6 +28,11 @@ public class BuilderMouseActionProcessor {
     private final BuildingActionValidator buildingActionValidator = new BuildingActionValidator();
 
     public boolean onClick(Point realWorldCoord) {
+
+        if (realWorldCoord.getX() < 0 || realWorldCoord.getY() < 0 || realWorldCoord.getX() >= mapRegistry.getCurrentMapToShow().getWidth() || realWorldCoord.getY() >= mapRegistry.getCurrentMapToShow().getHeight()) {
+            return true;
+        }
+
         if (noObjectsOnCell(realWorldCoord) && noCharactersOnCell(realWorldCoord) && noItemsOnCell(realWorldCoord) && buildingActionValidator.validate(mapRegistry.getCurrentMapToShow(), realWorldCoord.getX(), realWorldCoord.getY(), builderTool.getSelectedBlock())) {
             ObjectFactory.create(builderTool.getSelectedBlock(), mapRegistry.getCurrentMapToShow(), ObjectPlacement.FIXED.X(realWorldCoord.getX()).Y(realWorldCoord.getY()));
             return true;
@@ -50,7 +55,7 @@ public class BuilderMouseActionProcessor {
         Class classToPlace = builderTool.getSelectedBlock();
         int index = Floor.class.isAssignableFrom(classToPlace) ? 0 : 1;
 
-        return objectRegistry.getObjectGrid().get(mapRegistry.getCurrentMapToShow())[worldCoord.getX()][worldCoord.getY()][index] == null;
+        return objectRegistry.getObjectGrid().get(mapRegistry.getCurrentMapToShow())[Math.max(worldCoord.getX(), 0)][Math.max(worldCoord.getY(), 0)][index] == null;
     }
 
 }

@@ -5,12 +5,13 @@ import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.floor.Floor;
+import com.mygdx.game.object.floor.TileableFloorObject;
 
 public class MapUtils {
 
     public static int bitmask4bit(WorldObject[][][] worldObjects, int x, int y, Class clazz) {
         int mask = 0;
-        int index = Floor.class.isAssignableFrom(clazz) ? 0 : 1;
+        int index = TileableFloorObject.class.isAssignableFrom(clazz) ? 0 : 1;
 
         if (y + 1 >= worldObjects[0].length || (worldObjects[x][y + 1][index] != null && clazz.isAssignableFrom(worldObjects[x][y + 1][index].getClass()))) {
             mask += 1;
