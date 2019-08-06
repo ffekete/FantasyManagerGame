@@ -70,6 +70,10 @@ public class ActorRegistry {
         return actors.get(map);
     }
 
+    public void clear() {
+        actors.clear();
+    }
+
     public List<Actor> getAllActors() {
         return actors.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
     }

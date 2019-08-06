@@ -6,12 +6,14 @@ import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.factory.ObjectFactory;
+import com.mygdx.game.object.furniture.WoodenBed;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.wall.IncompleteWoodenWall;
 import com.mygdx.game.object.wall.WoodenWall;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.HouseRegistry;
 import com.mygdx.game.registry.MapRegistry;
+import com.mygdx.game.registry.ObjectRegistry;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -27,6 +29,11 @@ public class HouseBuiltDetectorTest {
     public void setUp() {
         HouseRegistry.INSTANCE.getEmptyHouses().clear();
         HouseRegistry.INSTANCE.getOwnedHouses().clear();
+        HouseRegistry.INSTANCE.getHouses().clear();
+        ActorRegistry.INSTANCE.clear();
+        ObjectRegistry.INSTANCE.clear();
+        ObjectRegistry.INSTANCE.getObjectGrid().clear();
+        MapRegistry.INSTANCE.getMaps().clear();
     }
 
     @Test
@@ -51,6 +58,9 @@ public class HouseBuiltDetectorTest {
 
         MapRegistry.INSTANCE.add(map2D);
 
+        ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
+        ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(1).Y(1));
+
         WoodenWall wall = ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(5).Y(5));
         ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(4).Y(5));
         ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(3).Y(5));
@@ -70,6 +80,14 @@ public class HouseBuiltDetectorTest {
 
         assertThat(HouseRegistry.INSTANCE.getEmptyHouses().size(), is(1));
         assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getWalls().size(), is(8));
+
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getBottomRight().getX(), is(5));
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getBottomRight().getY(), is(5));
+
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getTopLeft().getX(), is(3));
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getTopLeft().getY(), is(3));
+
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getFurnitures().size(), is(1));
     }
 
     @Test
@@ -212,6 +230,9 @@ public class HouseBuiltDetectorTest {
 
         MapRegistry.INSTANCE.add(map2D);
 
+        WoodenBed bed1 = ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
+        WoodenBed bed2 = ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(1).Y(1));
+
         WoodenWall wall = ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(5).Y(5));
 
         // first house
@@ -250,6 +271,11 @@ public class HouseBuiltDetectorTest {
 
         assertThat(HouseRegistry.INSTANCE.getEmptyHouses().size(), is(0));
         assertThat(HouseRegistry.INSTANCE.getOwnedHouses().size(), is(2));
+
+
+        assertThat(HouseRegistry.INSTANCE.getOwnedHouses().values().stream().filter(house -> house.getFurnitures().contains(bed1)).count(), is(1L));
+        assertThat(HouseRegistry.INSTANCE.getOwnedHouses().values().stream().filter(house -> house.getFurnitures().contains(bed2)).count(), is(1L));
+        assertThat(HouseRegistry.INSTANCE.getOwnedHouses().values().stream().filter(house -> house.getFurnitures().size() == 1).count(), is(2L));
     }
 
     @Test
@@ -306,6 +332,9 @@ public class HouseBuiltDetectorTest {
         ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(6).Y(5));
         ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(7).Y(6));
 
+        WoodenBed bed1 = ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
+        WoodenBed bed2 = ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(1).Y(1));
+
         Set<WorldObject> result = HouseBuiltDetector.INSTANCE.isAHouse(map2D, wall);
 
         assertThat(result.isEmpty(), is(false));
@@ -313,6 +342,10 @@ public class HouseBuiltDetectorTest {
 
         assertThat(HouseRegistry.INSTANCE.getEmptyHouses().size(), is(0));
         assertThat(HouseRegistry.INSTANCE.getOwnedHouses().size(), is(2));
+
+        assertThat(HouseRegistry.INSTANCE.getOwnedHouses().values().stream().filter(house -> house.getFurnitures().contains(bed1)).count(), is(1L));
+        assertThat(HouseRegistry.INSTANCE.getOwnedHouses().values().stream().filter(house -> house.getFurnitures().contains(bed2)).count(), is(1L));
+        assertThat(HouseRegistry.INSTANCE.getOwnedHouses().values().stream().filter(house -> house.getFurnitures().size() == 1).count(), is(2L));
     }
 
     @Test
@@ -468,6 +501,12 @@ public class HouseBuiltDetectorTest {
         assertThat(result.size(), is(12));
         assertThat(HouseRegistry.INSTANCE.getEmptyHouses().size(), is(1));
         assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getWalls().size(), is(12));
+
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getBottomRight().getX(), is(7));
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getBottomRight().getY(), is(6));
+
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getTopLeft().getX(), is(3));
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getTopLeft().getY(), is(3));
     }
 
     @Test
@@ -490,6 +529,8 @@ public class HouseBuiltDetectorTest {
 
         ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(4).Y(3));
 
+        ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(2).Y(2));
+
         WorldObject externalBlock = ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(6).Y(6));
 
         Set<WorldObject> result = HouseBuiltDetector.INSTANCE.isAHouse(map2D, wall);
@@ -499,6 +540,12 @@ public class HouseBuiltDetectorTest {
         assertThat(result.contains(externalBlock), is(false));
         assertThat(HouseRegistry.INSTANCE.getEmptyHouses().size(), is(1));
         assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getWalls().size(), is(9));
+
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getBottomRight().getX(), is(5));
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getBottomRight().getY(), is(6));
+
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getTopLeft().getX(), is(3));
+        assertThat(new ArrayList<>(HouseRegistry.INSTANCE.getEmptyHouses()).get(0).getTopLeft().getY(), is(3));
     }
 
 }

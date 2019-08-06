@@ -12,6 +12,10 @@ public class WoodenBed implements WorldObject, Obstacle, InteractiveObject, Bed,
     private Actor owner;
     private Point coordinates;
 
+    public WoodenBed(Point coordinates) {
+        this.coordinates = coordinates;
+    }
+
     @Override
     public void onInteract(Actor actor) {
         // sleep

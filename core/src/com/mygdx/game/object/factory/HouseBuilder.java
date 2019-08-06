@@ -2,6 +2,7 @@ package com.mygdx.game.object.factory;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.faction.Alignment;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.house.House;
@@ -21,6 +22,7 @@ class HouseBuilder {
     private static final HouseBuiltDetector houseBuiltDetector = HouseBuiltDetector.INSTANCE;
     private static final HouseRegistry houseRegistry = HouseRegistry.INSTANCE;
     private static final ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
+    private static final FurnitureToHouseAssigner furnitureToHouseAssigner = FurnitureToHouseAssigner.INSTANCE;
 
     static <T extends WorldObject> void buildHouse(Class<T> clazz, Map2D map2D, T object) {
 
@@ -33,6 +35,10 @@ class HouseBuilder {
                     House house = getHouseByWall(houseWalls).get();
                     house.getWalls().addAll(houseWalls);
                     house.getWalls().add((Wall) object);
+
+                    updateCoordinates(house);
+                    furnitureToHouseAssigner.assignAllTo(map2D, house);
+
                 } else { // new house, let's build it
                     Optional<Actor> owner = findActorWithoutHouse();
 
@@ -41,15 +47,42 @@ class HouseBuilder {
                         house.setWalls(houseWalls);
                         house.getWalls().add((Wall) object);
                         houseRegistry.add(house, owner.get());
+                        updateCoordinates(house);
+                        furnitureToHouseAssigner.assignAllTo(map2D, house);
+
                     } else {
                         House house = new House();
                         house.setWalls(houseWalls);
                         house.getWalls().add((Wall) object);
                         houseRegistry.add(house);
+                        updateCoordinates(house);
+                        furnitureToHouseAssigner.assignAllTo(map2D, house);
                     }
                 }
             }
         }
+    }
+
+    private static void updateCoordinates(House house) {
+        int leftMost = Integer.MAX_VALUE, rightMost = -1, top = Integer.MAX_VALUE, bottom = -1;
+
+        for (Wall wall : house.getWalls()) {
+
+            if (leftMost > ((WorldObject) wall).getX())
+                leftMost = (int) ((WorldObject) wall).getX();
+
+            if (rightMost < ((WorldObject) wall).getX())
+                rightMost = (int) ((WorldObject) wall).getX();
+
+            if (bottom < ((WorldObject) wall).getY())
+                bottom = (int) ((WorldObject) wall).getY();
+
+            if (top > ((WorldObject) wall).getY())
+                top = (int) ((WorldObject) wall).getY();
+        }
+
+        house.setTopLeft(Point.of(leftMost, top));
+        house.setBottomRight(Point.of(rightMost, bottom));
     }
 
     private static Optional<House> getHouseByWall(Set<Wall> worldObject) {

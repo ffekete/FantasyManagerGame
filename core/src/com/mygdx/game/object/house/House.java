@@ -1,6 +1,7 @@
 package com.mygdx.game.object.house;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.object.furniture.Furniture;
 import com.mygdx.game.object.wall.Wall;
@@ -13,6 +14,9 @@ public class House {
     private Set<Wall> walls;
     private Set<Furniture> furnitures;
     private Set<Floor> floors;
+
+    private Point topLeft;
+    private Point bottomRight;
 
     public House() {
     }
@@ -51,5 +55,21 @@ public class House {
 
     public void setOwner(Actor owner) {
         this.owner = owner;
+    }
+
+    public void setTopLeft(Point topLeft) {
+        this.topLeft = topLeft;
+    }
+
+    public void setBottomRight(Point bottomRight) {
+        this.bottomRight = bottomRight;
+    }
+
+    public Point getTopLeft() {
+        return topLeft;
+    }
+
+    public Point getBottomRight() {
+        return bottomRight;
     }
 }

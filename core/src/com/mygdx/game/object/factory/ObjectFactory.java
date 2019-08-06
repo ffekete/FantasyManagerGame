@@ -8,6 +8,7 @@ import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.furniture.Furniture;
 import com.mygdx.game.object.house.House;
 import com.mygdx.game.object.house.HouseBuiltDetector;
 import com.mygdx.game.object.light.LightSource;
@@ -47,7 +48,13 @@ public class ObjectFactory {
 
             ObjectRegistry.INSTANCE.add(map2D, Cluster.of(object.getX(), object.getY()), object);
 
-            HouseBuilder.buildHouse(clazz, map2D, object);
+            if (Wall.class.isAssignableFrom(object.getClass())) {
+                HouseBuilder.buildHouse(clazz, map2D, object);
+            }
+
+            if(Furniture.class.isAssignableFrom(object.getClass())) {
+                FurnitureToHouseAssigner.INSTANCE.assign((Furniture) object);
+            }
 
             if (AnimatedObject.class.isAssignableFrom(clazz))
                 AnimationRegistry.INSTANCE.add((AnimatedObject) object, new WorldObjectAnimation((AnimatedObject) object));
@@ -60,7 +67,6 @@ public class ObjectFactory {
         }
         return object;
     }
-
 
 
 }
