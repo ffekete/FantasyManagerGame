@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
@@ -72,6 +73,7 @@ public class WorldMapSample extends SampleBase {
     SandboxGameLogicController sandboxGameLogicController = SandboxGameLogicController.INSTANCE;
     OrthographicCamera infoCamera;
     Viewport infoViewPort;
+    Viewport viewport;
     BitmapFont bitmapFont;
     BitmapFont bitmapFontSmall;
     BitmapFont bitmapFontSmallest;
@@ -104,11 +106,12 @@ public class WorldMapSample extends SampleBase {
         bitmapFontSmall = new BitmapFont(Gdx.files.internal("fonts/font25.fnt"));
         bitmapFontSmallest = new BitmapFont(Gdx.files.internal("fonts/font15.fnt"));
 
-
-
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        camera = new OrthographicCamera(60, 60 * (h / w));
+
+        camera = new OrthographicCamera(60f, 60f * (h / w));
+        viewport = new FitViewport(60, 40, camera);
+        viewport.apply();
 
         RendererToolsRegistry.INSTANCE.setSpriteBatch(new SpriteBatch());
         RendererToolsRegistry.INSTANCE.setBitmapFont(bitmapFont);
@@ -220,7 +223,7 @@ public class WorldMapSample extends SampleBase {
         horizontalGroup.bottom().left().wrap(false);
 
         horizontalGroup.addActor(getBuildButton(drawable, drawable2));
-        horizontalGroup.addActor(getInventoryButton(drawable, drawable2));
+        horizontalGroup.addActor(getInventoryButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/InventoryButton.png")))), new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/InventoryButton.png"))))));
 
         sandboxStage.addActor(horizontalGroup);
         builderStage.addActor(getBuildButton(drawable, drawable2));
@@ -287,9 +290,10 @@ public class WorldMapSample extends SampleBase {
 
     @Override
     public void resize(int width, int height) {
-        camera.viewportWidth = 60;
+        camera.viewportWidth = 60f;
         camera.viewportHeight = 60f * height / width;
-        camera.update();
+        //camera.update();
+        viewport.update(60, 40, false);
         infoViewPort.update(width, height, true);
         infoCamera.update();
     }

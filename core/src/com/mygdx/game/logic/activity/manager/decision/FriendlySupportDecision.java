@@ -38,7 +38,6 @@ public class FriendlySupportDecision implements Decision {
         if (targetActor.isPresent()) {
             actor.getActivityStack().clear();
             actor.getActivityStack().add(new SupportActivity(actor, targetActor.get(), 1, mapRegistry.getPathFinderFor(actor.getCurrentMap())));
-            System.out.println(actor.getName() + " supporting " + targetActor.get().getName());
             return true;
         }
 

@@ -23,6 +23,7 @@ class HouseBuilder {
     private static final HouseRegistry houseRegistry = HouseRegistry.INSTANCE;
     private static final ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     private static final FurnitureToHouseAssigner furnitureToHouseAssigner = FurnitureToHouseAssigner.INSTANCE;
+    private static final FloorToHouseAssigner floorToHouseAssigner = FloorToHouseAssigner.INSTANCE;
 
     static <T extends WorldObject> void buildHouse(Class<T> clazz, Map2D map2D, T object) {
 
@@ -38,9 +39,13 @@ class HouseBuilder {
 
                     updateCoordinates(house);
                     furnitureToHouseAssigner.assignAllTo(map2D, house);
+                    floorToHouseAssigner.assignAllTo(map2D, house);
+                    System.out.println("Existing house updated");
 
                 } else { // new house, let's build it
                     Optional<Actor> owner = findActorWithoutHouse();
+
+                    System.out.println("House built!");
 
                     if (owner.isPresent()) {
                         House house = new House(owner.get());
@@ -49,7 +54,7 @@ class HouseBuilder {
                         houseRegistry.add(house, owner.get());
                         updateCoordinates(house);
                         furnitureToHouseAssigner.assignAllTo(map2D, house);
-
+                        floorToHouseAssigner.assignAllTo(map2D, house);
                     } else {
                         House house = new House();
                         house.setWalls(houseWalls);
@@ -57,6 +62,7 @@ class HouseBuilder {
                         houseRegistry.add(house);
                         updateCoordinates(house);
                         furnitureToHouseAssigner.assignAllTo(map2D, house);
+                        floorToHouseAssigner.assignAllTo(map2D, house);
                     }
                 }
             }

@@ -8,6 +8,7 @@ import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.object.furniture.Furniture;
 import com.mygdx.game.object.house.House;
 import com.mygdx.game.object.house.HouseBuiltDetector;
@@ -54,6 +55,9 @@ public class ObjectFactory {
 
             if(Furniture.class.isAssignableFrom(object.getClass())) {
                 FurnitureToHouseAssigner.INSTANCE.assign((Furniture) object);
+            }
+            if(Floor.class.isAssignableFrom(object.getClass())) {
+                FloorToHouseAssigner.INSTANCE.assign((Floor) object);
             }
 
             if (AnimatedObject.class.isAssignableFrom(clazz))

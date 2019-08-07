@@ -17,7 +17,7 @@ public class Point implements Pool.Poolable {
     }
 
     public static Point of(float x, float y) {
-        return new Point((int) x, (int) y);
+        return new Point((int)x, (int)y);
     }
 
     public int getX() {
