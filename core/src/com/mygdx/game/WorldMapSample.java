@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
@@ -59,6 +60,8 @@ import com.mygdx.game.registry.*;
 import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.renderer.RenderingFacade;
 import com.mygdx.game.renderer.camera.CameraPositionController;
+import com.mygdx.game.stage.BuilderStageConfig;
+import com.mygdx.game.stage.StageConfigurer;
 
 
 public class WorldMapSample extends SampleBase {
@@ -101,7 +104,7 @@ public class WorldMapSample extends SampleBase {
 
         shapeRenderer = new ShapeRenderer();
         infoCamera = new OrthographicCamera();
-        infoViewPort = new FitViewport(Config.Screen.WIDTH, Config.Screen.HEIGHT, infoCamera);
+        infoViewPort = new StretchViewport(Config.Screen.WIDTH, Config.Screen.HEIGHT, infoCamera);
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
         bitmapFontSmall = new BitmapFont(Gdx.files.internal("fonts/font25.fnt"));
         bitmapFontSmallest = new BitmapFont(Gdx.files.internal("fonts/font15.fnt"));
@@ -118,19 +121,15 @@ public class WorldMapSample extends SampleBase {
         RendererToolsRegistry.INSTANCE.setShapeRenderer(shapeRenderer);
         RendererToolsRegistry.INSTANCE.setCamera(camera);
         RendererToolsRegistry.INSTANCE.setInfoCamera(infoCamera);
-        RendererToolsRegistry.INSTANCE.addStage(GameState.Sandbox, sandboxStage);
-        RendererToolsRegistry.INSTANCE.addStage(GameState.Builder, builderStage);
-        RendererToolsRegistry.INSTANCE.addStage(GameState.Inventory, inventoryStage);
         RendererToolsRegistry.INSTANCE.setInfoViewPort(infoViewPort);
         RendererToolsRegistry.INSTANCE.setBitmapFontSmall(bitmapFontSmall);
         RendererToolsRegistry.INSTANCE.setBitmapFontSmallest(bitmapFontSmallest);
 
-
-        configureButtons();
+        StageConfigurer.INSTANCE.configureButtons();
 
         worldMap = mapGenerator.create(0);
 
-        InputConfigurer.INSTANCE.setInputProcessor(sandboxStage, this);
+        InputConfigurer.INSTANCE.setInputProcessor(StageConfigurer.INSTANCE.getFor(GameState.Sandbox), StageConfigurer.INSTANCE.getFor(GameState.Builder),  this);
 
         builder = ActorFactory.INSTANCE.create(Builder.class, worldMap, Placement.FIXED.X(7).Y(10));
 
@@ -213,67 +212,7 @@ public class WorldMapSample extends SampleBase {
 
     }
 
-    private void configureButtons() {
 
-        Drawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButton.png"))));
-        Drawable drawable2 = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButtonDown.png"))));
-
-        HorizontalGroup horizontalGroup = new HorizontalGroup().pad(10, 10, 10, 10);
-
-        horizontalGroup.bottom().left().wrap(false);
-
-        horizontalGroup.addActor(getBuildButton(drawable, drawable2));
-        horizontalGroup.addActor(getInventoryButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/InventoryButton.png")))), new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/InventoryButton.png"))))));
-
-        sandboxStage.addActor(horizontalGroup);
-        builderStage.addActor(getBuildButton(drawable, drawable2));
-    }
-
-
-    private TextButton getInventoryButton(Drawable drawable, Drawable drawable2) {
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.font = RendererToolsRegistry.INSTANCE.getBitmapFont();
-        textButtonStyle.fontColor = Color.WHITE;
-        textButtonStyle.up = drawable;
-        textButtonStyle.down = drawable2;
-        textButtonStyle.checked = drawable;
-
-        TextButton inventoryButton = new TextButton("In", textButtonStyle);
-
-        inventoryButton.setWidth(32);
-        inventoryButton.setHeight(32);
-
-        inventoryButton.addListener(new ClickListener() {
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(CameraPositionController.INSTANCE.getFocusedOn() != null) {
-                    InventoryGameLogicController.INSTANCE.setActor(CameraPositionController.INSTANCE.getFocusedOn());
-                    GameFlowControllerFacade.INSTANCE.setGameState(GameState.Inventory);
-                }
-                return true;
-            }
-
-        });
-        return inventoryButton;
-    }
-
-    private ImageButton getBuildButton(Drawable drawable, Drawable drawable2) {
-        ImageButton buildButton = new ImageButton(drawable, drawable2);
-        buildButton.setWidth(32);
-        buildButton.setHeight(32);
-
-        buildButton.addListener(new ClickListener() {
-
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                GameFlowControllerFacade.INSTANCE.toggleGameState();
-                return true;
-            }
-
-        });
-        return buildButton;
-    }
 
     @Override
     public void render() {

@@ -6,7 +6,7 @@ import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.factory.ObjectFactory;
-import com.mygdx.game.object.furniture.WoodenBed;
+import com.mygdx.game.object.furniture.IncompleteWoodenBed;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.wall.IncompleteWoodenWall;
 import com.mygdx.game.object.wall.WoodenWall;
@@ -61,8 +61,8 @@ public class HouseBuilderTest {
 
         MapRegistry.INSTANCE.add(map2D);
 
-        ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
-        ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(1).Y(1));
+        ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
+        ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(1).Y(1));
 
         WoodenWall wall = ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(5).Y(5));
         ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(4).Y(5));
@@ -100,8 +100,8 @@ public class HouseBuilderTest {
 
         MapRegistry.INSTANCE.add(map2D);
 
-        ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
-        ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(1).Y(1));
+        ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
+        ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(1).Y(1));
 
         WoodenWall wall = ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(5).Y(5));
         ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(4).Y(5));
@@ -187,7 +187,7 @@ public class HouseBuilderTest {
         // . . . . x . e
 
 
-        WoodenBed bed1 = ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
+        IncompleteWoodenBed bed1 = ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
 
         WoodenWall wall = ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(5).Y(5));
         ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(4).Y(5));
@@ -218,7 +218,7 @@ public class HouseBuilderTest {
         assertThat(HouseRegistry.INSTANCE.getEmptyHouses().size(), is(1));
 
         // add a bed later
-        WoodenBed bed2 = ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(5).Y(4));
+        IncompleteWoodenBed bed2 = ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(5).Y(4));
 
         assertThat(HouseRegistry.INSTANCE.getEmptyHouses().stream().filter(house -> house.getFurnitures().contains(bed1)).count(), is(1L));
         assertThat(HouseRegistry.INSTANCE.getEmptyHouses().stream().filter(house -> house.getFurnitures().contains(bed2)).count(), is(1L));
@@ -288,8 +288,8 @@ public class HouseBuilderTest {
 
         MapRegistry.INSTANCE.add(map2D);
 
-        WoodenBed bed1 = ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
-        WoodenBed bed2 = ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(1).Y(1));
+        IncompleteWoodenBed bed1 = ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
+        IncompleteWoodenBed bed2 = ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(1).Y(1));
 
         WoodenWall wall = ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(5).Y(5));
 
@@ -390,8 +390,8 @@ public class HouseBuilderTest {
         ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(6).Y(5));
         ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(7).Y(6));
 
-        WoodenBed bed1 = ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
-        WoodenBed bed2 = ObjectFactory.create(WoodenBed.class, map2D, ObjectPlacement.FIXED.X(1).Y(1));
+        IncompleteWoodenBed bed1 = ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
+        IncompleteWoodenBed bed2 = ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(1).Y(1));
 
         Set<WorldObject> result = HouseBuiltDetector.INSTANCE.isAHouse(map2D, wall);
 

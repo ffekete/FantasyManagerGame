@@ -7,6 +7,8 @@ import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.renderer.InfoScreenRenderer;
 import com.mygdx.game.renderer.camera.CameraPositionController;
+import com.mygdx.game.stage.SandboxStageConfig;
+import com.mygdx.game.stage.StageConfigurer;
 import com.mygdx.game.utils.GdxUtils;
 
 public class SandboxRenderer {
@@ -44,7 +46,8 @@ public class SandboxRenderer {
             }
         }
 
-        rendererToolsRegistry.getStage(GameState.Sandbox).act();
-        rendererToolsRegistry.getStage(GameState.Sandbox).draw();
+        SandboxStageConfig.INSTANCE.update();
+        StageConfigurer.INSTANCE.getFor(GameState.Sandbox).act();
+        StageConfigurer.INSTANCE.getFor(GameState.Sandbox).draw();
     }
 }

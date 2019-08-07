@@ -6,7 +6,6 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
-import com.mygdx.game.actor.inventory.Inventory;
 import com.mygdx.game.actor.monster.*;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.item.Item;
@@ -34,7 +33,7 @@ import com.mygdx.game.object.decoration.TreasureChest;
 import com.mygdx.game.object.decoration.Tree;
 import com.mygdx.game.object.floor.IncompleteWoodenFloor;
 import com.mygdx.game.object.floor.WoodenFloor;
-import com.mygdx.game.object.furniture.Bed;
+import com.mygdx.game.object.furniture.IncompleteWoodenBed;
 import com.mygdx.game.object.furniture.WoodenBed;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.interactive.Ladder;
@@ -156,6 +155,7 @@ public class TextureRegistry {
                 .put(IncompleteWoodenFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/IncompleteWoodenFloor.png")))
 
                 // furniture
+                .put(IncompleteWoodenBed.class, Arrays.asList(texturePathResolver.resolve("object/furniture/IncompleteWoodenBed.png")))
                 .put(WoodenBed.class, Arrays.asList(texturePathResolver.resolve("object/furniture/WoodenBed.png")))
                 .build();
 

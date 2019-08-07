@@ -16,6 +16,7 @@ import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.renderer.Renderer;
 import com.mygdx.game.rules.levelup.ExperienceLevelMapper;
+import com.mygdx.game.stage.StageConfigurer;
 import com.mygdx.game.utils.GdxUtils;
 
 import java.util.Optional;
@@ -33,9 +34,9 @@ public class InventoryRenderer implements Renderer<Actor> {
     public static final int LEFT_HAND_Y = 1020 - 320;
 
     public static final int INVENTORY_LEFT_X = 175;
-    public static final int INVENTORY_LEFT_Y = 265;
+    public static final int INVENTORY_LEFT_Y = 265 - 30;
     public static final int INVENTORY_RIGHT_X = 1210;
-    public static final int INVENTORY_RIGHT_Y = 120;
+    public static final int INVENTORY_RIGHT_Y = 120 - 60;
     public static final int INVENTORY_ROW_LENGTH = 16;
 
     private String itemText = null;
@@ -47,13 +48,13 @@ public class InventoryRenderer implements Renderer<Actor> {
     public void draw(Actor actor, SpriteBatch spriteBatch) {
         GdxUtils.clearScreen();
 
-        int screenX = com.mygdx.game.Config.Screen.CANVAS_WIDTH;
+        int screenX = Config.Screen.WIDTH;
         int screenY = Config.Screen.HEIGHT;
 
         RendererToolsRegistry.INSTANCE.getInfoViewPort().apply();
         RendererToolsRegistry.INSTANCE.getSpriteBatch().begin();
 
-        RendererToolsRegistry.INSTANCE.getSpriteBatch().draw(textureRegistry.getFor(MenuItem.Inventory), 0, 0, 0, 0, Config.Screen.WIDTH, Config.Screen.HEIGHT);
+        RendererToolsRegistry.INSTANCE.getSpriteBatch().draw(textureRegistry.getFor(MenuItem.Inventory), 0, 0, 0, 0, 1920, 1080);
 
         int i = 2;
         // Name
@@ -136,8 +137,8 @@ public class InventoryRenderer implements Renderer<Actor> {
 
         RendererToolsRegistry.INSTANCE.getSpriteBatch().end();
 
-        rendererToolsRegistry.getStage(GameState.Inventory).act();
-        rendererToolsRegistry.getStage(GameState.Inventory).draw();
+        StageConfigurer.INSTANCE.getFor(GameState.Inventory).act();
+        StageConfigurer.INSTANCE.getFor(GameState.Inventory).draw();
     }
 
     private String getPluses(int amount) {

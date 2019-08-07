@@ -24,9 +24,6 @@ public class RendererToolsRegistry {
     private Camera infoCamera;
     private Viewport infoViewPort;
 
-    private Map<GameState, Stage> stages = new HashMap<>();
-
-
     public SpriteBatch getSpriteBatch() {
         return spriteBatch;
     }
@@ -68,14 +65,6 @@ public class RendererToolsRegistry {
     }
 
     private RendererToolsRegistry() {
-    }
-
-    public void addStage(GameState gameState, Stage stage) {
-        this.stages.put(gameState, stage);
-    }
-
-    public Stage getStage(GameState gameState) {
-        return this.stages.get(gameState);
     }
 
     public void setInfoViewPort(Viewport infoViewPort) {

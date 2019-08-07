@@ -3,10 +3,6 @@ package com.mygdx.game.input.mouse.processor;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.controller.InventoryGameLogicController;
-import com.mygdx.game.registry.ActorRegistry;
-import com.mygdx.game.registry.ItemRegistry;
-import com.mygdx.game.registry.MapRegistry;
-import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.renderer.inventory.InventoryRenderer;
 
 import java.util.Optional;
@@ -16,11 +12,6 @@ import static com.mygdx.game.renderer.inventory.InventoryRenderer.*;
 public class InventoryMouseActionProcessor {
 
     public static final InventoryMouseActionProcessor INSTANCE = new InventoryMouseActionProcessor();
-
-    private final ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
-    private final ObjectRegistry objectRegistry = ObjectRegistry.INSTANCE;
-    private final MapRegistry mapRegistry = MapRegistry.INSTANCE;
-    private final ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
 
     public boolean onClick(Point realWorldCoord, int pointer) {
         System.out.println(realWorldCoord.getX() + " " + realWorldCoord.getY());
@@ -49,9 +40,7 @@ public class InventoryMouseActionProcessor {
         InventoryRenderer.INSTANCE.setItemText(null);
 
         getInventoryArea(screenX, screenY).ifPresent(c -> {
-            int length = (INVENTORY_LEFT_Y - INVENTORY_RIGHT_Y);
             int index = c.getX() + (c.getY()) * INVENTORY_ROW_LENGTH;
-            System.out.println(c.getX() + " " + c.getY() + " " + index);
             Optional<Item> item = InventoryGameLogicController.INSTANCE.getActor().getInventory().get(index);
             item.ifPresent(item1 -> InventoryRenderer.INSTANCE.setItemText(item1.getName() + "\n\n" + item1.getDescription()));
         });
@@ -61,7 +50,7 @@ public class InventoryMouseActionProcessor {
 
 
     private Optional<Point> getInventoryArea(int x, int y) {
-        if (x < INVENTORY_LEFT_X || x > INVENTORY_RIGHT_X || y < INVENTORY_RIGHT_Y || y > INVENTORY_LEFT_Y) {
+        if (x < INVENTORY_LEFT_X || x > INVENTORY_RIGHT_X - 30 || y < INVENTORY_RIGHT_Y || y > INVENTORY_LEFT_Y) {
             return Optional.empty();
         }
 

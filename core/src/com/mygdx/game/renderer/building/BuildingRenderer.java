@@ -9,6 +9,7 @@ import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.renderer.InfoScreenRenderer;
+import com.mygdx.game.stage.StageConfigurer;
 import com.mygdx.game.utils.GdxUtils;
 
 public class BuildingRenderer {
@@ -42,8 +43,8 @@ public class BuildingRenderer {
         InfoScreenRenderer.INSTANCE.draw();
         RendererToolsRegistry.INSTANCE.getSpriteBatch().end();
 
-        rendererToolsRegistry.getStage(GameState.Builder).act();
-        rendererToolsRegistry.getStage(GameState.Builder).draw();
+        StageConfigurer.INSTANCE.getFor(GameState.Builder).act();
+        StageConfigurer.INSTANCE.getFor(GameState.Builder).draw();
     }
 
     private void drawGrid() {
