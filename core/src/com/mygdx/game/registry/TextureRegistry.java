@@ -27,10 +27,7 @@ import com.mygdx.game.map.worldmap.WorldMapTile;
 import com.mygdx.game.menu.MenuItem;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.decoration.SpiderWeb;
-import com.mygdx.game.object.decoration.StandingTorch;
-import com.mygdx.game.object.decoration.TreasureChest;
-import com.mygdx.game.object.decoration.Tree;
+import com.mygdx.game.object.decoration.*;
 import com.mygdx.game.object.floor.IncompleteWoodenFloor;
 import com.mygdx.game.object.floor.WoodenFloor;
 import com.mygdx.game.object.furniture.IncompleteWoodenBed;
@@ -127,6 +124,7 @@ public class TextureRegistry {
                 .build();
 
         mapTextures = ImmutableMap.<TileBase, Optional<Texture>>builder()
+                .put(WorldMapTile.DIRT, texturePathResolver.resolve("tiles/DirtTileSet.png"))
                 .put(WorldMapTile.GRASS, texturePathResolver.resolve("Terrain.png"))
                 .put(Tile.STONE_WALL, texturePathResolver.resolve("wall.png"))
                 .put(Tile.FLOOR, texturePathResolver.resolve("Terrain.png"))
@@ -141,9 +139,19 @@ public class TextureRegistry {
         objectTextures = ImmutableMap.<Class<? extends WorldObject>, List<Optional<Texture>>>builder()
                 .put(DungeonEntrance.class, Arrays.asList(texturePathResolver.resolve("object/DungeonEntrance.png")))
                 .put(Ladder.class, Arrays.asList(texturePathResolver.resolve("object/Ladder.png")))
-                .put(Tree.class, Arrays.asList(texturePathResolver.resolve("object/Tree.png")))
                 .put(TreasureChest.class, Arrays.asList(texturePathResolver.resolve("object/TreasureChest.png"),
                         texturePathResolver.resolve("object/OpenTreasureChest.png")))
+
+                // decoration
+                .put(Tree.class, Arrays.asList(texturePathResolver.resolve("object/decoration/Tree.png")))
+                .put(TreeV2.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV2.png")))
+                .put(TreeV3.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV3.png")))
+                .put(TreeV4.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV4.png")))
+                .put(TreeV5.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV5.png")))
+                .put(YellowFlower.class, Arrays.asList(texturePathResolver.resolve("object/decoration/YellowFlower.png")))
+                .put(BlueFlower.class, Arrays.asList(texturePathResolver.resolve("object/decoration/BlueFlower.png")))
+                .put(Bush.class, Arrays.asList(texturePathResolver.resolve("object/decoration/Bush.png")))
+                .put(PineTree.class, Arrays.asList(texturePathResolver.resolve("object/decoration/PineTree.png")))
                 // Wall
                 .put(IncompleteWoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallTilesetIncomplete.png")))
                 .put(IncompleteWoodenDoorWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallDoorTilesetIncomplete.png")))

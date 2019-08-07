@@ -42,18 +42,22 @@ import com.mygdx.game.input.InputConfigurer;
 import com.mygdx.game.input.keyboard.KeyboardInputControllerFacade;
 import com.mygdx.game.input.mouse.MouseInputControllerFacade;
 import com.mygdx.game.logic.controller.InventoryGameLogicController;
+import com.mygdx.game.map.Cluster;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.map.dungeon.MapGenerator;
 import com.mygdx.game.map.dungeon.factory.DungeonFactory;
 import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
+import com.mygdx.game.map.worldmap.*;
 import com.mygdx.game.menu.MenuItem;
 import com.mygdx.game.object.LinkedWorldObjectFactory;
+import com.mygdx.game.object.decoration.BlueFlower;
+import com.mygdx.game.object.decoration.Bush;
 import com.mygdx.game.object.decoration.Tree;
+import com.mygdx.game.object.decoration.YellowFlower;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.interactive.DungeonEntrance;
-import com.mygdx.game.map.worldmap.WorldMapGenerator;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.logic.controller.SandboxGameLogicController;
 import com.mygdx.game.registry.*;
@@ -70,7 +74,7 @@ public class WorldMapSample extends SampleBase {
 
     private OrthographicCamera camera;
 
-    Map2D worldMap;
+    WorldMap worldMap;
     Map2D dungeon;
     Map2D dungeon2;
     SandboxGameLogicController sandboxGameLogicController = SandboxGameLogicController.INSTANCE;
@@ -85,7 +89,7 @@ public class WorldMapSample extends SampleBase {
     Actor warrior;
     Actor builder;
 
-    MapGenerator mapGenerator = new WorldMapGenerator();
+    MapGenerator<WorldMap> mapGenerator = new WorldMapGenerator();
     DungeonFactory dungeonFactory = DungeonFactory.INSTANCE;
 
     ShapeRenderer shapeRenderer;
@@ -199,6 +203,9 @@ public class WorldMapSample extends SampleBase {
         ObjectFactory.create(Tree.class, worldMap, ObjectPlacement.FIXED.X(10).Y(10));
         ObjectFactory.create(Tree.class, worldMap, ObjectPlacement.FIXED.X(11).Y(10));
         ObjectFactory.create(Tree.class, worldMap, ObjectPlacement.FIXED.X(10).Y(11));
+        ObjectFactory.create(YellowFlower.class, worldMap, ObjectPlacement.FIXED.X(6).Y(6));
+        ObjectFactory.create(BlueFlower.class, worldMap, ObjectPlacement.FIXED.X(7).Y(7));
+        ObjectFactory.create(Bush.class, worldMap, ObjectPlacement.FIXED.X(6).Y(7));
 
         MapRegistry.INSTANCE.add(worldMap);
         MapRegistry.INSTANCE.add(dungeon);
@@ -209,6 +216,13 @@ public class WorldMapSample extends SampleBase {
         hero.equip(new JadeStaff());
 
         MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
+
+        // decorate
+        WorldMapDecorator worldMapDecorator = new WorldMapDecorator();
+        worldMapDecorator.decorate(2, worldMap);
+
+        WorldMapDirtSpreadDecorator worldMapDirtSpreadDecorator = new WorldMapDirtSpreadDecorator();
+        worldMapDirtSpreadDecorator.decorate(2, worldMap);
 
     }
 

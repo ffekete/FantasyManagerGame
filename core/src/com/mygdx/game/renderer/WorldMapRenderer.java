@@ -3,14 +3,17 @@ package com.mygdx.game.renderer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Config;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisitedArea;
+import com.mygdx.game.map.worldmap.WorldMapTile;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
+import com.mygdx.game.renderer.selector.DirtTileSelector;
 
 public class WorldMapRenderer implements Renderer<Map2D> {
 
@@ -19,6 +22,7 @@ public class WorldMapRenderer implements Renderer<Map2D> {
     private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
     private final ObjectRegistry objectRegistry = ObjectRegistry.INSTANCE;
     private final CameraPositionController cameraPositionController = CameraPositionController.INSTANCE;
+    private final DirtTileSelector dirtTileSelector = new DirtTileSelector();
 
     @Override
     public void draw(Map2D map, SpriteBatch spriteBatch) {
@@ -36,8 +40,15 @@ public class WorldMapRenderer implements Renderer<Map2D> {
                     spriteBatch.setColor(Color.WHITE);
                 }
                 if (map.getVisitedareaMap()[i][j] != VisitedArea.NOT_VISITED) {
-                    Texture texture = textureRegistry.getForTile(map.getTile(i, j));
-                    spriteBatch.draw(texture, i, j, 0, 0, 1, 1, 1, 1, 0, 0, 0, texture.getWidth(), texture.getHeight(), false, false);
+
+                    TextureRegion texture;
+                    if(WorldMapTile.class.isAssignableFrom(map.getTile(i, j).getClass()) && ((WorldMapTile)map.getTile(i, j)).isTiled()) {
+                        texture = dirtTileSelector.getFor(map, i, j);//textureRegistry.getForTile(map.getTile(i, j))
+                    } else {
+                        texture = new TextureRegion(textureRegistry.getForTile(map.getTile(i, j)));
+                    }
+
+                    spriteBatch.draw(texture, i, j,  1,1);
                 }
             }
         }

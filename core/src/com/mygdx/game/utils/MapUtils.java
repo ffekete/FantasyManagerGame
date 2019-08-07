@@ -1,6 +1,8 @@
 package com.mygdx.game.utils;
 
 import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.worldmap.WorldMap;
+import com.mygdx.game.map.worldmap.WorldMapTile;
 import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
@@ -26,6 +28,28 @@ public class MapUtils {
         }
 
         if (x - 1 < 0 || (worldObjects[x - 1][y][index] != null && clazz.isAssignableFrom(worldObjects[x - 1][y][index].getClass()))) {
+            mask += 8;
+        }
+
+        return mask;
+    }
+
+    public static int bitmask4bitForTile(WorldMap map, int x, int y, WorldMapTile tile) {
+        int mask = 0;
+
+        if (y + 1 >= map.getHeight() || map.getTile(x, y + 1).equals(tile)) {
+            mask += 1;
+        }
+
+        if (x + 1 >= map.getWidth() || map.getTile(x + 1, y).equals(tile)) {
+            mask += 2;
+        }
+
+        if (y - 1 < 0 || map.getTile(x, y - 1).equals(tile)) {
+            mask += 4;
+        }
+
+        if (x - 1 < 0 || map.getTile(x - 1, y).equals(tile)) {
             mask += 8;
         }
 

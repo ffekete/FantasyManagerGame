@@ -7,7 +7,7 @@ import com.mygdx.game.map.dungeon.MapGenerator;
 public class WorldMapGenerator implements MapGenerator {
 
     @Override
-    public Map2D create(int steps) {
+    public WorldMap create(int steps) {
 
         int width = Config.WorldMap.WORLD_WIDTH;
         int height = Config.WorldMap.WORLD_HEIGHT;

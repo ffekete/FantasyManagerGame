@@ -43,8 +43,8 @@ public class ObjectRenderer implements Renderer<Map2D> {
         int lengthX = (int) rendererToolsRegistry.getCamera().viewportWidth;
 
 
-        for (int i = Math.max(0, startX - lengthX / 2); i < Math.min(startX + lengthX / 2, dungeon.getWidth() - 1); i++) {
-            for (int j = Math.min(startY + lengthY / 2, dungeon.getHeight() - 1); j > Math.max(0, startY - lengthY / 2); j--) {
+        for (int i = Math.min(startX + lengthX / 2, dungeon.getWidth() - 1); i >=  Math.max(0, startX - lengthX / 2); i--) {
+            for (int j = Math.min(startY + lengthY / 2, dungeon.getHeight() - 1); j >= Math.max(0, startY - lengthY / 2); j--) {
                 WorldObject worldObject = objectRegistry.getObjectGrid().get(dungeon)[i][j][1];
                 if (worldObject != null) {
 
