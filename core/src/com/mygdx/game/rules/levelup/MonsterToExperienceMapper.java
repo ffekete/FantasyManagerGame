@@ -2,6 +2,7 @@ package com.mygdx.game.rules.levelup;
 
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.hero.Hero;
 import com.mygdx.game.actor.monster.*;
 
 import java.util.Map;
@@ -22,6 +23,9 @@ public class MonsterToExperienceMapper {
             .build();
 
     public long getFor(Class<? extends Actor> clazz) {
+        if(Hero.class.isAssignableFrom(clazz)) {
+            return 0; // friendly kill doesn't count, sorry
+        }
         return monsterToExperianceMap.get(clazz);
     }
 }

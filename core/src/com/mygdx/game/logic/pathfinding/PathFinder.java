@@ -10,10 +10,11 @@ import java.util.List;
 
 public class PathFinder {
 
+    public static final int DEFAULT_EFFORT = 100;
     private final Pool<Node> nodePool = new Pool<Node>() {
         @Override
         protected Node newObject() {
-            return new Node(0,0,0);
+            return new Node(0,0,0, DEFAULT_EFFORT);
         }
     };
 
@@ -105,12 +106,12 @@ public class PathFinder {
             closedNodes.add(current);
 
             if ((current.x == target.getX() && current.y == target.getY()) ||
-                    map[target.getX()][target.getY()].tile == 1 && distance(current, new Node(0, target.getX(), target.getY())) < 2
+                    map[target.getX()][target.getY()].tile == 1 && distance(current, new Node(0, target.getX(), target.getY(), DEFAULT_EFFORT)) < 2
                     ) {
                 // hurra
                 Node c = current;
                 while (c != null) {
-                    Node c1 = new Node(c.tile, c.x, c.y);
+                    Node c1 = new Node(c.tile, c.x, c.y, c.effort);
                     path.add(c1);
                     c = c.parent;
                 }
@@ -145,7 +146,7 @@ public class PathFinder {
             for (Node child : children) {
                 if (closedNodes.contains(child))
                     continue;
-                child.g = current.g + 1;
+                child.g = current.g + current.effort;
                 child.h = distance(child, end);
                 child.f = child.g + child.h;
 
@@ -201,7 +202,7 @@ public class PathFinder {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
 
-                obstacleMap[i][j] = new Node(map.getTile(i, j).isObstacle() || map.isObstacle(i,j) ? 1 : 0, i, j);
+                obstacleMap[i][j] = new Node(map.getTile(i, j).isObstacle() || map.isObstacle(i,j) ? 1 : 0, i, j, DEFAULT_EFFORT);
             }
         }
     }
@@ -210,7 +211,7 @@ public class PathFinder {
         obstacleMap = new Node[width][height];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                obstacleMap[i][j] = new Node(map[i][j] != 1 ? 1 : 0, i, j);
+                obstacleMap[i][j] = new Node(map[i][j] != 1 ? 1 : 0, i, j, DEFAULT_EFFORT);
             }
         }
     }
@@ -226,6 +227,7 @@ public class PathFinder {
         private int y;
         private Node parent;
         private int tile;
+        private int effort;
 
         int f, g, h;
 
@@ -243,12 +245,11 @@ public class PathFinder {
             return 31 * hash + y;
         }
 
-        public Node(int tile, int x, int y) {
+        public Node(int tile, int x, int y, int effort) {
             this.tile = tile;
             this.x = x;
             this.y = y;
-
-
+            this.effort = effort;
         }
 
         public int getX() {

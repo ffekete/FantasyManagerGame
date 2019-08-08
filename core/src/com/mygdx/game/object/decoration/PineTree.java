@@ -1,11 +1,12 @@
 package com.mygdx.game.object.decoration;
 
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
 
 import java.util.Random;
 
-public class PineTree implements WorldObject {
+public class PineTree implements WorldObject, Obstacle {
 
     private final float worldMapSize = new Random().nextFloat() / 2f + 1.2f;
 

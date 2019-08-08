@@ -1,6 +1,7 @@
 package com.mygdx.game.map.worldmap;
 
 import com.mygdx.game.Config;
+import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.map.TileBase;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
@@ -11,6 +12,7 @@ import java.util.Random;
 
 public class WorldMap implements Map2D {
     private TileBase[][] worldMap;
+    private int traverseCost[][];
     private VisitedArea[][] visitedareaMap;
     private final int height;
     private final int width;
@@ -27,12 +29,14 @@ public class WorldMap implements Map2D {
         visibilityCalculator = new VisibilityCalculator(width, height);
 
         obstacle = new boolean[width][height];
+        traverseCost = new int[width][height];
 
         visitedareaMap = new VisitedArea[width][height];
         for(int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 visitedareaMap[i][j] = VisitedArea.NOT_VISITED;
                 obstacle[i][j] = false;
+                traverseCost[i][j] = PathFinder.DEFAULT_EFFORT;
             }
         }
         this.worldMap = new WorldMapTile[width][height];
@@ -128,5 +132,15 @@ public class WorldMap implements Map2D {
     @Override
     public int getTileVariation(int x, int y) {
         return 0;
+    }
+
+    @Override
+    public int getTraverseCost(int x, int y) {
+        return traverseCost[x][y];
+    }
+
+    @Override
+    public void setTraverseCost(int x, int y, int val) {
+        this.traverseCost[x][y] = val;
     }
 }

@@ -13,6 +13,7 @@ import com.mygdx.game.logic.action.manager.ActionManager;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.single.ExplorationActivity;
 import com.mygdx.game.logic.visibility.VisibilityMask;
+import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
@@ -49,22 +50,24 @@ public class ActorRenderer implements Renderer<Map2D> {
         spriteBatch.setColor(Color.WHITE);
         for (Actor actor : actorRegistry.getActors(dungeon)) {
             if (Alignment.FRIENDLY.equals(actor.getAlignment()) || visibilityMask == null || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
-                if (AnimationRegistry.INSTANCE.getAnimations().containsKey(actor)) {
+                if (AnimationRegistry.INSTANCE.getAnimations().containsKey(actor) && dungeon.getVisitedareaMap()[actor.getX()][actor.getY()] != VisitedArea.NOT_VISITED ) {
                     Activity activity = actor.getCurrentActivity();
                     AnimationRegistry.INSTANCE.getAnimations().get(actor).drawKeyFrame(spriteBatch, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), Config.Engine.ACTOR_HEIGHT, directionSelector.getDirection(actor), activity, actor.getClass());
                 }
 
-            // show health bar
-            spriteBatch.draw(healthBarRegion, actor.getX() + actor.getxOffset() + 0.2f, actor.getY() + actor.getyOffset() + 1, 1.8f * ((float) actor.getHp() / actor.getMaxHp()), 0.1f);
+            if(dungeon.getVisitedareaMap()[actor.getX()][actor.getY()] != VisitedArea.NOT_VISITED) {
+                // show health bar
+                spriteBatch.draw(healthBarRegion, actor.getX() + actor.getxOffset() + 0.2f, actor.getY() + actor.getyOffset() + 1, 1.8f * ((float) actor.getHp() / actor.getMaxHp()), 0.1f);
 
-            // show mana bar
-            spriteBatch.draw(manaBarRegion, actor.getX() + actor.getxOffset() + 0.2f, actor.getY() + actor.getyOffset() + 1.1f, 1.8f * ((float) actor.getMana() / actor.getMaxMana()), 0.1f);
+                // show mana bar
+                spriteBatch.draw(manaBarRegion, actor.getX() + actor.getxOffset() + 0.2f, actor.getY() + actor.getyOffset() + 1.1f, 1.8f * ((float) actor.getMana() / actor.getMaxMana()), 0.1f);
 
 
-            // show shield
-            if (actor.getLeftHandItem() != null) {
-                Texture itemTexture = textureRegistry.getFor(actor.getLeftHandItem().getClass());
-                spriteBatch.draw(itemTexture, actor.getX() + actor.getxOffset() + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, actor.getY() + actor.getyOffset() + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, 0, 0, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, 0, 0, 0, itemTexture.getHeight(), itemTexture.getWidth(), directionSelector.getDirection(actor).equals(Direction.LEFT) || directionSelector.getDirection(actor).equals(Direction.UP), false);
+                // show shield
+                if (actor.getLeftHandItem() != null) {
+                    Texture itemTexture = textureRegistry.getFor(actor.getLeftHandItem().getClass());
+                    spriteBatch.draw(itemTexture, actor.getX() + actor.getxOffset() + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, actor.getY() + actor.getyOffset() + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, 0, 0, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, 0, 0, 0, itemTexture.getHeight(), itemTexture.getWidth(), directionSelector.getDirection(actor).equals(Direction.LEFT) || directionSelector.getDirection(actor).equals(Direction.UP), false);
+                }
             }
 
             if (ExplorationActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getClass())) {

@@ -68,7 +68,7 @@ public class SwingAttackAction implements Action {
         }
 
         if((inc > 0 && angle < end) || (inc < 0 && angle > end))
-            RendererToolsRegistry.INSTANCE.getSpriteBatch().draw(texture, x,y, originX,0.3f, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, angle, 0,0, texture.getWidth(),texture.getHeight(), direction == Direction.UP || direction == Direction.LEFT, false);
+            RendererToolsRegistry.INSTANCE.getSpriteBatch().draw(texture, x,y  + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, originX,originY, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, angle, 0,0, texture.getWidth(),texture.getHeight(), direction == Direction.UP || direction == Direction.LEFT, false);
         else
             finished = true;
     }

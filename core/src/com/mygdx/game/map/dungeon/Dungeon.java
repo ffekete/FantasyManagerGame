@@ -1,6 +1,7 @@
 package com.mygdx.game.map.dungeon;
 
 import com.mygdx.game.Config;
+import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.map.TileBase;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
@@ -23,6 +24,7 @@ public class Dungeon implements Map2D {
     private Dungeon nextLevel = null;
     private Dungeon previousLevel = null;
     private boolean[][] obstacle;
+    private int traverseCost[][];
 
     public Dungeon(int width, int height, DungeonType dungeonType) {
         this.height = height;
@@ -37,6 +39,7 @@ public class Dungeon implements Map2D {
         for(int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 visitedareaMap[i][j] = VisitedArea.NOT_VISITED;
+                traverseCost[i][j] = PathFinder.DEFAULT_EFFORT;
             }
         }
         this.dungeon = new Tile[width][height];
@@ -146,6 +149,16 @@ public class Dungeon implements Map2D {
     @Override
     public int getTileVariation(int x, int y) {
         return tileVariation[x][y];
+    }
+
+    @Override
+    public int getTraverseCost(int x, int y) {
+        return traverseCost[x][y];
+    }
+
+    @Override
+    public void setTraverseCost(int x, int y, int val) {
+        this.traverseCost[x][y] = val;
     }
 
     public DungeonType getDungeonType() {
