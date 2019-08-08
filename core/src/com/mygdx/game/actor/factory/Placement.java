@@ -3,6 +3,7 @@ package com.mygdx.game.actor.factory;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.registry.ActorRegistry;
 
 import java.util.Random;
 
@@ -11,14 +12,14 @@ public enum Placement implements ActorPlacementStrategy {
     RANDOM() {
         @Override
         public void place(Actor actor, Map2D map) {
-            int x = 0,y = 0;
+            int x = 0, y = 0;
             do {
                 x = new Random().nextInt(map.getWidth());
                 y = new Random().nextInt(map.getHeight());
 
-            } while(map.isObstacle(x,y) || map.getTile(x,y).isObstacle());
+            } while (map.isObstacle(x, y) || map.getTile(x, y).isObstacle());
 
-            actor.setCoordinates(new Point(x,y));
+            actor.setCoordinates(new Point(x, y));
         }
 
         @Override
@@ -32,7 +33,7 @@ public enum Placement implements ActorPlacementStrategy {
         }
     },
 
-    FIXED(){
+    FIXED() {
 
         private int x = 0;
         private int y = 0;

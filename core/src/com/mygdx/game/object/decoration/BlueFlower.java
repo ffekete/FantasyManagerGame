@@ -6,7 +6,7 @@ import com.mygdx.game.object.WorldObject;
 
 import java.util.Random;
 
-public class BlueFlower implements WorldObject {
+public class BlueFlower implements WorldObject, Decoration {
 
     private final float worldMapSize = new Random().nextFloat() / 2f + 0.3f;
 

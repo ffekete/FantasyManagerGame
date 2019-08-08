@@ -3,19 +3,17 @@ package com.mygdx.game.renderer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.builder.BuildingBlock;
-import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.ContainerObject;
 import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.decoration.Decoration;
 import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.registry.*;
-import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
 import com.mygdx.game.renderer.selector.WallTileSelector;
 
@@ -23,15 +21,18 @@ public class ObjectRenderer implements Renderer<Map2D> {
 
     public static final ObjectRenderer INSTANCE = new ObjectRenderer();
 
-    private TextureRegion manaBarRegion;
+    private TextureRegion progressBarRegion;
 
     private final ObjectRegistry objectRegistry = ObjectRegistry.INSTANCE;
     private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
     private final AnimationRegistry animationRegistry = AnimationRegistry.INSTANCE;
     private final RendererToolsRegistry rendererToolsRegistry = RendererToolsRegistry.INSTANCE;
 
+    private WorldObject groundObject;
+    private float alpha = 1f;
+
     public ObjectRenderer() {
-        this.manaBarRegion = new TextureRegion(textureRegistry.getFor(GuiComponent.HUD), 340, 110, 500, 40);
+        this.progressBarRegion = new TextureRegion(textureRegistry.getFor(GuiComponent.HUD), 340, 110, 500, 40);
     }
 
     @Override
@@ -50,11 +51,18 @@ public class ObjectRenderer implements Renderer<Map2D> {
                 WorldObject worldObject = objectRegistry.getObjectGrid().get(dungeon)[i][j][1];
                 if (worldObject != null) {
 
+
                     if (dungeon.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
                         spriteBatch.setColor(Color.DARK_GRAY);
                     } else {
-                        spriteBatch.setColor(Color.WHITE);
+                        // setting transparency if the view is blocked by decoration
+                        if (Decoration.class.isAssignableFrom(worldObject.getClass()) && isActorAdjacent(dungeon, i, j)) {
+                            spriteBatch.setColor(Color.valueOf("FFFFFF55"));
+                        } else {
+                            spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
+                        }
                     }
+
                     if (dungeon.getVisitedareaMap()[i][j] != VisitedArea.NOT_VISITED) {
                         // skipping ground objects
                         if (Floor.class.isAssignableFrom(worldObject.getClass())) {
@@ -71,12 +79,25 @@ public class ObjectRenderer implements Renderer<Map2D> {
                         }
 
                         if (BuildingBlock.class.isAssignableFrom(worldObject.getClass())) {
-                            spriteBatch.draw(manaBarRegion, worldObject.getX() + 0.2f, worldObject.getY() + 1.1f, 1.8f * ((float) ((BuildingBlock) worldObject).getProgress() / 100f), 0.1f);
+                            spriteBatch.draw(progressBarRegion, worldObject.getX() + 0.2f, worldObject.getY() + 1.1f, 1.8f * ((float) ((BuildingBlock) worldObject).getProgress() / 100f), 0.1f);
+                        }
+
+                        // rendering ground object progress bars here
+                        groundObject = objectRegistry.getObjectGrid().get(dungeon)[i][j][0];
+                        if (groundObject != null && BuildingBlock.class.isAssignableFrom(groundObject.getClass())) {
+                            spriteBatch.draw(progressBarRegion, groundObject.getX() + 0.2f, groundObject.getY() + 1.1f, 1.8f * ((float) ((BuildingBlock) groundObject).getProgress() / 100f), 0.1f);
                         }
                     }
                 }
             }
         }
+
+        spriteBatch.getColor().a = 1f;
+    }
+
+    private boolean isActorAdjacent(Map2D dungeon, int i, int j) {
+        return (j - 1 >= 0 && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j - 1] != null) ||
+                (j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j + 1] != null);
     }
 
     private int getIndex(WorldObject object) {

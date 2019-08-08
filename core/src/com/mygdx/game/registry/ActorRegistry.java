@@ -16,15 +16,20 @@ public class ActorRegistry {
 
     private Map<Map2D, Iterator<Actor>> iterators = new HashMap<>();
 
+    private Map<Map2D, Actor[][]> actorGrid = new HashMap<>();
+
     private Map<Map2D, List<Actor>> actors = new ConcurrentHashMap<>();
 
     public void add(Map2D map, Actor actor) {
         actors.computeIfAbsent(map, value -> new CopyOnWriteArrayList<>());
         actors.get(map).add(actor);
+
+        // actor grid is updated in Placement
     }
 
     public void remove(Map2D map, Actor actor) {
         actors.get(map).remove(actor);
+        actorGrid.get(map)[actor.getX()][actor.getY()] = null;
     }
 
     public void setActors(Map<Map2D, List<Actor>> actors) {
@@ -84,5 +89,13 @@ public class ActorRegistry {
         }
 
         return (actors.get(dungeon).stream().anyMatch(actor -> Alignment.FRIENDLY.equals(actor.getAlignment())));
+    }
+
+    public Actor getActor(Map2D map, int x, int y) {
+        return actorGrid.get(map)[x][y];
+    }
+
+    public Map<Map2D, Actor[][]> getActorGrid() {
+        return actorGrid;
     }
 }

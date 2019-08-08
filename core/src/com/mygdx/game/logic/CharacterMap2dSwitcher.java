@@ -25,6 +25,7 @@ public class CharacterMap2dSwitcher {
     private final MapRegistry mapRegistry = MapRegistry.INSTANCE;
 
     public void switchTo(Map2D to, Map2D from, Actor actor) {
+        actorRegistry.getActorGrid().get(from)[actor.getX()][actor.getY()] = null;
         actorRegistry.remove(from, actor);
         actor.setCurrentMap(to);
 

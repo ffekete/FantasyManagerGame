@@ -61,10 +61,12 @@ public class ObjectRegistry {
 
     public void clear() {
         objects.clear();
+        objectGrid.clear();
     }
 
     public void remove(Map2D currentMap, WorldObject object) {
         objects.get(currentMap).get(Cluster.of(object.getX(), object.getY())).remove(object);
+        objectGrid.get(currentMap)[(int)object.getX()][(int)object.getY()] = null;
     }
 
     public Map<Map2D, WorldObject[][][]> getObjectGrid() {

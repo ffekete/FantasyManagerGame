@@ -35,6 +35,8 @@ public class Dungeon implements Map2D {
 
         visibilityCalculator = new VisibilityCalculator(width, height);
 
+        this.traverseCost = new int[width][height];
+
         visitedareaMap = new VisitedArea[width][height];
         for(int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {

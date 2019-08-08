@@ -22,6 +22,7 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.stack.ActivityStack;
 import com.mygdx.game.map.Map2D;
+import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.EffectRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.rules.levelup.LevelUpController;
@@ -106,7 +107,18 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public void setCoordinates(Point point) {
+
+        // remove first from actorGrid
+        if(coordinates != null) {
+            ActorRegistry.INSTANCE.getActorGrid().computeIfAbsent(currentMap, value -> new Actor[currentMap.getWidth()][currentMap.getHeight()]);
+            ActorRegistry.INSTANCE.getActorGrid().remove(currentMap)[getX()][getY()] = null;
+        }
+
         this.coordinates = point;
+
+        // this is ugly, but ensures that actorGrid is updated when actor moves
+        ActorRegistry.INSTANCE.getActorGrid().computeIfAbsent(currentMap, value -> new Actor[currentMap.getWidth()][currentMap.getHeight()]);
+        ActorRegistry.INSTANCE.getActorGrid().get(currentMap)[getX()][getY()] = this;
     }
 
     @Override

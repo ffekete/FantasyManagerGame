@@ -7,7 +7,7 @@ import com.mygdx.game.object.WorldObject;
 
 import java.util.Random;
 
-public class Tree implements WorldObject, Obstacle {
+public class Tree implements WorldObject, Obstacle, Decoration {
 
     private final float worldMapSize = new Random().nextFloat() / 2f + 1.5f;
 
