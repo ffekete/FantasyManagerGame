@@ -1,19 +1,13 @@
-package com.mygdx.game.object.decoration;
+package com.mygdx.game.object.floor;
 
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
 
-import java.util.Random;
-
-public class TreeV2 implements WorldObject, Decoration {
-
-    private final float worldMapSize = new Random().nextFloat() / 2f + 1.5f;
-
+public class Road implements TileableFloorObject, WorldObject, Floor {
     private Point coordinates;
 
-    public TreeV2(Point point) {
-        coordinates = point;
+    public Road(Point coordinates) {
+        this.coordinates = coordinates;
     }
 
     @Override
@@ -33,11 +27,11 @@ public class TreeV2 implements WorldObject, Decoration {
 
     @Override
     public Point getCoordinates() {
-        return this.coordinates;
+        return coordinates;
     }
 
     @Override
     public float getWorldMapSize() {
-        return worldMapSize;
+        return 1f;
     }
 }

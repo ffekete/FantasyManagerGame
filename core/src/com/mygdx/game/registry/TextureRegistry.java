@@ -29,6 +29,7 @@ import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.decoration.*;
 import com.mygdx.game.object.floor.IncompleteWoodenFloor;
+import com.mygdx.game.object.floor.Road;
 import com.mygdx.game.object.floor.WoodenFloor;
 import com.mygdx.game.object.furniture.IncompleteWoodenBed;
 import com.mygdx.game.object.furniture.WoodenBed;
@@ -148,9 +149,11 @@ public class TextureRegistry {
                 .put(TreeV3.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV3.png")))
                 .put(TreeV4.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV4.png")))
                 .put(TreeV5.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV5.png")))
+                .put(TreeV6.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV6.png")))
                 .put(YellowFlower.class, Arrays.asList(texturePathResolver.resolve("object/decoration/YellowFlower.png")))
                 .put(BlueFlower.class, Arrays.asList(texturePathResolver.resolve("object/decoration/BlueFlower.png")))
                 .put(Bush.class, Arrays.asList(texturePathResolver.resolve("object/decoration/Bush.png")))
+                .put(GiantLeafPlant.class, Arrays.asList(texturePathResolver.resolve("object/decoration/GiantLeafPlant.png")))
                 .put(PineTree.class, Arrays.asList(texturePathResolver.resolve("object/decoration/PineTree.png")))
                 // Wall
                 .put(IncompleteWoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallTilesetIncomplete.png")))
@@ -161,6 +164,7 @@ public class TextureRegistry {
                 // floor
                 .put(WoodenFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/WoodenFloor.png")))
                 .put(IncompleteWoodenFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/IncompleteWoodenFloor.png")))
+                .put(Road.class, Arrays.asList(texturePathResolver.resolve("object/floor/RoadTile.png")))
 
                 // furniture
                 .put(IncompleteWoodenBed.class, Arrays.asList(texturePathResolver.resolve("object/furniture/IncompleteWoodenBed.png")))

@@ -2,17 +2,23 @@ package com.mygdx.game.map.worldmap;
 
 import com.google.common.collect.ImmutableList;
 import com.mygdx.game.Config;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.decoration.*;
 import com.mygdx.game.object.factory.ObjectFactory;
+import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.placement.ObjectPlacement;
+import com.mygdx.game.registry.ObjectRegistry;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 public class WorldMapDecorator {
 
     private final static boolean DEBUG = false;
+
+    private final RoadCreator roadCreator = new RoadCreator();
 
     private int deathLimit = 5;
     private int birthLimit = 3;
@@ -24,7 +30,9 @@ public class WorldMapDecorator {
             .add(TreeV3.class)
             .add(TreeV4.class)
             .add(TreeV5.class)
+            .add(TreeV6.class)
             .add(Bush.class)
+            .add(GiantLeafPlant.class)
             .add(YellowFlower.class)
             .add(BlueFlower.class)
             .add(PineTree.class)
@@ -39,10 +47,13 @@ public class WorldMapDecorator {
                 if (newMap.getTile(i, j).isObstacle()) {
                     int index = new Random().nextInt(decorations.size());
 
-                    ObjectFactory.create(decorations.get(index), worldMap, ObjectPlacement.FIXED.X(i).Y(j));
+                    if(ObjectRegistry.INSTANCE.getObjectGrid().get(worldMap)[i][j][1] == null )
+                        ObjectFactory.create(decorations.get(index), worldMap, ObjectPlacement.FIXED.X(i).Y(j));
                 }
             }
         }
+
+        List<WorldObject> o = ObjectRegistry.INSTANCE.getAll(worldMap).stream().filter(worldObject -> DungeonEntrance.class.isAssignableFrom(worldObject.getClass())).peek(worldObject -> roadCreator.connect(worldMap, worldObject.getCoordinates(), Point.of(5,5))).collect(Collectors.toList());
     }
 
     public WorldMap create(int steps) {

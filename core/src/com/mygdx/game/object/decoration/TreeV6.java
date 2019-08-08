@@ -6,13 +6,13 @@ import com.mygdx.game.object.WorldObject;
 
 import java.util.Random;
 
-public class TreeV2 implements WorldObject, Decoration {
+public class TreeV6 implements WorldObject, Decoration {
 
-    private final float worldMapSize = new Random().nextFloat() / 2f + 1.5f;
+    private final float worldMapSize = new Random().nextFloat() / 2f + 1.1f;
 
     private Point coordinates;
 
-    public TreeV2(Point point) {
+    public TreeV6(Point point) {
         coordinates = point;
     }
 

@@ -3,15 +3,11 @@ package com.mygdx.game.registry;
 import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.map.Cluster;
 import com.mygdx.game.map.Map2D;
+import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.floor.Floor;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ObjectRegistry {
@@ -24,6 +20,10 @@ public class ObjectRegistry {
     private ObjectRegistry() {
         objects = new HashMap<>();
         objectGrid = new HashMap<>();
+    }
+
+    public List<WorldObject> getAll(Map2D map) {
+        return objects.get(map).values().stream().flatMap(Collection::stream).collect(Collectors.toList());
     }
 
     public void add(Map2D map, Cluster cluster, WorldObject worldObject) {
@@ -66,7 +66,14 @@ public class ObjectRegistry {
 
     public void remove(Map2D currentMap, WorldObject object) {
         objects.get(currentMap).get(Cluster.of(object.getX(), object.getY())).remove(object);
-        objectGrid.get(currentMap)[(int)object.getX()][(int)object.getY()] = null;
+
+        int index = Floor.class.isAssignableFrom(object.getClass()) ? 0 : 1;
+        objectGrid.get(currentMap)[(int)object.getX()][(int)object.getY()][index] = null;
+
+        if(Obstacle.class.isAssignableFrom(object.getClass())) {
+            currentMap.setObstacle((int)object.getX(), (int)object.getY(), false);
+        }
+
     }
 
     public Map<Map2D, WorldObject[][][]> getObjectGrid() {

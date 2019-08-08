@@ -1,10 +1,12 @@
 package com.mygdx.game.renderer;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.floor.Road;
 import com.mygdx.game.object.floor.TileableFloorObject;
 import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.registry.RendererToolsRegistry;
@@ -41,6 +43,12 @@ public class GroundObjectRenderer implements Renderer<Map2D> {
             for (int j = Math.min(startY + lengthY / 2, dungeon.getHeight() - 1); j > Math.max(0, startY - lengthY / 2); j--) {
                 WorldObject worldObject = objectRegistry.getObjectGrid().get(dungeon)[i][j][0];
                 if (worldObject != null) {
+
+                    if(Road.class.isAssignableFrom(worldObject.getClass())) {
+                        spriteBatch.setColor(Color.valueOf("FFFFFFDD"));
+                    } else {
+                        spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
+                    }
 
                     if (TileableFloorObject.class.isAssignableFrom(worldObject.getClass())) {
                         spriteBatch.draw(FloorTileSelector.INSTANCE.getFor(objectRegistry.getObjectGrid().get(dungeon), worldObject), worldObject.getX(), worldObject.getY(), 1, 1);

@@ -6,7 +6,7 @@ import com.mygdx.game.object.WorldObject;
 
 import java.util.Random;
 
-public class TreeV4 implements WorldObject, Obstacle, Decoration {
+public class TreeV4 implements WorldObject, Decoration {
 
     private final float worldMapSize = new Random().nextFloat() / 2f + 1.5f;
 

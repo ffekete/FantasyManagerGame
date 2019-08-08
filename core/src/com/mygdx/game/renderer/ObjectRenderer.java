@@ -29,7 +29,6 @@ public class ObjectRenderer implements Renderer<Map2D> {
     private final RendererToolsRegistry rendererToolsRegistry = RendererToolsRegistry.INSTANCE;
 
     private WorldObject groundObject;
-    private float alpha = 1f;
 
     public ObjectRenderer() {
         this.progressBarRegion = new TextureRegion(textureRegistry.getFor(GuiComponent.HUD), 340, 110, 500, 40);
@@ -57,7 +56,7 @@ public class ObjectRenderer implements Renderer<Map2D> {
                     } else {
                         // setting transparency if the view is blocked by decoration
                         if (Decoration.class.isAssignableFrom(worldObject.getClass()) && isActorAdjacent(dungeon, i, j)) {
-                            spriteBatch.setColor(Color.valueOf("FFFFFF55"));
+                            spriteBatch.setColor(Color.valueOf("FFFFFF88"));
                         } else {
                             spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
                         }
@@ -96,8 +95,10 @@ public class ObjectRenderer implements Renderer<Map2D> {
     }
 
     private boolean isActorAdjacent(Map2D dungeon, int i, int j) {
-        return (j - 1 >= 0 && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j - 1] != null) ||
-                (j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j + 1] != null);
+        return (i - 1 >= 0 && j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i - 1][j + 1] != null) ||
+                (j - 1 >= 0 && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j - 1] != null) ||
+                (ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j] != null) ||
+                (i + 1 < dungeon.getWidth() && j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i + 1][j + 1] != null);
     }
 
     private int getIndex(WorldObject object) {
