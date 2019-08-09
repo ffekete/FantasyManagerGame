@@ -8,6 +8,7 @@ import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.decoration.Rotatable;
 import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.object.floor.Road;
 import com.mygdx.game.object.furniture.Furniture;

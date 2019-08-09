@@ -22,7 +22,7 @@ public class WorldMapDecorator {
 
     private int deathLimit = 5;
     private int birthLimit = 3;
-    private float chanceToStartAlive = 45;
+    private float chanceToStartAlive = 46;
 
     private final List<Class<? extends WorldObject>> decorations = ImmutableList.<Class<? extends WorldObject>>builder()
             .add(Tree.class)
@@ -31,11 +31,13 @@ public class WorldMapDecorator {
             .add(TreeV4.class)
             .add(TreeV5.class)
             .add(TreeV6.class)
+            .add(TreeV7.class)
             .add(Bush.class)
             .add(GiantLeafPlant.class)
             .add(YellowFlower.class)
             .add(BlueFlower.class)
             .add(PineTree.class)
+            .add(Rock.class)
             .build();
 
     public void decorate(int step, WorldMap worldMap) {

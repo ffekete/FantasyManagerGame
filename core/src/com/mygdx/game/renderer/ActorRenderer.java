@@ -21,6 +21,8 @@ import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 import com.mygdx.game.renderer.direction.DirectionSelector;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
+import com.mygdx.game.resolver.ModdablePathResolver;
+import com.mygdx.game.resolver.PathResolver;
 
 public class ActorRenderer implements Renderer<Map2D> {
 
@@ -32,6 +34,7 @@ public class ActorRenderer implements Renderer<Map2D> {
     private final ActionManager actionManager = ActionManager.INSTANCE;
 
     private Texture targetTexture = new Texture(Gdx.files.internal("location.png"));
+    private PathResolver<Texture> texturePathResolver = new ModdablePathResolver();
 
     TextureRegion textureRegion;
     TextureRegion healthBarRegion;
@@ -52,6 +55,11 @@ public class ActorRenderer implements Renderer<Map2D> {
             if (Alignment.FRIENDLY.equals(actor.getAlignment()) || visibilityMask == null || !visibilityMask.getValue(actor.getX(), actor.getY()).isEmpty())
                 if (AnimationRegistry.INSTANCE.getAnimations().containsKey(actor) && dungeon.getVisitedareaMap()[actor.getX()][actor.getY()] != VisitedArea.NOT_VISITED ) {
                     Activity activity = actor.getCurrentActivity();
+
+                    spriteBatch.setColor(Color.valueOf("FFFFFF88"));
+                    spriteBatch.draw(texturePathResolver.resolve("object/Shadow.png").get(), actor.getX() + actor.getxOffset() + 0.25f, actor.getY() + actor.getyOffset() + 0.25f, 0.5f, 0.5f);
+
+                    spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
                     AnimationRegistry.INSTANCE.getAnimations().get(actor).drawKeyFrame(spriteBatch, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), Config.Engine.ACTOR_HEIGHT, directionSelector.getDirection(actor), activity, actor.getClass());
                 }
 

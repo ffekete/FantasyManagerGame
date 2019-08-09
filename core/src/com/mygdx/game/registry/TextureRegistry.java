@@ -151,11 +151,14 @@ public class TextureRegistry {
                 .put(TreeV4.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV4.png")))
                 .put(TreeV5.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV5.png")))
                 .put(TreeV6.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV6.png")))
+                .put(TreeV7.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV7.png")))
                 .put(YellowFlower.class, Arrays.asList(texturePathResolver.resolve("object/decoration/YellowFlower.png")))
                 .put(BlueFlower.class, Arrays.asList(texturePathResolver.resolve("object/decoration/BlueFlower.png")))
                 .put(Bush.class, Arrays.asList(texturePathResolver.resolve("object/decoration/Bush.png")))
                 .put(GiantLeafPlant.class, Arrays.asList(texturePathResolver.resolve("object/decoration/GiantLeafPlant.png")))
                 .put(PineTree.class, Arrays.asList(texturePathResolver.resolve("object/decoration/PineTree.png")))
+                .put(Rock.class, Arrays.asList(texturePathResolver.resolve("object/decoration/Rock.png")))
+
                 // Wall
                 .put(IncompleteWoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallTilesetIncomplete.png")))
                 .put(IncompleteWoodenDoorWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallDoorTilesetIncomplete.png")))

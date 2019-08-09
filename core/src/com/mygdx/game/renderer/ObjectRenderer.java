@@ -12,6 +12,7 @@ import com.mygdx.game.object.ContainerObject;
 import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.decoration.Decoration;
+import com.mygdx.game.object.decoration.Rotatable;
 import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.registry.*;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
@@ -74,7 +75,15 @@ public class ObjectRenderer implements Renderer<Map2D> {
                             if (dungeon.getVisitedareaMap()[(int) worldObject.getX()][(int) worldObject.getY()] == VisitedArea.VISIBLE)
                                 animationRegistry.get((AnimatedObject) worldObject).drawKeyFrame(spriteBatch, worldObject.getX(), worldObject.getY(), 1, Direction.RIGHT);
                         } else {
-                            spriteBatch.draw(textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)), worldObject.getX(), worldObject.getY(), 0, 0, 1, 1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0, 0, 0, textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)).getWidth(), textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)).getHeight(), false, false);
+
+                            boolean flipX = false, flipY = false;
+
+                            if (Rotatable.class.isAssignableFrom(worldObject.getClass())) {
+                                flipX = ((Rotatable) worldObject).getFlipX();
+                                flipY = ((Rotatable) worldObject).getFlipY();
+                            }
+
+                            spriteBatch.draw(textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)), worldObject.getX(), worldObject.getY(), 0, 0, 1, 1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0, 0, 0, textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)).getWidth(), textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)).getHeight(), flipX, flipY);
                         }
 
                         if (BuildingBlock.class.isAssignableFrom(worldObject.getClass())) {
@@ -91,14 +100,15 @@ public class ObjectRenderer implements Renderer<Map2D> {
             }
         }
 
-        spriteBatch.getColor().a = 1f;
+        spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
     }
 
     private boolean isActorAdjacent(Map2D dungeon, int i, int j) {
-        return (i - 1 >= 0 && j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i - 1][j + 1] != null) ||
-                (j - 1 >= 0 && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j - 1] != null) ||
-                (ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j] != null) ||
-                (i + 1 < dungeon.getWidth() && j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i + 1][j + 1] != null);
+        return
+                ((i - 1 >= 0 && j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i - 1][j + 1] != null) ||
+                        ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j] != null ||
+                        (j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j + 1] != null) ||
+                        (i + 1 < dungeon.getWidth() && j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i + 1][j+1] != null));
     }
 
     private int getIndex(WorldObject object) {

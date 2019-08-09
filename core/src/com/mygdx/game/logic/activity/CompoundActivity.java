@@ -92,7 +92,7 @@ public abstract class CompoundActivity implements Activity {
 
     @Override
     public boolean isCancellable() {
-        for(int i = currentActivity; i < activities.size(); i++) {
+        for(int i = 0; i < activities.size(); i++) {
             if(activities.get(currentActivity).isCancellable())
                 return true;
         }

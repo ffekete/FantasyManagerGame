@@ -32,7 +32,7 @@ public class InteractActivity implements Activity {
 
     @Override
     public void cancel() {
-
+        actor.getActivityStack().clear();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class InteractActivity implements Activity {
 
     @Override
     public boolean isCancellable() {
-        return false;
+        return !object.canInteract(actor);
     }
 
     @Override
