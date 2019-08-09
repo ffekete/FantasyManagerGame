@@ -12,7 +12,7 @@ import java.util.Random;
 
 public class WorldMap implements Map2D {
     private TileBase[][] worldMap;
-    private int traverseCost[][];
+    private float traverseCost[][];
     private VisitedArea[][] visitedareaMap;
     private final int height;
     private final int width;
@@ -29,7 +29,7 @@ public class WorldMap implements Map2D {
         visibilityCalculator = new VisibilityCalculator(width, height);
 
         obstacle = new boolean[width][height];
-        traverseCost = new int[width][height];
+        traverseCost = new float[width][height];
 
         visitedareaMap = new VisitedArea[width][height];
         for(int i = 0; i < width; i++) {
@@ -135,12 +135,12 @@ public class WorldMap implements Map2D {
     }
 
     @Override
-    public int getTraverseCost(int x, int y) {
+    public float getTraverseCost(int x, int y) {
         return traverseCost[x][y];
     }
 
     @Override
-    public void setTraverseCost(int x, int y, int val) {
+    public void setTraverseCost(int x, int y, float val) {
         this.traverseCost[x][y] = val;
     }
 }

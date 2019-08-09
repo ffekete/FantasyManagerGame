@@ -25,6 +25,7 @@ public enum ObjectPlacement implements ObjectPlacementStrategy {
                 map.setObstacle(x, y, true);
             else {
                 int index = Floor.class.isAssignableFrom(object.getClass()) ? 1 : 0;
+                ObjectRegistry.INSTANCE.getObjectGrid().computeIfAbsent(map, v -> new WorldObject[map.getWidth()][map.getHeight()][2]);
                 WorldObject worldObject = ObjectRegistry.INSTANCE.getObjectGrid().get(map)[x][y][index];
                 if (worldObject != null)
                     map.setObstacle(x, y, Obstacle.class.isAssignableFrom(worldObject.getClass()));

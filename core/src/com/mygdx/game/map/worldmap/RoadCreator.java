@@ -49,7 +49,7 @@ public class RoadCreator {
             }
 
             ObjectFactory.create(Road.class, map, ObjectPlacement.FIXED.X(current.getX()).Y(current.getY()));
-            map.setTraverseCost(current.getX(), current.getY(), 1);
+            map.setTraverseCost(current.getX(), current.getY(), 0.2f);
 
             current = Point.of(x, y);
             i++;

@@ -9,6 +9,7 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.floor.Floor;
+import com.mygdx.game.object.floor.Road;
 import com.mygdx.game.object.furniture.Furniture;
 import com.mygdx.game.object.house.House;
 import com.mygdx.game.object.house.HouseBuiltDetector;
@@ -48,6 +49,10 @@ public class ObjectFactory {
             objectPlacement.place(object, map2D);
 
             ObjectRegistry.INSTANCE.add(map2D, Cluster.of(object.getX(), object.getY()), object);
+
+            if(Road.class.isAssignableFrom(clazz)) {
+                map2D.setTraverseCost((int)object.getX(), (int)object.getY(), 0.2f);
+            }
 
             if (Wall.class.isAssignableFrom(object.getClass())) {
                 HouseBuilder.buildHouse(clazz, map2D, object);

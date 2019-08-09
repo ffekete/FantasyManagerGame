@@ -3,6 +3,7 @@ package com.mygdx.game.input.mouse;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.input.mouse.processor.BuilderMouseActionProcessor;
+import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.RendererToolsRegistry;
 
 public class BuilderMoueInputController implements Controller {
@@ -26,7 +27,8 @@ public class BuilderMoueInputController implements Controller {
     public boolean mouseMoved(int screenX, int screenY) {
         screenCoords = new Vector3(screenX, screenY, 0);
         realWorldCoord = RendererToolsRegistry.INSTANCE.getCamera().unproject(screenCoords);
-
+//        if(realWorldCoord.x>=0 && realWorldCoord.y >= 0)
+//            System.out.println("Effort: " + MapRegistry.INSTANCE.getCurrentMapToShow().getTraverseCost((int)realWorldCoord.x, (int)realWorldCoord.y));
         return true;
     }
 }

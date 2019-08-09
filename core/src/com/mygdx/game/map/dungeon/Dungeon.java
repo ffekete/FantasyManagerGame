@@ -24,7 +24,7 @@ public class Dungeon implements Map2D {
     private Dungeon nextLevel = null;
     private Dungeon previousLevel = null;
     private boolean[][] obstacle;
-    private int traverseCost[][];
+    private float traverseCost[][];
 
     public Dungeon(int width, int height, DungeonType dungeonType) {
         this.height = height;
@@ -35,7 +35,7 @@ public class Dungeon implements Map2D {
 
         visibilityCalculator = new VisibilityCalculator(width, height);
 
-        this.traverseCost = new int[width][height];
+        this.traverseCost = new float[width][height];
 
         visitedareaMap = new VisitedArea[width][height];
         for(int i = 0; i < width; i++) {
@@ -154,12 +154,12 @@ public class Dungeon implements Map2D {
     }
 
     @Override
-    public int getTraverseCost(int x, int y) {
+    public float getTraverseCost(int x, int y) {
         return traverseCost[x][y];
     }
 
     @Override
-    public void setTraverseCost(int x, int y, int val) {
+    public void setTraverseCost(int x, int y, float val) {
         this.traverseCost[x][y] = val;
     }
 

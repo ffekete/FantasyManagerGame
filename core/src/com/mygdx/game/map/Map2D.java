@@ -28,9 +28,9 @@ public interface Map2D {
 
     int getTileVariation(int x, int y);
 
-    int getTraverseCost(int x, int y);
+    float getTraverseCost(int x, int y);
 
-    void setTraverseCost(int x, int y, int val);
+    void setTraverseCost(int x, int y, float val);
 
     enum MapType {
         DUNGEON_CAVE,

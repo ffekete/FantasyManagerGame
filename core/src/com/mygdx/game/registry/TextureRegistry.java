@@ -28,6 +28,7 @@ import com.mygdx.game.menu.MenuItem;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.decoration.*;
+import com.mygdx.game.object.floor.IncompleteDirtRoad;
 import com.mygdx.game.object.floor.IncompleteWoodenFloor;
 import com.mygdx.game.object.floor.Road;
 import com.mygdx.game.object.floor.WoodenFloor;
@@ -164,6 +165,7 @@ public class TextureRegistry {
                 // floor
                 .put(WoodenFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/WoodenFloor.png")))
                 .put(IncompleteWoodenFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/IncompleteWoodenFloor.png")))
+                .put(IncompleteDirtRoad.class, Arrays.asList(texturePathResolver.resolve("object/floor/IncompleteRoadTile.png")))
                 .put(Road.class, Arrays.asList(texturePathResolver.resolve("object/floor/RoadTile.png")))
 
                 // furniture

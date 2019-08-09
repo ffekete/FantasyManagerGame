@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PathFinder {
 
-    public static final int DEFAULT_EFFORT = 100;
+    public static final float DEFAULT_EFFORT = 100;
     private final Pool<Node> nodePool = new Pool<Node>() {
         @Override
         protected Node newObject() {
@@ -75,8 +75,9 @@ public class PathFinder {
         startNode.tile = map[start.getX()][start.getY()].tile;
         startNode.x = start.getX();
         startNode.y = start.getY();
+        startNode.effort = map[startNode.x][startNode.y].effort;
 
-        startNode.g = startNode.f = startNode.h = 0;
+        startNode.g = startNode.f = startNode.h = 0f;
         startNode.parent = null;
 
         Node end = nodePool.obtain();
@@ -84,7 +85,9 @@ public class PathFinder {
         end.x = target.getX();
         end.y = target.getY();
 
-        end.g = end.h = end.f = 0;
+        end.g = end.h = end.f = 0f;
+
+        end.effort = map[end.x][end.y].effort;
         end.parent = null;
 
         openNodes.add(startNode);
@@ -106,7 +109,7 @@ public class PathFinder {
             closedNodes.add(current);
 
             if ((current.x == target.getX() && current.y == target.getY()) ||
-                    map[target.getX()][target.getY()].tile == 1 && distance(current, new Node(0, target.getX(), target.getY(), DEFAULT_EFFORT)) < 2
+                    map[target.getX()][target.getY()].tile == 1 && distance(current, new Node(0, target.getX(), target.getY(), 0.f)) < 2
                     ) {
                 // hurra
                 Node c = current;
@@ -135,6 +138,7 @@ public class PathFinder {
                     child.tile = map[x][y].tile;
                     child.x = x;
                     child.y = y;
+                    child.effort = map[x][y].effort;
 
                     child.parent = current;
 
@@ -146,14 +150,17 @@ public class PathFinder {
             for (Node child : children) {
                 if (closedNodes.contains(child))
                     continue;
-                child.g = current.g + current.effort;
-                child.h = distance(child, end);
+                child.g = current.g + child.effort;
+                child.h = (float)distance(child, end);
                 child.f = child.g + child.h;
 
                 if (openNodes.contains(child)) {
-                    if (child.g > openNodes.get(openNodes.indexOf(child)).g) continue;
-                }
-                openNodes.add(child);
+                    if (child.g > openNodes.get(openNodes.indexOf(child)).g) {
+                        continue;
+
+                    }
+                } else
+                    openNodes.add(child);
             }
         }
 
@@ -169,6 +176,20 @@ public class PathFinder {
         int[][] obstacleMap = new int[pathFinder.getWidth()][pathFinder.getHeight()];
         pathFinder.init(obstacleMap);
 
+        pathFinder.getObstacleMap()[0][0].effort = 0.2f;
+        pathFinder.getObstacleMap()[0][1].effort = 0.2f;
+        pathFinder.getObstacleMap()[0][2].effort = 0.2f;
+        pathFinder.getObstacleMap()[0][3].effort = 0.2f;
+        pathFinder.getObstacleMap()[0][4].effort = 0.2f;
+        pathFinder.getObstacleMap()[0][5].effort = 0.2f;
+        pathFinder.getObstacleMap()[0][6].effort = 0.2f;
+        pathFinder.getObstacleMap()[0][7].effort = 0.2f;
+        pathFinder.getObstacleMap()[0][8].effort = 0.2f;
+        pathFinder.getObstacleMap()[0][9].effort = 0.2f;
+        pathFinder.getObstacleMap()[0][10].effort = 0.2f;
+        pathFinder.getObstacleMap()[0][11].effort = 0.2f;
+        pathFinder.getObstacleMap()[0][12].effort = 0.2f;
+
         pathFinder.addObstacle(98, 98, 1);
         int[][] resultMap = new int[pathFinder.getWidth()][pathFinder.getHeight()];
 
@@ -178,7 +199,7 @@ public class PathFinder {
 
         int i = 1;
         for (Node node : path) {
-            resultMap[node.x][node.y] = i;
+            resultMap[node.x][node.y] = 1;
             i++;
         }
 
@@ -202,7 +223,7 @@ public class PathFinder {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
 
-                obstacleMap[i][j] = new Node(map.getTile(i, j).isObstacle() || map.isObstacle(i,j) ? 1 : 0, i, j, DEFAULT_EFFORT);
+                obstacleMap[i][j] = new Node(map.getTile(i, j).isObstacle() || map.isObstacle(i,j) ? 1 : 0, i, j, map.getTraverseCost(i,j));
             }
         }
     }
@@ -211,7 +232,7 @@ public class PathFinder {
         obstacleMap = new Node[width][height];
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                obstacleMap[i][j] = new Node(map[i][j] != 1 ? 1 : 0, i, j, DEFAULT_EFFORT);
+                obstacleMap[i][j] = new Node(map[i][j], i, j, DEFAULT_EFFORT);
             }
         }
     }
@@ -227,25 +248,25 @@ public class PathFinder {
         private int y;
         private Node parent;
         private int tile;
-        private int effort;
-
-        int f, g, h;
+        float effort;
+        float f, g, h;
 
         @Override
         public boolean equals(Object obj) {
             if(!this.getClass().equals(obj.getClass())) {
                 return false;
             }
-            return ((Node)obj).x ==x && ((Node)obj).y == y;
+            return ((Node)obj).x ==x && ((Node)obj).y == y && effort == ((Node)obj).effort;
         }
 
         @Override
         public int hashCode() {
             int hash = 31 * x;
+            hash = 31 * hash + Float.hashCode(effort);
             return 31 * hash + y;
         }
 
-        public Node(int tile, int x, int y, int effort) {
+        public Node(int tile, int x, int y, float effort) {
             this.tile = tile;
             this.x = x;
             this.y = y;
@@ -267,6 +288,7 @@ public class PathFinder {
         @Override
         public void reset() {
             tile = 0;
+            effort = DEFAULT_EFFORT;
         }
     }
 }

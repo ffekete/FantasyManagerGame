@@ -21,6 +21,11 @@ public class StageConfigurer {
     public void configureButtons() {
         stages.get(GameState.Builder).addActor(BuilderStageConfig.INSTANCE.getButtonGroup());
         stages.get(GameState.Builder).addActor(BuilderStageConfig.INSTANCE.getBuildElementGroup());
+        stages.get(GameState.Builder).addActor(BuilderStageConfig.INSTANCE.getFurnitureGroup());
+        stages.get(GameState.Builder).addActor(BuilderStageConfig.INSTANCE.getFloorGroup());
+        stages.get(GameState.Builder).addActor(BuilderStageConfig.INSTANCE.getWallGroup());
+        stages.get(GameState.Builder).addActor(BuilderStageConfig.INSTANCE.getDoorGroup());
+        stages.get(GameState.Builder).addActor(BuilderStageConfig.INSTANCE.getRoadGroup());
         stages.get(GameState.Sandbox).addActor(SandboxStageConfig.INSTANCE.getButtonGroup());
     }
 
