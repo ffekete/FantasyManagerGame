@@ -24,6 +24,8 @@ public class ActivityManager {
         decisionTable = ImmutableMap.<Class<? extends Actor>, List<Decision>>builder()
 
                 .put(Builder.class, ImmutableList.of(
+                        new MoveAndCutDecision(),
+                        new MoveAndDropDecision(),
                         new MoveAndBuildDecision()))
 
                 .put(Ranger.class, ImmutableList.of(

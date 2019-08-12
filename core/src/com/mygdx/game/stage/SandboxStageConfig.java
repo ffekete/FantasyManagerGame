@@ -34,7 +34,7 @@ public class SandboxStageConfig {
     ImageButton inventoryButton = new ImageButton(buildButtonUp, buildButtonDown);
 
     public SandboxStageConfig() {
-        buttonGroup = new HorizontalGroup().pad(10, 10, 20, 10).bottom().left().wrap(false);
+        buttonGroup = new HorizontalGroup().pad(10, 0, 70, 10).bottom().left().wrap(false);
         buttonGroup.addActor(buildButton);
 
         buildButton.addListener(new ClickListener() {

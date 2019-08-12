@@ -24,6 +24,8 @@ public class WorldMapRenderer implements Renderer<Map2D> {
     private final DirtTileSelector dirtTileSelector = new DirtTileSelector();
 
     private TextureRegion texture;
+    private TextureRegion localtextureRegion = new TextureRegion();
+
     private VisibilityMask visibilityMask;
 
     @Override
@@ -48,7 +50,8 @@ public class WorldMapRenderer implements Renderer<Map2D> {
                     if (WorldMapTile.class.isAssignableFrom(map.getTile(i, j).getClass()) && ((WorldMapTile) map.getTile(i, j)).isTiled()) {
                         texture = dirtTileSelector.getFor(map, i, j);//textureRegistry.getForTile(map.getTile(i, j))
                     } else {
-                        texture = new TextureRegion(textureRegistry.getForTile(map.getTile(i, j)));
+                        localtextureRegion.setRegion(textureRegistry.getForTile(map.getTile(i, j)));
+                        texture = localtextureRegion;
                     }
 
                     spriteBatch.draw(texture, i, j, 1, 1);

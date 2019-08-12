@@ -29,8 +29,7 @@ public class ItemRenderer implements Renderer<Map2D> {
 
         for (Item item : itemRegistry.getAllItems(dungeon)) {
             if (!visibilityMask.getValue(item.getX(), item.getY()).isEmpty() && dungeon.getVisitedareaMap()[item.getX()][item.getY()] != VisitedArea.NOT_VISITED ) {
-                Texture actualTexture = textureRegistry.getFor(item.getClass());
-                spriteBatch.draw(actualTexture, item.getX(), item.getY() + offset, 0, 0, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, 0, 0, 0, actualTexture.getWidth(), actualTexture.getHeight(), false, false);
+                spriteBatch.draw(textureRegistry.getFor(item.getClass()), item.getX(), item.getY() + offset, 0, 0, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, 0, 0, 0, textureRegistry.getFor(item.getClass()).getWidth(), textureRegistry.getFor(item.getClass()).getHeight(), false, false);
             }
         }
     }

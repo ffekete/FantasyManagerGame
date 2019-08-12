@@ -87,6 +87,12 @@ public class Config {
         public static final int CANVAS_WIDTH = WIDTH - CELL_WIDTH;
     }
 
+    public static class BuilderActivity {
+        public static final int CHOP_DOWN_PRIORITY = 900;
+        public static final int STORE_PRIORITY = 950;
+        public static final int BUILD_PRIORITY = 1000;
+    }
+
     public static class Activity {
 
         public static final int HEALING_POTION_CONSUME_PRIORITY = 7;
@@ -102,13 +108,12 @@ public class Config {
         public static final int PICKUP_PRIORITY = 95;
         public static final int MOVE_PICKUP_EAT_PRIORITY = 96;
         public static final int EAT_PRIORITY = 97;
-        public static final int BUILD_PRIORITY = 98;
         public static final int INTERACT_PRIORITY = 98;
         public static final int SUPPORT_PRIORITY = 99;
         public static final int EXPLORATION_PRIORITY = 100;
         public static final int WAIT_PRIORITY = 101;
         public static final int MOVEMENT_PRIORITY = 120;
-        public static final int IDLE_PRIORITY = 140;
+        public static final int IDLE_PRIORITY = Integer.MAX_VALUE;
     }
 
     public static class Dungeon {

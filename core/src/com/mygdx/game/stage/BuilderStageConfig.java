@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.builder.BuilderTool;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
 import com.mygdx.game.object.floor.IncompleteDirtRoad;
+import com.mygdx.game.object.floor.IncompleteStorageAreaFloor;
 import com.mygdx.game.object.floor.IncompleteWoodenFloor;
 import com.mygdx.game.object.furniture.IncompleteWoodenBed;
 import com.mygdx.game.object.wall.IncompleteWoodenDoorWall;
@@ -40,7 +41,7 @@ public class BuilderStageConfig {
     ImageButton buildButton = new ImageButton(buildButtonUp, buildButtonDown);
 
     public BuilderStageConfig() {
-        buttonGroup = new HorizontalGroup().pad(10, 10, 20, 10).bottom().left().wrap(false);
+        buttonGroup = new HorizontalGroup().pad(10, 0, 70, 10).bottom().left().wrap(false);
         buttonGroup.addActor(buildButton);
 
         buildButton.addListener(new ClickListener() {
@@ -241,6 +242,21 @@ public class BuilderStageConfig {
 
         });
         floorGroup.add(buildWoodenFloorButton).width(30).center();
+
+        ImageButton buildStorageAreaFloorButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildStorageAreaButton.png")), 0, 0, 32, 32)),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildStorageAreaButton.png")), 32, 0, 32, 32)));
+
+        buildStorageAreaFloorButton.addListener(new TextTooltip("You can build a storage area with this.", textTooltipStyle));
+        buildStorageAreaFloorButton.addListener(new ClickListener() {
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                BuilderTool.INSTANCE.setBlockToBuild(IncompleteStorageAreaFloor.class);
+                return true;
+            }
+
+        });
+        floorGroup.add(buildStorageAreaFloorButton).width(30).center();
 
         // bed
         ImageButton buildWoodenBedButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/CreateBedButton.png")), 0, 0, 32, 32)),

@@ -25,6 +25,10 @@ public class Inventory {
         return (T)inventory.parallelStream().filter(item -> clazz.isAssignableFrom(item.getClass())).findFirst().get();
     }
 
+    public boolean has(Item item) {
+        return inventory.parallelStream().anyMatch(item::equals);
+    }
+
     public boolean has(Class clazz) {
         return inventory.parallelStream().anyMatch(item -> clazz.isAssignableFrom(item.getClass()));
     }

@@ -1,33 +1,26 @@
 package com.mygdx.game.object.factory;
 
-import com.mygdx.game.actor.Actor;
 import com.mygdx.game.animation.object.WorldObjectAnimation;
-import com.mygdx.game.faction.Alignment;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Cluster;
 import com.mygdx.game.map.Map2D;
-import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.AnimatedObject;
+import com.mygdx.game.object.StorageArea;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.decoration.Rotatable;
 import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.object.floor.Road;
 import com.mygdx.game.object.furniture.Furniture;
-import com.mygdx.game.object.house.House;
-import com.mygdx.game.object.house.HouseBuiltDetector;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.wall.Wall;
-import com.mygdx.game.registry.*;
+import com.mygdx.game.registry.AnimationRegistry;
+import com.mygdx.game.registry.LightSourceRegistry;
+import com.mygdx.game.registry.ObjectRegistry;
+import com.mygdx.game.registry.StorageRegistry;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class ObjectFactory {
-
-    private static final HouseBuilder houseBuilder = HouseBuilder.INSTANCE;
 
     public static <T extends WorldObject> T create(Class<T> clazz, Map2D map2D, ObjectPlacement objectPlacement) {
 
@@ -51,18 +44,22 @@ public class ObjectFactory {
 
             ObjectRegistry.INSTANCE.add(map2D, Cluster.of(object.getX(), object.getY()), object);
 
-            if(Road.class.isAssignableFrom(clazz)) {
-                map2D.setTraverseCost((int)object.getX(), (int)object.getY(), 0.2f);
+            if (Road.class.isAssignableFrom(clazz)) {
+                map2D.setTraverseCost((int) object.getX(), (int) object.getY(), 0.2f);
+            }
+
+            if (StorageArea.class.isAssignableFrom(object.getClass())) {
+                StorageRegistry.INSTANCE.add((StorageArea) object);
             }
 
             if (Wall.class.isAssignableFrom(object.getClass())) {
                 HouseBuilder.buildHouse(clazz, map2D, object);
             }
 
-            if(Furniture.class.isAssignableFrom(object.getClass())) {
+            if (Furniture.class.isAssignableFrom(object.getClass())) {
                 FurnitureToHouseAssigner.INSTANCE.assign((Furniture) object);
             }
-            if(Floor.class.isAssignableFrom(object.getClass())) {
+            if (Floor.class.isAssignableFrom(object.getClass())) {
                 FloorToHouseAssigner.INSTANCE.assign((Floor) object);
             }
 
@@ -71,9 +68,6 @@ public class ObjectFactory {
 
             if (LightSource.class.isAssignableFrom(clazz))
                 LightSourceRegistry.INSTANCE.add(map2D, (LightSource) object);
-
-            // todo set objects to obstacle
-            // map2D.getTile((float)object.getX(), (float)object.getY()).
         }
         return object;
     }

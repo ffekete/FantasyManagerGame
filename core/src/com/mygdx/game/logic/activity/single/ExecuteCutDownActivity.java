@@ -3,30 +3,40 @@ package com.mygdx.game.logic.activity.single;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.builder.BuildingBlock;
+import com.mygdx.game.item.Item;
 import com.mygdx.game.item.buildertool.Hammer;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.action.Action;
 import com.mygdx.game.logic.action.HammerSwingAction;
 import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.logic.command.Command;
+import com.mygdx.game.object.Cuttable;
+import com.mygdx.game.object.Targetable;
+import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.ActionRegistry;
+import com.mygdx.game.registry.CommandRegistry;
 import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.registry.TextureRegistry;
+import org.hamcrest.core.CombinableMatcher;
 
-public class BuildActivity implements Activity {
+public class ExecuteCutDownActivity implements Activity {
 
     private final ObjectRegistry objectRegistry = ObjectRegistry.INSTANCE;
     private final ActionRegistry actionRegistry = ActionRegistry.INSTANCE;
 
     private Actor actor;
-    private BuildingBlock object;
+    private Cuttable object;
+    private Command command;
     private int counter;
     private boolean firstRun = true;
     Action action;
 
-    public BuildActivity(Actor actor, BuildingBlock object) {
+    public ExecuteCutDownActivity(Actor actor, Command<Cuttable> command) {
         this.actor = actor;
-        this.object = object;
+        this.object= command.getTarget();
+        this.command = command;
     }
 
     @Override
@@ -80,12 +90,22 @@ public class BuildActivity implements Activity {
 
     @Override
     public void clear() {
-        objectRegistry.remove(actor.getCurrentMap(), object);
+        objectRegistry.remove(actor.getCurrentMap(), (WorldObject) object);
 
         //actor.getCurrentMap().setObstacle((int)object.getX(), (int)object.getY(), false);
 
-        ObjectFactory.create(object.finish(), actor.getCurrentMap(), ObjectPlacement.FIXED.X((int) object.getX()).Y((int) object.getY()));
+        try {
+            actor.getInventory().add((Item)object.finish(actor).getDeclaredConstructor(Point.class).newInstance(actor.getCoordinates()));
 
+        } catch (Exception e) {
+            // hmm
+        }
+
+        System.out.println(CommandRegistry.INSTANCE.getCommands().size());
+        CommandRegistry.INSTANCE.getCommands().remove(command);
+        System.out.println(CommandRegistry.INSTANCE.getCommands().size());
+
+        //ObjectFactory.create(, actor.getCurrentMap(), ObjectPlacement.FIXED.X((int)((WorldObject)object).getX()).Y((int)((WorldObject)object).getY()));
     }
 
     @Override

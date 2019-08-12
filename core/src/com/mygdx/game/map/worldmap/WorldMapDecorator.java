@@ -38,6 +38,7 @@ public class WorldMapDecorator {
             .add(BlueFlower.class)
             .add(PineTree.class)
             .add(Rock.class)
+            .add(Log.class)
             .build();
 
     public void decorate(int step, WorldMap worldMap) {

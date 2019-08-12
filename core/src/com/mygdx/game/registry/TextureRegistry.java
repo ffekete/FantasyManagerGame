@@ -28,15 +28,13 @@ import com.mygdx.game.menu.MenuItem;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.decoration.*;
-import com.mygdx.game.object.floor.IncompleteDirtRoad;
-import com.mygdx.game.object.floor.IncompleteWoodenFloor;
-import com.mygdx.game.object.floor.Road;
-import com.mygdx.game.object.floor.WoodenFloor;
+import com.mygdx.game.object.floor.*;
 import com.mygdx.game.object.furniture.IncompleteWoodenBed;
 import com.mygdx.game.object.furniture.WoodenBed;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.interactive.Ladder;
 import com.mygdx.game.object.light.LightSourceType;
+import com.mygdx.game.item.resources.Wood;
 import com.mygdx.game.object.wall.IncompleteWoodenDoorWall;
 import com.mygdx.game.object.wall.IncompleteWoodenWall;
 import com.mygdx.game.object.wall.WoodenWall;
@@ -65,8 +63,11 @@ public class TextureRegistry {
     private Map<Class<? extends AnimatedObject>, Optional<Texture>> objectAnimationTextures;
     private Map<DungeonType, Optional<Texture>> dungeonTilesetTextures;
     private Map<MenuItem, Optional<Texture>> menuItems;
+    private Texture shadowTexture;
 
     public TextureRegistry(PathResolver<Texture> texturePathResolver) {
+
+        shadowTexture = texturePathResolver.resolve("object/Shadow.png").get();
 
         menuItems = ImmutableMap.<MenuItem, Optional<Texture>>builder()
                 .put(MenuItem.Inventory, texturePathResolver.resolve("menu/Inventory.png"))
@@ -97,6 +98,7 @@ public class TextureRegistry {
                 .put(PoisonCloudAction.class, texturePathResolver.resolve("effects/PoisonCloud.png"))
                 .put(ExplosionAction.class, texturePathResolver.resolve("effects/ExplosionEffect.png"))
                 .put(SmallExplosionAction.class, texturePathResolver.resolve("effects/ExplosionEffect.png"))
+                .put(TargetMarkerAction.class, texturePathResolver.resolve("ui/marker/TargetMarker.png"))
                 .build();
 
         guiTextures = ImmutableMap.<GuiComponent, Optional<Texture>>builder()
@@ -123,6 +125,8 @@ public class TextureRegistry {
                 .put(JadeStaff.class, texturePathResolver.resolve("items/JadeStaff.png"))
                 .put(LongBow.class, texturePathResolver.resolve("items/LongBow.png"))
                 .put(Hammer.class, texturePathResolver.resolve("effects/Hammer.png"))
+                // resources
+                .put(Wood.class, texturePathResolver.resolve("items/resource/Wood.png"))
                 .build();
 
         mapTextures = ImmutableMap.<TileBase, Optional<Texture>>builder()
@@ -158,6 +162,7 @@ public class TextureRegistry {
                 .put(GiantLeafPlant.class, Arrays.asList(texturePathResolver.resolve("object/decoration/GiantLeafPlant.png")))
                 .put(PineTree.class, Arrays.asList(texturePathResolver.resolve("object/decoration/PineTree.png")))
                 .put(Rock.class, Arrays.asList(texturePathResolver.resolve("object/decoration/Rock.png")))
+                .put(Log.class, Arrays.asList(texturePathResolver.resolve("object/decoration/Log.png")))
 
                 // Wall
                 .put(IncompleteWoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallTilesetIncomplete.png")))
@@ -170,6 +175,8 @@ public class TextureRegistry {
                 .put(IncompleteWoodenFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/IncompleteWoodenFloor.png")))
                 .put(IncompleteDirtRoad.class, Arrays.asList(texturePathResolver.resolve("object/floor/IncompleteRoadTile.png")))
                 .put(Road.class, Arrays.asList(texturePathResolver.resolve("object/floor/RoadTile.png")))
+                .put(StorageAreaFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/StorageArea.png")))
+                .put(IncompleteStorageAreaFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/IncompleteStorageArea.png")))
 
                 // furniture
                 .put(IncompleteWoodenBed.class, Arrays.asList(texturePathResolver.resolve("object/furniture/IncompleteWoodenBed.png")))
@@ -234,5 +241,9 @@ public class TextureRegistry {
         for (Optional<Texture> t : itemTextures.values()) {
             t.get().dispose();
         }
+    }
+
+    public Texture getShadowTexture() {
+        return shadowTexture;
     }
 }

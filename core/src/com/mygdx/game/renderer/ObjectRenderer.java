@@ -1,7 +1,6 @@
 package com.mygdx.game.renderer;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.actor.Direction;
@@ -18,8 +17,6 @@ import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.registry.*;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
 import com.mygdx.game.renderer.selector.WallTileSelector;
-import com.mygdx.game.resolver.ModdablePathResolver;
-import com.mygdx.game.resolver.PathResolver;
 
 public class ObjectRenderer implements Renderer<Map2D> {
 
@@ -33,8 +30,6 @@ public class ObjectRenderer implements Renderer<Map2D> {
     private final RendererToolsRegistry rendererToolsRegistry = RendererToolsRegistry.INSTANCE;
 
     private WorldObject groundObject;
-
-    private PathResolver<Texture> texturePathResolver = new ModdablePathResolver();
 
     public ObjectRenderer() {
         this.progressBarRegion = new TextureRegion(textureRegistry.getFor(GuiComponent.HUD), 340, 110, 500, 40);
@@ -90,7 +85,7 @@ public class ObjectRenderer implements Renderer<Map2D> {
 
                             if(Decoration.class.isAssignableFrom(worldObject.getClass())) {
                                 spriteBatch.setColor(Color.valueOf("FFFFFF22"));
-                                spriteBatch.draw(texturePathResolver.resolve("object/Shadow.png").get(), worldObject.getX(), worldObject.getY(), 0,0, 1,1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0,0,0, 32, 32, false, false);
+                                spriteBatch.draw(textureRegistry.getShadowTexture(), worldObject.getX(), worldObject.getY(), 0,0, 1,1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0,0,0, 32, 32, false, false);
 
                                 spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
                             }

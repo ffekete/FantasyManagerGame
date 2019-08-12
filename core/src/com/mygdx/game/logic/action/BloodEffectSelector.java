@@ -1,7 +1,5 @@
 package com.mygdx.game.logic.action;
 
-import com.badlogic.gdx.Files;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;

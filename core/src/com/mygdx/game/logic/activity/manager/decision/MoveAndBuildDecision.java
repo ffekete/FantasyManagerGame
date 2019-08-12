@@ -37,7 +37,7 @@ public class MoveAndBuildDecision implements Decision {
                 System.out.println("Found building block!");
                 WorldObject worldObject = blocks.get(0);
 
-                MoveAndBuildActivity moveAndBuildActivity = new MoveAndBuildActivity(Config.Activity.BUILD_PRIORITY);
+                MoveAndBuildActivity moveAndBuildActivity = new MoveAndBuildActivity(Config.BuilderActivity.BUILD_PRIORITY);
 
                 moveAndBuildActivity.add(new MovementActivity(actor, (int) worldObject.getX(), (int) worldObject.getY(), 1, new PathFinder()));
                 moveAndBuildActivity.add(new BuildActivity(actor, (BuildingBlock) worldObject));
