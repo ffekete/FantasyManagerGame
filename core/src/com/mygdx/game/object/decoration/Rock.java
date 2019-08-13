@@ -15,8 +15,8 @@ public class Rock implements WorldObject, Decoration, Rotatable, Obstacle {
 
     public Rock(Point coordinates) {
         this.coordinates = coordinates;
-        flipX = coordinates.getX() % 2 == 0;
-        flipY = coordinates.getY() % 2 == 0;
+        flipX = new Random().nextInt() % 2 == 0;
+        flipY = new Random().nextInt() % 2 == 0;
     }
 
     @Override

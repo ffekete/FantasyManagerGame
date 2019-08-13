@@ -32,15 +32,17 @@ public class MoveAndDropDecision implements Decision {
                 // find Items
                 Item item = actor.getInventory().get(Resource.class);
 
+                // looking for resource already in store identical to the one we have now
                 Optional<StorageArea> area = ObjectRegistry.INSTANCE.getAll(actor.getCurrentMap()).stream()
                         .filter(object -> StorageArea.class.isAssignableFrom(object.getClass()))
                         .filter(object -> ((StorageArea) object).getStoredItem() != null && ((StorageArea) object).getStoredItem().equals(item.getClass()))
                         .findAny()
                         .map(object -> (StorageArea) object);
+
+                // if not stored, looking for a new empty spot
                 if(!area.isPresent()) {
                     area = ObjectRegistry.INSTANCE.getAll(actor.getCurrentMap()).stream()
-                            .filter(object -> StorageArea.class.isAssignableFrom(object.getClass()))
-                            .filter(object -> ((StorageArea) object).getStoredItem() == null)
+                            .filter(object -> StorageArea.class.isAssignableFrom(object.getClass()) && ((StorageArea) object).getStoredItem() == null)
                             .findAny().map(object -> (StorageArea) object);
                 }
 
