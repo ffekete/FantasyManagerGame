@@ -18,8 +18,9 @@ public class SandboxMouseInputController implements Controller {
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         screenCoords.x = screenX;
         screenCoords.y = screenY;
+
         realWorldCoord = RendererToolsRegistry.INSTANCE.getCamera().unproject(screenCoords);
-        return sandboxMouseActionProcessor.onClick(Point.of(realWorldCoord), pointer);
+        return sandboxMouseActionProcessor.onClick(Point.of(screenX, screenY), Point.of(realWorldCoord), pointer);
     }
 
     @Override
