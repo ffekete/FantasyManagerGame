@@ -36,6 +36,10 @@ public interface Actor {
     boolean isHungry();
     void increaseHunger(int amount);
     void decreaseHunger(int amount);
+    boolean isSleepy();
+    void increaseSleepiness(int amount);
+    void decreaseSleepiness(int amount);
+    int getSleepinessLevel();
     int getHungerLevel();
     void pickUp(Item item);
     Inventory getInventory();

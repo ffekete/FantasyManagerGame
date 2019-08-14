@@ -51,12 +51,23 @@ public class FullBodyActorAnimation implements ActorAnimation {
         ) {
             return AnimationPhase.WALK.column;
         }
+
+        if(SleepActivity.class.isAssignableFrom(activity.getCurrentClass())) {
+            return AnimationPhase.SLEEP_IN_BED.column;
+        }
+
+        if(SleepAtCampfireActivity.class.isAssignableFrom(activity.getCurrentClass()) || SleepOutsideActivity.class.isAssignableFrom(activity.getCurrentClass())) {
+            return AnimationPhase.SLEEP_OUTSIDE.column;
+        }
+
         return AnimationPhase.ATTACK.column; // attack
     }
 
     private enum AnimationPhase {
         WALK(0),
-        ATTACK(1);
+        ATTACK(1),
+        SLEEP_IN_BED(2),
+        SLEEP_OUTSIDE(3);
 
         private int column;
 

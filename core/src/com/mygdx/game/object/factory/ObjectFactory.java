@@ -38,6 +38,20 @@ public class ObjectFactory {
             e.printStackTrace();
         }
 
+        if(object == null) {
+            try {
+                object = clazz.getConstructor(Point.class, Map2D.class).newInstance(point, map2D);
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+
         if (object != null) {
 
             objectPlacement.place(object, map2D);
@@ -70,5 +84,16 @@ public class ObjectFactory {
                 LightSourceRegistry.INSTANCE.add(map2D, (LightSource) object);
         }
         return object;
+    }
+
+    public static void remove(Map2D map, WorldObject worldObject) {
+        ObjectRegistry.INSTANCE.remove(map, worldObject);
+        if(LightSource.class.isAssignableFrom(worldObject.getClass())) {
+            LightSourceRegistry.INSTANCE.remove((LightSource) worldObject);
+        }
+
+        if (AnimatedObject.class.isAssignableFrom(worldObject.getClass()))
+            AnimationRegistry.INSTANCE.remove((AnimatedObject) worldObject);
+
     }
 }

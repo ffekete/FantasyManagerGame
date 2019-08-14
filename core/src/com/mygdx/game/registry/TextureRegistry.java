@@ -139,6 +139,7 @@ public class TextureRegistry {
 
         objectAnimationTextures = ImmutableMap.<Class<? extends AnimatedObject>, Optional<Texture>>builder()
                 .put(StandingTorch.class, texturePathResolver.resolve("object/StandingTorch.png"))
+                .put(CampFire.class, texturePathResolver.resolve("object/CampFire.png"))
                 .put(SpiderWeb.class, texturePathResolver.resolve("object/SpiderWeb.png"))
                 .build();
 

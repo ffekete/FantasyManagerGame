@@ -1,16 +1,12 @@
 package com.mygdx.game.renderer.inventory;
 
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.attribute.Attributes;
 import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.logic.GameState;
-import com.mygdx.game.logic.Point;
 import com.mygdx.game.menu.MenuItem;
 import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.registry.TextureRegistry;
@@ -18,8 +14,6 @@ import com.mygdx.game.renderer.Renderer;
 import com.mygdx.game.rules.levelup.ExperienceLevelMapper;
 import com.mygdx.game.stage.StageConfigurer;
 import com.mygdx.game.utils.GdxUtils;
-
-import java.util.Optional;
 
 public class InventoryRenderer implements Renderer<Actor> {
 
@@ -86,6 +80,17 @@ public class InventoryRenderer implements Renderer<Actor> {
         // MP
         RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "MP", ATTRIBUTES_PANEL_X, screenY - i * 35);
         RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "" + actor.getMaxMana() + " / " + actor.getMana(), ATTRIBUTE_VALUE_COLUMN_X, screenY - i * 35);
+        i++;
+
+        // Hunger
+        RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "Hunger: ", ATTRIBUTES_PANEL_X, screenY - i * 35);
+        RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "" + actor.getHungerLevel(), ATTRIBUTE_VALUE_COLUMN_X, screenY - i * 35);
+        i++;
+
+        // Sleepiness
+        RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "Sleepiness: ", ATTRIBUTES_PANEL_X, screenY - i * 35);
+        RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "" + actor.getSleepinessLevel(), ATTRIBUTE_VALUE_COLUMN_X, screenY - i * 35);
+
 
         // WeaponSkills
         i = 5;

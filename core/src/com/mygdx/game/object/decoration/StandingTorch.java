@@ -15,6 +15,7 @@ public class StandingTorch implements WorldObject, LightSource, AnimatedObject, 
     private Point coordinates;
     private float flickering = 0.0f;
     private int counter = 0;
+    private Color color = Color.valueOf("FF5555");
 
     public StandingTorch(Point point) {
         coordinates = point;
@@ -37,7 +38,7 @@ public class StandingTorch implements WorldObject, LightSource, AnimatedObject, 
 
     @Override
     public Color getColor() {
-        return Color.valueOf("FF5555");
+        return color;
     }
 
     @Override

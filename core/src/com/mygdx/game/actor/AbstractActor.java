@@ -42,6 +42,7 @@ public abstract class AbstractActor implements Actor {
 
     private Point coordinates;
     private int hungerLevel;
+    private int sleepinessLevel;
     private Alignment alignment;
 
     private float xOffset = 0;
@@ -74,7 +75,7 @@ public abstract class AbstractActor implements Actor {
 
     public AbstractActor() {
         this.traitList = new TraitList();
-        this.hungerLevel = Config.BASE_HUNGER_LEVEL;
+        this.hungerLevel = Config.Rules.BASE_HUNGER_LEVEL;
         this.baseAttributes = new HashMap<>();
         this.weaponSkills = new HashMap<>();
         this.magicSkills = new HashMap<>();
@@ -129,12 +130,12 @@ public abstract class AbstractActor implements Actor {
     // override this later for monsters!
     @Override
     public boolean isHungry() {
-        return hungerLevel == Config.BASE_HUNGER_LIMIT;
+        return hungerLevel == Config.Rules.BASE_HUNGER_LIMIT * 075f;
     }
 
     @Override
     public void increaseHunger(int amount) {
-        hungerLevel = Math.min(Config.BASE_HUNGER_LIMIT, hungerLevel + amount);
+        hungerLevel = Math.min(Config.Rules.BASE_HUNGER_LIMIT, hungerLevel + amount);
     }
 
     @Override
@@ -451,5 +452,25 @@ public abstract class AbstractActor implements Actor {
     @Override
     public void addTrait(Trait trait) {
         traitList.add(trait);
+    }
+
+    @Override
+    public boolean isSleepy() {
+        return sleepinessLevel >= Config.Rules.BASE_SLEEPINESS_LIMIT * 0.75f;
+    }
+
+    @Override
+    public void increaseSleepiness(int amount) {
+        sleepinessLevel = Math.min(Config.Rules.BASE_SLEEPINESS_LIMIT, sleepinessLevel + amount);
+    }
+
+    @Override
+    public void decreaseSleepiness(int amount) {
+        sleepinessLevel = Math.max(0, sleepinessLevel - amount);
+    }
+
+    @Override
+    public int getSleepinessLevel() {
+        return sleepinessLevel;
     }
 }

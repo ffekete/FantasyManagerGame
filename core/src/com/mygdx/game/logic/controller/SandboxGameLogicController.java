@@ -64,6 +64,7 @@ public class SandboxGameLogicController implements Controller {
                 if (actorRegistry.containsAnyHeroes(map)) {
                     actorRegistry.getActors(map).forEach(actor -> {
                         actor.increaseHunger(1);
+                        actor.increaseSleepiness(1);
                         actor.getActivityStack().performNext();
                         activityManager.manage(actor);
                     });

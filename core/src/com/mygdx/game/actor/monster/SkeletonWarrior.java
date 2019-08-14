@@ -32,6 +32,26 @@ public class SkeletonWarrior extends AbstractActor implements MeleeActor {
     }
 
     @Override
+    public boolean isSleepy() {
+        return false;
+    }
+
+    @Override
+    public void increaseSleepiness(int amount) {
+
+    }
+
+    @Override
+    public void decreaseSleepiness(int amount) {
+
+    }
+
+    @Override
+    public int getSleepinessLevel() {
+        return 0;
+    }
+
+    @Override
     public String getActorClass() {
         return "Skeleton warrior";
     }

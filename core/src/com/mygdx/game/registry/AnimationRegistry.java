@@ -1,10 +1,8 @@
 package com.mygdx.game.registry;
 
-import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.animation.ActorAnimation;
 import com.mygdx.game.animation.Animation;
-import com.mygdx.game.animation.AnimationBuilder;
 import com.mygdx.game.object.AnimatedObject;
 
 import java.util.HashMap;
@@ -41,4 +39,7 @@ public class AnimationRegistry {
         animations.remove(actor);
     }
 
+    public void remove(AnimatedObject worldObject) {
+        objectAnimations.remove(worldObject);
+    }
 }

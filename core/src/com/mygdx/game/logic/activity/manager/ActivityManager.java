@@ -24,6 +24,7 @@ public class ActivityManager {
         decisionTable = ImmutableMap.<Class<? extends Actor>, List<Decision>>builder()
 
                 .put(Builder.class, ImmutableList.of(
+                        new SleepingDecision(),
                         new MoveAndCutDecision(),
                         new MoveAndDropDecision(),
                         new MoveAndBuildDecision()))
@@ -37,6 +38,7 @@ public class ActivityManager {
                         new MoveAndAttackDecision(),
                         new OpenChestDecision(),
                         new MovePickupDecision(),
+                        new SleepingDecision(),
                         new EatingDecision(),
                         new LeaveDungeonDecision(),
                         new DungeonVisitingDecision(),
@@ -56,6 +58,7 @@ public class ActivityManager {
                         new MoveAndAttackDecision(),
                         new OpenChestDecision(),
                         new MovePickupDecision(),
+                        new SleepingDecision(),
                         new EatingDecision(),
                         new LeaveDungeonDecision(),
                         new DungeonVisitingDecision(),
@@ -75,6 +78,7 @@ public class ActivityManager {
                         new MoveAndAttackDecision(),
                         new OpenChestDecision(),
                         new MovePickupDecision(),
+                        new SleepingDecision(),
                         new EatingDecision(),
                         new LeaveDungeonDecision(),
                         new DungeonVisitingDecision(),

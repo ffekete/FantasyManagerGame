@@ -30,6 +30,7 @@ import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallManaPotion;
 import com.mygdx.game.item.shield.MediumShield;
@@ -143,6 +144,12 @@ public class WorldMapSample extends SampleBase {
         warrior.setName("Boromir");
         warrior.addTrait(Trait.Friendly);
         warrior.getInventory().add(new SmallAntiVenomPotion());
+        warrior.getInventory().add(new Bread());
+        warrior.getInventory().add(new Bread());
+        warrior.getInventory().add(new Bread());
+        warrior.getInventory().add(new Bread());
+        warrior.getInventory().add(new Bread());
+        warrior.increaseSleepiness(49000);
 
         ranger = ActorFactory.INSTANCE.create(Ranger.class, worldMap, Placement.FIXED.X(8).Y(10));
         ranger.equip(new LongBow());
@@ -151,6 +158,12 @@ public class WorldMapSample extends SampleBase {
         ranger.getInventory().add(new SmallHealingPotion());
         ranger.getInventory().add(new SmallHealingPotion());
         ranger.getInventory().add(new SmallHealingPotion());
+
+        ranger.getInventory().add(new Bread());
+        ranger.getInventory().add(new Bread());
+        ranger.getInventory().add(new Bread());
+        ranger.getInventory().add(new Bread());
+        ranger.increaseSleepiness(49000);
 
         hero = ActorFactory.INSTANCE.create(Wizard.class, worldMap, Placement.FIXED.X(9).Y(10));
         hero.getInventory().add(new SmallHealingPotion());
@@ -191,6 +204,12 @@ public class WorldMapSample extends SampleBase {
         hero.getInventory().add(new SmallAntiVenomPotion());
         hero.getInventory().add(new SmallAntiVenomPotion());
         hero.getInventory().add(new SmallAntiVenomPotion());
+
+        hero.getInventory().add(new Bread());
+        hero.getInventory().add(new Bread());
+        hero.getInventory().add(new Bread());
+
+        hero.increaseSleepiness(49000);
 
         hero.addExperiencePoints(100000);
 
