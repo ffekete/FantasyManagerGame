@@ -56,6 +56,7 @@ import com.mygdx.game.object.decoration.BlueFlower;
 import com.mygdx.game.object.decoration.Bush;
 import com.mygdx.game.object.decoration.Tree;
 import com.mygdx.game.object.decoration.YellowFlower;
+import com.mygdx.game.object.factory.HouseFactory;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.interactive.DungeonEntrance;
@@ -243,6 +244,9 @@ public class WorldMapSample extends SampleBase {
         WorldMapDirtSpreadDecorator worldMapDirtSpreadDecorator = new WorldMapDirtSpreadDecorator();
         worldMapDirtSpreadDecorator.decorate(2, worldMap);
 
+        HouseFactory.INSTANCE.create(5,5, 3, worldMap);
+
+        HouseFactory.INSTANCE.create(0,0, 3, worldMap);
     }
 
 

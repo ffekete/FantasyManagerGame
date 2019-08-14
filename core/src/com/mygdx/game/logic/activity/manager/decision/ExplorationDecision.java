@@ -8,6 +8,11 @@ import com.mygdx.game.logic.activity.single.ExplorationActivity;
 public class ExplorationDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
+
+        if(actor.isSleeping()) {
+            return false;
+        }
+
         //System.out.println(actor.getCurrentMap().areAllLevelsExplored());
         if(Alignment.FRIENDLY.equals(actor.getAlignment()) && !Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType()) && !actor.getCurrentMap().isExplored() && !actor.getActivityStack().contains(ExplorationActivity.class)) {
             ExplorationActivity explorationActivity = new ExplorationActivity(actor.getCurrentMap() ,actor);

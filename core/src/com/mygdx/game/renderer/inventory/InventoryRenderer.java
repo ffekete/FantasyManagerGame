@@ -84,12 +84,12 @@ public class InventoryRenderer implements Renderer<Actor> {
 
         // Hunger
         RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "Hunger: ", ATTRIBUTES_PANEL_X, screenY - i * 35);
-        RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "" + actor.getHungerLevel(), ATTRIBUTE_VALUE_COLUMN_X, screenY - i * 35);
+        RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "" + actor.getHungerLevel() * 100 / Config.Rules.BASE_HUNGER_LIMIT + "%", ATTRIBUTE_VALUE_COLUMN_X, screenY - i * 35);
         i++;
 
         // Sleepiness
         RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "Sleepiness: ", ATTRIBUTES_PANEL_X, screenY - i * 35);
-        RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "" + actor.getSleepinessLevel(), ATTRIBUTE_VALUE_COLUMN_X, screenY - i * 35);
+        RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "" + actor.getSleepinessLevel() * 100 / Config.Rules.BASE_SLEEPINESS_LIMIT + "%", ATTRIBUTE_VALUE_COLUMN_X, screenY - i * 35);
 
 
         // WeaponSkills

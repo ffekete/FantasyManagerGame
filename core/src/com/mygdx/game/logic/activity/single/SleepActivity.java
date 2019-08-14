@@ -2,15 +2,19 @@ package com.mygdx.game.logic.activity.single;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.Direction;
 import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 
 public class SleepActivity implements Activity {
 
     private Actor actor;
     private int counter = 0;
+    private boolean firstRun = true;
 
     public SleepActivity(Actor actor) {
         this.actor = actor;
+        ActorMovementHandler.INSTANCE.updateDirection(actor, Direction.LEFT);
     }
 
     @Override
@@ -25,12 +29,12 @@ public class SleepActivity implements Activity {
 
     @Override
     public void init() {
-
+        actor.unequip(actor.getLeftHandItem());
+        actor.unequip(actor.getRightHandItem());
     }
 
     @Override
     public void cancel() {
-
     }
 
     @Override
@@ -40,7 +44,7 @@ public class SleepActivity implements Activity {
 
     @Override
     public boolean isFirstRun() {
-        return false;
+        return firstRun;
     }
 
     @Override

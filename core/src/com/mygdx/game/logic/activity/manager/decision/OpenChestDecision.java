@@ -28,6 +28,10 @@ public class OpenChestDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
+        if(actor.isSleeping()) {
+            return false;
+        }
+
         if (!actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
             List<Cluster> clusters = new ArrayList<>();
 

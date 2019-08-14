@@ -24,6 +24,10 @@ public class MoveAndCutDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
+        if(actor.isSleeping()) {
+            return false;
+        }
+
         if (actor.getActivityStack().contains(MoveAndCutDownActivity.class)) {
             return true;
         }

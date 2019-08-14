@@ -29,7 +29,7 @@ public class SleepingDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
-        if (actor.getActivityStack().contains(SleepAtCampfireActivity.class) || actor.getActivityStack().contains(SleepActivity.class) || actor.getActivityStack().contains(MoveAndSleepActivity.class) || actor.getActivityStack().contains(SleepOutsideActivity.class)) {
+        if (actor.isSleeping()) {
             return true;
         }
 
@@ -61,11 +61,13 @@ public class SleepingDecision implements Decision {
                     actor.getActivityStack().add(sleepActivity);
                     return true;
                 } else {
+                    System.out.println(actor.getName() + " has a bed, going to " + ((WorldObject)bed.get()).getX() + " " + ((WorldObject)bed.get()).getY());
                     MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY);
                     moveAndSleepActivity.add(new MovementActivity(actor, (int) ((WorldObject) bed.get()).getX(), (int) ((WorldObject) bed.get()).getY(), 0, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
                     moveAndSleepActivity.add(new SleepActivity(actor));
                     actor.getActivityStack().clear();
                     actor.getActivityStack().add(moveAndSleepActivity);
+                    return true;
                 }
             } else {
                 // find a spot to camp

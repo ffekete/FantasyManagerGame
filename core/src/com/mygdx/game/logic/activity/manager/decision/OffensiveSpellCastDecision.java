@@ -20,6 +20,10 @@ public class OffensiveSpellCastDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
+        if(actor.isSleeping()) {
+            return false;
+        }
+
         if(actor.getActivityStack().contains(OffensiveSpellCastActivity.class)) {
             return true;
         }

@@ -7,7 +7,7 @@ import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.OwnedObject;
 import com.mygdx.game.object.WorldObject;
 
-public class WoodenBed implements WorldObject, Obstacle, InteractiveObject, Bed, OwnedObject, Furniture {
+public class WoodenBed implements WorldObject, InteractiveObject, Bed, OwnedObject, Furniture {
 
     private Actor owner;
     private Point coordinates;

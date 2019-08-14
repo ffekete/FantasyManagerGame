@@ -22,6 +22,11 @@ public class MovePickupDecision implements Decision {
 
     @Override
     public boolean decide(Actor actor) {
+
+        if(actor.isSleeping()) {
+            return false;
+        }
+
         if(!actor.getActivityStack().contains(MovePickupActivity.class)) {
             List<Item> Items = itemRegistry.getAllItems(actor.getCurrentMap());
             if(!Items.isEmpty()) {

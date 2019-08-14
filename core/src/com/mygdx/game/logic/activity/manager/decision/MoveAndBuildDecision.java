@@ -25,6 +25,10 @@ public class MoveAndBuildDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
+        if(actor.isSleeping()) {
+            return false;
+        }
+
         if (actor.getActivityStack().contains(MoveAndBuildActivity.class)) {
             return true;
         }

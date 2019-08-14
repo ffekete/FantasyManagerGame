@@ -18,6 +18,10 @@ public class FriendlySupportDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
+        if(actor.isSleeping()) {
+            return false;
+        }
+
         if(!actor.hasTrait(Trait.Friendly)) {
             return false;
         }

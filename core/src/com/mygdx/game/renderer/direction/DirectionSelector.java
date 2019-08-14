@@ -19,7 +19,6 @@ public class DirectionSelector {
         }
 
         if(WaitActivity.class.isAssignableFrom(actor.getCurrentActivity().getCurrentClass())) {
-
             return Direction.UP;
         }
 
@@ -28,6 +27,10 @@ public class DirectionSelector {
             if(direction != null) {
                 return direction;
             }
+        }
+
+        if(actor.isSleeping()) {
+            return Direction.RIGHT;
         }
 
         // default direction

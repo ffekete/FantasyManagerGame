@@ -25,6 +25,10 @@ public class DungeonVisitingDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
+        if(actor.isSleeping()) {
+            return false;
+        }
+
         if(!actor.getActivityStack().contains(MoveAndInteractActivity.class)  && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())) {
             List<Cluster> clusters = new ArrayList<>();
 

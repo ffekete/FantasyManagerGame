@@ -53,7 +53,9 @@ public interface Actor {
     String getName();
     void setName(String name);
 
+    boolean isSleeping();
     void equip(Equipable equipable);
+    void unequip(Equipable equipable);
     int getHp();
     int getMaxHp();
     void setHp(int value);

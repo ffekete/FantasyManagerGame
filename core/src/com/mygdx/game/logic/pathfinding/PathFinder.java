@@ -118,7 +118,7 @@ public class PathFinder {
                     path.add(c1);
                     c = c.parent;
                 }
-                break;
+                return path;
             }
 
             List<Node> children = new ArrayList<>();
@@ -168,7 +168,7 @@ public class PathFinder {
             nodePool.free(n);
         }
 
-        return path;
+        return null;
     }
 
     public static void main(String[] args) {

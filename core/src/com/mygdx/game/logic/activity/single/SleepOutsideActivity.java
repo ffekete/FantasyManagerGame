@@ -25,7 +25,8 @@ public class SleepOutsideActivity implements Activity {
 
     @Override
     public void init() {
-
+        actor.unequip(actor.getLeftHandItem());
+        actor.unequip(actor.getRightHandItem());
     }
 
     @Override

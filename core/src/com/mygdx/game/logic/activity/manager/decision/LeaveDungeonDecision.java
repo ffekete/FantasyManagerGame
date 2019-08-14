@@ -23,6 +23,10 @@ public class LeaveDungeonDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
+        if(actor.isSleeping()) {
+            return false;
+        }
+
         if(actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
             return true;
         }

@@ -29,6 +29,10 @@ public class MoveAndAttackDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
+        if(actor.isSleeping()) {
+            return false;
+        }
+
         // this will be handled by a different decision class
         if (RangedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass()))
             return false;

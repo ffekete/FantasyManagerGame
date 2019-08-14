@@ -149,4 +149,7 @@ public class ActorMovementHandler {
         return false;
     }
 
+    public void updateDirection(Actor actor, Direction direction) {
+        directions.put(actor, direction);
+    }
 }

@@ -25,6 +25,11 @@ public class MoveAndDropDecision implements Decision {
 
     @Override
     public boolean decide(Actor actor) {
+
+        if(actor.isSleeping()) {
+            return false;
+        }
+
         if (!actor.getActivityStack().contains(MoveAndStoreActivity.class)) {
 
             if (actor.getInventory().has(Resource.class)) {

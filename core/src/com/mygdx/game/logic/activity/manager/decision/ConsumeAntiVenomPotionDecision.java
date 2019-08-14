@@ -13,12 +13,16 @@ public class ConsumeAntiVenomPotionDecision implements Decision {
 
     @Override
     public boolean decide(Actor actor) {
+        if (actor.isSleeping()) {
+            return false;
+        }
+
         if (actor.getActivityStack().contains(ConsumeAntiVenomPotion.class)) {
             return true;
         }
 
         if (effectRegistry.getAll(actor).stream().anyMatch(effect -> Poison.class.isAssignableFrom(effect.getClass())) && !actor.getActivityStack().contains(ConsumeAntiVenomPotionDecision.class)) {
-            if(actor.getInventory().has(AntiVenomPotion.class)) {
+            if (actor.getInventory().has(AntiVenomPotion.class)) {
                 actor.getActivityStack().clear();
                 Activity activity = new ConsumeAntiVenomPotion(actor, actor.getInventory().get(AntiVenomPotion.class));
                 actor.getActivityStack().add(activity);

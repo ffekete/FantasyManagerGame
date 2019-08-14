@@ -16,6 +16,11 @@ public class WanderingDecision implements Decision {
 
     @Override
     public boolean decide(Actor actor) {
+
+        if(actor.isSleeping()) {
+            return false;
+        }
+
         if (Alignment.FRIENDLY.equals(actor.getAlignment())) {
             if (actor.getActivityStack().isEmpty() ||
                     (actor.getActivityStack().contains(IdleActivity.class) && actor.getActivityStack().getSize() == 1)) {

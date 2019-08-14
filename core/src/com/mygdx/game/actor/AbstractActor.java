@@ -20,6 +20,10 @@ import com.mygdx.game.item.spelltome.SpellTome;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.logic.activity.compound.MoveAndSleepActivity;
+import com.mygdx.game.logic.activity.single.SleepActivity;
+import com.mygdx.game.logic.activity.single.SleepAtCampfireActivity;
+import com.mygdx.game.logic.activity.single.SleepOutsideActivity;
 import com.mygdx.game.logic.activity.stack.ActivityStack;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.ActorRegistry;
@@ -239,13 +243,33 @@ public abstract class AbstractActor implements Actor {
             leftHand = equipable;
             inventory.remove(equipable);
             equipable.onEquip(this);
-            System.out.println(name + " equiped in left hand " + equipable);
+            System.out.println(name + " equipped in left hand " + equipable);
 
         } else if (Weapon.class.isAssignableFrom(equipable.getClass())) {
             rightHand = equipable;
             inventory.remove(equipable);
             equipable.onEquip(this);
-            System.out.println(name + " equiped in right hand " + equipable);
+            System.out.println(name + " equipped in right hand " + equipable);
+        }
+    }
+
+    @Override
+    public void unequip(Equipable equipable) {
+        if(equipable == null) {
+            return;
+        }
+
+        if (Shield.class.isAssignableFrom(equipable.getClass())) {
+            leftHand = null;
+            inventory.add(equipable);
+            equipable.onRemove(this);
+            System.out.println(name + " unequipped in left hand " + equipable);
+
+        } else if (Weapon.class.isAssignableFrom(equipable.getClass())) {
+            rightHand = null;
+            inventory.add(equipable);
+            equipable.onRemove(this);
+            System.out.println(name + " unequipped in right hand " + equipable);
         }
     }
 
@@ -472,5 +496,10 @@ public abstract class AbstractActor implements Actor {
     @Override
     public int getSleepinessLevel() {
         return sleepinessLevel;
+    }
+
+    @Override
+    public boolean isSleeping() {
+        return activityStack.contains(SleepActivity.class) || activityStack.contains(SleepAtCampfireActivity.class) || activityStack.contains(SleepOutsideActivity.class) || activityStack.contains(MoveAndSleepActivity.class);
     }
 }

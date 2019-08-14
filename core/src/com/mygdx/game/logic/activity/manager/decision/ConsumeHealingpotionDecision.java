@@ -10,14 +10,18 @@ public class ConsumeHealingpotionDecision implements Decision {
 
     @Override
     public boolean decide(Actor actor) {
-        if(actor.getInventory().has(HealingPotion.class) && !actor.getActivityStack().contains(ConsumeHealingPotion.class)) {
-            if(actor.getHp() < actor.getMaxHp() / Config.Actor.LOW_HP_THRESHOLD_DIVIDER) {
+        if (actor.isSleeping()) {
+            return false;
+        }
+
+        if (actor.getInventory().has(HealingPotion.class) && !actor.getActivityStack().contains(ConsumeHealingPotion.class)) {
+            if (actor.getHp() < actor.getMaxHp() / Config.Actor.LOW_HP_THRESHOLD_DIVIDER) {
                 actor.getActivityStack().clear();
                 Activity activity = new ConsumeHealingPotion(actor, actor.getInventory().get(HealingPotion.class));
                 actor.getActivityStack().add(activity);
                 return true;
             }
-        } else if(actor.getActivityStack().contains(ConsumeHealingPotion.class)){
+        } else if (actor.getActivityStack().contains(ConsumeHealingPotion.class)) {
             return true;
         }
         return false;

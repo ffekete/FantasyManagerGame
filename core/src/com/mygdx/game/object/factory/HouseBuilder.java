@@ -52,6 +52,7 @@ class HouseBuilder {
                         house.setWalls(houseWalls);
                         house.getWalls().add((Wall) object);
                         houseRegistry.add(house, owner.get());
+                        System.out.println("For " + owner.get().getName());
                         updateCoordinates(house);
                         furnitureToHouseAssigner.assignAllTo(map2D, house);
                         floorToHouseAssigner.assignAllTo(map2D, house);
