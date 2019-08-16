@@ -20,6 +20,7 @@ public class CampFire implements WorldObject, LightSource, AnimatedObject, Obsta
     private Point coordinates;
     private Map2D map;
     private Color color = Color.valueOf("AABB2288");
+    private int phase = new Random().nextInt(3);
 
     private float flickering = 0.0f;
     private int counter = 0;
@@ -123,5 +124,15 @@ public class CampFire implements WorldObject, LightSource, AnimatedObject, Obsta
     @Override
     public boolean allFree() {
         return !spaces.values().contains(false);
+    }
+
+    @Override
+    public int getPhase() {
+        return phase;
+    }
+
+    @Override
+    public float getSpeed() {
+        return 0.1f;
     }
 }

@@ -1,19 +1,20 @@
 package com.mygdx.game.object.decoration;
 
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
 
 import java.util.Random;
 
-public class SpiderWeb implements WorldObject, AnimatedObject {
+
+public class Grass implements WorldObject, AnimatedObject, Decoration {
 
     private Point coordinates;
-
     private int phase = new Random().nextInt(3);
 
-    public SpiderWeb(Point point) {
-        coordinates = point;
+    public Grass(Point coordinates, Map2D map) {
+        this.coordinates = coordinates;
     }
 
     @Override
@@ -33,12 +34,12 @@ public class SpiderWeb implements WorldObject, AnimatedObject {
 
     @Override
     public Point getCoordinates() {
-        return this.coordinates;
+        return coordinates;
     }
 
     @Override
     public float getWorldMapSize() {
-        return 1f;
+        return 1F;
     }
 
     @Override
@@ -48,6 +49,6 @@ public class SpiderWeb implements WorldObject, AnimatedObject {
 
     @Override
     public float getSpeed() {
-        return 0.1f;
+        return 0.015f;
     }
 }

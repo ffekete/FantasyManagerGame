@@ -240,10 +240,11 @@ public class WorldMapSample extends SampleBase {
 
         // decorate
         WorldMapDecorator worldMapDecorator = new WorldMapDecorator();
-        worldMapDecorator.decorate(2, worldMap);
 
         WorldMapDirtSpreadDecorator worldMapDirtSpreadDecorator = new WorldMapDirtSpreadDecorator();
         worldMapDirtSpreadDecorator.decorate(2, worldMap);
+
+        worldMapDecorator.decorate(2, worldMap);
 
         HouseFactory.INSTANCE.create(5,5, 3, worldMap);
 

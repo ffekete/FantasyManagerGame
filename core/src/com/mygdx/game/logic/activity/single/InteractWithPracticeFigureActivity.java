@@ -33,6 +33,7 @@ public class InteractWithPracticeFigureActivity implements Activity {
         if(object.canInteract(actor)) {
             object.onInteract(actor);
             actor.increaseTrainingNeeds(-1000);
+            actor.increaseSleepiness(800);
 
             action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), actor);
             actionRegistry.add(actor.getCurrentMap(), action);

@@ -15,12 +15,16 @@ public class WorldObjectAnimation implements Animation {
 
     private final AnimatedObject animatedObject;
 
-    private float phase = 0;
+    private float phase;
+    private float speed;
 
     private Texture texture;
 
     public WorldObjectAnimation(AnimatedObject animatedObject) {
         this.animatedObject = animatedObject;
+        phase = animatedObject.getPhase();
+        speed = animatedObject.getSpeed();
+
     }
 
     @Override
@@ -31,7 +35,7 @@ public class WorldObjectAnimation implements Animation {
 
         spriteBatch.draw(texture, x, y, 0, 0, 1, 1, scale, scale, 0, (int) phase * 32, 0, 32, 32, false, false);
 
-        phase = (phase + 0.1f) % maxPhase;
+        phase = (phase + speed) % maxPhase;
     }
 
     @Override

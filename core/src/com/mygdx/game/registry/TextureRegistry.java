@@ -143,6 +143,8 @@ public class TextureRegistry {
                 .put(CampFire.class, texturePathResolver.resolve("object/CampFire.png"))
                 .put(SpiderWeb.class, texturePathResolver.resolve("object/SpiderWeb.png"))
                 .put(PracticeFigure.class, texturePathResolver.resolve("object/training/PracticeFigure.png"))
+                .put(Grass.class, texturePathResolver.resolve("object/decoration/Grass.png"))
+                .put(GrassV2.class, texturePathResolver.resolve("object/decoration/GrassV2.png"))
                 .build();
 
         objectTextures = ImmutableMap.<Class<? extends WorldObject>, List<Optional<Texture>>>builder()

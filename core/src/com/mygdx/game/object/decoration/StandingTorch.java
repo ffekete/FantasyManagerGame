@@ -16,6 +16,7 @@ public class StandingTorch implements WorldObject, LightSource, AnimatedObject, 
     private float flickering = 0.0f;
     private int counter = 0;
     private Color color = Color.valueOf("FF5555");
+    private int phase = new Random().nextInt(3);
 
     public StandingTorch(Point point) {
         coordinates = point;
@@ -69,5 +70,15 @@ public class StandingTorch implements WorldObject, LightSource, AnimatedObject, 
     @Override
     public float getWorldMapSize() {
         return 1f;
+    }
+
+    @Override
+    public int getPhase() {
+        return phase;
+    }
+
+    @Override
+    public float getSpeed() {
+        return 0.1f;
     }
 }
