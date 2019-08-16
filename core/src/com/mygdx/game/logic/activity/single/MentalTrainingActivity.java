@@ -11,8 +11,9 @@ import com.mygdx.game.object.InteractiveObject;
 import com.mygdx.game.registry.ActionRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.TextureRegistry;
+import com.mygdx.game.sound.DistanceBasedSoundPlayer;
 
-public class InteractWithPracticeFigureActivity implements Activity {
+public class MentalTrainingActivity implements Activity {
 
     private final ActionRegistry actionRegistry = ActionRegistry.INSTANCE;
 
@@ -23,7 +24,7 @@ public class InteractWithPracticeFigureActivity implements Activity {
 
     private Sound hitSound = Gdx.audio.newSound(Gdx.files.internal("sounds/hit/hit07.mp3"));
 
-    public InteractWithPracticeFigureActivity(Actor actor, InteractiveObject object) {
+    public MentalTrainingActivity(Actor actor, InteractiveObject object) {
         this.actor = actor;
         this.object= object;
     }
@@ -38,13 +39,10 @@ public class InteractWithPracticeFigureActivity implements Activity {
         if(object.canInteract(actor)) {
             object.onInteract(actor);
             actor.increaseTrainingNeeds(-1000);
-            actor.increaseSleepiness(800);
-
-            action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), actor);
-            actionRegistry.add(actor.getCurrentMap(), action);
+            actor.increaseSleepiness(600);
 
             if(MapRegistry.INSTANCE.getCurrentMapToShow().equals(actor.getCurrentMap())) {
-                hitSound.play(1f, 1f, 1f);
+                DistanceBasedSoundPlayer.play(hitSound, actor.getCoordinates(), 0.05f ,0.01f);
             }
         }
     }

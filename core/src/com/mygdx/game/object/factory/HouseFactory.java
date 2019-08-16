@@ -2,7 +2,7 @@ package com.mygdx.game.object.factory;
 
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.decoration.PracticeFigure;
+import com.mygdx.game.object.interactive.PracticeFigure;
 import com.mygdx.game.object.floor.WoodenFloor;
 import com.mygdx.game.object.furniture.WoodenBed;
 import com.mygdx.game.object.placement.ObjectPlacement;

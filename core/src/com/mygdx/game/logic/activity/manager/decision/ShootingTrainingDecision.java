@@ -3,16 +3,18 @@ package com.mygdx.game.logic.activity.manager.decision;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
-import com.mygdx.game.logic.activity.single.PhysicalTrainingActivity;
+import com.mygdx.game.logic.activity.single.MentalTrainingActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
-import com.mygdx.game.object.interactive.PracticeFigure;
+import com.mygdx.game.logic.activity.single.ShootingTrainingActivity;
 import com.mygdx.game.object.house.House;
+import com.mygdx.game.object.interactive.BookCase;
+import com.mygdx.game.object.interactive.ShootingTarget;
 import com.mygdx.game.registry.HouseRegistry;
 import com.mygdx.game.registry.MapRegistry;
 
 import java.util.List;
 
-public class PhysicalTrainingDecision implements Decision {
+public class ShootingTrainingDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
@@ -20,7 +22,7 @@ public class PhysicalTrainingDecision implements Decision {
             return false;
         }
 
-        if (PhysicalTrainingActivity.class.equals(actor.getActivityStack().getCurrent().getCurrentClass())) {
+        if (ShootingTrainingActivity.class.equals(actor.getActivityStack().getCurrent().getCurrentClass())) {
             return true;
         }
 
@@ -31,17 +33,17 @@ public class PhysicalTrainingDecision implements Decision {
                 return false;
             }
 
-            List<PracticeFigure> practiceFigures = house.getFurnitureOfType(PracticeFigure.class);
+            List<ShootingTarget> shootingTargets = house.getFurnitureOfType(ShootingTarget.class);
 
-            if (practiceFigures.isEmpty()) {
+            if (shootingTargets.isEmpty()) {
                 return false;
             }
 
             MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.TRAINING_PRIORITY);
-            MovementActivity movementActivity = new MovementActivity(actor, (int) practiceFigures.get(0).getX(), (int) practiceFigures.get(0).getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap()));
-            PhysicalTrainingActivity physicalTrainingActivity = new PhysicalTrainingActivity(actor, practiceFigures.get(0));
+            MovementActivity movementActivity = new MovementActivity(actor, (int) shootingTargets.get(0).getX(), (int) shootingTargets.get(0).getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap()));
+            ShootingTrainingActivity shootingTrainingActivity = new ShootingTrainingActivity(actor, shootingTargets.get(0));
             moveAndInteractActivity.add(movementActivity)
-                    .add(physicalTrainingActivity);
+                    .add(shootingTrainingActivity);
 
             actor.getActivityStack().clear();
             actor.getActivityStack().add(moveAndInteractActivity);

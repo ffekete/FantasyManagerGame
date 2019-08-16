@@ -58,6 +58,8 @@ import com.mygdx.game.object.decoration.Tree;
 import com.mygdx.game.object.decoration.YellowFlower;
 import com.mygdx.game.object.factory.HouseFactory;
 import com.mygdx.game.object.factory.ObjectFactory;
+import com.mygdx.game.object.interactive.BookCase;
+import com.mygdx.game.object.interactive.ShootingTarget;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.item.potion.SmallHealingPotion;
@@ -165,7 +167,8 @@ public class WorldMapSample extends SampleBase {
         ranger.getInventory().add(new Bread());
         ranger.getInventory().add(new Bread());
         ranger.getInventory().add(new Bread());
-        ranger.increaseSleepiness(49000);
+        ranger.increaseSleepiness(10000);
+        ranger.increaseTrainingNeeds(48000);
 
         hero = ActorFactory.INSTANCE.create(Wizard.class, worldMap, Placement.FIXED.X(9).Y(10));
         hero.getInventory().add(new SmallHealingPotion());
@@ -211,9 +214,11 @@ public class WorldMapSample extends SampleBase {
         hero.getInventory().add(new Bread());
         hero.getInventory().add(new Bread());
 
-        hero.increaseSleepiness(49000);
+        hero.increaseTrainingNeeds(48000);
 
-        hero.addExperiencePoints(100000);
+        hero.increaseSleepiness(10000);
+
+        //hero.addExperiencePoints(100000);
 
         dungeon = dungeonFactory.create(CaveDungeonCreator.class);
         dungeon2 = dungeonFactory.create(DungeonWithRoomsCreator.class);
@@ -248,7 +253,15 @@ public class WorldMapSample extends SampleBase {
 
         HouseFactory.INSTANCE.create(5,5, 3, worldMap);
 
-        HouseFactory.INSTANCE.create(0,0, 3, worldMap);
+        HouseFactory.INSTANCE.create(1,1, 3, worldMap);
+
+        HouseFactory.INSTANCE.create(1, 10, 4, worldMap);
+        ObjectFactory.create(ShootingTarget.class, worldMap, ObjectPlacement.FIXED.X(3).Y(12));
+
+        HouseFactory.INSTANCE.create(19, 19, 5, worldMap);
+
+        ObjectFactory.create(BookCase.class, worldMap, ObjectPlacement.FIXED.X(23).Y(23));
+
     }
 
 

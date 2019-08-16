@@ -1,24 +1,19 @@
-package com.mygdx.game.object.decoration;
+package com.mygdx.game.object.interactive;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.*;
 import com.mygdx.game.object.furniture.Furniture;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-public class PracticeFigure implements WorldObject, InteractiveObject, Obstacle, AnimatedObject, Furniture, TrainingObject {
+public class BookCase implements WorldObject, InteractiveObject, Obstacle, Furniture, TrainingObject {
 
     private final float worldMapSize = 1f;
 
     private Point coordinates;
 
-    private int phase = new Random().nextInt(3);
-
-    public PracticeFigure(Point point) {
+    public BookCase(Point point) {
         coordinates = point;
     }
 
@@ -60,15 +55,5 @@ public class PracticeFigure implements WorldObject, InteractiveObject, Obstacle,
     @Override
     public int getExperienceAmount() {
         return 20;
-    }
-
-    @Override
-    public int getPhase() {
-        return phase;
-    }
-
-    @Override
-    public float getSpeed() {
-        return 0.1f;
     }
 }

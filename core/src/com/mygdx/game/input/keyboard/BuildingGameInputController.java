@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.builder.BuilderTool;
 import com.mygdx.game.logic.GameState;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
 import com.mygdx.game.object.floor.IncompleteWoodenFloor;
 import com.mygdx.game.object.floor.WoodenFloor;
@@ -29,7 +30,8 @@ public class BuildingGameInputController {
         if(keycode == Input.Keys.B) {
             GameFlowControllerFacade.INSTANCE.setGameState(GameState.Sandbox);
             for(Actor actor : actorRegistry.getActors(mapRegistry.getCurrentMapToShow())) {
-                actor.getActivityStack().clear();
+                //actor.getActivityStack().clear();
+                //ActorMovementHandler.INSTANCE.clearPath(actor);
             }
         }
 

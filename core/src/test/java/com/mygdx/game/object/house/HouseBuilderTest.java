@@ -5,7 +5,7 @@ import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.decoration.PracticeFigure;
+import com.mygdx.game.object.interactive.PracticeFigure;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.furniture.IncompleteWoodenBed;
 import com.mygdx.game.object.placement.ObjectPlacement;
