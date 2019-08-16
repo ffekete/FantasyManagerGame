@@ -45,18 +45,19 @@ public class ActivityManagerTest {
         VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
 
         Actor hero = new Warrior();
-        hero.setCoordinates(new Point(10, 10));
         hero.setCurrentMap(dungeon);
+        hero.setCoordinates(new Point(10, 10));
+
         hero.equip(new ShortSword());
         Actor goblin = new Goblin();
+        goblin.setCurrentMap(dungeon);
         goblin.equip(new ShortSword());
         goblin.setCoordinates(new Point(15, 15));
-        goblin.setCurrentMap(dungeon);
 
         Actor skeleton = new Skeleton();
+        skeleton.setCurrentMap(dungeon);
         skeleton.equip(new ShortSword());
         skeleton.setCoordinates(Point.of(0, 0));
-        skeleton.setCurrentMap(dungeon);
 
         Actor skeleton2 = new Skeleton();
         skeleton2.setCurrentMap(dungeon);
@@ -178,20 +179,20 @@ public class ActivityManagerTest {
         VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
 
         Actor hero = new Wizard();
-        hero.setCoordinates(new Point(10, 10));
         hero.setCurrentMap(dungeon);
+        hero.setCoordinates(new Point(10, 10));
         hero.equip(new ShortSword());
         hero.setMana(0);
 
         Actor goblin = new Goblin();
+        goblin.setCurrentMap(dungeon);
         goblin.equip(new ShortSword());
         goblin.setCoordinates(new Point(15, 15));
-        goblin.setCurrentMap(dungeon);
 
         Actor skeleton = new Skeleton();
+        skeleton.setCurrentMap(dungeon);
         skeleton.equip(new ShortSword());
         skeleton.setCoordinates(Point.of(0, 0));
-        skeleton.setCurrentMap(dungeon);
 
         Actor skeleton2 = new Skeleton();
         skeleton2.setCurrentMap(dungeon);
@@ -280,19 +281,19 @@ public class ActivityManagerTest {
         VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
 
         Actor hero = new Warrior();
-        hero.setCoordinates(new Point(10, 10));
         hero.setCurrentMap(dungeon);
+        hero.setCoordinates(new Point(10, 10));
         hero.getWeaponSkills().put(WeaponSkill.Bow, 2);
         hero.equip(new LongBow());
         Actor goblin = new Goblin();
+        goblin.setCurrentMap(dungeon);
         goblin.equip(new ShortSword());
         goblin.setCoordinates(new Point(15, 15));
-        goblin.setCurrentMap(dungeon);
 
         Actor skeleton = new Skeleton();
+        skeleton.setCurrentMap(dungeon);
         skeleton.equip(new ShortSword());
         skeleton.setCoordinates(Point.of(0, 0));
-        skeleton.setCurrentMap(dungeon);
 
         visibilityMask.setValue(15, 15, hero);
         visibilityMask.setValue(10, 10, goblin);
@@ -358,17 +359,18 @@ public class ActivityManagerTest {
         VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
 
         Actor hero = new Wizard();
-        hero.setCoordinates(new Point(10, 10));
         hero.setCurrentMap(dungeon);
+        hero.setCoordinates(new Point(10, 10));
+
         hero.getWeaponSkills().put(WeaponSkill.Bow, 2);
         hero.equip(new LongBow());
         hero.setHp(1000);
         hero.setMana(1000);
 
         Actor goblin = new Goblin();
+        goblin.setCurrentMap(dungeon);
         goblin.equip(new ShortSword());
         goblin.setCoordinates(new Point(15, 15));
-        goblin.setCurrentMap(dungeon);
         goblin.setHp(1000);
 
         visibilityMask.setValue(15, 15, hero);
@@ -395,16 +397,16 @@ public class ActivityManagerTest {
         VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
 
         Actor hero = new Warrior();
-        hero.setCoordinates(new Point(10, 10));
         hero.setCurrentMap(dungeon);
+        hero.setCoordinates(new Point(10, 10));
         hero.getWeaponSkills().put(WeaponSkill.Bow, 2);
         hero.equip(new LongBow());
         hero.setHp(1000);
 
         Actor goblin = new Goblin();
+        goblin.setCurrentMap(dungeon);
         goblin.equip(new ShortSword());
         goblin.setCoordinates(new Point(15, 15));
-        goblin.setCurrentMap(dungeon);
         goblin.setHp(1000);
 
 
@@ -433,17 +435,17 @@ public class ActivityManagerTest {
         VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
 
         Actor hero = new Warrior();
-        hero.setCoordinates(new Point(10, 10));
         hero.setCurrentMap(dungeon);
+        hero.setCoordinates(new Point(10, 10));
         hero.getWeaponSkills().put(WeaponSkill.Bow, 2);
         hero.equip(new LongBow());
         hero.setHp(1000);
 
         Actor goblin = new Goblin();
+        goblin.setCurrentMap(dungeon);
         goblin.equip(new LongBow());
         goblin.getWeaponSkills().put(WeaponSkill.Bow, 2);
         goblin.setCoordinates(new Point(15, 15));
-        goblin.setCurrentMap(dungeon);
         goblin.setHp(1000);
 
 
@@ -491,22 +493,22 @@ public class ActivityManagerTest {
         VisibilityMapRegistry.INSTANCE.add(dungeon, visibilityMask);
 
         Actor hero = new Wizard();
-        hero.setCoordinates(new Point(10, 10));
         hero.setCurrentMap(dungeon);
+        hero.setCoordinates(new Point(10, 10));
         hero.getWeaponSkills().put(WeaponSkill.Bow, 2);
         hero.equip(new LongBow());
         hero.setMana(100);
         hero.setHp(100);
 
         Actor goblin = new Goblin();
+        goblin.setCurrentMap(dungeon);
         goblin.equip(new LongBow());
         goblin.setCoordinates(new Point(15, 15));
-        goblin.setCurrentMap(dungeon);
 
         Actor skeleton = new Skeleton();
+        skeleton.setCurrentMap(dungeon);
         skeleton.equip(new ShortSword());
         skeleton.setCoordinates(Point.of(0, 0));
-        skeleton.setCurrentMap(dungeon);
 
         visibilityMask.setValue(15, 15, hero);
         visibilityMask.setValue(10, 10, goblin);

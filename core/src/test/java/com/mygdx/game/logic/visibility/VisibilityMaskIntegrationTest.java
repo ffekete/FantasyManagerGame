@@ -27,8 +27,8 @@ public class VisibilityMaskIntegrationTest {
         warrior.setCoordinates(new Point(0,0));
 
         Actor goblin = new Goblin();
-        goblin.setCoordinates(new Point(0, 1));
         goblin.setCurrentMap(dungeon);
+        goblin.setCoordinates(new Point(0, 1));
 
         VisibilityMask mask = visibilityCalculator.generateMask(dungeon, Arrays.asList(warrior, goblin));
 

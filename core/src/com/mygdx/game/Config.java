@@ -20,6 +20,7 @@ public class Config {
         public static final int HP_REGENERATION_PERIOD = 300;
         public static final int SPELL_CAST_FREQUENCY = 120;
         public static final double FOLLOW_DISTANCE = 15.d;
+        public static final int BASE_TRAINIG_LIMIT = 50000;
     }
 
     public static class Engine {
@@ -93,7 +94,7 @@ public class Config {
     }
 
     public static class CommonActivity {
-        public static final int SLEEP_PRIORITY = 960;
+        public static final int SLEEP_PRIORITY = 965;
     }
 
     public static class BuilderActivity {
@@ -117,6 +118,7 @@ public class Config {
         public static final int PICKUP_PRIORITY = 950;
         public static final int MOVE_PICKUP_EAT_PRIORITY = 960;
         public static final int EAT_PRIORITY = 970;
+        public static final int TRAINING_PRIORITY = 975;
         public static final int INTERACT_PRIORITY = 980;
         public static final int SUPPORT_PRIORITY = 990;
         public static final int EXPLORATION_PRIORITY = 1000;

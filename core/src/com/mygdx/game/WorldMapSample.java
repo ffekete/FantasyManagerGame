@@ -150,7 +150,8 @@ public class WorldMapSample extends SampleBase {
         warrior.getInventory().add(new Bread());
         warrior.getInventory().add(new Bread());
         warrior.getInventory().add(new Bread());
-        warrior.increaseSleepiness(49000);
+        //warrior.increaseSleepiness(49000);
+        warrior.increaseTrainingNeeds(49000);
 
         ranger = ActorFactory.INSTANCE.create(Ranger.class, worldMap, Placement.FIXED.X(8).Y(10));
         ranger.equip(new LongBow());

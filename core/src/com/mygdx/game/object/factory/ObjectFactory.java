@@ -29,26 +29,26 @@ public class ObjectFactory {
         try {
             object = clazz.getConstructor(Point.class).newInstance(point);
         } catch (InstantiationException e) {
-            e.printStackTrace();
+
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+
         }
 
         if(object == null) {
             try {
                 object = clazz.getConstructor(Point.class, Map2D.class).newInstance(point, map2D);
             } catch (InstantiationException e) {
-                e.printStackTrace();
+
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+
             } catch (InvocationTargetException e) {
-                e.printStackTrace();
+
             } catch (NoSuchMethodException e) {
-                e.printStackTrace();
+
             }
         }
 

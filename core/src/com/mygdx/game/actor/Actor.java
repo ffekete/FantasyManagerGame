@@ -107,4 +107,8 @@ public interface Actor {
     int getUnspentSkillPoints();
 
     void increaseSkillLevel(Skill skill);
+
+    void increaseTrainingNeeds(int amount);
+    int getTrainingNeeds();
+    boolean wantsTraining();
 }

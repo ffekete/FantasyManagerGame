@@ -4,8 +4,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.builder.BuildingBlock;
+import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.decoration.Decoration;
 import com.mygdx.game.object.floor.Road;
 import com.mygdx.game.object.floor.TileableFloorObject;
 import com.mygdx.game.registry.ObjectRegistry;
@@ -44,18 +46,24 @@ public class GroundObjectRenderer implements Renderer<Map2D> {
                 WorldObject worldObject = objectRegistry.getObjectGrid().get(dungeon)[i][j][0];
                 if (worldObject != null) {
 
-                    if(Road.class.isAssignableFrom(worldObject.getClass())) {
-                        spriteBatch.setColor(Color.valueOf("FFFFFFDD"));
+                    if (dungeon.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
+                        spriteBatch.setColor(Color.DARK_GRAY);
                     } else {
-                        spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
+                        if (Road.class.isAssignableFrom(worldObject.getClass())) {
+                            spriteBatch.setColor(Color.valueOf("FFFFFFDD"));
+                        } else {
+                            spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
+                        }
                     }
 
-                    if (TileableFloorObject.class.isAssignableFrom(worldObject.getClass())) {
-                        spriteBatch.draw(FloorTileSelector.INSTANCE.getFor(objectRegistry.getObjectGrid().get(dungeon), worldObject), worldObject.getX(), worldObject.getY(), 1, 1);
-                    }
+                    if (dungeon.getVisitedareaMap()[i][j] != VisitedArea.NOT_VISITED) {
+                        if (TileableFloorObject.class.isAssignableFrom(worldObject.getClass())) {
+                            spriteBatch.draw(FloorTileSelector.INSTANCE.getFor(objectRegistry.getObjectGrid().get(dungeon), worldObject), worldObject.getX(), worldObject.getY(), 1, 1);
+                        }
 
-                    if (BuildingBlock.class.isAssignableFrom(worldObject.getClass())) {
-                        spriteBatch.draw(manaBarRegion, worldObject.getX() + 0.2f, worldObject.getY() + 1.1f, 1.8f * ((float) ((BuildingBlock) worldObject).getProgress() / 100f), 0.1f);
+                        if (BuildingBlock.class.isAssignableFrom(worldObject.getClass())) {
+                            spriteBatch.draw(manaBarRegion, worldObject.getX() + 0.2f, worldObject.getY() + 1.1f, 1.8f * ((float) ((BuildingBlock) worldObject).getProgress() / 100f), 0.1f);
+                        }
                     }
                 }
             }

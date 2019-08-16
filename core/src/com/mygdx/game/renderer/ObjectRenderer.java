@@ -51,17 +51,7 @@ public class ObjectRenderer implements Renderer<Map2D> {
                 WorldObject worldObject = objectRegistry.getObjectGrid().get(dungeon)[i][j][1];
                 if (worldObject != null) {
 
-
-                    if (dungeon.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
-                        spriteBatch.setColor(Color.DARK_GRAY);
-                    } else {
-                        // setting transparency if the view is blocked by decoration
-                        if (Decoration.class.isAssignableFrom(worldObject.getClass()) && isActorAdjacent(dungeon, i, j)) {
-                            spriteBatch.setColor(Color.valueOf("FFFFFF88"));
-                        } else {
-                            spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
-                        }
-                    }
+                    setColorForObjects(dungeon, spriteBatch, i, j, worldObject);
 
                     if (dungeon.getVisitedareaMap()[i][j] != VisitedArea.NOT_VISITED) {
                         // skipping ground objects
@@ -83,11 +73,15 @@ public class ObjectRenderer implements Renderer<Map2D> {
                                 flipY = ((Rotatable) worldObject).getFlipY();
                             }
 
-                            if(Decoration.class.isAssignableFrom(worldObject.getClass())) {
+                            if (Decoration.class.isAssignableFrom(worldObject.getClass())) {
                                 spriteBatch.setColor(Color.valueOf("FFFFFF22"));
-                                spriteBatch.draw(textureRegistry.getShadowTexture(), worldObject.getX(), worldObject.getY(), 0,0, 1,1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0,0,0, 32, 32, false, false);
+                                spriteBatch.draw(textureRegistry.getShadowTexture(), worldObject.getX(), worldObject.getY(), 0, 0, 1, 1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0, 0, 0, 32, 32, false, false);
 
-                                spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
+                                if (dungeon.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
+                                    spriteBatch.setColor(Color.DARK_GRAY);
+                                } else {
+                                    setColorForObjects(dungeon, spriteBatch, i, j, worldObject);
+                                }
                             }
 
                             spriteBatch.draw(textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)), worldObject.getX(), worldObject.getY(), 0, 0, 1, 1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0, 0, 0, textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)).getWidth(), textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)).getHeight(), flipX, flipY);
@@ -110,12 +104,21 @@ public class ObjectRenderer implements Renderer<Map2D> {
         spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
     }
 
+    private void setColorForObjects(Map2D dungeon, SpriteBatch spriteBatch, int i, int j, WorldObject worldObject) {
+        // setting transparency if the view is blocked by decoration
+        if (Decoration.class.isAssignableFrom(worldObject.getClass()) && isActorAdjacent(dungeon, i, j)) {
+            spriteBatch.setColor(Color.valueOf("FFFFFF88"));
+        } else {
+            spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
+        }
+    }
+
     private boolean isActorAdjacent(Map2D dungeon, int i, int j) {
         return
                 ((i - 1 >= 0 && j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i - 1][j + 1] != null) ||
                         ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j] != null ||
                         (j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j + 1] != null) ||
-                        (i + 1 < dungeon.getWidth() && j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i + 1][j+1] != null));
+                        (i + 1 < dungeon.getWidth() && j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i + 1][j + 1] != null));
     }
 
     private int getIndex(WorldObject object) {

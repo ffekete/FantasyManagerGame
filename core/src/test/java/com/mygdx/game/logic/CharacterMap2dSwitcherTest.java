@@ -23,6 +23,7 @@ public class CharacterMap2dSwitcherTest {
 
         Actor wizard = new Wizard();
         wizard.setCurrentMap(from);
+        wizard.setCoordinates(Point.of(5,3));
 
         DungeonEntrance dungeonEntrance = new DungeonEntrance(to, from);
         dungeonEntrance.setCoordinates(Point.of(5,5));

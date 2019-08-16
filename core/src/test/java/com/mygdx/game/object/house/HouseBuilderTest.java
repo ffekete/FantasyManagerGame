@@ -5,6 +5,7 @@ import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.decoration.PracticeFigure;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.furniture.IncompleteWoodenBed;
 import com.mygdx.game.object.placement.ObjectPlacement;
@@ -61,8 +62,9 @@ public class HouseBuilderTest {
 
         MapRegistry.INSTANCE.add(map2D);
 
-        ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
+        //ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
         ObjectFactory.create(IncompleteWoodenBed.class, map2D, ObjectPlacement.FIXED.X(1).Y(1));
+        ObjectFactory.create(PracticeFigure.class, map2D, ObjectPlacement.FIXED.X(4).Y(4));
 
         WoodenWall wall = ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(5).Y(5));
         ObjectFactory.create(WoodenWall.class, map2D, ObjectPlacement.FIXED.X(4).Y(5));

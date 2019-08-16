@@ -48,19 +48,19 @@ public class MoveAndAttackDecisionTest {
         mapRegistry.add(dungeon);
 
         Actor hero = new Warrior();
-        hero.setCoordinates(Point.of(1,1));
         hero.setCurrentMap(dungeon);
+        hero.setCoordinates(Point.of(1,1));
         hero.setRightHandItem(new ShortSword());
 
         Actor skeleton = new Skeleton();
+        skeleton.setCurrentMap(dungeon);
         skeleton.setCoordinates(Point.of(0,5));
         skeleton.setRightHandItem(new ShortSword());
-        skeleton.setCurrentMap(dungeon);
 
         Actor skeleton2 = new Skeleton();
+        skeleton2.setCurrentMap(dungeon);
         skeleton2.setCoordinates(Point.of(5,0));
         skeleton2.setRightHandItem(new ShortSword());
-        skeleton2.setCurrentMap(dungeon);
 
         MoveAndAttackDecision moveAndAttackDecision = new MoveAndAttackDecision();
 
@@ -140,19 +140,19 @@ public class MoveAndAttackDecisionTest {
         mapRegistry.add(dungeon);
 
         Actor hero = new Warrior();
-        hero.setCoordinates(Point.of(1,1));
         hero.setCurrentMap(dungeon);
+        hero.setCoordinates(Point.of(1,1));
         hero.setRightHandItem(new LongBow());
 
         Actor skeleton = new Skeleton();
+        skeleton.setCurrentMap(dungeon);
         skeleton.setCoordinates(Point.of(0,5));
         skeleton.setRightHandItem(new ShortSword());
-        skeleton.setCurrentMap(dungeon);
 
         Actor skeleton2 = new Skeleton();
+        skeleton2.setCurrentMap(dungeon);
         skeleton2.setCoordinates(Point.of(5,0));
         skeleton2.setRightHandItem(new ShortSword());
-        skeleton2.setCurrentMap(dungeon);
 
         MoveAndAttackDecision moveAndAttackDecision = new MoveAndAttackDecision();
 

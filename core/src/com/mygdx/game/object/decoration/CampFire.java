@@ -19,7 +19,7 @@ public class CampFire implements WorldObject, LightSource, AnimatedObject, Obsta
 
     private Point coordinates;
     private Map2D map;
-    private Color color = Color.valueOf("778822FF");
+    private Color color = Color.valueOf("AABB2288");
 
     private float flickering = 0.0f;
     private int counter = 0;

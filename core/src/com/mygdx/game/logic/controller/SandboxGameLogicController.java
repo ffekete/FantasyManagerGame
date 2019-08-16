@@ -65,6 +65,7 @@ public class SandboxGameLogicController implements Controller {
                     actorRegistry.getActors(map).forEach(actor -> {
                         actor.increaseHunger(1);
                         actor.increaseSleepiness(1);
+                        actor.increaseTrainingNeeds(1);
                         actor.getActivityStack().performNext();
                         activityManager.manage(actor);
                     });

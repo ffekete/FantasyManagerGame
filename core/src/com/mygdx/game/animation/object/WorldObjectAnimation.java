@@ -17,17 +17,21 @@ public class WorldObjectAnimation implements Animation {
 
     private float phase = 0;
 
+    private Texture texture;
+
     public WorldObjectAnimation(AnimatedObject animatedObject) {
         this.animatedObject = animatedObject;
     }
 
     @Override
     public void drawKeyFrame(SpriteBatch spriteBatch, float x, float y, int scale, Direction direction) {
-        Texture texture =textureRegistry.getForObjcetAnimation(animatedObject.getClass());
+        texture = textureRegistry.getForObjcetAnimation(animatedObject.getClass());
 
-        spriteBatch.draw(texture, x,y, 0, 0, 1, 1, scale, scale, 0, (int)phase * 32,  0, 32,32, false, false);
+        int maxPhase = texture.getWidth() / 32;
 
-        phase = (phase + 0.1f) % 3;
+        spriteBatch.draw(texture, x, y, 0, 0, 1, 1, scale, scale, 0, (int) phase * 32, 0, 32, 32, false, false);
+
+        phase = (phase + 0.1f) % maxPhase;
     }
 
     @Override

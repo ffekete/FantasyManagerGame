@@ -6,7 +6,9 @@ import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.object.furniture.Furniture;
 import com.mygdx.game.object.wall.Wall;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class House {
 
@@ -31,6 +33,11 @@ public class House {
 
     public Set<Furniture> getFurnitures() {
         return furnitures;
+    }
+
+    public <T extends Furniture> List<T> getFurnitureOfType(Class<T> clazz) {
+        return furnitures.stream().filter(f -> clazz.isAssignableFrom(f.getClass())).map(o -> (T)o)
+        .collect(Collectors.toList());
     }
 
     public Set<Floor> getFloors() {

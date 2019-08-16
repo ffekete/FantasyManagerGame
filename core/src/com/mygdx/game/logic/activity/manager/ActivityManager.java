@@ -10,6 +10,7 @@ import com.mygdx.game.actor.monster.*;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.manager.decision.*;
+import com.mygdx.game.logic.activity.single.InteractWithPracticeFigureActivity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -60,6 +61,7 @@ public class ActivityManager {
                         new MovePickupDecision(),
                         new SleepingDecision(),
                         new EatingDecision(),
+                        new PhysicalTrainingDecision(),
                         new LeaveDungeonDecision(),
                         new DungeonVisitingDecision(),
                         new FriendlySupportDecision(),

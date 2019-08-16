@@ -63,14 +63,15 @@ public class TextureRegistry {
     private Map<Class<? extends AnimatedObject>, Optional<Texture>> objectAnimationTextures;
     private Map<DungeonType, Optional<Texture>> dungeonTilesetTextures;
     private Map<MenuItem, Optional<Texture>> menuItems;
-    private Texture shadowTexture;
+    private Optional<Texture> shadowTexture;
 
     public TextureRegistry(PathResolver<Texture> texturePathResolver) {
 
-        shadowTexture = texturePathResolver.resolve("object/Shadow.png").get();
+        shadowTexture = texturePathResolver.resolve("object/Shadow.png");
 
         menuItems = ImmutableMap.<MenuItem, Optional<Texture>>builder()
                 .put(MenuItem.Inventory, texturePathResolver.resolve("menu/Inventory.png"))
+                .put(MenuItem.CutableBuildMenuBackground, texturePathResolver.resolve("menu/CutableBuildMenuBackground.png"))
                 .build();
 
         characterAnimationTextures = ImmutableMap.<Class<? extends Actor>, Optional<Texture>>builder()
@@ -141,6 +142,7 @@ public class TextureRegistry {
                 .put(StandingTorch.class, texturePathResolver.resolve("object/StandingTorch.png"))
                 .put(CampFire.class, texturePathResolver.resolve("object/CampFire.png"))
                 .put(SpiderWeb.class, texturePathResolver.resolve("object/SpiderWeb.png"))
+                .put(PracticeFigure.class, texturePathResolver.resolve("object/training/PracticeFigure.png"))
                 .build();
 
         objectTextures = ImmutableMap.<Class<? extends WorldObject>, List<Optional<Texture>>>builder()
@@ -245,6 +247,6 @@ public class TextureRegistry {
     }
 
     public Texture getShadowTexture() {
-        return shadowTexture;
+        return shadowTexture.get();
     }
 }

@@ -45,8 +45,6 @@ public abstract class AbstractActor implements Actor {
     private TraitList traitList;
 
     private Point coordinates;
-    private int hungerLevel;
-    private int sleepinessLevel;
     private Alignment alignment;
 
     private float xOffset = 0;
@@ -77,9 +75,10 @@ public abstract class AbstractActor implements Actor {
 
     private int money;
 
+    private final Map<Needs, Integer> needs = new HashMap<>();
+
     public AbstractActor() {
         this.traitList = new TraitList();
-        this.hungerLevel = Config.Rules.BASE_HUNGER_LEVEL;
         this.baseAttributes = new HashMap<>();
         this.weaponSkills = new HashMap<>();
         this.magicSkills = new HashMap<>();
@@ -93,6 +92,10 @@ public abstract class AbstractActor implements Actor {
         }
         actualHp = getMaxHp();
         this.inventory = new Inventory();
+
+        needs.put(Needs.Eat, Config.Rules.BASE_HUNGER_LEVEL);
+        needs.put(Needs.Sleep, Config.Rules.BASE_SLEEPINESS_LEVEL);
+        needs.put(Needs.Training, new Random().nextInt(100));
     }
 
     @Override
@@ -134,22 +137,22 @@ public abstract class AbstractActor implements Actor {
     // override this later for monsters!
     @Override
     public boolean isHungry() {
-        return hungerLevel == Config.Rules.BASE_HUNGER_LIMIT * 075f;
+        return needs.get(Needs.Eat) >= Config.Rules.BASE_HUNGER_LIMIT * 075f;
     }
 
     @Override
     public void increaseHunger(int amount) {
-        hungerLevel = Math.min(Config.Rules.BASE_HUNGER_LIMIT, hungerLevel + amount);
+        needs.put(Needs.Eat, Math.min(Config.Rules.BASE_HUNGER_LIMIT, needs.get(Needs.Eat) + amount));
     }
 
     @Override
     public void decreaseHunger(int amount) {
-        hungerLevel = Math.max(0, hungerLevel - amount);
+        needs.put(Needs.Eat, Math.max(0, needs.get(Needs.Eat) - amount));
     }
 
     @Override
     public int getHungerLevel() {
-        return hungerLevel;
+        return needs.get(Needs.Eat);
     }
 
     @Override
@@ -480,26 +483,41 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public boolean isSleepy() {
-        return sleepinessLevel >= Config.Rules.BASE_SLEEPINESS_LIMIT * 0.75f;
+        return needs.get(Needs.Sleep) >= Config.Rules.BASE_SLEEPINESS_LIMIT * 0.75f;
     }
 
     @Override
     public void increaseSleepiness(int amount) {
-        sleepinessLevel = Math.min(Config.Rules.BASE_SLEEPINESS_LIMIT, sleepinessLevel + amount);
+        needs.put(Needs.Sleep, Math.min(Config.Rules.BASE_SLEEPINESS_LIMIT, needs.get(Needs.Sleep) + amount));
     }
 
     @Override
     public void decreaseSleepiness(int amount) {
-        sleepinessLevel = Math.max(0, sleepinessLevel - amount);
+        needs.put(Needs.Sleep, Math.max(0, needs.get(Needs.Sleep) - amount));
     }
 
     @Override
     public int getSleepinessLevel() {
-        return sleepinessLevel;
+        return needs.get(Needs.Sleep);
     }
 
     @Override
     public boolean isSleeping() {
         return activityStack.contains(SleepActivity.class) || activityStack.contains(SleepAtCampfireActivity.class) || activityStack.contains(SleepOutsideActivity.class) || activityStack.contains(MoveAndSleepActivity.class);
+    }
+
+    @Override
+    public void increaseTrainingNeeds(int amount) {
+        needs.put(Needs.Training, needs.get(Needs.Training) + amount);
+    }
+
+    @Override
+    public int getTrainingNeeds() {
+        return needs.get(Needs.Training);
+    }
+
+    @Override
+    public boolean wantsTraining() {
+        return needs.get(Needs.Training) >= Config.Rules.BASE_TRAINIG_LIMIT * 0.75;
     }
 }

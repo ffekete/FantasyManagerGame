@@ -33,8 +33,8 @@ public class ExplorationActivityIntegrationTest {
         dungeon.setVisitedAreaMap(map);
         MapRegistry.INSTANCE.add(dungeon);
         Actor actor = new Warrior();
-        actor.setCoordinates(new Point(5,5));
         actor.setCurrentMap(dungeon);
+        actor.setCoordinates(new Point(5,5));
         activity = new ExplorationActivity(dungeon, actor);
         //activity.init();
         boolean[][] checked = new boolean[Config.Dungeon.DUNGEON_WIDTH][Config.Dungeon.DUNGEON_HEIGHT];
