@@ -131,7 +131,8 @@ public class TextureRegistry {
                 .build();
 
         mapTextures = ImmutableMap.<TileBase, Optional<Texture>>builder()
-                .put(WorldMapTile.DIRT, texturePathResolver.resolve("tiles/DirtTileSet.png"))
+                .put(WorldMapTile.DIRT, texturePathResolver.resolve("tiles/DirtTileset.png"))
+                .put(WorldMapTile.WATER, texturePathResolver.resolve("tiles/WaterTileset.png"))
                 .put(WorldMapTile.GRASS, texturePathResolver.resolve("Terrain.png"))
                 .put(Tile.STONE_WALL, texturePathResolver.resolve("wall.png"))
                 .put(Tile.FLOOR, texturePathResolver.resolve("Terrain.png"))
@@ -161,6 +162,7 @@ public class TextureRegistry {
                 .put(TreeV5.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV5.png")))
                 .put(TreeV6.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV6.png")))
                 .put(TreeV7.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV7.png")))
+                .put(TreeV8.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV8.png")))
                 .put(YellowFlower.class, Arrays.asList(texturePathResolver.resolve("object/decoration/YellowFlower.png")))
                 .put(BlueFlower.class, Arrays.asList(texturePathResolver.resolve("object/decoration/BlueFlower.png")))
                 .put(Bush.class, Arrays.asList(texturePathResolver.resolve("object/decoration/Bush.png")))

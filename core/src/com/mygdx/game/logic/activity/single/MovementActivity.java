@@ -1,14 +1,24 @@
 package com.mygdx.game.logic.activity.single;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.common.util.MathUtil;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.ThreadManager;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
+import com.mygdx.game.registry.MapRegistry;
+import com.mygdx.game.registry.RendererToolsRegistry;
+import com.mygdx.game.registry.SoundRegistry;
+import com.mygdx.game.renderer.camera.CameraPositionController;
+import com.mygdx.game.sound.DistanceBasedSoundPlayer;
+import com.mygdx.game.utils.MapUtils;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -27,6 +37,7 @@ public class MovementActivity implements Activity {
     private ActorMovementHandler actorMovementHandler;
     private Future<List<PathFinder.Node>> path;
     private int speed;
+    private int limit = 0;
     private int range = 0;
     private ExecutorService executor = ThreadManager.INSTANCE.getExecutor();
 
@@ -49,8 +60,14 @@ public class MovementActivity implements Activity {
     @Override
     public void update() {
         if (path != null && path.isDone()) {
+
             try {
-                actorMovementHandler.registerActorPath(actor, path.get());
+
+                if (path.get() == null) {
+                    System.out.println("Inaccessible area");
+                } else {
+                    actorMovementHandler.registerActorPath(actor, path.get());
+                }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -133,7 +150,18 @@ public class MovementActivity implements Activity {
     public void countDown() {
         counter = (counter + 1) % (speed);
         if (actorMovementHandler.hasPath(actor)) {
+            playFootstepSound();
             actorMovementHandler.updateActorOffsetCoordinates(actor, speed);
+        }
+    }
+
+    private void playFootstepSound() {
+        if (MapRegistry.INSTANCE.getCurrentMapToShow().equals(actor.getCurrentMap())) {
+
+            if (counter % 15 == limit) {
+                limit = new Random().nextInt(8) < 4 ? 8 : 0;
+                DistanceBasedSoundPlayer.play(SoundRegistry.INSTANCE.getFor(MovementActivity.class), actor.getCoordinates(), 0.05f, 0.01f);
+            }
         }
     }
 

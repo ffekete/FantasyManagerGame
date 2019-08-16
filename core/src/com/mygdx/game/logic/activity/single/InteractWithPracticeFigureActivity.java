@@ -1,5 +1,7 @@
 package com.mygdx.game.logic.activity.single;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.action.Action;
@@ -7,6 +9,7 @@ import com.mygdx.game.logic.action.SwingAttackAction;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.object.InteractiveObject;
 import com.mygdx.game.registry.ActionRegistry;
+import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 
 public class InteractWithPracticeFigureActivity implements Activity {
@@ -17,6 +20,8 @@ public class InteractWithPracticeFigureActivity implements Activity {
     private InteractiveObject object;
     private int counter = 0;
     private Action action;
+
+    private Sound hitSound = Gdx.audio.newSound(Gdx.files.internal("sounds/hit/hit07.mp3"));
 
     public InteractWithPracticeFigureActivity(Actor actor, InteractiveObject object) {
         this.actor = actor;
@@ -37,6 +42,10 @@ public class InteractWithPracticeFigureActivity implements Activity {
 
             action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), actor);
             actionRegistry.add(actor.getCurrentMap(), action);
+
+            if(MapRegistry.INSTANCE.getCurrentMapToShow().equals(actor.getCurrentMap())) {
+                hitSound.play(1f, 1f, 1f);
+            }
         }
     }
 

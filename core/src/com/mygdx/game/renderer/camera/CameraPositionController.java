@@ -2,8 +2,10 @@ package com.mygdx.game.renderer.camera;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.MapRegistry;
+import com.mygdx.game.registry.RendererToolsRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,29 +18,28 @@ public class CameraPositionController {
     private float zoom = 0.5f;
     private float focusedZoom = 0.5f;
     private Actor focusedOn = null;
-    private Point focusedOnPoint = new Point(0,0);
-
+    private Point focusedOnPoint = new Point(0, 0);
 
 
     public void update() {
-        coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(0,0));
-        Point newCoord = new Point(0,0);
+        coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(0, 0));
+        Point newCoord = new Point(0, 0);
         newCoord.x = coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).x;
         newCoord.y = coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).y;
     }
 
     public void offset(float x, float y) {
-        coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(0,0));
+        coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(0, 0));
         coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).x += x;
         coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).y += y;
     }
 
     public Point getCameraposition() {
-        if(focusedOn != null) {
+        if (focusedOn != null) {
             focusedOnPoint.update(focusedOn.getX() + focusedOn.getxOffset(), focusedOn.getY() + focusedOn.getyOffset());
             return focusedOnPoint;
         }
-        coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(0,0));
+        coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(0, 0));
         return coord.get(MapRegistry.INSTANCE.getCurrentMapToShow());
     }
 
@@ -46,7 +47,7 @@ public class CameraPositionController {
         return focusedOn;
     }
 
-    public void updateCamera( OrthographicCamera camera) {
+    public void updateCamera(OrthographicCamera camera) {
         Point p = getCameraposition();
         camera.position.x = p.x;
         camera.position.y = p.y;
@@ -55,11 +56,11 @@ public class CameraPositionController {
     }
 
     public void focusOn(Actor actor) {
-        if(!actor.equals(focusedOn)) {
+        if (!actor.equals(focusedOn)) {
             focusedOn = actor;
         } else {
-            coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(focusedOn.getX(),focusedOn.getY()));
-            coord.put(MapRegistry.INSTANCE.getCurrentMapToShow(), new Point(focusedOn.getX(),focusedOn.getY()));
+            coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(focusedOn.getX(), focusedOn.getY()));
+            coord.put(MapRegistry.INSTANCE.getCurrentMapToShow(), new Point(focusedOn.getX(), focusedOn.getY()));
             focusedOn = null;
         }
     }
@@ -73,20 +74,20 @@ public class CameraPositionController {
     }
 
     public void updateZoomLevel(float level) {
-        if(focusedOn == null) {
+        if (focusedOn == null) {
             zoom += level;
-            if(zoom < 0.1f) {
+            if (zoom < 0.1f) {
                 zoom = 0.1f;
             }
-            if(zoom > 1) {
+            if (zoom > 1) {
                 zoom = 1f;
             }
         } else {
             focusedZoom += level;
-            if(focusedZoom < 0.1f) {
+            if (focusedZoom < 0.1f) {
                 focusedZoom = 0.1f;
             }
-            if(focusedZoom > 1 ) {
+            if (focusedZoom > 1) {
                 focusedZoom = 1f;
             }
         }

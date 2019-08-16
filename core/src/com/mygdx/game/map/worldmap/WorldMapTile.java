@@ -6,7 +6,8 @@ public enum WorldMapTile implements TileBase {
     EMPTY(true, false,  1),
     GRASS(false, false, 1),
     WOODEN_WALL(true, false, 1),
-    DIRT(false, true, 1);
+    DIRT(false, true, 1),
+    WATER(true, true, 1);
 
     private boolean obstacle;
     private boolean tiled;

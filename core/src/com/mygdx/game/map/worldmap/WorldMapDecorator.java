@@ -34,6 +34,7 @@ public class WorldMapDecorator {
             .add(TreeV5.class)
             .add(TreeV6.class)
             .add(TreeV7.class)
+            .add(TreeV8.class)
             .add(Bush.class)
             .add(GiantLeafPlant.class)
             .add(YellowFlower.class)

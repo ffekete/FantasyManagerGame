@@ -11,6 +11,7 @@ import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.map.Map2D;
+import com.mygdx.game.music.MusicPlayer;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
@@ -59,6 +60,8 @@ public class SandboxGameLogicController implements Controller {
             dayTimeCalculator.update();
 
             calculateVisibilityForMaps();
+
+            MusicPlayer.INSTANCE.choose();
 
             MapRegistry.INSTANCE.getMaps().forEach(map -> {
                 if (actorRegistry.containsAnyHeroes(map)) {
