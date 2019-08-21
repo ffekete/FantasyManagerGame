@@ -13,13 +13,15 @@ public class ExplorationDecision implements Decision {
             return false;
         }
 
+        if (actor.getActivityStack().getCurrent().getMainClass().equals(ExplorationActivity.class)) {
+            // already doing activity, the decision chain should end here
+            return true;
+        }
+
         //System.out.println(actor.getCurrentMap().areAllLevelsExplored());
-        if(Alignment.FRIENDLY.equals(actor.getAlignment()) && !Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType()) && !actor.getCurrentMap().isExplored() && !actor.getActivityStack().contains(ExplorationActivity.class)) {
+        if(Alignment.FRIENDLY.equals(actor.getAlignment()) && !Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType()) && !actor.getCurrentMap().isExplored() && !actor.getActivityStack().getCurrent().getMainClass().equals(ExplorationActivity.class)) {
             ExplorationActivity explorationActivity = new ExplorationActivity(actor.getCurrentMap() ,actor);
             actor.getActivityStack().add(explorationActivity);
-            return true;
-        } else if (actor.getActivityStack().contains(ExplorationActivity.class)) {
-            // already doing activity, the decision chain should end here
             return true;
         }
         return false;

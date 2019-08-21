@@ -136,7 +136,7 @@ public class VisibilityCalculator {
             y = Math.min(y, height - 1);
 
             visibilityMask.setValue(x, y, value);
-            if (map.isObstacle(x,y)) break;
+            if (map.isObstacle(x,y) || map.getTile(x,y).isObstacle()) break;
 
 
             numerator += shortest;

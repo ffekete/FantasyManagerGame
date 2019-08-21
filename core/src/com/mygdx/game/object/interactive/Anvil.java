@@ -21,7 +21,7 @@ public class Anvil implements WorldObject, Obstacle, CraftingObject {
 
     private Craftable itemToCreate;
 
-    private float progress = 0f;
+    private Float progress = 0f;
 
     public Anvil(Point point) {
         coordinates = point;
@@ -87,7 +87,7 @@ public class Anvil implements WorldObject, Obstacle, CraftingObject {
     }
 
     @Override
-    public float getProgress() {
+    public Float getProgress() {
         return progress;
     }
 
@@ -112,5 +112,15 @@ public class Anvil implements WorldObject, Obstacle, CraftingObject {
     public void cancel() {
         user = null;
         itemToCreate = null;
+    }
+
+    @Override
+    public Actor getUser() {
+        return user;
+    }
+
+    @Override
+    public Craftable getItem() {
+        return itemToCreate;
     }
 }

@@ -4,12 +4,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.game.logic.GameState;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RendererToolsRegistry {
 
@@ -19,6 +14,7 @@ public class RendererToolsRegistry {
     private BitmapFont bitmapFont;
     private BitmapFont bitmapFontSmall;
     private BitmapFont bitmapFontSmallest;
+    private BitmapFont bitmapFontTiny;
     private ShapeRenderer shapeRenderer;
     private Camera camera;
     private Camera infoCamera;
@@ -85,6 +81,14 @@ public class RendererToolsRegistry {
 
     public BitmapFont getBitmapFontSmallest() {
         return bitmapFontSmallest;
+    }
+
+    public BitmapFont getBitmapFontTiny() {
+        return bitmapFontTiny;
+    }
+
+    public void setBitmapFontTiny(BitmapFont bitmapFontTiny) {
+        this.bitmapFontTiny = bitmapFontTiny;
     }
 
     public void setBitmapFontSmallest(BitmapFont bitmapFontSmallest) {

@@ -5,7 +5,7 @@ public class Config {
     public static final int SCREEN_WIDTH = 1024;
     public static final int SCREEN_HEIGHT = 768;
 
-    public static final boolean SHOW_ELAPSED_TIME = true;
+    public static final boolean SHOW_ELAPSED_TIME = false;
     public static final boolean SHOW_ELAPSED_TIME_IN_RENDERER = false;
 
     public static class Rules {

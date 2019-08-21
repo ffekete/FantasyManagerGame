@@ -14,7 +14,7 @@ public class ConsumeHealingpotionDecision implements Decision {
             return false;
         }
 
-        if (actor.getInventory().has(HealingPotion.class) && !actor.getActivityStack().contains(ConsumeHealingPotion.class)) {
+        if (actor.getInventory().has(HealingPotion.class) && !actor.getActivityStack().getCurrent().getMainClass().equals(ConsumeHealingPotion.class)) {
             if (actor.getHp() < actor.getMaxHp() / Config.Actor.LOW_HP_THRESHOLD_DIVIDER) {
                 actor.getActivityStack().clear();
                 Activity activity = new ConsumeHealingPotion(actor, actor.getInventory().get(HealingPotion.class));

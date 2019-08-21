@@ -103,6 +103,7 @@ public class WorldMapSample extends SampleBase {
     Stage sandboxStage;
     Stage builderStage;
     Stage inventoryStage;
+    private BitmapFont bitmapFontTiny;
 
     @Override
     public void create() {
@@ -117,6 +118,8 @@ public class WorldMapSample extends SampleBase {
         bitmapFont = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
         bitmapFontSmall = new BitmapFont(Gdx.files.internal("fonts/font25.fnt"));
         bitmapFontSmallest = new BitmapFont(Gdx.files.internal("fonts/font15.fnt"));
+        bitmapFontTiny = new BitmapFont(Gdx.files.internal("fonts/font10.fnt"));
+
 
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
@@ -132,6 +135,7 @@ public class WorldMapSample extends SampleBase {
         RendererToolsRegistry.INSTANCE.setInfoCamera(infoCamera);
         RendererToolsRegistry.INSTANCE.setInfoViewPort(infoViewPort);
         RendererToolsRegistry.INSTANCE.setBitmapFontSmall(bitmapFontSmall);
+        RendererToolsRegistry.INSTANCE.setBitmapFontTiny(bitmapFontTiny);
         RendererToolsRegistry.INSTANCE.setBitmapFontSmallest(bitmapFontSmallest);
 
         StageConfigurer.INSTANCE.configureButtons();

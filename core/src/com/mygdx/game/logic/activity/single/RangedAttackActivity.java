@@ -162,6 +162,6 @@ public class RangedAttackActivity implements Activity, CooldownActivity {
 
     @Override
     public Class<? extends Activity> getMainClass() {
-        return this.getClass();
+        return SimpleAttackActivity.class;
     }
 }

@@ -17,11 +17,11 @@ public class ConsumeManapotionDecision implements Decision {
             return false;
         }
 
-        if (actor.getActivityStack().contains(ConsumeManaPotion.class)) {
+        if (actor.getActivityStack().getCurrent().getMainClass().equals(ConsumeManaPotion.class)) {
             return true;
         }
 
-        if (actor.getInventory().has(ManaPotion.class) && !actor.getActivityStack().contains(ConsumeManapotionDecision.class)) {
+        if (actor.getInventory().has(ManaPotion.class)) {
             if (actor.getMana() < actor.getMaxMana() / Config.Actor.LOW_MANA_THRESHOLD_DIVIDER) {
                 actor.getActivityStack().clear();
                 Activity activity = new ConsumeManaPotion(actor, actor.getInventory().get(ManaPotion.class));

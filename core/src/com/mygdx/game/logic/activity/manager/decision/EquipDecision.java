@@ -16,7 +16,7 @@ public class EquipDecision implements Decision {
 
     @Override
     public boolean decide(Actor actor) {
-        if (!actor.isSleeping() && !actor.getActivityStack().contains(EquipActivity.class)) {
+        if (!actor.isSleeping() && !actor.getActivityStack().getCurrent().getMainClass().equals(EquipActivity.class)) {
             if (actor.getInventory().has(Equipable.class)) {
                 Equipable equipable = actor.getInventory().get(Equipable.class);
 

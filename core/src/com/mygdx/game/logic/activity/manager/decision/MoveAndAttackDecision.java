@@ -38,10 +38,8 @@ public class MoveAndAttackDecision implements Decision {
             return false;
 
         // already attacking, the decision chain should end here
-        if (actor.getActivityStack().contains(MoveThenAttackActivity.class) ||
-                actor.getActivityStack().contains(SimpleAttackActivity.class) ||
-                actor.getActivityStack().contains(OffensiveSpellCastActivity.class) ||
-                actor.getActivityStack().contains(RangedAttackActivity.class)) {
+        if (actor.getActivityStack().getCurrent().getMainClass().equals(SimpleAttackActivity.class) ||
+                actor.getActivityStack().getCurrent().getMainClass().equals(OffensiveSpellCastActivity.class)) {
             return true;
         }
 
@@ -93,10 +91,8 @@ public class MoveAndAttackDecision implements Decision {
 
                 // if a melee enemy is not already fighting then give a path to this enemy as well to the actor
                 if (!RangedWeapon.class.isAssignableFrom(enemy.getRightHandItem().getClass()) &&
-                        (!enemy.getActivityStack().contains(RangedAttackActivity.class)
-                                && !enemy.getActivityStack().contains(SimpleAttackActivity.class)
-                                && !enemy.getActivityStack().contains(OffensiveSpellCastActivity.class)
-                                && !enemy.getActivityStack().contains(MoveThenAttackActivity.class))) {
+                        (!enemy.getActivityStack().getCurrent().getMainClass().equals(SimpleAttackActivity.class)
+                                && !enemy.getActivityStack().contains(OffensiveSpellCastActivity.class))) {
 
                     enemy.getActivityStack().clear();
                     if (path.size() - 1 < enemy.getAttackRange()) {
@@ -126,9 +122,7 @@ public class MoveAndAttackDecision implements Decision {
     }
 
     private boolean isActorAlreadyFighting(Actor enemy) {
-        return enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(PreCalculatedMovementActivity.class) ||
-                enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(OffensiveSpellCastActivity.class) ||
-                enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(RangedAttackActivity.class) ||
-                enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(SimpleAttackActivity.class);
+        return enemy.getActivityStack().getCurrent().getMainClass().isAssignableFrom(SimpleAttackActivity.class) ||
+                enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(OffensiveSpellCastActivity.class);
     }
 }

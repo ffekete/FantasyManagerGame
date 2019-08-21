@@ -26,7 +26,7 @@ public class FriendlySupportDecision implements Decision {
             return false;
         }
 
-        if (actor.getActivityStack().contains(SupportActivity.class)) {
+        if (actor.getActivityStack().getCurrent().getMainClass().equals(SupportActivity.class)) {
             return true;
         }
 
