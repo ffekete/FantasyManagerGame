@@ -36,7 +36,7 @@ public class MovePickupDecision implements Decision {
                     // go for it
                     actor.setxOffset(0.0f);
                     actor.setyOffset(0.0f);
-                    Activity activity = new MovePickupActivity(Config.Activity.MOVE_PICKUP_PRIORITY)
+                    Activity activity = new MovePickupActivity(Config.Activity.MOVE_PICKUP_PRIORITY, PickUpItemActivity.class)
                             .add(new MovementActivity(actor, item.getX(), item.getY(), 1, new PathFinder()))
                             .add(new PickUpItemActivity(actor, item));
                     actor.getActivityStack().clear();

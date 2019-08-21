@@ -28,6 +28,7 @@ import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.worker.Builder;
+import com.mygdx.game.actor.worker.Smith;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.item.food.Bread;
@@ -52,12 +53,11 @@ import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
 import com.mygdx.game.map.worldmap.*;
 import com.mygdx.game.menu.MenuItem;
 import com.mygdx.game.object.LinkedWorldObjectFactory;
-import com.mygdx.game.object.decoration.BlueFlower;
-import com.mygdx.game.object.decoration.Bush;
+import com.mygdx.game.object.decoration.*;
 import com.mygdx.game.object.decoration.Tree;
-import com.mygdx.game.object.decoration.YellowFlower;
 import com.mygdx.game.object.factory.HouseFactory;
 import com.mygdx.game.object.factory.ObjectFactory;
+import com.mygdx.game.object.interactive.Anvil;
 import com.mygdx.game.object.interactive.BookCase;
 import com.mygdx.game.object.interactive.ShootingTarget;
 import com.mygdx.game.object.placement.ObjectPlacement;
@@ -92,6 +92,7 @@ public class WorldMapSample extends SampleBase {
     Actor ranger;
     Actor warrior;
     Actor builder;
+    Actor smith;
 
     MapGenerator<WorldMap> mapGenerator = new WorldMapGenerator();
     DungeonFactory dungeonFactory = DungeonFactory.INSTANCE;
@@ -140,6 +141,8 @@ public class WorldMapSample extends SampleBase {
         InputConfigurer.INSTANCE.setInputProcessor(StageConfigurer.INSTANCE.getFor(GameState.Sandbox), StageConfigurer.INSTANCE.getFor(GameState.Builder),  this);
 
         builder = ActorFactory.INSTANCE.create(Builder.class, worldMap, Placement.FIXED.X(7).Y(10));
+
+        smith = ActorFactory.INSTANCE.create(Smith.class, worldMap, Placement.FIXED.X(8).Y(10));
 
         warrior = ActorFactory.INSTANCE.create(Warrior.class, worldMap, Placement.FIXED.X(8).Y(11));
         warrior.equip(new ShortSwordPlusFour());
@@ -241,6 +244,8 @@ public class WorldMapSample extends SampleBase {
 
         hero.equip(new JadeStaff());
 
+        smith.setName("Will");
+
         MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
 
         // decorate
@@ -251,20 +256,20 @@ public class WorldMapSample extends SampleBase {
 
         worldMapDecorator.decorate(2, worldMap);
 
-        HouseFactory.INSTANCE.create(5,5, 3, worldMap);
+        HouseFactory.INSTANCE.create(7,1, 3, worldMap);
 
-        HouseFactory.INSTANCE.create(1,1, 3, worldMap);
+        HouseFactory.INSTANCE.create(1,1, 4, worldMap);
+        ObjectFactory.create(Anvil.class, worldMap, ObjectPlacement.FIXED.X(3).Y(3));
+        ObjectFactory.create(TreasureChest.class, worldMap, ObjectPlacement.FIXED.X(4).Y(3));
 
-        HouseFactory.INSTANCE.create(1, 10, 4, worldMap);
-        ObjectFactory.create(ShootingTarget.class, worldMap, ObjectPlacement.FIXED.X(3).Y(12));
+        HouseFactory.INSTANCE.create(15, 1, 3, worldMap);
+        //ObjectFactory.create(ShootingTarget.class, worldMap, ObjectPlacement.FIXED.X(17).Y(2));
 
-        HouseFactory.INSTANCE.create(19, 19, 5, worldMap);
+        HouseFactory.INSTANCE.create(1, 8, 3, worldMap);
+        //ObjectFactory.create(BookCase.class, worldMap, ObjectPlacement.FIXED.X(2).Y(2));
 
-        ObjectFactory.create(BookCase.class, worldMap, ObjectPlacement.FIXED.X(23).Y(23));
-
+        HouseFactory.INSTANCE.create(1, 13, 3, worldMap);
     }
-
-
 
     @Override
     public void render() {

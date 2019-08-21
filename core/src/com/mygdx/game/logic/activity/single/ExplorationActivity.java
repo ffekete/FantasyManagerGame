@@ -209,4 +209,9 @@ public class ExplorationActivity implements Activity {
     public Activity getCurrentActivity() {
         return movementActivity;
     }
+
+    @Override
+    public Class<? extends Activity> getMainClass() {
+        return this.getClass();
+    }
 }

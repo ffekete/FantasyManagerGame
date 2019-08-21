@@ -159,4 +159,9 @@ public class RangedAttackActivity implements Activity, CooldownActivity {
     public Actor getEnemy() {
         return enemy;
     }
+
+    @Override
+    public Class<? extends Activity> getMainClass() {
+        return this.getClass();
+    }
 }

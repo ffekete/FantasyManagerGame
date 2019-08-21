@@ -58,6 +58,11 @@ public class PracticeFigure implements WorldObject, InteractiveObject, Obstacle,
     }
 
     @Override
+    public void finished(Actor actor) {
+
+    }
+
+    @Override
     public int getExperienceAmount() {
         return 20;
     }

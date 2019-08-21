@@ -100,4 +100,9 @@ public class SleepAtCampfireActivity implements Activity {
     public int compareTo(Activity o) {
         return Integer.compare(getPriority(), o.getPriority());
     }
+
+    @Override
+    public Class<? extends Activity> getMainClass() {
+        return this.getClass();
+    }
 }

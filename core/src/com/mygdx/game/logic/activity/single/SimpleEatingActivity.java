@@ -104,4 +104,9 @@ public class SimpleEatingActivity implements Activity, CooldownActivity {
     public Activity getCurrentActivity() {
         return this;
     }
+
+    @Override
+    public Class<? extends Activity> getMainClass() {
+        return this.getClass();
+    }
 }

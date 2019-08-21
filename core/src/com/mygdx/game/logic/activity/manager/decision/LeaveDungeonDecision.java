@@ -27,7 +27,7 @@ public class LeaveDungeonDecision implements Decision {
             return false;
         }
 
-        if(actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
+        if(actor.getActivityStack().getCurrent().getMainClass().equals(InteractActivity.class)) {
             return true;
         }
 
@@ -36,7 +36,7 @@ public class LeaveDungeonDecision implements Decision {
             List<WorldObject> entrances = objectRegistry.getObject(actor.getCurrentMap(), Ladder.class).get();
             for (WorldObject worldObject : entrances) {
                 if (!((Ladder)worldObject).getTo().equals(actor.getCurrentMap())) {
-                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY);
+                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY, InteractActivity.class);
 
                     moveAndInteractActivity.add(new MovementActivity(actor, (int)worldObject.getX(), (int)worldObject.getY(), 1, new PathFinder()));
                     moveAndInteractActivity.add(new InteractActivity(actor, (InteractiveObject) worldObject));

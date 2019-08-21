@@ -35,13 +35,12 @@ public class MoveAndBuildDecision implements Decision {
 
         if (Alignment.FRIENDLY.equals(actor.getAlignment()) && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())) {
             // find block to build
-            List<WorldObject> blocks = objectRegistry.getObject(actor.getCurrentMap(), BuildingBlock.class).get();
-
+            List<BuildingBlock> blocks = objectRegistry.getBuildingBlock();
             if (!blocks.isEmpty()) {
                 System.out.println("Found building block!");
                 WorldObject worldObject = blocks.get(0);
 
-                MoveAndBuildActivity moveAndBuildActivity = new MoveAndBuildActivity(Config.BuilderActivity.BUILD_PRIORITY);
+                MoveAndBuildActivity moveAndBuildActivity = new MoveAndBuildActivity(Config.BuilderActivity.BUILD_PRIORITY, BuildActivity.class);
 
                 moveAndBuildActivity.add(new MovementActivity(actor, (int) worldObject.getX(), (int) worldObject.getY(), 1, new PathFinder()));
                 moveAndBuildActivity.add(new BuildActivity(actor, (BuildingBlock) worldObject));

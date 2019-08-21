@@ -8,6 +8,7 @@ import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.*;
 import com.mygdx.game.actor.worker.Builder;
+import com.mygdx.game.actor.worker.Smith;
 import com.mygdx.game.logic.activity.manager.decision.*;
 
 import java.util.List;
@@ -26,6 +27,10 @@ public class ActivityManager {
                         new MoveAndCutDecision(),
                         new MoveAndDropDecision(),
                         new MoveAndBuildDecision()))
+
+                .put(Smith.class, ImmutableList.of(
+                        new SleepingDecision(),
+                        new SmithingDecision()))
 
                 .put(Ranger.class, ImmutableList.of(
                         new ConsumeHealingpotionDecision(),

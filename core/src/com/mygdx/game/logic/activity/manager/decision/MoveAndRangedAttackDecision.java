@@ -96,7 +96,7 @@ public class MoveAndRangedAttackDecision implements Decision {
                         actorPath.add(path.get(i));
                     }
 
-                    CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY);
+                    CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY, SimpleAttackActivity.class);
                     compoundActivityForActor.add(new PreCalculatedMovementActivity(actor, actorPath));
                     compoundActivityForActor.add(new RangedAttackActivity(actor, enemy));
                     actor.getActivityStack().add(compoundActivityForActor);

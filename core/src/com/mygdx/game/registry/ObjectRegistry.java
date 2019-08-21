@@ -14,6 +14,7 @@ public class ObjectRegistry {
 
     private final Map<Map2D, Map<Cluster, Set<WorldObject>>> objects;
     private Map<Map2D, WorldObject[][][]> objectGrid; // for drawing only
+    private List<BuildingBlock> buildingBlocks = new ArrayList<>();
 
     public static final ObjectRegistry INSTANCE = new ObjectRegistry();
 
@@ -34,11 +35,19 @@ public class ObjectRegistry {
 
         objectGrid.computeIfAbsent(map, v -> new WorldObject[map.getWidth()][map.getHeight()][2]);
 
+        if(BuildingBlock.class.isAssignableFrom(worldObject.getClass())) {
+            buildingBlocks.add((BuildingBlock) worldObject);
+        }
+
         if(Floor.class.isAssignableFrom(worldObject.getClass()))
             objectGrid.get(map)[(int)worldObject.getX()][(int)worldObject.getY()][0] = worldObject;
         else {
             objectGrid.get(map)[(int)worldObject.getX()][(int)worldObject.getY()][1] = worldObject;
         }
+    }
+
+    public List<BuildingBlock> getBuildingBlock() {
+        return buildingBlocks;
     }
 
     public Optional<List<WorldObject>> getObject(Map2D map, Class<? extends WorldObject> object) {
@@ -62,6 +71,7 @@ public class ObjectRegistry {
     public void clear() {
         objects.clear();
         objectGrid.clear();
+        buildingBlocks.clear();
     }
 
     public void remove(Map2D currentMap, WorldObject object) {
@@ -69,6 +79,10 @@ public class ObjectRegistry {
 
         int index = Floor.class.isAssignableFrom(object.getClass()) ? 0 : 1;
         objectGrid.get(currentMap)[(int)object.getX()][(int)object.getY()][index] = null;
+
+        if(BuildingBlock.class.isAssignableFrom(object.getClass())) {
+            buildingBlocks.remove(object);
+        }
 
         if(Obstacle.class.isAssignableFrom(object.getClass())) {
             currentMap.setObstacle((int)object.getX(), (int)object.getY(), false);

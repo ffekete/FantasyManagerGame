@@ -29,7 +29,7 @@ public class DungeonVisitingDecision implements Decision {
             return false;
         }
 
-        if(!actor.getActivityStack().contains(MoveAndInteractActivity.class)  && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())) {
+        if(!actor.getActivityStack().getCurrent().getMainClass().equals(MoveAndInteractActivity.class)  && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())) {
             List<Cluster> clusters = new ArrayList<>();
 
             for (int i = -10; i <= 10; i++)
@@ -61,7 +61,7 @@ public class DungeonVisitingDecision implements Decision {
                         && DungeonEntrance.class.isAssignableFrom(closestObject.getClass())
                         && !((DungeonEntrance) closestObject).getTo().areAllLevelsExplored()) {
                     actor.getActivityStack().clear();
-                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY);
+                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY, MoveAndInteractActivity.class);
 
                     moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1, new PathFinder()));
                     moveAndInteractActivity.add(new InteractActivity(actor, (InteractiveObject) closestObject));

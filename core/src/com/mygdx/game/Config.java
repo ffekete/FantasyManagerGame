@@ -97,6 +97,10 @@ public class Config {
         public static final int SLEEP_PRIORITY = 965;
     }
 
+    public static class SmithActivity {
+        public static final int SMITHING_PRIORITY = 900;
+    }
+
     public static class BuilderActivity {
         public static final int CHOP_DOWN_PRIORITY = 970;
         public static final int STORE_PRIORITY = 990;

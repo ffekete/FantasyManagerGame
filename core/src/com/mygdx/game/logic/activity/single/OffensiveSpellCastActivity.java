@@ -108,4 +108,9 @@ public class OffensiveSpellCastActivity implements Activity {
     public Actor getTarget() {
         return target;
     }
+
+    @Override
+    public Class<? extends Activity> getMainClass() {
+        return this.getClass();
+    }
 }

@@ -99,4 +99,9 @@ public class TimedIdleActivity implements Activity {
         return this;
     }
 
+    @Override
+    public Class<? extends Activity> getMainClass() {
+        return this.getClass();
+    }
+
 }

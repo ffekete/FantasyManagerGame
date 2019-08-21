@@ -118,4 +118,9 @@ public class WaitActivity implements Activity {
     public Activity getCurrentActivity() {
         return this;
     }
+
+    @Override
+    public Class<? extends Activity> getMainClass() {
+        return this.getClass();
+    }
 }

@@ -20,7 +20,7 @@ public class PhysicalTrainingDecision implements Decision {
             return false;
         }
 
-        if (PhysicalTrainingActivity.class.equals(actor.getActivityStack().getCurrent().getCurrentClass())) {
+        if (PhysicalTrainingActivity.class.equals(actor.getActivityStack().getCurrent().getMainClass())) {
             return true;
         }
 
@@ -37,7 +37,7 @@ public class PhysicalTrainingDecision implements Decision {
                 return false;
             }
 
-            MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.TRAINING_PRIORITY);
+            MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.TRAINING_PRIORITY, PhysicalTrainingActivity.class);
             MovementActivity movementActivity = new MovementActivity(actor, (int) practiceFigures.get(0).getX(), (int) practiceFigures.get(0).getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap()));
             PhysicalTrainingActivity physicalTrainingActivity = new PhysicalTrainingActivity(actor, practiceFigures.get(0));
             moveAndInteractActivity.add(movementActivity)

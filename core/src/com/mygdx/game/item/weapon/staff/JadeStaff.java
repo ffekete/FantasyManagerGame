@@ -2,13 +2,14 @@ package com.mygdx.game.item.weapon.staff;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.item.weapon.TwohandedWeapon;
 import com.mygdx.game.logic.Point;
 
 import java.util.Random;
 
-public class JadeStaff implements Staff, Tier1, TwohandedWeapon {
+public class JadeStaff implements Staff, Tier1, TwohandedWeapon, Craftable {
 
     private Point coordinates;
 

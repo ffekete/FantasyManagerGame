@@ -8,6 +8,7 @@ import com.mygdx.game.logic.activity.compound.WaitMoveActivity;
 import com.mygdx.game.logic.activity.single.IdleActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.activity.single.TimedIdleActivity;
+import com.mygdx.game.logic.activity.single.WaitActivity;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 
 import java.util.Random;
@@ -75,7 +76,7 @@ public class WanderingDecision implements Decision {
                     }
                 } while (actor.getCurrentMap().getTile(x, y).isObstacle());
 
-                WaitMoveActivity activity = new WaitMoveActivity(Config.Activity.MOVEMENT_PRIORITY);
+                WaitMoveActivity activity = new WaitMoveActivity(Config.Activity.MOVEMENT_PRIORITY, WaitActivity.class);
                 activity.add(new TimedIdleActivity(5 + new Random().nextInt(5)));
                 activity.add(new MovementActivity(actor, x, y, 1, new PathFinder()));
                 actor.getActivityStack().add(activity);

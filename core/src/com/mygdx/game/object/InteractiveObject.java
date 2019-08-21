@@ -6,5 +6,6 @@ public interface InteractiveObject extends WorldObject {
 
     void onInteract(Actor actor);
     boolean canInteract(Actor actor);
+    void finished(Actor actor);
 
 }

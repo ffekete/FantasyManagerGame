@@ -4,6 +4,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
+import com.mygdx.game.logic.activity.single.InteractActivity;
 import com.mygdx.game.map.dungeon.Dungeon;
 import com.mygdx.game.map.worldmap.WorldMap;
 import com.mygdx.game.map.worldmap.WorldMapGenerator;
@@ -67,7 +68,7 @@ public class LeaveDungeonDecisionTest {
         DungeonEntrance dungeonEntrance = (DungeonEntrance) LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(0).Y(0), ObjectPlacement.FIXED.X(0).Y(0));
 
         actor.setCurrentMap(dungeon);
-        actor.getActivityStack().add(new MoveAndInteractActivity(1));
+        actor.getActivityStack().add(new MoveAndInteractActivity(1, InteractActivity.class));
 
         Decision leaveDungeonDecision = new LeaveDungeonDecision();
 

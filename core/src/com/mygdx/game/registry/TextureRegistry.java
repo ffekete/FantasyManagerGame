@@ -8,6 +8,7 @@ import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.*;
 import com.mygdx.game.actor.worker.Builder;
+import com.mygdx.game.actor.worker.Smith;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.buildertool.Hammer;
 import com.mygdx.game.item.food.Bread;
@@ -88,6 +89,7 @@ public class TextureRegistry {
 
                 // workers
                 .put(Builder.class, texturePathResolver.resolve("actors/worker/Builder.png"))
+                .put(Smith.class, texturePathResolver.resolve("actors/worker/Smith.png"))
                 .build();
 
         actionTextures = ImmutableMap.<Class<? extends Action>, Optional<Texture>>builder()
@@ -97,6 +99,7 @@ public class TextureRegistry {
                 .put(ArrowAction.class, texturePathResolver.resolve("effects/Arrow.png"))
                 .put(PoisonCloudAction.class, texturePathResolver.resolve("effects/PoisonCloud.png"))
                 .put(ExplosionAction.class, texturePathResolver.resolve("effects/ExplosionEffect.png"))
+                .put(SparksAction.class, texturePathResolver.resolve("effects/Sparks.png"))
                 .put(SmallExplosionAction.class, texturePathResolver.resolve("effects/ExplosionEffect.png"))
                 .put(TargetMarkerAction.class, texturePathResolver.resolve("ui/marker/TargetMarker.png"))
                 .build();
@@ -189,6 +192,8 @@ public class TextureRegistry {
                 .put(WoodenBed.class, Arrays.asList(texturePathResolver.resolve("object/furniture/WoodenBed.png")))
                 .put(BookCase.class, Arrays.asList(texturePathResolver.resolve("object/training/BookCase.png")))
                 .put(ShootingTarget.class, Arrays.asList(texturePathResolver.resolve("object/training/ShootingTarget.png")))
+                .put(Anvil.class, Arrays.asList(texturePathResolver.resolve("object/Anvil.png")))
+
                 .build();
 
         dungeonTilesetTextures = ImmutableMap.<DungeonType, Optional<Texture>>builder()

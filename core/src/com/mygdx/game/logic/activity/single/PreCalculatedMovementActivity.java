@@ -145,4 +145,9 @@ public class PreCalculatedMovementActivity implements Activity {
         return this;
     }
 
+    @Override
+    public Class<? extends Activity> getMainClass() {
+        return PreCalculatedMovementActivity.class;
+    }
+
 }

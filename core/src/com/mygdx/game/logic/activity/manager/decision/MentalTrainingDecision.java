@@ -23,7 +23,7 @@ public class MentalTrainingDecision implements Decision {
             return false;
         }
 
-        if (MentalTrainingActivity.class.equals(actor.getActivityStack().getCurrent().getCurrentClass())) {
+        if (MentalTrainingActivity.class.equals(actor.getActivityStack().getCurrent().getMainClass())) {
             return true;
         }
 
@@ -40,7 +40,7 @@ public class MentalTrainingDecision implements Decision {
                 return false;
             }
 
-            MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.TRAINING_PRIORITY);
+            MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.TRAINING_PRIORITY, MentalTrainingActivity.class);
             MovementActivity movementActivity = new MovementActivity(actor, (int) bookCases.get(0).getX(), (int) bookCases.get(0).getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap()));
             MentalTrainingActivity mentalTrainingActivity = new MentalTrainingActivity(actor, bookCases.get(0));
             moveAndInteractActivity.add(movementActivity)

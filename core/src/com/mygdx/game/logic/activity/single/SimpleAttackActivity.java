@@ -154,6 +154,11 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
         return this;
     }
 
+    @Override
+    public Class<? extends Activity> getMainClass() {
+        return SimpleAttackActivity.class;
+    }
+
     public Actor getTarget() {
         return enemy;
     }

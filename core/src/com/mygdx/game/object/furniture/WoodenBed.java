@@ -27,6 +27,11 @@ public class WoodenBed implements WorldObject, InteractiveObject, Bed, OwnedObje
     }
 
     @Override
+    public void finished(Actor actor) {
+
+    }
+
+    @Override
     public float getX() {
         return coordinates.getX();
     }

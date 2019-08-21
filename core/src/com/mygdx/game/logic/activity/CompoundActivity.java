@@ -10,10 +10,12 @@ public abstract class CompoundActivity implements Activity {
     private int priority;
     private boolean firstRun = true;
     private boolean suspended = false;
+    private Class<? extends Activity> mainClazz;
 
-    public CompoundActivity(int priority) {
+    public CompoundActivity(int priority, Class<? extends Activity> mainClazz) {
         this.activities = new ArrayList<>();
         this.priority = priority;
+        this.mainClazz = mainClazz;
     }
 
     @Override
@@ -117,6 +119,11 @@ public abstract class CompoundActivity implements Activity {
     @Override
     public Class getCurrentClass() {
         return activities.get(currentActivity).getCurrentClass();
+    }
+
+    @Override
+    public Class<? extends Activity> getMainClass() {
+        return mainClazz;
     }
 
     @Override

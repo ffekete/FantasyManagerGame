@@ -4,11 +4,12 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.Effect;
 import com.mygdx.game.effect.AttackSpeedReduction;
+import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.EffectRegistry;
 
-public class MediumShield implements Shield, Tier1 {
+public class MediumShield implements Shield, Tier1, Craftable {
 
     private Effect attackSpeedReduction = new AttackSpeedReduction(-5);
     private EffectRegistry effectRegistry = EffectRegistry.INSTANCE;

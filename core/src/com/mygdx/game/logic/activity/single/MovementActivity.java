@@ -196,4 +196,9 @@ public class MovementActivity implements Activity {
         return speed;
     }
 
+    @Override
+    public Class<? extends Activity> getMainClass() {
+        return this.getClass();
+    }
+
 }

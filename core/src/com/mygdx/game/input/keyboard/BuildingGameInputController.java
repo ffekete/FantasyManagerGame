@@ -32,6 +32,7 @@ public class BuildingGameInputController {
             for(Actor actor : actorRegistry.getActors(mapRegistry.getCurrentMapToShow())) {
                 //actor.getActivityStack().clear();
                 //ActorMovementHandler.INSTANCE.clearPath(actor);
+                // todo if actor moves clear that activity
             }
         }
 

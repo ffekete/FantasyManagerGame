@@ -2,10 +2,11 @@ package com.mygdx.game.item.armor;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier3;
 import com.mygdx.game.logic.Point;
 
-public class BlackPlateMail implements Armor, Tier3 {
+public class BlackPlateMail implements Armor, Tier3, Craftable {
 
     private Point coordinates = new Point(0,0);
 

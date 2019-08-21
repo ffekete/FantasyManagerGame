@@ -109,4 +109,9 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
         return this;
     }
 
+    @Override
+    public Class<? extends Activity> getMainClass() {
+        return this.getClass();
+    }
+
 }

@@ -85,7 +85,7 @@ public class MoveAndAttackDecision implements Decision {
                         actorPath.add(path.get(i));
                     }
                     //actorMovementHandler.registerActorPath(actor, actorPath);
-                    CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY);
+                    CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY, SimpleAttackActivity.class);
                     compoundActivityForActor.add(new PreCalculatedMovementActivity(actor, actorPath));
                     compoundActivityForActor.add(new SimpleAttackActivity(actor, enemy));
                     actor.getActivityStack().add(compoundActivityForActor);
@@ -110,7 +110,7 @@ public class MoveAndAttackDecision implements Decision {
                         }
 
                         //actorMovementHandler.registerActorPath(enemy, enemyPath);
-                        CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY);
+                        CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY, SimpleAttackActivity.class);
                         compoundActivityForActor.add(new PreCalculatedMovementActivity(enemy, enemyPath));
                         compoundActivityForActor.add(new SimpleAttackActivity(enemy, actor));
                         enemy.getActivityStack().add(compoundActivityForActor);

@@ -2,10 +2,11 @@ package com.mygdx.game.item.shield;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.logic.Point;
 
-public class SmallShiled implements Shield, Tier1 {
+public class SmallShiled implements Shield, Tier1, Craftable {
 
     private int defense = 5;
     private Point coordinates = new Point(0,0);

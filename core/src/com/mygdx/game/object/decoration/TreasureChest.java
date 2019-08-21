@@ -7,12 +7,13 @@ import com.mygdx.game.object.ContainerObject;
 import com.mygdx.game.object.InteractiveObject;
 import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.furniture.Furniture;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TreasureChest implements WorldObject, InteractiveObject, ContainerObject, Obstacle {
+public class TreasureChest implements WorldObject, InteractiveObject, ContainerObject, Obstacle, Furniture {
 
     private final float worldMapSize = 1f;
 
@@ -66,6 +67,11 @@ public class TreasureChest implements WorldObject, InteractiveObject, ContainerO
     @Override
     public boolean canInteract(Actor actor) {
         return getSize() > 0 || money > 0;
+    }
+
+    @Override
+    public void finished(Actor actor) {
+
     }
 
     @Override

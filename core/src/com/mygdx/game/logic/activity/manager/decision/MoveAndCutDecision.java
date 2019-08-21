@@ -42,7 +42,7 @@ public class MoveAndCutDecision implements Decision {
             if (!commands.isEmpty()) {
                 Command<Cuttable> command = commands.get(0);
 
-                MoveAndCutDownActivity moveAndCutDownActivity = new MoveAndCutDownActivity(Config.BuilderActivity.CHOP_DOWN_PRIORITY);
+                MoveAndCutDownActivity moveAndCutDownActivity = new MoveAndCutDownActivity(Config.BuilderActivity.CHOP_DOWN_PRIORITY, ExecuteCutDownActivity.class);
                 ExecuteCutDownActivity executeCutDownActivity = new ExecuteCutDownActivity(actor, command);
                 command.setExecutor(actor);
 

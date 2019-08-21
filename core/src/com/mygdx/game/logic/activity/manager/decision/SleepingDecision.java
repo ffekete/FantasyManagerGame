@@ -49,7 +49,7 @@ public class SleepingDecision implements Decision {
                     // start camp
                     CampFire campFire = ObjectFactory.create(CampFire.class, actor.getCurrentMap(), ObjectPlacement.FIXED.X(actor.getX()).Y(actor.getY()));
 
-                    MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY);
+                    MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY, SleepAtCampfireActivity.class);
                     SleepAtCampfireActivity sleepActivity = new SleepAtCampfireActivity(actor, campFire);
 
                     Point target = campFire.getNextFreeSpace();
@@ -62,7 +62,7 @@ public class SleepingDecision implements Decision {
                     return true;
                 } else {
                     System.out.println(actor.getName() + " has a bed, going to " + ((WorldObject)bed.get()).getX() + " " + ((WorldObject)bed.get()).getY());
-                    MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY);
+                    MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY, SleepActivity.class);
                     moveAndSleepActivity.add(new MovementActivity(actor, (int) ((WorldObject) bed.get()).getX(), (int) ((WorldObject) bed.get()).getY(), 0, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
                     moveAndSleepActivity.add(new SleepActivity(actor));
                     actor.getActivityStack().clear();
@@ -78,7 +78,7 @@ public class SleepingDecision implements Decision {
                 // start camp
                 CampFire campFire = fires.orElseGet(() -> ObjectFactory.create(CampFire.class, actor.getCurrentMap(), ObjectPlacement.FIXED.X(actor.getX()).Y(actor.getY())));
 
-                MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY);
+                MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY, SleepAtCampfireActivity.class);
                 SleepAtCampfireActivity sleepActivity = new SleepAtCampfireActivity(actor, campFire);
 
                 Point target = campFire.getNextFreeSpace();

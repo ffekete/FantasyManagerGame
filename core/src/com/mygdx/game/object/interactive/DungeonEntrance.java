@@ -37,6 +37,11 @@ public class DungeonEntrance implements InteractiveObject, Obstacle {
     }
 
     @Override
+    public void finished(Actor actor) {
+
+    }
+
+    @Override
     public float getX() {
         return coordinates.getX();
     }

@@ -22,7 +22,7 @@ public class ShootingTrainingDecision implements Decision {
             return false;
         }
 
-        if (ShootingTrainingActivity.class.equals(actor.getActivityStack().getCurrent().getCurrentClass())) {
+        if (ShootingTrainingActivity.class.equals(actor.getActivityStack().getCurrent().getMainClass())) {
             return true;
         }
 
@@ -39,7 +39,7 @@ public class ShootingTrainingDecision implements Decision {
                 return false;
             }
 
-            MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.TRAINING_PRIORITY);
+            MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.TRAINING_PRIORITY, ShootingTrainingActivity.class);
             MovementActivity movementActivity = new MovementActivity(actor, (int) shootingTargets.get(0).getX(), (int) shootingTargets.get(0).getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap()));
             ShootingTrainingActivity shootingTrainingActivity = new ShootingTrainingActivity(actor, shootingTargets.get(0));
             moveAndInteractActivity.add(movementActivity)

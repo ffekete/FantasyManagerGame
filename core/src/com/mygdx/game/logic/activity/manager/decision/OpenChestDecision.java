@@ -32,7 +32,7 @@ public class OpenChestDecision implements Decision {
             return false;
         }
 
-        if (!actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
+        if (!actor.getActivityStack().getCurrent().getMainClass().equals(MoveAndInteractActivity.class)) {
             List<Cluster> clusters = new ArrayList<>();
 
             for (int i = -10; i <= 10; i++)
@@ -65,7 +65,7 @@ public class OpenChestDecision implements Decision {
                 if (closestObject != null && (((TreasureChest) closestObject).getSize() > 0 || ((TreasureChest) closestObject).getMoney() > 0)) {
                     ActorMovementHandler.INSTANCE.clearPath(actor);
                     actor.getActivityStack().clear();
-                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.OPEN_CHEST_PRIORITY);
+                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.OPEN_CHEST_PRIORITY, MoveAndInteractActivity.class);
 
                     moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1, new PathFinder()));
                     moveAndInteractActivity.add(new InteractActivity(actor, (InteractiveObject) closestObject));

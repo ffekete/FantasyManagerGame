@@ -53,6 +53,11 @@ public class BookCase implements WorldObject, InteractiveObject, Obstacle, Furni
     }
 
     @Override
+    public void finished(Actor actor) {
+
+    }
+
+    @Override
     public int getExperienceAmount() {
         return 20;
     }
