@@ -20,6 +20,7 @@ import com.mygdx.game.object.furniture.IncompletePracticeFigure;
 import com.mygdx.game.object.furniture.IncompleteWoodenBed;
 import com.mygdx.game.object.interactive.PracticeFigure;
 import com.mygdx.game.object.wall.IncompleteWoodenDoorWall;
+import com.mygdx.game.object.wall.IncompleteWoodenFence;
 import com.mygdx.game.object.wall.IncompleteWoodenWall;
 import com.mygdx.game.registry.RendererToolsRegistry;
 
@@ -214,6 +215,20 @@ public class BuilderStageConfig {
             }
         });
         wallGroup.add(buildWoodenWallButton).width(30).center();
+
+        ImageButton buildWoodenFenceButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildWoodenFenceButton.png")), 0, 0, 32, 32)),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildWoodenFenceButton.png")), 32, 0, 32, 32)));
+
+        buildWoodenFenceButton.addListener(new TextTooltip("You can build a fence with this.", textTooltipStyle));
+        buildWoodenFenceButton.addListener(new ClickListener() {
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                BuilderTool.INSTANCE.setBlockToBuild(IncompleteWoodenFence.class);
+                return true;
+            }
+        });
+        wallGroup.add(buildWoodenFenceButton).width(30).center();
 
         // Door
         ImageButton buildWoodenDoorButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildWallDoorButton.png")), 0, 0, 32, 32)),
