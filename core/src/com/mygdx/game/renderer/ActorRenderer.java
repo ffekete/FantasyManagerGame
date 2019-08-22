@@ -70,8 +70,6 @@ public class ActorRenderer implements Renderer<Map2D> {
                 }
             }
         }
-
-        actionManager.update();
     }
 
 

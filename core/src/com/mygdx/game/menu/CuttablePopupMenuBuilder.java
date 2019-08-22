@@ -1,7 +1,6 @@
 package com.mygdx.game.menu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
@@ -25,7 +24,7 @@ public class CuttablePopupMenuBuilder {
 
     private final MapRegistry mapRegistry = MapRegistry.INSTANCE;
 
-    private Drawable background = new TextureRegionDrawable(TextureRegistry.INSTANCE.getFor(MenuItem.CutableBuildMenuBackground));
+    private Drawable background = new TextureRegionDrawable(TextureRegistry.INSTANCE.getFor(MenuItem.Window));
 
     Window.WindowStyle windowStyle;
     Window window;

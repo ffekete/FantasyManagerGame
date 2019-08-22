@@ -1,12 +1,15 @@
 package com.mygdx.game.object.interactive;
 
+import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.CharacterMap2dSwitcher;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.InteractiveObject;
+import com.mygdx.game.object.light.LightSource;
+import com.mygdx.game.object.light.LightSourceType;
 
-public class Ladder implements InteractiveObject {
+public class Ladder implements InteractiveObject, LightSource {
 
     private final Map2D to;
     private final Map2D from;
@@ -48,6 +51,26 @@ public class Ladder implements InteractiveObject {
     @Override
     public float getY() {
         return coordinates.getY();
+    }
+
+    @Override
+    public float getArea() {
+        return 5f;
+    }
+
+    @Override
+    public Color getColor() {
+        return Color.YELLOW;//Color.valueOf("FFFF8888");
+    }
+
+    @Override
+    public LightSourceType getType() {
+        return LightSourceType.Ambient;
+    }
+
+    @Override
+    public void update() {
+
     }
 
     @Override

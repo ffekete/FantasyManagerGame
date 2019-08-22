@@ -15,7 +15,10 @@ import com.mygdx.game.logic.controller.GameFlowControllerFacade;
 import com.mygdx.game.object.floor.IncompleteDirtRoad;
 import com.mygdx.game.object.floor.IncompleteStorageAreaFloor;
 import com.mygdx.game.object.floor.IncompleteWoodenFloor;
+import com.mygdx.game.object.furniture.IncompleteAnvil;
+import com.mygdx.game.object.furniture.IncompletePracticeFigure;
 import com.mygdx.game.object.furniture.IncompleteWoodenBed;
+import com.mygdx.game.object.interactive.PracticeFigure;
 import com.mygdx.game.object.wall.IncompleteWoodenDoorWall;
 import com.mygdx.game.object.wall.IncompleteWoodenWall;
 import com.mygdx.game.registry.RendererToolsRegistry;
@@ -258,7 +261,7 @@ public class BuilderStageConfig {
         });
         floorGroup.add(buildStorageAreaFloorButton).width(30).center();
 
-        // bed
+        // furniture
         ImageButton buildWoodenBedButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/CreateBedButton.png")), 0, 0, 32, 32)),
                 new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/CreateBedButton.png")), 32, 0, 32, 32)));
 
@@ -274,7 +277,35 @@ public class BuilderStageConfig {
         });
         furnitureGroup.add(buildWoodenBedButton).width(30).center();
 
+        ImageButton buildPracticeFigure = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildPracticeFigureButton.png")), 0, 0, 32, 32)),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildPracticeFigureButton.png")), 32, 0, 32, 32)));
 
+        buildPracticeFigure.addListener(new TextTooltip("You can build a practice figure with this.", textTooltipStyle));
+        buildPracticeFigure.addListener(new ClickListener() {
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                BuilderTool.INSTANCE.setBlockToBuild(IncompletePracticeFigure.class);
+                return true;
+            }
+
+        });
+        furnitureGroup.add(buildPracticeFigure).width(30).center();
+
+        ImageButton buildAnvil = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildAnvilButton.png")), 0, 0, 32, 32)),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildAnvilButton.png")), 32, 0, 32, 32)));
+
+        buildAnvil.addListener(new TextTooltip("You can build an anvil with this.", textTooltipStyle));
+        buildAnvil.addListener(new ClickListener() {
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                BuilderTool.INSTANCE.setBlockToBuild(IncompleteAnvil.class);
+                return true;
+            }
+
+        });
+        furnitureGroup.add(buildAnvil).width(30).center();
 
         // road
         ImageButton buildDirtRoadButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildDirtRoadButton.png")), 0, 0, 32, 32)),

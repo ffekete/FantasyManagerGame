@@ -1,6 +1,7 @@
 package com.mygdx.game.menu;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
@@ -18,7 +19,7 @@ public class CraftingObjectPopupMenuBuilder {
 
     public static final CraftingObjectPopupMenuBuilder INSTANCE = new CraftingObjectPopupMenuBuilder();
 
-    private Drawable background = new TextureRegionDrawable(TextureRegistry.INSTANCE.getFor(MenuItem.CutableBuildMenuBackground));
+    private Drawable background = new TextureRegionDrawable(TextureRegistry.INSTANCE.getFor(MenuItem.Window));
 
     private TextButton.TextButtonStyle textButtonStyle;
 
@@ -39,6 +40,7 @@ public class CraftingObjectPopupMenuBuilder {
 
         textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = RendererToolsRegistry.INSTANCE.getBitmapFontTiny();
+        textButtonStyle.fontColor = Color.BLACK;
 
         itemButton = new TextButton("", textButtonStyle);
         userButton = new TextButton("", textButtonStyle);

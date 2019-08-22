@@ -263,8 +263,8 @@ public class WorldMapSample extends SampleBase {
         HouseFactory.INSTANCE.create(7,1, 3, worldMap);
 
         HouseFactory.INSTANCE.create(1,1, 4, worldMap);
-        ObjectFactory.create(Anvil.class, worldMap, ObjectPlacement.FIXED.X(3).Y(3));
-        ObjectFactory.create(TreasureChest.class, worldMap, ObjectPlacement.FIXED.X(4).Y(3));
+        //ObjectFactory.create(Anvil.class, worldMap, ObjectPlacement.FIXED.X(3).Y(3));
+        //ObjectFactory.create(TreasureChest.class, worldMap, ObjectPlacement.FIXED.X(4).Y(3));
 
         HouseFactory.INSTANCE.create(15, 1, 3, worldMap);
         //ObjectFactory.create(ShootingTarget.class, worldMap, ObjectPlacement.FIXED.X(17).Y(2));

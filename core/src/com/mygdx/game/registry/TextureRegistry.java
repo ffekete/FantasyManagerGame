@@ -30,6 +30,8 @@ import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.decoration.*;
 import com.mygdx.game.object.floor.*;
+import com.mygdx.game.object.furniture.IncompleteAnvil;
+import com.mygdx.game.object.furniture.IncompletePracticeFigure;
 import com.mygdx.game.object.furniture.IncompleteWoodenBed;
 import com.mygdx.game.object.furniture.WoodenBed;
 import com.mygdx.game.object.interactive.*;
@@ -71,7 +73,7 @@ public class TextureRegistry {
 
         menuItems = ImmutableMap.<MenuItem, Optional<Texture>>builder()
                 .put(MenuItem.Inventory, texturePathResolver.resolve("menu/Inventory.png"))
-                .put(MenuItem.CutableBuildMenuBackground, texturePathResolver.resolve("menu/CutableBuildMenuBackground.png"))
+                .put(MenuItem.Window, texturePathResolver.resolve("menu/Window.png"))
                 .build();
 
         characterAnimationTextures = ImmutableMap.<Class<? extends Actor>, Optional<Texture>>builder()
@@ -193,6 +195,8 @@ public class TextureRegistry {
                 .put(BookCase.class, Arrays.asList(texturePathResolver.resolve("object/training/BookCase.png")))
                 .put(ShootingTarget.class, Arrays.asList(texturePathResolver.resolve("object/training/ShootingTarget.png")))
                 .put(Anvil.class, Arrays.asList(texturePathResolver.resolve("object/Anvil.png")))
+                .put(IncompletePracticeFigure.class, Arrays.asList(texturePathResolver.resolve("object/furniture/IncompletePracticeFigure.png")))
+                .put(IncompleteAnvil.class, Arrays.asList(texturePathResolver.resolve("object/furniture/IncompleteAnvil.png")))
 
                 .build();
 

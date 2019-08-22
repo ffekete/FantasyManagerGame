@@ -16,6 +16,7 @@ public enum SandboxRendererBatch implements Renderer<Map2D> {
                     ItemRenderer.INSTANCE,
                     ActorRenderer.INSTANCE,
                     ObjectRenderer.INSTANCE,
+                    ActionRenderer.INSTANCE,
                     LightRenderer.INSTANCE
             )
     ),
@@ -26,6 +27,7 @@ public enum SandboxRendererBatch implements Renderer<Map2D> {
                     ItemRenderer.INSTANCE,
                     ActorRenderer.INSTANCE,
                     ObjectRenderer.INSTANCE,
+                    ActionRenderer.INSTANCE,
                     LightRenderer.INSTANCE
             )
     );
