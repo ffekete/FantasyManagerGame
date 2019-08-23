@@ -16,38 +16,46 @@ public class EquipDecision implements Decision {
 
     @Override
     public boolean decide(Actor actor) {
-        if (!actor.isSleeping() && !actor.getActivityStack().getCurrent().getMainClass().equals(EquipActivity.class)) {
-            if (actor.getInventory().has(Equipable.class)) {
-                Equipable equipable = actor.getInventory().get(Equipable.class);
 
-                if (Shield.class.isAssignableFrom(equipable.getClass()) && (
-                        actor.getRightHandItem() == null || !TwohandedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass()))
-                        ) {
-                    if (actor.getLeftHandItem() == null || actor.getLeftHandItem().getPower() < equipable.getPower()) {
-                        EquipActivity equipActivity = new EquipActivity(actor, equipable);
-                        actor.getActivityStack().add(equipActivity);
-                        return true;
-                    }
-                } else if (Weapon.class.isAssignableFrom(equipable.getClass())) {
+        if (actor.isSleeping()) {
+            return false;
+        }
 
-                    if (actor.getRightHandItem() == null || (actor.getRightHandItem().getPower() < equipable.getPower() || weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable) > weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) {
-                        if(actor.getRightHandItem() != null) {
-                            System.out.println("Weapon skill for old: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()));
-                            System.out.println("Weapon skill for new: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable));
-                        }
-                        EquipActivity equipActivity = new EquipActivity(actor, equipable);
-                        actor.getActivityStack().add(equipActivity);
-                        return true;
-                    }
-                } else if (Armor.class.isAssignableFrom(equipable.getClass())) {
-                    if (actor.getWornArmor() == null || actor.getWornArmor().getPower() < equipable.getPower()) {
-                        EquipActivity equipActivity = new EquipActivity(actor, equipable);
-                        actor.getActivityStack().add(equipActivity);
-                        return true;
-                    }
+        if (actor.getActivityStack().getCurrent().getMainClass().equals(EquipActivity.class)) {
+            return true;
+        }
+
+
+        if (actor.getInventory().has(Equipable.class)) {
+            Equipable equipable = actor.getInventory().get(Equipable.class);
+
+            if (Shield.class.isAssignableFrom(equipable.getClass()) && (
+                    actor.getRightHandItem() == null || !TwohandedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass()))
+                    ) {
+                if (actor.getLeftHandItem() == null || actor.getLeftHandItem().getPower() < equipable.getPower()) {
+                    EquipActivity equipActivity = new EquipActivity(actor, equipable);
+                    actor.getActivityStack().add(equipActivity);
+                    return true;
                 }
-                return false;
+            } else if (Weapon.class.isAssignableFrom(equipable.getClass())) {
+
+                if (actor.getRightHandItem() == null || (actor.getRightHandItem().getPower() < equipable.getPower() || weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable) > weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) {
+                    if (actor.getRightHandItem() != null) {
+                        System.out.println("Weapon skill for old: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()));
+                        System.out.println("Weapon skill for new: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable));
+                    }
+                    EquipActivity equipActivity = new EquipActivity(actor, equipable);
+                    actor.getActivityStack().add(equipActivity);
+                    return true;
+                }
+            } else if (Armor.class.isAssignableFrom(equipable.getClass())) {
+                if (actor.getWornArmor() == null || actor.getWornArmor().getPower() < equipable.getPower()) {
+                    EquipActivity equipActivity = new EquipActivity(actor, equipable);
+                    actor.getActivityStack().add(equipActivity);
+                    return true;
+                }
             }
+            return false;
         }
 
         return actor.getActivityStack().contains(EquipActivity.class);

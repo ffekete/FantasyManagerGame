@@ -23,6 +23,7 @@ public class SmithingActivity implements Activity {
     private int counter = 0;
     private Action action;
     private boolean firstRun = true;
+    private int interactedCounter = 1;
 
     private Sound hitSound = Gdx.audio.newSound(Gdx.files.internal("sounds/hit/hit07.mp3"));
 
@@ -38,6 +39,7 @@ public class SmithingActivity implements Activity {
 
     @Override
     public void update() {
+        interactedCounter++;
         object.addProgress(0.1f);
         action = new HammerSwingAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(Hammer.class), actor);
         actionRegistry.add(actor.getCurrentMap(), action);
@@ -124,4 +126,11 @@ public class SmithingActivity implements Activity {
         return this.getClass();
     }
 
+    public int getInteractedCounter() {
+        return interactedCounter;
+    }
+
+    public void increaseInteractedCounter() {
+        interactedCounter++;
+    }
 }

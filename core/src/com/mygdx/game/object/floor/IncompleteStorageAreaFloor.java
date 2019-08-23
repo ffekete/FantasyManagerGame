@@ -3,6 +3,11 @@ package com.mygdx.game.object.floor;
 import com.mygdx.game.Config;
 import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.object.StorageArea;
+import com.mygdx.game.object.TileableObject;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class IncompleteStorageAreaFloor implements Floor, BuildingBlock<StorageAreaFloor>, TileableFloorObject {
 
@@ -59,5 +64,10 @@ public class IncompleteStorageAreaFloor implements Floor, BuildingBlock<StorageA
     @Override
     public float getProgress() {
         return this.progress;
+    }
+
+    @Override
+    public List<Class<? extends TileableObject>> getConnectableTypes() {
+        return Arrays.asList(StorageAreaFloor.class, IncompleteStorageAreaFloor.class);
     }
 }

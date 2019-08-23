@@ -3,8 +3,10 @@ package com.mygdx.game.renderer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.builder.BuildingBlock;
+import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.AnimatedObject;
@@ -109,7 +111,11 @@ public class ObjectRenderer implements Renderer<Map2D> {
         if (Decoration.class.isAssignableFrom(worldObject.getClass()) && isActorAdjacent(dungeon, i, j)) {
             spriteBatch.setColor(Color.valueOf("FFFFFF88"));
         } else {
-            spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
+            if(DayTimeCalculator.INSTANCE.isItNight()) {
+                spriteBatch.setColor(Config.Engine.NIGHT_COLOR);
+            } else {
+                spriteBatch.setColor(Color.WHITE);
+            }
         }
     }
 

@@ -15,24 +15,39 @@ public class MapUtils {
         int mask = 0;
         int index = TileableFloorObject.class.isAssignableFrom(clazz) ? 0 : 1;
 
-        if (y + 1 >= worldObjects[0].length || (worldObjects[x][y + 1][index] != null && clazz.isAssignableFrom(worldObjects[x][y + 1][index].getClass()))) {
+        if (y + 1 >= worldObjects[0].length || (worldObjects[x][y + 1][index] != null && (isConnectible(worldObjects[x][y + 1][index], clazz)))) {
             mask += 1;
         }
 
-        if (x + 1 >= worldObjects.length || (worldObjects[x + 1][y][index] != null && clazz.isAssignableFrom(worldObjects[x + 1][y][index].getClass()))) {
+        if (x + 1 >= worldObjects.length || (worldObjects[x + 1][y][index] != null && isConnectible(worldObjects[x + 1][y][index], clazz))) {
             mask += 2;
         }
 
-        if (y - 1 < 0 || (worldObjects[x][y - 1][index] != null && clazz.isAssignableFrom(worldObjects[x][y - 1][index].getClass()))) {
+        if (y - 1 < 0 || (worldObjects[x][y - 1][index] != null && isConnectible(worldObjects[x][y - 1][index], clazz))) {
             mask += 4;
         }
 
-        if (x - 1 < 0 || (worldObjects[x - 1][y][index] != null && clazz.isAssignableFrom(worldObjects[x - 1][y][index].getClass()))) {
+        if (x - 1 < 0 || (worldObjects[x - 1][y][index] != null && isConnectible(worldObjects[x - 1][y][index], clazz))) {
             mask += 8;
         }
 
         return mask;
     }
+
+    private static boolean isConnectible(WorldObject worldObject, Class clazz) {
+
+        if (TileableObject.class.isAssignableFrom(worldObject.getClass())) {
+            if(((TileableObject)worldObject).getConnectableTypes().stream().anyMatch(aClass -> aClass.isAssignableFrom(clazz)))
+                return true;
+        }
+
+        return false;
+
+        //return clazz.isAssignableFrom(worldObject.getClass());
+    }
+
+
+
 
     public static int bitmask4bitForTile(WorldMap map, int x, int y, WorldMapTile tile) {
         int mask = 0;

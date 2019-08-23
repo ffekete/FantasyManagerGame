@@ -30,10 +30,7 @@ import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.decoration.*;
 import com.mygdx.game.object.floor.*;
-import com.mygdx.game.object.furniture.IncompleteAnvil;
-import com.mygdx.game.object.furniture.IncompletePracticeFigure;
-import com.mygdx.game.object.furniture.IncompleteWoodenBed;
-import com.mygdx.game.object.furniture.WoodenBed;
+import com.mygdx.game.object.furniture.*;
 import com.mygdx.game.object.interactive.*;
 import com.mygdx.game.object.light.LightSourceType;
 import com.mygdx.game.item.resources.Wood;
@@ -147,6 +144,7 @@ public class TextureRegistry {
                 .put(PracticeFigure.class, texturePathResolver.resolve("object/training/PracticeFigure.png"))
                 .put(Grass.class, texturePathResolver.resolve("object/decoration/Grass.png"))
                 .put(GrassV2.class, texturePathResolver.resolve("object/decoration/GrassV2.png"))
+                .put(Smelter.class, texturePathResolver.resolve("object/crafting/Smelter.png"))
                 .build();
 
         objectTextures = ImmutableMap.<Class<? extends WorldObject>, List<Optional<Texture>>>builder()
@@ -184,7 +182,7 @@ public class TextureRegistry {
                 .put(WoodenFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/WoodenFloor.png")))
                 .put(IncompleteWoodenFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/IncompleteWoodenFloor.png")))
                 .put(IncompleteDirtRoad.class, Arrays.asList(texturePathResolver.resolve("object/floor/IncompleteRoadTile.png")))
-                .put(Road.class, Arrays.asList(texturePathResolver.resolve("object/floor/RoadTile.png")))
+                .put(DirtRoad.class, Arrays.asList(texturePathResolver.resolve("object/floor/RoadTile.png")))
                 .put(StorageAreaFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/StorageArea.png")))
                 .put(IncompleteStorageAreaFloor.class, Arrays.asList(texturePathResolver.resolve("object/floor/IncompleteStorageArea.png")))
 
@@ -193,9 +191,10 @@ public class TextureRegistry {
                 .put(WoodenBed.class, Arrays.asList(texturePathResolver.resolve("object/furniture/WoodenBed.png")))
                 .put(BookCase.class, Arrays.asList(texturePathResolver.resolve("object/training/BookCase.png")))
                 .put(ShootingTarget.class, Arrays.asList(texturePathResolver.resolve("object/training/ShootingTarget.png")))
-                .put(Anvil.class, Arrays.asList(texturePathResolver.resolve("object/Anvil.png")))
+                .put(Anvil.class, Arrays.asList(texturePathResolver.resolve("object/crafting/Anvil.png")))
                 .put(IncompletePracticeFigure.class, Arrays.asList(texturePathResolver.resolve("object/furniture/IncompletePracticeFigure.png")))
-                .put(IncompleteAnvil.class, Arrays.asList(texturePathResolver.resolve("object/furniture/IncompleteAnvil.png")))
+                .put(IncompleteAnvil.class, Arrays.asList(texturePathResolver.resolve("object/crafting/IncompleteAnvil.png")))
+                .put(IncompleteSmelter.class, Arrays.asList(texturePathResolver.resolve("object/crafting/IncompleteSmelter.png")))
 
                 .build();
 

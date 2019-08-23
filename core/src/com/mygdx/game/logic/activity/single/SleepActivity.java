@@ -5,6 +5,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
+import com.mygdx.game.logic.time.DayTimeCalculator;
 
 public class SleepActivity implements Activity {
 
@@ -19,7 +20,7 @@ public class SleepActivity implements Activity {
 
     @Override
     public boolean isDone() {
-        return actor.getSleepinessLevel() <= Config.Rules.BASE_SLEEPINESS_LEVEL;
+        return (actor.getSleepinessLevel() <= Config.Rules.BASE_SLEEPINESS_LEVEL && !DayTimeCalculator.INSTANCE.isItNight());
     }
 
     @Override

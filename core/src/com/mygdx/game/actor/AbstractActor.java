@@ -503,7 +503,7 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public boolean isSleeping() {
-        return activityStack.contains(SleepActivity.class) || activityStack.contains(SleepAtCampfireActivity.class) || activityStack.contains(SleepOutsideActivity.class) || activityStack.contains(MoveAndSleepActivity.class);
+        return activityStack.getCurrent().getMainClass().equals(SleepActivity.class);
     }
 
     @Override

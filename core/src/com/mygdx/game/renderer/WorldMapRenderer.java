@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Config;
+import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisitedArea;
@@ -42,7 +43,11 @@ public class WorldMapRenderer implements Renderer<Map2D> {
                 if (map.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
                     spriteBatch.setColor(Color.DARK_GRAY);
                 } else {
-                    spriteBatch.setColor(Color.WHITE);
+                    if(DayTimeCalculator.INSTANCE.isItNight()) {
+                        spriteBatch.setColor(Config.Engine.NIGHT_COLOR);
+                    } else {
+                        spriteBatch.setColor(Color.WHITE);
+                    }
                 }
 
                 if (map.getVisitedareaMap()[i][j] != VisitedArea.NOT_VISITED) {

@@ -1,12 +1,11 @@
 package com.mygdx.game.map.worldmap;
 
-import com.mygdx.game.Config;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.factory.ObjectFactory;
-import com.mygdx.game.object.floor.Road;
+import com.mygdx.game.object.floor.DirtRoad;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.ObjectRegistry;
@@ -53,7 +52,7 @@ public class RoadCreator {
                 ObjectRegistry.INSTANCE.remove(map, worldObject);
             }
 
-            alreadyBuilt.add(ObjectFactory.create(Road.class, map, ObjectPlacement.FIXED.X(current.getX()).Y(current.getY())));
+            alreadyBuilt.add(ObjectFactory.create(DirtRoad.class, map, ObjectPlacement.FIXED.X(current.getX()).Y(current.getY())));
             map.setTraverseCost(current.getX(), current.getY(), 0.2f);
 
             if (returnAfterThis) {
@@ -73,7 +72,7 @@ public class RoadCreator {
                     continue;
 
                 WorldObject o = ObjectRegistry.INSTANCE.getObjectGrid().get(map)[x + i[0]][y + i[1]][0];
-                if (o != null && !recentRoad.contains(o) && (Road.class.isAssignableFrom(o.getClass())))
+                if (o != null && !recentRoad.contains(o) && (DirtRoad.class.isAssignableFrom(o.getClass())))
                     return true;
 
         }

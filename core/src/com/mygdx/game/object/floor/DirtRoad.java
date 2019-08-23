@@ -1,21 +1,16 @@
 package com.mygdx.game.object.floor;
 
-import com.mygdx.game.Config;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.TileableObject;
-import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.wall.Wall;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class WoodenFloor implements Floor, WorldObject, TileableFloorObject {
-
+public class DirtRoad implements TileableFloorObject, WorldObject, Floor, Road {
     private Point coordinates;
 
-    public WoodenFloor(Point coordinates) {
+    public DirtRoad(Point coordinates) {
         this.coordinates = coordinates;
     }
 
@@ -41,11 +36,11 @@ public class WoodenFloor implements Floor, WorldObject, TileableFloorObject {
 
     @Override
     public float getWorldMapSize() {
-        return Config.Object.WOODEN_WALL_WORLD_MAP_SIZE;
+        return 1f;
     }
 
     @Override
     public List<Class<? extends TileableObject>> getConnectableTypes() {
-        return Arrays.asList(Floor.class);
+        return Arrays.asList(DirtRoad.class);
     }
 }

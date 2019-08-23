@@ -3,12 +3,13 @@ package com.mygdx.game.renderer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.Config;
 import com.mygdx.game.builder.BuildingBlock;
+import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.decoration.Decoration;
-import com.mygdx.game.object.floor.Road;
+import com.mygdx.game.object.floor.DirtRoad;
 import com.mygdx.game.object.floor.TileableFloorObject;
 import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.registry.RendererToolsRegistry;
@@ -49,10 +50,14 @@ public class GroundObjectRenderer implements Renderer<Map2D> {
                     if (dungeon.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
                         spriteBatch.setColor(Color.DARK_GRAY);
                     } else {
-                        if (Road.class.isAssignableFrom(worldObject.getClass())) {
+                        if (DirtRoad.class.isAssignableFrom(worldObject.getClass())) {
                             spriteBatch.setColor(Color.valueOf("FFFFFFDD"));
                         } else {
-                            spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
+                            if(DayTimeCalculator.INSTANCE.isItNight()) {
+                                spriteBatch.setColor(Config.Engine.NIGHT_COLOR);
+                            } else {
+                                spriteBatch.setColor(Color.WHITE);
+                            }
                         }
                     }
 

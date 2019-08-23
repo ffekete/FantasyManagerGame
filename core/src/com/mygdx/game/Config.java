@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Color;
+
 public class Config {
 
     public static final int SCREEN_WIDTH = 1024;
@@ -27,6 +29,7 @@ public class Config {
         public static final int NUMBER_OF_THREADS = 4;
         public static final boolean ENABLE_8_WAYS_PATHFINDING = false;
         public static final float ACTOR_HEIGHT = 0.7f;
+        public static final Color NIGHT_COLOR = Color.valueOf("5f5f5fff");
     }
 
     public static final int ATTACK_DISTANCE = 15;
@@ -45,7 +48,7 @@ public class Config {
     }
 
     public static class Time {
-        public static final int TICK_PER_HOUR = 1000;
+        public static final int TICK_PER_HOUR = 500;
         public static final int HOUR_PER_DAY = 24;
     }
 
@@ -98,6 +101,7 @@ public class Config {
     }
 
     public static class SmithActivity {
+        public static final int SMELTER_USING_PRIORITY = 880;
         public static final int SMITHING_PRIORITY = 900;
     }
 

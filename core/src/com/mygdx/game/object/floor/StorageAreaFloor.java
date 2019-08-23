@@ -4,7 +4,11 @@ import com.mygdx.game.Config;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.StorageArea;
+import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.WorldObject;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class StorageAreaFloor implements Floor, WorldObject, TileableFloorObject, StorageArea {
 
@@ -59,5 +63,10 @@ public class StorageAreaFloor implements Floor, WorldObject, TileableFloorObject
     @Override
     public void setStoredAmount(int amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public List<Class<? extends TileableObject>> getConnectableTypes() {
+        return Arrays.asList(StorageAreaFloor.class, IncompleteStorageAreaFloor.class);
     }
 }

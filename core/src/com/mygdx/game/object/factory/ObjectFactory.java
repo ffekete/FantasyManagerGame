@@ -8,7 +8,7 @@ import com.mygdx.game.object.AnimatedObject;
 import com.mygdx.game.object.StorageArea;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.floor.Floor;
-import com.mygdx.game.object.floor.Road;
+import com.mygdx.game.object.floor.DirtRoad;
 import com.mygdx.game.object.furniture.Furniture;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.object.placement.ObjectPlacement;
@@ -58,7 +58,7 @@ public class ObjectFactory {
 
             ObjectRegistry.INSTANCE.add(map2D, Cluster.of(object.getX(), object.getY()), object);
 
-            if (Road.class.isAssignableFrom(clazz)) {
+            if (DirtRoad.class.isAssignableFrom(clazz)) {
                 map2D.setTraverseCost((int) object.getX(), (int) object.getY(), 0.2f);
             }
 

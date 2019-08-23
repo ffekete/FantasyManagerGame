@@ -3,8 +3,12 @@ package com.mygdx.game.object.wall;
 import com.mygdx.game.Config;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.Obstacle;
+import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class WoodenFence implements Wall, WorldObject, TileableWallObject, Obstacle {
 
@@ -37,5 +41,10 @@ public class WoodenFence implements Wall, WorldObject, TileableWallObject, Obsta
     @Override
     public float getWorldMapSize() {
         return Config.Object.WOODEN_WALL_WORLD_MAP_SIZE;
+    }
+
+    @Override
+    public List<Class<? extends TileableObject>> getConnectableTypes() {
+        return Arrays.asList(TileableWallObject.class);
     }
 }

@@ -21,4 +21,11 @@ public class DayTimeCalculator {
         return actualTime / Config.Time.TICK_PER_HOUR / Config.Time.HOUR_PER_DAY;
     }
 
+    public boolean isItNight() {
+        if(getHour() >= 20 || getHour() <= 6) {
+            return true;
+        }
+        return false;
+    }
+
 }

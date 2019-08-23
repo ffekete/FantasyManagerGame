@@ -1,23 +1,18 @@
-package com.mygdx.game.object.wall;
+package com.mygdx.game.object.furniture;
 
-import com.mygdx.game.Config;
 import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.Obstacle;
-import com.mygdx.game.object.TileableObject;
-import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.interactive.Anvil;
+import com.mygdx.game.object.interactive.Smelter;
 
-import java.util.Arrays;
-import java.util.List;
+public class IncompleteSmelter implements WorldObject, Obstacle, Furniture, BuildingBlock {
 
-public class IncompleteWoodenWall implements Wall, BuildingBlock<WoodenWall>, TileableWallObject, Obstacle, IncompleteWall {
-
-    private float progress;
     private Point coordinates;
+    private float progress = 0.0f;
 
-    public IncompleteWoodenWall(Point coordinates) {
-        this.progress = 0f;
+    public IncompleteSmelter(Point coordinates) {
         this.coordinates = coordinates;
     }
 
@@ -26,16 +21,19 @@ public class IncompleteWoodenWall implements Wall, BuildingBlock<WoodenWall>, Ti
         this.progress += percentage;
     }
 
-
-
     @Override
-    public Class<WoodenWall> finish() {
-        return WoodenWall.class;
+    public Class finish() {
+        return Smelter.class;
     }
 
     @Override
     public boolean isFinished() {
         return progress >= 100f;
+    }
+
+    @Override
+    public float getProgress() {
+        return progress;
     }
 
     @Override
@@ -60,16 +58,6 @@ public class IncompleteWoodenWall implements Wall, BuildingBlock<WoodenWall>, Ti
 
     @Override
     public float getWorldMapSize() {
-        return Config.Object.WOODEN_WALL_WORLD_MAP_SIZE;
-    }
-
-    @Override
-    public float getProgress() {
-        return this.progress;
-    }
-
-    @Override
-    public List<Class<? extends TileableObject>> getConnectableTypes() {
-        return Arrays.asList(TileableWallObject.class);
+        return 1.f;
     }
 }

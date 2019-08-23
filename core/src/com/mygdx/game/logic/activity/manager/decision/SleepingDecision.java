@@ -2,6 +2,7 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.common.util.MathUtil;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.CompoundActivity;
 import com.mygdx.game.logic.activity.compound.MoveAndSleepActivity;
@@ -9,6 +10,7 @@ import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.activity.single.SleepActivity;
 import com.mygdx.game.logic.activity.single.SleepAtCampfireActivity;
 import com.mygdx.game.logic.activity.single.SleepOutsideActivity;
+import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.map.Cluster;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.WorldObject;
@@ -33,7 +35,7 @@ public class SleepingDecision implements Decision {
             return true;
         }
 
-        if (actor.isSleepy() && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())) {
+        if ((DayTimeCalculator.INSTANCE.isItNight() || actor.isSleepy()) && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())) {
 
             House house = HouseRegistry.INSTANCE.getOwnedHouses().getOrDefault(actor, null);
 
@@ -42,23 +44,27 @@ public class SleepingDecision implements Decision {
                 Optional<Bed> bed = house.getFurnitures().stream().filter(furniture -> Bed.class.isAssignableFrom(furniture.getClass())).map(furniture -> (Bed) furniture).findAny();
 
 
-                if (!bed.isPresent()) {
+                if (!bed.isPresent() || MathUtil.distance(((WorldObject)bed.get()).getCoordinates(), actor.getCoordinates()) >= 20) {
 
                     // find a spot to camp
 
-                    // start camp
-                    CampFire campFire = ObjectFactory.create(CampFire.class, actor.getCurrentMap(), ObjectPlacement.FIXED.X(actor.getX()).Y(actor.getY()));
+                    //find nearest campfire
+                    Optional<CampFire> fires = ObjectRegistry.INSTANCE.getObjects(actor.getCurrentMap(), Cluster.of(actor.getX(), actor.getY())).flatMap(worldObjects ->  worldObjects.stream().filter(o -> CampFire.class.isAssignableFrom(o.getClass()) && ((CampFire)o).hasFreeSpace()).map(o2 -> (CampFire)o2).findAny());
 
-                    MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY, SleepAtCampfireActivity.class);
+                    // start camp
+                    CampFire campFire = fires.orElseGet(() -> ObjectFactory.create(CampFire.class, actor.getCurrentMap(), ObjectPlacement.FIXED.X(actor.getX()).Y(actor.getY())));
+
+                    MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY, SleepActivity.class);
                     SleepAtCampfireActivity sleepActivity = new SleepAtCampfireActivity(actor, campFire);
 
                     Point target = campFire.getNextFreeSpace();
+                    campFire.bookSpace(target);
 
                     moveAndSleepActivity.add(new MovementActivity(actor, target.getX(), target.getY(), 0, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
                     moveAndSleepActivity.add(sleepActivity);
 
                     actor.getActivityStack().clear();
-                    actor.getActivityStack().add(sleepActivity);
+                    actor.getActivityStack().add(moveAndSleepActivity);
                     return true;
                 } else {
                     System.out.println(actor.getName() + " has a bed, going to " + ((WorldObject)bed.get()).getX() + " " + ((WorldObject)bed.get()).getY());
@@ -78,7 +84,7 @@ public class SleepingDecision implements Decision {
                 // start camp
                 CampFire campFire = fires.orElseGet(() -> ObjectFactory.create(CampFire.class, actor.getCurrentMap(), ObjectPlacement.FIXED.X(actor.getX()).Y(actor.getY())));
 
-                MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY, SleepAtCampfireActivity.class);
+                MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY, SleepActivity.class);
                 SleepAtCampfireActivity sleepActivity = new SleepAtCampfireActivity(actor, campFire);
 
                 Point target = campFire.getNextFreeSpace();

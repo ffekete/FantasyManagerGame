@@ -7,6 +7,9 @@ import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class WoodenWall implements Wall, WorldObject, TileableWallObject, Obstacle {
 
     private Point coordinates;
@@ -38,5 +41,10 @@ public class WoodenWall implements Wall, WorldObject, TileableWallObject, Obstac
     @Override
     public float getWorldMapSize() {
         return Config.Object.WOODEN_WALL_WORLD_MAP_SIZE;
+    }
+
+    @Override
+    public List<Class<? extends TileableObject>> getConnectableTypes() {
+        return Arrays.asList(TileableWallObject.class);
     }
 }

@@ -22,7 +22,7 @@ public class FloorTileSelector {
 
         textureRegion = new TextureRegion(textureRegistry.getForobject(worldObject.getClass()).get(0));
 
-        int mask = MapUtils.bitmask4bit(worldObjects, (int) worldObject.getX(), (int) worldObject.getY(), TileableFloorObject.class);
+        int mask = MapUtils.bitmask4bit(worldObjects, (int) worldObject.getX(), (int) worldObject.getY(), worldObject.getClass());
 
         // rock
         textureRegion.setRegion((mask % 4) * 16, (mask / 4) * 16, 16, 16);

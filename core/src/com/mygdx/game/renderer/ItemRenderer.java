@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Config;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.visibility.VisibilityMask;
@@ -25,7 +26,11 @@ public class ItemRenderer implements Renderer<Map2D> {
     public void draw(Map2D dungeon, SpriteBatch spriteBatch) {
         VisibilityMask visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(dungeon);
 
-        spriteBatch.setColor(Color.WHITE);
+        if(DayTimeCalculator.INSTANCE.isItNight() && dungeon.getMapType().equals(Map2D.MapType.WORLD_MAP)) {
+            spriteBatch.setColor(Config.Engine.NIGHT_COLOR);
+        } else {
+            spriteBatch.setColor(Color.WHITE);
+        }
 
         for (Item item : itemRegistry.getAllItems(dungeon)) {
             if (!visibilityMask.getValue(item.getX(), item.getY()).isEmpty() && dungeon.getVisitedareaMap()[item.getX()][item.getY()] != VisitedArea.NOT_VISITED ) {

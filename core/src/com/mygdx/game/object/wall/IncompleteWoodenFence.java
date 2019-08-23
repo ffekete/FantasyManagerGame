@@ -4,7 +4,12 @@ import com.mygdx.game.Config;
 import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.Obstacle;
+import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.TileableWallObject;
+import com.mygdx.game.object.floor.TileableFloorObject;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class IncompleteWoodenFence implements Wall, BuildingBlock<WoodenFence>, TileableWallObject, Obstacle, IncompleteWall {
 
@@ -20,7 +25,7 @@ public class IncompleteWoodenFence implements Wall, BuildingBlock<WoodenFence>, 
     public void addProgress(float percentage) {
         this.progress += percentage;
     }
-    
+
     @Override
     public Class<WoodenFence> finish() {
         return WoodenFence.class;
@@ -59,5 +64,10 @@ public class IncompleteWoodenFence implements Wall, BuildingBlock<WoodenFence>, 
     @Override
     public float getProgress() {
         return this.progress;
+    }
+
+    @Override
+    public List<Class<? extends TileableObject>> getConnectableTypes() {
+        return Arrays.asList();
     }
 }

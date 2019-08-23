@@ -4,9 +4,13 @@ import com.mygdx.game.Config;
 import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.Obstacle;
+import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.wall.Wall;
 import com.mygdx.game.object.wall.WoodenWall;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class IncompleteWoodenFloor implements Floor, BuildingBlock<WoodenFloor>, TileableFloorObject {
 
@@ -63,5 +67,10 @@ public class IncompleteWoodenFloor implements Floor, BuildingBlock<WoodenFloor>,
     @Override
     public float getProgress() {
         return this.progress;
+    }
+
+    @Override
+    public List<Class<? extends TileableObject>> getConnectableTypes() {
+        return Arrays.asList(Floor.class);
     }
 }

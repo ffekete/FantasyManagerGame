@@ -1,4 +1,6 @@
 package com.mygdx.game.object.floor;
 
-public interface Floor {
+import com.mygdx.game.object.TileableObject;
+
+public interface Floor extends TileableObject {
 }
