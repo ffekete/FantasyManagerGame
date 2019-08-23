@@ -7,6 +7,7 @@ import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.*;
+import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.actor.worker.Smith;
 import com.mygdx.game.logic.activity.manager.decision.*;
@@ -125,6 +126,10 @@ public class ActivityManager {
                         new ConsumeAntiVenomPotionDecision(),
                         new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
+                        new WanderingDecision())
+                )
+
+                .put(Wolf.class, ImmutableList.of(
                         new WanderingDecision())
                 )
 

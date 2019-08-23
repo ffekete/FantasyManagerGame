@@ -7,6 +7,7 @@ import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.*;
+import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.actor.worker.Smith;
 import com.mygdx.game.item.Item;
@@ -86,6 +87,10 @@ public class TextureRegistry {
                 // workers
                 .put(Builder.class, texturePathResolver.resolve("actors/worker/Builder.png"))
                 .put(Smith.class, texturePathResolver.resolve("actors/worker/Smith.png"))
+
+                // Wildlife
+                .put(Wolf.class, texturePathResolver.resolve("actors/wildlife/Wolf.png"))
+
                 .build();
 
         actionTextures = ImmutableMap.<Class<? extends Action>, Optional<Texture>>builder()

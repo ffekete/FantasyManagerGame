@@ -45,7 +45,13 @@ public class WorldMapRenderer implements Renderer<Map2D> {
                 } else {
                     if(DayTimeCalculator.INSTANCE.isItNight()) {
                         spriteBatch.setColor(Config.Engine.NIGHT_COLOR);
-                    } else {
+                    } else if(DayTimeCalculator.INSTANCE.isDawn()) {
+                        spriteBatch.setColor(Config.Engine.DAWN_COLOR);
+                    }
+                    else if(DayTimeCalculator.INSTANCE.isDusk()) {
+                        spriteBatch.setColor(Config.Engine.DUSK_COLOR);
+                    }
+                    else {
                         spriteBatch.setColor(Color.WHITE);
                     }
                 }

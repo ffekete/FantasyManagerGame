@@ -109,11 +109,27 @@ public class ObjectRenderer implements Renderer<Map2D> {
     private void setColorForObjects(Map2D dungeon, SpriteBatch spriteBatch, int i, int j, WorldObject worldObject) {
         // setting transparency if the view is blocked by decoration
         if (Decoration.class.isAssignableFrom(worldObject.getClass()) && isActorAdjacent(dungeon, i, j)) {
-            spriteBatch.setColor(Color.valueOf("FFFFFF88"));
+            if(DayTimeCalculator.INSTANCE.isItNight()) {
+                spriteBatch.setColor(Config.Engine.NIGHT_COLOR_ALPHA);
+            } else if(DayTimeCalculator.INSTANCE.isDawn()) {
+                spriteBatch.setColor(Config.Engine.DAWN_COLOR_ALPHA);
+            }
+            else if(DayTimeCalculator.INSTANCE.isDusk()) {
+                spriteBatch.setColor(Config.Engine.DUSK_COLOR_ALPHA);
+            }
+            else {
+                spriteBatch.setColor(Color.valueOf("FFFFFF88"));
+            }
         } else {
             if(DayTimeCalculator.INSTANCE.isItNight()) {
                 spriteBatch.setColor(Config.Engine.NIGHT_COLOR);
-            } else {
+            } else if(DayTimeCalculator.INSTANCE.isDawn()) {
+                spriteBatch.setColor(Config.Engine.DAWN_COLOR);
+            }
+            else if(DayTimeCalculator.INSTANCE.isDusk()) {
+                spriteBatch.setColor(Config.Engine.DUSK_COLOR);
+            }
+            else {
                 spriteBatch.setColor(Color.WHITE);
             }
         }

@@ -26,9 +26,19 @@ public class ItemRenderer implements Renderer<Map2D> {
     public void draw(Map2D dungeon, SpriteBatch spriteBatch) {
         VisibilityMask visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(dungeon);
 
-        if(DayTimeCalculator.INSTANCE.isItNight() && dungeon.getMapType().equals(Map2D.MapType.WORLD_MAP)) {
+
+        if(dungeon.getMapType().equals(Map2D.MapType.WORLD_MAP)) {
+            spriteBatch.setColor(Color.WHITE);
+        }
+        else if(DayTimeCalculator.INSTANCE.isItNight()) {
             spriteBatch.setColor(Config.Engine.NIGHT_COLOR);
-        } else {
+        } else if(DayTimeCalculator.INSTANCE.isDawn()) {
+            spriteBatch.setColor(Config.Engine.DAWN_COLOR);
+        }
+        else if(DayTimeCalculator.INSTANCE.isDusk()) {
+            spriteBatch.setColor(Config.Engine.DUSK_COLOR);
+        }
+        else {
             spriteBatch.setColor(Color.WHITE);
         }
 

@@ -30,6 +30,12 @@ public class Config {
         public static final boolean ENABLE_8_WAYS_PATHFINDING = false;
         public static final float ACTOR_HEIGHT = 0.7f;
         public static final Color NIGHT_COLOR = Color.valueOf("5f5f5fff");
+        public static final Color DUSK_COLOR = Color.valueOf("9f9f9fff");
+        public static final Color DAWN_COLOR = Color.valueOf("9f9f9fff");
+
+        public static final Color NIGHT_COLOR_ALPHA = Color.valueOf("5f5f5f88");
+        public static final Color DUSK_COLOR_ALPHA = Color.valueOf("9f9f9f88");
+        public static final Color DAWN_COLOR_ALPHA = Color.valueOf("9f9f9f88");
     }
 
     public static final int ATTACK_DISTANCE = 15;
@@ -48,7 +54,7 @@ public class Config {
     }
 
     public static class Time {
-        public static final int TICK_PER_HOUR = 500;
+        public static final int TICK_PER_HOUR = 200;
         public static final int HOUR_PER_DAY = 24;
     }
 

@@ -22,7 +22,21 @@ public class DayTimeCalculator {
     }
 
     public boolean isItNight() {
-        if(getHour() >= 20 || getHour() <= 6) {
+        if(getHour() >= 22 || getHour() <= 5) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isDawn() {
+        if(getHour() >= 20 && getHour() < 22) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isDusk() {
+        if(getHour() > 5 && getHour() <= 7) {
             return true;
         }
         return false;
