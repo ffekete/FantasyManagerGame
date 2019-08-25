@@ -24,15 +24,18 @@ public class ActorRegistryTest {
         Actor goblin = new Goblin();
         Actor skeleton = new Skeleton();
         actorRegistry.add(dungeon, goblin);
+        assertThat(actorRegistry.getAllActors().size(), is(1));
         actorRegistry.add(dungeon, warrior);
+        assertThat(actorRegistry.getAllActors().size(), is(2));
         actorRegistry.add(dungeon, skeleton);
+        assertThat(actorRegistry.getAllActors().size(), is(3));
 
         assertThat(actorRegistry.getActors(dungeon).toArray()[0], is(goblin));
         assertThat(actorRegistry.getActors(dungeon).toArray()[1], is(warrior));
         assertThat(actorRegistry.getActors(dungeon).toArray()[2], is(skeleton));
         assertThat(actorRegistry.getActors(dungeon).contains(warrior), is(true));
 
-        actorRegistry.getActors(dungeon).remove(warrior);
+        actorRegistry.remove(dungeon, warrior);
         assertThat(actorRegistry.getActors(dungeon).contains(warrior), is(false));
     }
 

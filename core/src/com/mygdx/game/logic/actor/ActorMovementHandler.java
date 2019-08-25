@@ -142,7 +142,11 @@ public class ActorMovementHandler {
 
         if (path != null && !path.isEmpty()) {
             PathFinder.Node next = path.remove(path.size() - 1);
+
+            ActorRegistry.INSTANCE.remove(movableActor.getCurrentMap(), movableActor);
             movableActor.setCoordinates(new Point(next.getX(), next.getY()));
+            ActorRegistry.INSTANCE.add(movableActor.getCurrentMap(), movableActor);
+
             //ActorRegistry.INSTANCE.get
             return true;
         }

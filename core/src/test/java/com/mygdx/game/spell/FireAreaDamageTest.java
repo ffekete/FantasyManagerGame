@@ -39,6 +39,12 @@ public class FireAreaDamageTest {
         noTarget.setCurrentMap(dungeon);
         notEvenInDungeon.setCurrentMap(dungeon2);
 
+        initiator.setCoordinates(Point.of(1,1));
+        target1.setCoordinates(Point.of(10,10));
+        target2.setCoordinates(Point.of(13,13));
+        target3.setCoordinates(Point.of(7,7));
+        noTarget.setCoordinates(Point.of(16,15));
+        notEvenInDungeon.setCoordinates(Point.of(10, 10));
 
         ActorRegistry.INSTANCE.add(dungeon, initiator);
         ActorRegistry.INSTANCE.add(dungeon, target1);
@@ -48,13 +54,6 @@ public class FireAreaDamageTest {
         ActorRegistry.INSTANCE.add(dungeon2, notEvenInDungeon);
 
         initiator.getMagicSkills().put(MagicSkill.FireMagic, 4);
-
-        initiator.setCoordinates(Point.of(1,1));
-        target1.setCoordinates(Point.of(10,10));
-        target2.setCoordinates(Point.of(13,13));
-        target3.setCoordinates(Point.of(7,7));
-        noTarget.setCoordinates(Point.of(16,15));
-        notEvenInDungeon.setCoordinates(Point.of(10, 10));
 
         target1.setHp(15);
         target2.setHp(9);

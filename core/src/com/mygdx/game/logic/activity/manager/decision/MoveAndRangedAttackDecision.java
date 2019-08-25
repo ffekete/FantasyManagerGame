@@ -36,7 +36,7 @@ public class MoveAndRangedAttackDecision implements Decision {
             return false;
         }
 
-        if (!RangedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass())) {
+        if (actor.getRightHandItem() == null || !RangedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass())) {
             return false;
         }
 

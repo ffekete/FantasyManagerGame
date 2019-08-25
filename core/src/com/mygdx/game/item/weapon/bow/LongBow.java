@@ -2,6 +2,7 @@ package com.mygdx.game.item.weapon.bow;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.item.weapon.RangedWeapon;
@@ -10,9 +11,7 @@ import com.mygdx.game.logic.Point;
 
 import java.util.Random;
 
-public class LongBow implements Bow, Tier1, TwohandedWeapon, Craftable {
-
-    private Point coordinates;
+public class LongBow extends AbstractItem implements Bow, Tier1, TwohandedWeapon, Craftable {
 
     @Override
     public int getDamage() {
@@ -47,21 +46,6 @@ public class LongBow implements Bow, Tier1, TwohandedWeapon, Craftable {
     @Override
     public int getPower() {
         return Config.Item.LONGBOW_POWER;
-    }
-
-    @Override
-    public void setCoordinates(Point point) {
-        this.coordinates = point;
-    }
-
-    @Override
-    public int getX() {
-        return coordinates.getX();
-    }
-
-    @Override
-    public int getY() {
-        return coordinates.getY();
     }
 
     @Override

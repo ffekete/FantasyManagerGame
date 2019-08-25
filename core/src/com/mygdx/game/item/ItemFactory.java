@@ -26,8 +26,8 @@ public class ItemFactory {
         return item;
     }
 
-    public Item create(Class<? extends Item> clazz, Map2D map, Placement placement) {
-        Item item = null;
+    public <T extends Item> T create(Class<T> clazz, Map2D map, Placement placement) {
+        T item = null;
         try {
             item = clazz.newInstance();
         } catch (InstantiationException e) {

@@ -14,7 +14,11 @@ import com.mygdx.game.effect.MovementSpeedReduction;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.item.ItemFactory;
 import com.mygdx.game.item.armor.Armor;
+import com.mygdx.game.item.factory.Placement;
+import com.mygdx.game.item.money.MoneyBag;
+import com.mygdx.game.item.money.MoneyContainer;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.spelltome.SpellTome;
 import com.mygdx.game.item.weapon.Weapon;
@@ -82,6 +86,8 @@ public abstract class AbstractActor implements Actor {
         this.baseAttributes = new HashMap<>();
         this.weaponSkills = new HashMap<>();
         this.magicSkills = new HashMap<>();
+
+        this.coordinates = new Point(0,0);
 
         for (Attributes a : Attributes.values()) {
             baseAttributes.put(a, 0);
@@ -157,7 +163,7 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public void pickUp(Item item) {
-        this.inventory.add(item);
+        item.pickedUp(this);
     }
 
     @Override
@@ -243,12 +249,14 @@ public abstract class AbstractActor implements Actor {
     public void equip(Equipable equipable) {
         // if it is shield
         if (Shield.class.isAssignableFrom(equipable.getClass())) {
+            unequip(this.leftHand);
             leftHand = equipable;
             inventory.remove(equipable);
             equipable.onEquip(this);
             System.out.println(name + " equipped in left hand " + equipable);
 
         } else if (Weapon.class.isAssignableFrom(equipable.getClass())) {
+            unequip(this.rightHand);
             rightHand = equipable;
             inventory.remove(equipable);
             equipable.onEquip(this);
@@ -519,5 +527,39 @@ public abstract class AbstractActor implements Actor {
     @Override
     public boolean wantsTraining() {
         return needs.get(Needs.Training) >= Config.Rules.BASE_TRAINIG_LIMIT * 0.75;
+    }
+
+    @Override
+    public List<Item> drop() {
+        List<Item> items = new ArrayList<>();
+        if(this.getLeftHandItem() != null) {
+            items.add(this.getLeftHandItem());
+            this.unequip(this.getLeftHandItem());
+        }
+
+        if(this.getRightHandItem() != null) {
+            items.add(this.getRightHandItem());
+            this.unequip(this.getRightHandItem());
+        }
+
+        if(this.getWornArmor() != null) {
+            items.add(this.getWornArmor());
+            this.unequip(this.getWornArmor());
+        }
+
+        for(Item item: this.getInventory().getAll()) {
+            items.add(item);
+            item.setCoordinates(this.getCoordinates());
+        }
+        this.getInventory().clear();
+
+        if(money > 0) {
+            MoneyBag moneyBag = ItemFactory.INSTANCE.create(MoneyBag.class, currentMap, Placement.FIXED.X(getX()).Y(getY()));
+            moneyBag.setAmount(money);
+            items.add(moneyBag);
+            money = 0;
+        }
+
+        return items;
     }
 }

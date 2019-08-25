@@ -23,32 +23,32 @@ public class MovePickupDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
-        if(actor.isSleeping()) {
+        if (actor.isSleeping()) {
             return false;
         }
 
-        if(!actor.getActivityStack().contains(MovePickupActivity.class)) {
-            List<Item> Items = itemRegistry.getAllItems(actor.getCurrentMap());
-            if(!Items.isEmpty()) {
-                // find Items
-                Item item = itemSelector.findClosestItem(actor, Items, Config.Item.PICK_UP_ITEM_DISTANCE, Item.class);
-                if(item != null) {
-                    // go for it
-                    actor.setxOffset(0.0f);
-                    actor.setyOffset(0.0f);
-                    Activity activity = new MovePickupActivity(Config.Activity.MOVE_PICKUP_PRIORITY, PickUpItemActivity.class)
-                            .add(new MovementActivity(actor, item.getX(), item.getY(), 1, new PathFinder()))
-                            .add(new PickUpItemActivity(actor, item));
-                    actor.getActivityStack().clear();
-                    actor.getActivityStack().add(activity);
-                    ActorMovementHandler.INSTANCE.clearPath(actor);
-                    return true;
-                }
-            }
-        } else {
-            // already doing activity, the decision chain should end here
+        if (actor.getActivityStack().getCurrent().getMainClass().equals(PickUpItemActivity.class)) {
             return true;
         }
+
+        List<Item> Items = itemRegistry.getAllItems(actor.getCurrentMap());
+        if (!Items.isEmpty()) {
+            // find Items
+            Item item = itemSelector.findClosestItem(actor, Items, Config.Item.PICK_UP_ITEM_DISTANCE, Item.class);
+            if (item != null) {
+                // go for it
+                actor.setxOffset(0.0f);
+                actor.setyOffset(0.0f);
+                Activity activity = new MovePickupActivity(Config.Activity.MOVE_PICKUP_PRIORITY, PickUpItemActivity.class)
+                        .add(new MovementActivity(actor, item.getX(), item.getY(), 1, new PathFinder()))
+                        .add(new PickUpItemActivity(actor, item));
+                actor.getActivityStack().clear();
+                actor.getActivityStack().add(activity);
+                ActorMovementHandler.INSTANCE.clearPath(actor);
+                return true;
+            }
+        }
+
         return false;
     }
 }

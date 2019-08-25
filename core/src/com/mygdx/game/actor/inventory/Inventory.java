@@ -33,6 +33,10 @@ public class Inventory {
         return inventory.parallelStream().anyMatch(item -> clazz.isAssignableFrom(item.getClass()));
     }
 
+    public List<Item> getAll() {
+        return this.inventory;
+    }
+
     public Optional<Item> get(int index) {
         if(inventory.size() <= index)
             return Optional.empty();
@@ -46,5 +50,9 @@ public class Inventory {
 
     public long count(Class<? extends Item> clazz) {
         return inventory.stream().filter(item -> clazz.isAssignableFrom(item.getClass())).count();
+    }
+
+    public void clear() {
+        inventory.clear();
     }
 }

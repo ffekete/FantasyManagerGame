@@ -7,6 +7,7 @@ import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.*;
+import com.mygdx.game.actor.wildlife.Rabbit;
 import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.actor.worker.Smith;
@@ -130,6 +131,13 @@ public class ActivityManager {
                 )
 
                 .put(Wolf.class, ImmutableList.of(
+                        new PredatorSleepingDecision(),
+                        new HuntingDecision(),
+                        new WanderingDecision())
+                )
+
+                .put(Rabbit.class, ImmutableList.of(
+                        new WildLifeSleepingDecision(),
                         new WanderingDecision())
                 )
 

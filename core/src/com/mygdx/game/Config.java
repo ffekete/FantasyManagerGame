@@ -59,7 +59,8 @@ public class Config {
     }
 
     public static class Item {
-        public static final int BREAD_HUNGER_LEVEL = 100;
+        public static final int BREAD_NUTRITION = 100000;
+        public static final int RABBIT_MEAT_NUTRITION = 50000;
         public static final int PICK_UP_ITEM_DISTANCE = 15;
         public static final int HEALING_POTION_STRENGTH = 20;
         public static final int MANA_POTION_STRENGTH = 20;

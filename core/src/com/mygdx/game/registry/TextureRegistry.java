@@ -7,12 +7,16 @@ import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.*;
+import com.mygdx.game.actor.wildlife.Rabbit;
 import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.actor.worker.Smith;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.buildertool.Hammer;
+import com.mygdx.game.item.component.WolfPelt;
 import com.mygdx.game.item.food.Bread;
+import com.mygdx.game.item.food.RabbitMeat;
+import com.mygdx.game.item.money.MoneyBag;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.potion.SmallManaPotion;
@@ -90,6 +94,7 @@ public class TextureRegistry {
 
                 // Wildlife
                 .put(Wolf.class, texturePathResolver.resolve("actors/wildlife/Wolf.png"))
+                .put(Rabbit.class, texturePathResolver.resolve("actors/wildlife/Rabbit.png"))
 
                 .build();
 
@@ -118,7 +123,6 @@ public class TextureRegistry {
                 .put(ShortSword.class, texturePathResolver.resolve("items/ShortSword.png"))
                 .put(ShortSwordPlusOne.class, texturePathResolver.resolve("items/ShortSword.png"))
                 .put(ShortSwordPlusFour.class, texturePathResolver.resolve("items/ShortSword.png"))
-                .put(Bread.class, texturePathResolver.resolve("items/bread.png"))
                 .put(SmallHealingPotion.class, texturePathResolver.resolve("items/HealingPotion.png"))
                 .put(SmallManaPotion.class, texturePathResolver.resolve("items/ManaPotion.png"))
                 .put(SmallAntiVenomPotion.class, texturePathResolver.resolve("items/AntiVenom.png"))
@@ -129,6 +133,17 @@ public class TextureRegistry {
                 .put(JadeStaff.class, texturePathResolver.resolve("items/JadeStaff.png"))
                 .put(LongBow.class, texturePathResolver.resolve("items/LongBow.png"))
                 .put(Hammer.class, texturePathResolver.resolve("effects/Hammer.png"))
+
+                // components
+                .put(WolfPelt.class, texturePathResolver.resolve("items/components/WolfPelt.png"))
+
+                // food
+                .put(Bread.class, texturePathResolver.resolve("items/food/Bread.png"))
+                .put(RabbitMeat.class, texturePathResolver.resolve("items/food/RabbitMeat.png"))
+
+                // money
+                .put(MoneyBag.class, texturePathResolver.resolve("items/MoneyBag.png"))
+
                 // resources
                 .put(Wood.class, texturePathResolver.resolve("items/resource/Wood.png"))
                 .build();

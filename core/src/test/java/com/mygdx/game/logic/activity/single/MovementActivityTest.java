@@ -2,6 +2,8 @@ package com.mygdx.game.logic.activity.single;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.attribute.Attributes;
+import com.mygdx.game.actor.factory.ActorFactory;
+import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.effect.MovementSpeedReduction;
@@ -24,16 +26,11 @@ public class MovementActivityTest {
 
         Map2D dungeon = new DummyDungeonCreator().create(3);
 
-        Actor actor = new Wizard();
-        Actor goblin = new Goblin();
-
-        actor.setCurrentMap(dungeon);
-        goblin.setCurrentMap(dungeon);
+        Actor actor = ActorFactory.INSTANCE.create(Wizard.class, dungeon, Placement.FIXED.X(0).Y(0));
+        Actor goblin = ActorFactory.INSTANCE.create(Goblin.class, dungeon, Placement.FIXED.X(10).Y(0));
 
         MapRegistry.INSTANCE.add(dungeon);
-
-        actor.setCoordinates(Point.of(0,0));
-        goblin.setCoordinates(Point.of(10,0));
+        MapRegistry.INSTANCE.setCurrentMapToShow(dungeon);
 
         goblin.setAttribute(Attributes.Reflexes, 10);
         goblin.setAttribute(Attributes.Dexterity, 10);

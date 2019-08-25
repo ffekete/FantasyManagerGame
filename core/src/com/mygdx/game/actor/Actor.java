@@ -111,4 +111,5 @@ public interface Actor {
     void increaseTrainingNeeds(int amount);
     int getTrainingNeeds();
     boolean wantsTraining();
+    List<Item> drop();
 }

@@ -109,11 +109,22 @@ public interface AttributePopulator {
         Wolf {
             @Override
             public void populateFor(Actor actor) {
-                actor.setAttribute(Attributes.Strength, new Random().nextInt(5) + 5);
+                actor.setAttribute(Attributes.Strength, new Random().nextInt(10) + 5);
                 actor.setAttribute(Attributes.Endurance, new Random().nextInt(15) + 5);
                 actor.setAttribute(Attributes.Dexterity, new Random().nextInt(5) + 10);
                 actor.setAttribute(Attributes.Reflexes, new Random().nextInt(15) + 5);
                 actor.setAttribute(Attributes.Intelligence, new Random().nextInt(2) + 1);
+                actor.setAttribute(Attributes.Wisdom, 0);
+            }
+        },
+        Rabbit {
+            @Override
+            public void populateFor(Actor actor) {
+                actor.setAttribute(Attributes.Strength, new Random().nextInt(1) + 1);
+                actor.setAttribute(Attributes.Endurance, new Random().nextInt(1) + 1);
+                actor.setAttribute(Attributes.Dexterity, new Random().nextInt(15) + 10);
+                actor.setAttribute(Attributes.Reflexes, new Random().nextInt(15) + 5);
+                actor.setAttribute(Attributes.Intelligence, new Random().nextInt(1) + 1);
                 actor.setAttribute(Attributes.Wisdom, 0);
             }
         };
@@ -127,7 +138,8 @@ public interface AttributePopulator {
                 .put(com.mygdx.game.actor.monster.Goblin.class, Goblin)
                 .put(com.mygdx.game.actor.monster.Orc.class, Orc)
                 .put(com.mygdx.game.actor.hero.Wizard.class, Wizard)
-                .put(com.mygdx.game.actor.wildlife.Wolf.class, Wizard)
+                .put(com.mygdx.game.actor.wildlife.Wolf.class, Wolf)
+                .put(com.mygdx.game.actor.wildlife.Rabbit.class, Rabbit)
                 .build();
 
         public static void populate(Actor actor) {

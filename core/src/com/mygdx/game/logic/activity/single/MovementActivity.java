@@ -15,6 +15,7 @@ import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.registry.SoundRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.sound.DistanceBasedSoundPlayer;
+import com.mygdx.game.sound.DistanceBasedSoundPlayerProvider;
 import com.mygdx.game.utils.MapUtils;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class MovementActivity implements Activity {
     private int limit = 0;
     private int range = 0;
     private ExecutorService executor = ThreadManager.INSTANCE.getExecutor();
+    DistanceBasedSoundPlayer distanceBasedSoundPlayer = DistanceBasedSoundPlayerProvider.INSTANCE.provide();
 
     public MovementActivity(Actor actor, int targetX, int targetY, int range, PathFinder pathFinder) {
         this.actor = actor;
@@ -160,7 +162,7 @@ public class MovementActivity implements Activity {
 
             if (counter % 15 == limit) {
                 limit = new Random().nextInt(8) < 4 ? 8 : 0;
-                DistanceBasedSoundPlayer.play(SoundRegistry.INSTANCE.getFor(MovementActivity.class), actor.getCoordinates(), 0.05f, 0.01f);
+                distanceBasedSoundPlayer.play(SoundRegistry.INSTANCE.getFor(MovementActivity.class), actor.getCoordinates(), 0.05f, 0.01f);
             }
         }
     }

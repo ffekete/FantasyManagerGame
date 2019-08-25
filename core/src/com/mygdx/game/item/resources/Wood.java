@@ -1,30 +1,14 @@
 package com.mygdx.game.item.resources;
 
+import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.resources.Resource;
 import com.mygdx.game.logic.Point;
 
-public class Wood implements Item, Resource {
-
-    private Point coordinates;
+public class Wood extends AbstractItem implements Item, Resource {
 
     public Wood(Point coordinates) {
         this.coordinates = coordinates;
-    }
-
-    @Override
-    public void setCoordinates(Point point) {
-        coordinates = point;
-    }
-
-    @Override
-    public int getX() {
-        return coordinates.getX();
-    }
-
-    @Override
-    public int getY() {
-        return coordinates.getY();
     }
 
     @Override

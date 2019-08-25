@@ -1,5 +1,6 @@
 package com.mygdx.game.item;
 
+import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.Point;
 
 public interface Item {
@@ -8,4 +9,5 @@ public interface Item {
     int getY();
     String getDescription();
     String getName();
+    void pickedUp(Actor actor);
 }

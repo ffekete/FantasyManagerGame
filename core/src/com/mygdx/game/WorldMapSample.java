@@ -27,6 +27,7 @@ import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
+import com.mygdx.game.actor.wildlife.Rabbit;
 import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.actor.worker.Smith;
@@ -275,7 +276,10 @@ public class WorldMapSample extends SampleBase {
 
         HouseFactory.INSTANCE.create(1, 13, 3, worldMap);
 
-        ActorFactory.INSTANCE.create(Wolf.class, worldMap, Placement.FIXED.X(11).Y(11));
+        Actor wolf = ActorFactory.INSTANCE.create(Wolf.class, worldMap, Placement.FIXED.X(11).Y(11));
+        Actor rabbit = ActorFactory.INSTANCE.create(Rabbit.class, worldMap, Placement.FIXED.X(13).Y(11));
+        wolf.increaseSleepiness(48000);
+
     }
 
     @Override

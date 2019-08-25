@@ -91,6 +91,10 @@ public class InventoryRenderer implements Renderer<Actor> {
         RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "Sleepiness: ", ATTRIBUTES_PANEL_X, screenY - i * 35);
         RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "" + actor.getSleepinessLevel() * 100 / Config.Rules.BASE_SLEEPINESS_LIMIT + "%", ATTRIBUTE_VALUE_COLUMN_X, screenY - i * 35);
 
+        i++;
+        RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "Money: ", ATTRIBUTES_PANEL_X, screenY - i * 35);
+        RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "" + actor.getMoney(), ATTRIBUTE_VALUE_COLUMN_X, screenY - i * 35);
+
 
         // WeaponSkills
         i = 5;

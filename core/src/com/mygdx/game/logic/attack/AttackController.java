@@ -86,13 +86,14 @@ public class AttackController {
     }
 
     private void attackWithFist(Actor attacker, Actor victim) {
-        int damage = new Random().nextInt(attacker.getAttribute(Attributes.Strength) / 4);
-        int toHit = new Random().nextInt(100);
+        int multiplier = victim.isSleeping() ? 3 : 1;
+        int damage = multiplier * new Random().nextInt(attacker.getAttribute(Attributes.Strength) / 4);
+        int toHit = victim.isSleeping() ? 0 : new Random().nextInt(100);
         int hitThreshold = 20
                 + attacker.getAttribute(Attributes.Reflexes)
                 + attacker.getAttribute(Attributes.Dexterity) * 3; // fist attack has no skill
 
-        int evasion = victim.getAttribute(Attributes.Reflexes) * 2 + victim.getAttribute(Attributes.Dexterity) + victim.getDefenseValue();
+        int evasion = victim.isSleeping() ? 0 : victim.getAttribute(Attributes.Reflexes) * 2 + victim.getAttribute(Attributes.Dexterity) + victim.getDefenseValue();
 
         if(toHit < hitThreshold - evasion) {
             victim.setHp(victim.getHp() - Math.max(1, damage - getDamageProtection(victim)));

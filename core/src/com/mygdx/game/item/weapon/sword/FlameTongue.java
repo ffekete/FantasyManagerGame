@@ -3,6 +3,7 @@ package com.mygdx.game.item.weapon.sword;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.FireDamage;
+import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.OneHandedItem;
 import com.mygdx.game.item.category.Legendary;
 import com.mygdx.game.item.weapon.Weapon;
@@ -11,7 +12,7 @@ import com.mygdx.game.registry.EffectRegistry;
 
 import java.util.Random;
 
-public class FlameTongue implements OneHandedItem, Sword, Legendary {
+public class FlameTongue extends AbstractItem implements OneHandedItem, Sword, Legendary {
 
     private final EffectRegistry effectRegistry = EffectRegistry.INSTANCE;
 
@@ -50,21 +51,6 @@ public class FlameTongue implements OneHandedItem, Sword, Legendary {
     @Override
     public int getPower() {
         return Config.Item.FLAME_TONGUE_POWER;
-    }
-
-    @Override
-    public void setCoordinates(Point coordinates) {
-        this.coordinates = coordinates;
-    }
-
-    @Override
-    public int getX() {
-        return coordinates.getX();
-    }
-
-    @Override
-    public int getY() {
-        return coordinates.getY();
     }
 
     @Override

@@ -34,7 +34,7 @@ public class MoveAndAttackDecision implements Decision {
         }
 
         // this will be handled by a different decision class
-        if (RangedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass()))
+        if (actor.getRightHandItem() == null || RangedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass()))
             return false;
 
         // already attacking, the decision chain should end here

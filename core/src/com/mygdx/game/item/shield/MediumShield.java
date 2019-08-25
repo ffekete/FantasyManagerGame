@@ -4,17 +4,16 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.Effect;
 import com.mygdx.game.effect.AttackSpeedReduction;
+import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.EffectRegistry;
 
-public class MediumShield implements Shield, Tier1, Craftable {
+public class MediumShield extends AbstractItem implements Shield, Tier1, Craftable {
 
     private Effect attackSpeedReduction = new AttackSpeedReduction(-5);
     private EffectRegistry effectRegistry = EffectRegistry.INSTANCE;
-    private Point coordinates = new Point(0,0);
-
 
     @Override
     public int getDefense() {
@@ -34,21 +33,6 @@ public class MediumShield implements Shield, Tier1, Craftable {
     @Override
     public int getPower() {
         return Config.Item.MEDIUM_SHIELD_POWER;
-    }
-
-    @Override
-    public void setCoordinates(Point coordinates) {
-        this.coordinates = coordinates;
-    }
-
-    @Override
-    public int getX() {
-        return this.coordinates.getX();
-    }
-
-    @Override
-    public int getY() {
-        return this.coordinates.getY();
     }
 
     @Override

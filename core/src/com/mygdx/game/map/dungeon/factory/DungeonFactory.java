@@ -54,7 +54,9 @@ public class DungeonFactory {
             for (int i = 0; i < 10; i++) {
                 Class<? extends Actor> actorClass = dungeonTheme.getMonsters(MonsterTier.Tier1).get(new Random().nextInt(dungeonTheme.getMonsters(MonsterTier.Tier1).size()));
                 Actor actor = ActorFactory.INSTANCE.create(actorClass, dungeon, Placement.RANDOM);
-
+                actor.addMoney(new Random().nextInt(10));
+                actor.setHp(actor.getMaxHp());
+                actor.setMana(actor.getMaxMana());
                 actor.equip(WeaponProvider.INSTANCE.getFor(Tier1.class));
             }
         }
@@ -64,6 +66,9 @@ public class DungeonFactory {
                 Class<? extends Actor> actorClass = dungeonTheme.getMonsters(MonsterTier.Tier2).get(new Random().nextInt(dungeonTheme.getMonsters(MonsterTier.Tier2).size()));
                 Actor actor = ActorFactory.INSTANCE.create(actorClass, dungeon, Placement.RANDOM);
                 actor.equip(WeaponProvider.INSTANCE.getFor(Tier2.class));
+                actor.setHp(actor.getMaxHp());
+                actor.setMana(actor.getMaxMana());
+                actor.addMoney(new Random().nextInt(30));
             }
         }
 
@@ -72,6 +77,9 @@ public class DungeonFactory {
                 Class<? extends Actor> actorClass = dungeonTheme.getMonsters(MonsterTier.Tier3).get(new Random().nextInt(dungeonTheme.getMonsters(MonsterTier.Tier3).size()));
                 Actor actor = ActorFactory.INSTANCE.create(actorClass, dungeon, Placement.RANDOM);
                 actor.equip(WeaponProvider.INSTANCE.getFor(Tier3.class));
+                actor.setHp(actor.getMaxHp());
+                actor.setMana(actor.getMaxMana());
+                actor.addMoney(new Random().nextInt(30) + 30);
             }
         }
 
@@ -82,6 +90,7 @@ public class DungeonFactory {
                 actor.equip(WeaponProvider.INSTANCE.getFor(Tier4.class));
                 actor.setHp(actor.getMaxHp());
                 actor.setMana(actor.getMaxMana());
+                actor.addMoney(new Random().nextInt(50) + 50);
             }
         }
 
@@ -90,6 +99,9 @@ public class DungeonFactory {
                 Class<? extends Actor> actorClass = dungeonTheme.getMonsters(MonsterTier.Boss).get(new Random().nextInt(dungeonTheme.getMonsters(MonsterTier.Boss).size()));
                 Actor actor = ActorFactory.INSTANCE.create(actorClass, dungeon, Placement.RANDOM);
                 actor.equip(WeaponProvider.INSTANCE.getFor(Legendary.class));
+                actor.setHp(actor.getMaxHp());
+                actor.setMana(actor.getMaxMana());
+                actor.addMoney(new Random().nextInt(100) + 50);
             }
         }
 

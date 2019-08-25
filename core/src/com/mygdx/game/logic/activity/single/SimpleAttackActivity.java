@@ -59,8 +59,11 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     public void update() {
         if(MathUtil.distance(actor.getCoordinates(), enemy.getCoordinates()) <= 1) {
             AttackController.INSTANCE.calculateAttack(actor, enemy);
-            action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), actor);
-            actionRegistry.add(actor.getCurrentMap(), action);
+
+            if(actor.getRightHandItem() != null) {
+                action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), actor);
+                actionRegistry.add(actor.getCurrentMap(), action);
+            }
         }
     }
 
@@ -70,8 +73,10 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
 
         attackController.registerAttackHistory(actor, enemy);
 
-        action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), actor);
-        actionRegistry.add(actor.getCurrentMap(), action);
+        if(actor.getRightHandItem() != null) {
+            action = new SwingAttackAction(actor.getX(), actor.getY(), TextureRegistry.INSTANCE.getFor(actor.getRightHandItem().getClass()), actor);
+            actionRegistry.add(actor.getCurrentMap(), action);
+        }
     }
 
     @Override
