@@ -76,6 +76,7 @@ public class DropItemActivity implements Activity, CooldownActivity {
     @Override
     public void resume() {
         suspended = false;
+        firstRun = true;
     }
 
     @Override

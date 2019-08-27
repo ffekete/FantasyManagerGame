@@ -56,7 +56,7 @@ public class ConsumeManaPotion implements Activity {
 
     @Override
     public void resume() {
-
+        firstRun = true;
     }
 
     @Override

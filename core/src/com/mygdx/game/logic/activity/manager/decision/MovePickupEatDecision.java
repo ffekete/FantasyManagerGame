@@ -3,7 +3,6 @@ package com.mygdx.game.logic.activity.manager.decision;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.selector.ItemSelector;
-import com.mygdx.game.logic.selector.SelectionUtils;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.food.Food;
 import com.mygdx.game.logic.activity.Activity;
@@ -40,7 +39,7 @@ public class MovePickupEatDecision implements Decision {
                             .add(new MovementActivity(actor, food.getX(), food.getY(), 1, new PathFinder()))
                             .add(new PickUpItemActivity(actor, food))
                             .add(new SimpleEatingActivity(actor));
-                    actor.getActivityStack().clear();
+                    actor.getActivityStack().reset();
                     actor.getActivityStack().add(activity);
                     return true;
                 }

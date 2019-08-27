@@ -17,6 +17,7 @@ import com.mygdx.game.object.decoration.Decoration;
 import com.mygdx.game.object.decoration.Rotatable;
 import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.registry.*;
+import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
 import com.mygdx.game.renderer.selector.WallTileSelector;
 
@@ -39,6 +40,10 @@ public class ObjectRenderer implements Renderer<Map2D> {
 
     @Override
     public void draw(Map2D dungeon, SpriteBatch spriteBatch) {
+
+        if (CameraPositionController.INSTANCE.getZoom() > Config.Engine.ZOOM_MAX_TO_SMALL_MAP) {
+            return;
+        }
 
         // draw objects
         int startY = (int) rendererToolsRegistry.getCamera().position.y;

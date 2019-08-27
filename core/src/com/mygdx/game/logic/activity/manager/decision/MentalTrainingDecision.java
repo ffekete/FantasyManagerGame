@@ -5,14 +5,11 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
 import com.mygdx.game.logic.activity.single.MentalTrainingActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
-import com.mygdx.game.logic.activity.single.PhysicalTrainingActivity;
 import com.mygdx.game.object.house.House;
 import com.mygdx.game.object.interactive.BookCase;
-import com.mygdx.game.object.interactive.PracticeFigure;
 import com.mygdx.game.registry.HouseRegistry;
 import com.mygdx.game.registry.MapRegistry;
 
-import java.awt.print.Book;
 import java.util.List;
 
 public class MentalTrainingDecision implements Decision {
@@ -46,7 +43,7 @@ public class MentalTrainingDecision implements Decision {
             moveAndInteractActivity.add(movementActivity)
                     .add(mentalTrainingActivity);
 
-            actor.getActivityStack().clear();
+            actor.getActivityStack().reset();
             actor.getActivityStack().add(moveAndInteractActivity);
             return true;
         }

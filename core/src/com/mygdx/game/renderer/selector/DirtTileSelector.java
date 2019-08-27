@@ -17,9 +17,9 @@ public class DirtTileSelector {
         textureRegion = new TextureRegion(textureRegistry.getForTile(WorldMapTile.DIRT));
     }
 
-    public TextureRegion getFor(Map2D map, int x, int y) {
+    public TextureRegion getFor(Map2D map, int x, int y, int skip) {
 
-        int mask = MapUtils.bitmask4bitForTile((WorldMap) map, x,y, WorldMapTile.DIRT);
+        int mask = MapUtils.bitmask4bitForTile((WorldMap) map, x,y, WorldMapTile.DIRT, skip);
 
         // rock
         textureRegion.setRegion((mask % 4) * 16, (mask / 4) * 16, 16, 16);

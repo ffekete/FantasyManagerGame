@@ -36,6 +36,9 @@ public class Config {
         public static final Color NIGHT_COLOR_ALPHA = Color.valueOf("5f5f5f88");
         public static final Color DUSK_COLOR_ALPHA = Color.valueOf("9f9f9f88");
         public static final Color DAWN_COLOR_ALPHA = Color.valueOf("9f9f9f88");
+        public static final float ZOOM_MAX = 2f;
+
+        public static final float ZOOM_MAX_TO_SMALL_MAP = 1.f;
     }
 
     public static final int ATTACK_DISTANCE = 15;
@@ -67,11 +70,16 @@ public class Config {
 
         // power lists
         public static final int BLACK_PLATE_MAIL_POWER = 10;
+        public static final int PLATE_MAIL_POWER = 9;
+        public static final int CHAIN_MAIL_POWER = 8;
+        public static final int LEATHER_ARMOR_POWER = 7;
+
         public static final int MEDIUM_SHIELD_POWER = 6;
         public static final int SMALL_SHIELD_POWER = 5;
         public static final int FLAME_TONGUE_POWER = 10;
         public static final int POISON_FANG_POWER = 10;
         public static final int SHORT_SWORD_POWER = 5;
+        public static final int FLAMBERGE_POWER = 7;
         public static final int SHORT_SWORD_PLUS_ONE_POWER = 6;
         public static final int SHORT_SWORD_PLUS_FOUR_POWER = 9;
         public static final int JADE_STAFF_POWER = 4;

@@ -14,7 +14,7 @@ public class GdxUtils {
     }
 
     public static void clearScreen(Color color) {
-        // clear screen
+        // reset screen
         // DRY - Don't repeat yourself
         // WET - Waste everyone's time
         Gdx.gl.glClearColor(color.r, color.g, color.b, color.a);

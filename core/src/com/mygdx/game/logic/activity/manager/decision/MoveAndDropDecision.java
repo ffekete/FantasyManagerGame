@@ -6,19 +6,13 @@ import com.mygdx.game.item.Item;
 import com.mygdx.game.item.resources.Resource;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.compound.MoveAndStoreActivity;
-import com.mygdx.game.logic.activity.compound.MovePickupActivity;
 import com.mygdx.game.logic.activity.single.DropItemActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
-import com.mygdx.game.logic.activity.single.PickUpItemActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
-import com.mygdx.game.logic.selector.ItemSelector;
 import com.mygdx.game.object.StorageArea;
-import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.ObjectRegistry;
 
-import java.util.List;
 import java.util.Optional;
 
 public class MoveAndDropDecision implements Decision {
@@ -62,7 +56,7 @@ public class MoveAndDropDecision implements Decision {
                 Activity activity = new MoveAndStoreActivity(Config.BuilderActivity.STORE_PRIORITY, DropItemActivity.class)
                         .add(new MovementActivity(actor, (int) area.get().getX(), (int) area.get().getY(), 1, new PathFinder()))
                         .add(new DropItemActivity(actor, item, area.get()));
-                actor.getActivityStack().clear();
+                actor.getActivityStack().reset();
                 actor.getActivityStack().add(activity);
                 ActorMovementHandler.INSTANCE.clearPath(actor);
                 return true;

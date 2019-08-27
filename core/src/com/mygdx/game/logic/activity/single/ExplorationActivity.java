@@ -166,6 +166,7 @@ public class ExplorationActivity implements Activity {
     @Override
     public void resume() {
         movementActivity.resume();
+        firstRun = true;
     }
 
     @Override

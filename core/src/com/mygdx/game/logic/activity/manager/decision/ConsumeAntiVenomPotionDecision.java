@@ -23,7 +23,7 @@ public class ConsumeAntiVenomPotionDecision implements Decision {
 
         if (effectRegistry.getAll(actor).stream().anyMatch(effect -> Poison.class.isAssignableFrom(effect.getClass()))) {
             if (actor.getInventory().has(AntiVenomPotion.class)) {
-                actor.getActivityStack().clear();
+                actor.getActivityStack().reset();
                 Activity activity = new ConsumeAntiVenomPotion(actor, actor.getInventory().get(AntiVenomPotion.class));
                 actor.getActivityStack().add(activity);
                 return true;

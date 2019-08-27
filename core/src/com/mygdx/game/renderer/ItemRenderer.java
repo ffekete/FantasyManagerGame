@@ -12,6 +12,7 @@ import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
+import com.mygdx.game.renderer.camera.CameraPositionController;
 
 public class ItemRenderer implements Renderer<Map2D> {
 
@@ -24,6 +25,11 @@ public class ItemRenderer implements Renderer<Map2D> {
 
     @Override
     public void draw(Map2D dungeon, SpriteBatch spriteBatch) {
+
+        if (CameraPositionController.INSTANCE.getZoom() > Config.Engine.ZOOM_MAX_TO_SMALL_MAP) {
+            return;
+        }
+
         VisibilityMask visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(dungeon);
 
 

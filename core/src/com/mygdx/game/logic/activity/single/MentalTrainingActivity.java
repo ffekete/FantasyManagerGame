@@ -5,12 +5,10 @@ import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.action.Action;
-import com.mygdx.game.logic.action.SwingAttackAction;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.object.InteractiveObject;
 import com.mygdx.game.registry.ActionRegistry;
 import com.mygdx.game.registry.MapRegistry;
-import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.sound.DistanceBasedSoundPlayer;
 
 public class MentalTrainingActivity implements Activity {
@@ -54,7 +52,7 @@ public class MentalTrainingActivity implements Activity {
 
     @Override
     public void cancel() {
-        actor.getActivityStack().clear();
+        actor.getActivityStack().reset();
     }
 
     @Override

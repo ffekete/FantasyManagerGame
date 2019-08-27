@@ -2,6 +2,7 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.Equipable;
+import com.mygdx.game.item.OneHandedItem;
 import com.mygdx.game.item.armor.Armor;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.weapon.TwohandedWeapon;
@@ -37,8 +38,18 @@ public class EquipDecision implements Decision {
                     actor.getActivityStack().add(equipActivity);
                     return true;
                 }
-            } else if (Weapon.class.isAssignableFrom(equipable.getClass())) {
+            } else if (OneHandedItem.class.isAssignableFrom(equipable.getClass())) {
 
+                if (actor.getRightHandItem() == null || (actor.getRightHandItem().getPower() < equipable.getPower() || weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable) > weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) {
+                    if (actor.getRightHandItem() != null) {
+                        System.out.println("Weapon skill for old: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()));
+                        System.out.println("Weapon skill for new: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable));
+                    }
+                    EquipActivity equipActivity = new EquipActivity(actor, equipable);
+                    actor.getActivityStack().add(equipActivity);
+                    return true;
+                }
+            } else if (TwohandedWeapon.class.isAssignableFrom(equipable.getClass())) {
                 if (actor.getRightHandItem() == null || (actor.getRightHandItem().getPower() < equipable.getPower() || weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable) > weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) {
                     if (actor.getRightHandItem() != null) {
                         System.out.println("Weapon skill for old: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()));

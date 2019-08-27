@@ -3,11 +3,9 @@ package com.mygdx.game.logic.activity.manager.decision;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
-import com.mygdx.game.logic.activity.single.MentalTrainingActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.activity.single.ShootingTrainingActivity;
 import com.mygdx.game.object.house.House;
-import com.mygdx.game.object.interactive.BookCase;
 import com.mygdx.game.object.interactive.ShootingTarget;
 import com.mygdx.game.registry.HouseRegistry;
 import com.mygdx.game.registry.MapRegistry;
@@ -45,7 +43,7 @@ public class ShootingTrainingDecision implements Decision {
             moveAndInteractActivity.add(movementActivity)
                     .add(shootingTrainingActivity);
 
-            actor.getActivityStack().clear();
+            actor.getActivityStack().reset();
             actor.getActivityStack().add(moveAndInteractActivity);
             return true;
         }

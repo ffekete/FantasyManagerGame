@@ -63,7 +63,6 @@ public class SleepingDecision implements Decision {
                     moveAndSleepActivity.add(new MovementActivity(actor, target.getX(), target.getY(), 0, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
                     moveAndSleepActivity.add(sleepActivity);
 
-                    actor.getActivityStack().clear();
                     actor.getActivityStack().add(moveAndSleepActivity);
                     return true;
                 } else {
@@ -71,7 +70,7 @@ public class SleepingDecision implements Decision {
                     MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY, SleepActivity.class);
                     moveAndSleepActivity.add(new MovementActivity(actor, (int) ((WorldObject) bed.get()).getX(), (int) ((WorldObject) bed.get()).getY(), 0, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
                     moveAndSleepActivity.add(new SleepActivity(actor));
-                    actor.getActivityStack().clear();
+
                     actor.getActivityStack().add(moveAndSleepActivity);
                     return true;
                 }
@@ -93,7 +92,6 @@ public class SleepingDecision implements Decision {
                 moveAndSleepActivity.add(new MovementActivity(actor, target.getX(), target.getY(), 0, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
                 moveAndSleepActivity.add(sleepActivity);
 
-                actor.getActivityStack().clear();
                 actor.getActivityStack().add(moveAndSleepActivity);
                 return true;
             }

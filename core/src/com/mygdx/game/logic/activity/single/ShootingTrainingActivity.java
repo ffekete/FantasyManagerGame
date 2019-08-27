@@ -4,10 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.item.projectile.Arrow;
 import com.mygdx.game.item.projectile.PracticeArrow;
 import com.mygdx.game.item.projectile.Projectile;
-import com.mygdx.game.item.weapon.bow.Bow;
 import com.mygdx.game.logic.action.Action;
 import com.mygdx.game.logic.action.BowAction;
 import com.mygdx.game.logic.activity.Activity;
@@ -65,7 +63,7 @@ public class ShootingTrainingActivity implements Activity {
 
     @Override
     public void cancel() {
-        actor.getActivityStack().clear();
+        actor.getActivityStack().reset();
     }
 
     @Override

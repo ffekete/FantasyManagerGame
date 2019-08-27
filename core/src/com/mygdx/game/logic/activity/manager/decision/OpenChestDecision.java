@@ -2,7 +2,6 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
 import com.mygdx.game.logic.activity.single.InteractActivity;
@@ -10,11 +9,9 @@ import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.map.Cluster;
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.InteractiveObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.decoration.TreasureChest;
-import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 
@@ -64,7 +61,7 @@ public class OpenChestDecision implements Decision {
 
                 if (closestObject != null && (((TreasureChest) closestObject).getSize() > 0 || ((TreasureChest) closestObject).getMoney() > 0)) {
                     ActorMovementHandler.INSTANCE.clearPath(actor);
-                    actor.getActivityStack().clear();
+                    actor.getActivityStack().reset();
                     MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.OPEN_CHEST_PRIORITY, MoveAndInteractActivity.class);
 
                     moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1, new PathFinder()));

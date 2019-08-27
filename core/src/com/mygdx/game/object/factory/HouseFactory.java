@@ -16,7 +16,7 @@ public class HouseFactory {
 
     public void create(int x, int y, int length, Map2D map) {
 
-        // clear area
+        // reset area
         for (int i = x; i <= x + length; i++)
             for (int j = y; j <= y + length; j++) {
                 WorldObject object = ObjectRegistry.INSTANCE.getObjectGrid().get(map)[i][j][0];

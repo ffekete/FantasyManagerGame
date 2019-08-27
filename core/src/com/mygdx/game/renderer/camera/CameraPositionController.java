@@ -1,6 +1,7 @@
 package com.mygdx.game.renderer.camera;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
@@ -20,6 +21,9 @@ public class CameraPositionController {
     private Actor focusedOn = null;
     private Point focusedOnPoint = new Point(0, 0);
 
+    public float getZoom() {
+        return focusedOn == null ? zoom : focusedZoom;
+    }
 
     public void update() {
         coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(0, 0));
@@ -79,8 +83,8 @@ public class CameraPositionController {
             if (zoom < 0.1f) {
                 zoom = 0.1f;
             }
-            if (zoom > 1) {
-                zoom = 1f;
+            if (zoom > Config.Engine.ZOOM_MAX) {
+                zoom = Config.Engine.ZOOM_MAX;
             }
         } else {
             focusedZoom += level;

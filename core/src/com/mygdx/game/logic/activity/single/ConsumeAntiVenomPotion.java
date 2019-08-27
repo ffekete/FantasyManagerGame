@@ -57,7 +57,7 @@ public class ConsumeAntiVenomPotion implements Activity {
 
     @Override
     public void resume() {
-
+        firstRun = true;
     }
 
     @Override

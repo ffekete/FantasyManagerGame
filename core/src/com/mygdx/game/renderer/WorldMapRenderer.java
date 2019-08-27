@@ -32,40 +32,68 @@ public class WorldMapRenderer implements Renderer<Map2D> {
     @Override
     public void draw(Map2D map, SpriteBatch spriteBatch) {
 
-        visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(map);
+        if (CameraPositionController.INSTANCE.getZoom() > Config.Engine.ZOOM_MAX_TO_SMALL_MAP) {
 
-        if (visibilityMask != null)
-            visibilityMask.mask(map, map.getVisitedareaMap());
+            localtextureRegion.setRegion(textureRegistry.getForTile(WorldMapTile.GRASS));
+            texture = localtextureRegion;
 
-        for (int i = Math.max((int) cameraPositionController.getCameraposition().getX() - 40, 0); i < Math.min((int) cameraPositionController.getCameraposition().getX() + 40, Config.WorldMap.WORLD_WIDTH); i++) {
-            for (int j = Math.max((int) cameraPositionController.getCameraposition().getY() - 40, 0); j < Math.min((int) cameraPositionController.getCameraposition().getY() + 40, Config.WorldMap.WORLD_HEIGHT); j++) {
+            for (int i = 0; i < map.getWidth(); i += 10) {
+                for (int j = 0; j < map.getHeight(); j += 10) {
 
-                if (map.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
-                    spriteBatch.setColor(Color.DARK_GRAY);
-                } else {
-                    if(DayTimeCalculator.INSTANCE.isItNight()) {
-                        spriteBatch.setColor(Config.Engine.NIGHT_COLOR);
-                    } else if(DayTimeCalculator.INSTANCE.isDawn()) {
-                        spriteBatch.setColor(Config.Engine.DAWN_COLOR);
-                    }
-                    else if(DayTimeCalculator.INSTANCE.isDusk()) {
-                        spriteBatch.setColor(Config.Engine.DUSK_COLOR);
-                    }
-                    else {
-                        spriteBatch.setColor(Color.WHITE);
-                    }
-                }
-
-                if (map.getVisitedareaMap()[i][j] != VisitedArea.NOT_VISITED) {
+//                    if(map.getTile(i,j).equals(WorldMapTile.GRASS))
+//                        spriteBatch.setColor(Color.GREEN);
+//
+//                    if(map.getTile(i,j).equals(WorldMapTile.DIRT))
+//                        spriteBatch.setColor(Color.BROWN);
+//
+//                    spriteBatch.draw(texture, i/10, j/10, 1, 1);
 
                     if (WorldMapTile.class.isAssignableFrom(map.getTile(i, j).getClass()) && ((WorldMapTile) map.getTile(i, j)).isTiled()) {
-                        texture = dirtTileSelector.getFor(map, i, j);//textureRegistry.getForTile(map.getTile(i, j))
+                        texture = dirtTileSelector.getFor(map, i, j, 10);//textureRegistry.getForTile(map.getTile(i, j))
                     } else {
                         localtextureRegion.setRegion(textureRegistry.getForTile(map.getTile(i, j)));
                         texture = localtextureRegion;
                     }
 
-                    spriteBatch.draw(texture, i, j, 1, 1);
+                    spriteBatch.draw(texture, i / 10, j / 10, 1, 1);
+                }
+            }
+
+        } else {
+
+            visibilityMask = VisibilityMapRegistry.INSTANCE.getFor(map);
+
+            if (visibilityMask != null)
+                visibilityMask.mask(map, map.getVisitedareaMap());
+
+            for (int i = Math.max((int) cameraPositionController.getCameraposition().getX() - 40, 0); i < Math.min((int) cameraPositionController.getCameraposition().getX() + 40, Config.WorldMap.WORLD_WIDTH); i++) {
+                for (int j = Math.max((int) cameraPositionController.getCameraposition().getY() - 40, 0); j < Math.min((int) cameraPositionController.getCameraposition().getY() + 40, Config.WorldMap.WORLD_HEIGHT); j++) {
+
+                    if (map.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
+                        spriteBatch.setColor(Color.DARK_GRAY);
+                    } else {
+                        if (DayTimeCalculator.INSTANCE.isItNight()) {
+                            spriteBatch.setColor(Config.Engine.NIGHT_COLOR);
+                        } else if (DayTimeCalculator.INSTANCE.isDawn()) {
+                            spriteBatch.setColor(Config.Engine.DAWN_COLOR);
+                        } else if (DayTimeCalculator.INSTANCE.isDusk()) {
+                            spriteBatch.setColor(Config.Engine.DUSK_COLOR);
+                        } else {
+                            spriteBatch.setColor(Color.WHITE);
+                        }
+                    }
+
+                    if (map.getVisitedareaMap()[i][j] != VisitedArea.NOT_VISITED) {
+
+                        if (WorldMapTile.class.isAssignableFrom(map.getTile(i, j).getClass()) && ((WorldMapTile) map.getTile(i, j)).isTiled()) {
+                            texture = dirtTileSelector.getFor(map, i, j, 1);//textureRegistry.getForTile(map.getTile(i, j))
+                        } else {
+                            localtextureRegion.setRegion(textureRegistry.getForTile(map.getTile(i, j)));
+                            texture = localtextureRegion;
+                        }
+
+                        spriteBatch.draw(texture, i, j, 1, 1);
+                    }
                 }
             }
         }

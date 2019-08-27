@@ -49,22 +49,22 @@ public class MapUtils {
 
 
 
-    public static int bitmask4bitForTile(WorldMap map, int x, int y, WorldMapTile tile) {
+    public static int bitmask4bitForTile(WorldMap map, int x, int y, WorldMapTile tile, int skip) {
         int mask = 0;
 
-        if (y + 1 >= map.getHeight() || map.getTile(x, y + 1).equals(tile)) {
+        if (y + skip >= map.getHeight() || map.getTile(x, y + skip).equals(tile)) {
             mask += 1;
         }
 
-        if (x + 1 >= map.getWidth() || map.getTile(x + 1, y).equals(tile)) {
+        if (x + skip >= map.getWidth() || map.getTile(x + skip, y).equals(tile)) {
             mask += 2;
         }
 
-        if (y - 1 < 0 || map.getTile(x, y - 1).equals(tile)) {
+        if (y - skip < 0 || map.getTile(x, y - skip).equals(tile)) {
             mask += 4;
         }
 
-        if (x - 1 < 0 || map.getTile(x - 1, y).equals(tile)) {
+        if (x - skip < 0 || map.getTile(x - skip, y).equals(tile)) {
             mask += 8;
         }
 

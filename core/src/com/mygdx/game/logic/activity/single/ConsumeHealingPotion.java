@@ -56,7 +56,7 @@ public class ConsumeHealingPotion implements Activity {
 
     @Override
     public void resume() {
-
+        firstRun = true;
     }
 
     @Override

@@ -7,21 +7,21 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.Optional;
 
-public class ModdablePathResolver implements PathResolver {
+public class ModdablePathAudioResolver implements PathResolver<Sound> {
 
     @Override
-    public Optional<Texture> resolve(String path) {
+    public Optional<Sound> resolve(String path) {
 
         try {
             FileHandle fileHandle = Gdx.files.internal("../mod/" + path);
-            return Optional.of(new Texture(fileHandle));
+            return Optional.of(Gdx.audio.newSound(fileHandle));
         } catch (Exception e) {
 
         }
 
         try {
             FileHandle fileHandle = Gdx.files.internal(path);
-            return Optional.of(new Texture(fileHandle));
+            return Optional.of(Gdx.audio.newSound(fileHandle));
         } catch (Exception e) {
 
         }

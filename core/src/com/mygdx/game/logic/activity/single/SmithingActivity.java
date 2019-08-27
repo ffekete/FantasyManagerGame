@@ -4,15 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.buildertool.Hammer;
-import com.mygdx.game.item.weapon.sword.ShortSword;
+import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.logic.action.Action;
 import com.mygdx.game.logic.action.HammerSwingAction;
 import com.mygdx.game.logic.action.SparksAction;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.object.CraftingObject;
 import com.mygdx.game.registry.ActionRegistry;
+import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.TextureRegistry;
+
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public class SmithingActivity implements Activity {
 
@@ -50,13 +56,14 @@ public class SmithingActivity implements Activity {
     @Override
     public void init() {
         object.onInteract(actor);
-        object.start(ShortSword.class);
+        List<Class<Craftable>> craftables = ItemRegistry.INSTANCE.getFor(Tier1.class).stream().filter(item -> Craftable.class.isAssignableFrom(item)).map(item -> (Class<Craftable>) item).collect(Collectors.toList());
+        object.start(craftables.get(new Random().nextInt(craftables.size())));
         firstRun = false;
     }
 
     @Override
     public void cancel() {
-        actor.getActivityStack().clear();
+        actor.getActivityStack().reset();
         object.cancel();
     }
 
@@ -77,6 +84,8 @@ public class SmithingActivity implements Activity {
 
     @Override
     public void resume() {
+        // find way back to anvil
+        firstRun = true;
 
     }
 

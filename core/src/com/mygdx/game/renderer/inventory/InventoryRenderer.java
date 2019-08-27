@@ -22,6 +22,10 @@ public class InventoryRenderer implements Renderer<Actor> {
     public static final int SKILLS_PANEL_X = 800;
     public static final int SKILL_VALUE_COLUMN_X = 1100;
     public static final int ATTRIBUTE_VALUE_COLUMN_X = 430;
+
+    public static final int ARMOR_X = 1670;
+    public static final int ARMOR_Y = 1020 - 300;
+
     public static final int RIGHT_HAND_X = 1800;
     public static final int RIGHT_HAND_Y = 1020 - 330;
     public static final int LEFT_HAND_X = 1530;
@@ -50,11 +54,11 @@ public class InventoryRenderer implements Renderer<Actor> {
 
         RendererToolsRegistry.INSTANCE.getSpriteBatch().draw(textureRegistry.getFor(MenuItem.Inventory), 0, 0, 0, 0, 1920, 1080);
 
-        int i = 2;
+        int i = 6;
         // Name
         RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), actor.getName() + " (" + actor.getActorClass() + ")", screenX / 2f, screenY - i * 35);
 
-        i = 6;
+        i = 10;
         // level
         RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "Level:", ATTRIBUTES_PANEL_X, screenY - i * 35);
         RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "" + actor.getLevel(), ATTRIBUTE_VALUE_COLUMN_X, screenY - i * 35);
@@ -64,7 +68,7 @@ public class InventoryRenderer implements Renderer<Actor> {
         RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "" + actor.getExperiencePoints() + " / " + ExperienceLevelMapper.INSTANCE.getForLevel(actor.getLevel() + 1), 430, screenY - i * 35);
 
         // attributes
-        i = 8;
+        i = 12;
         for(Attributes attribute : Attributes.values()) {
             RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), attribute.name(), ATTRIBUTES_PANEL_X, screenY - i * 35);
             RendererToolsRegistry.INSTANCE.getBitmapFont().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), "" + actor.getAttribute(attribute), ATTRIBUTE_VALUE_COLUMN_X, screenY - i * 35);
@@ -97,7 +101,7 @@ public class InventoryRenderer implements Renderer<Actor> {
 
 
         // WeaponSkills
-        i = 5;
+        i = 9;
         for(WeaponSkill skill : WeaponSkill.values()) {
             RendererToolsRegistry.INSTANCE.getBitmapFontSmall().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), skill.name(), SKILLS_PANEL_X, screenY - i * 35);
             RendererToolsRegistry.INSTANCE.getBitmapFontSmall().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), getPluses(actor.getWeaponSkills().getOrDefault(skill, 0)), SKILL_VALUE_COLUMN_X, screenY - i * 35);
@@ -137,6 +141,9 @@ public class InventoryRenderer implements Renderer<Actor> {
         // right hand
         if(actor.getRightHandItem() != null)
             RendererToolsRegistry.INSTANCE.getSpriteBatch().draw(textureRegistry.getFor(actor.getRightHandItem().getClass()), RIGHT_HAND_X, RIGHT_HAND_Y, 16, 16, 28, 28, 3f, 3f, 45f, 0, 0, 32, 32, false, false);
+
+        if(actor.getWornArmor() != null)
+            RendererToolsRegistry.INSTANCE.getSpriteBatch().draw(textureRegistry.getFor(actor.getWornArmor().getClass()), ARMOR_X, ARMOR_Y, 16, 16, 28, 28, 3f, 3f, 0f, 0, 0, 32, 32, false, false);
 
         if(itemText != null) {
             RendererToolsRegistry.INSTANCE.getBitmapFontSmallest().draw(RendererToolsRegistry.INSTANCE.getSpriteBatch(), itemText, 1420, 280);

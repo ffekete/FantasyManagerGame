@@ -33,6 +33,7 @@ import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.actor.worker.Smith;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
+import com.mygdx.game.item.armor.LeatherArmor;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallManaPotion;
@@ -161,6 +162,7 @@ public class WorldMapSample extends SampleBase {
         warrior.getInventory().add(new Bread());
         warrior.getInventory().add(new Bread());
         warrior.getInventory().add(new Bread());
+        warrior.getInventory().add(new LeatherArmor());
         //warrior.increaseSleepiness(49000);
         warrior.increaseTrainingNeeds(49000);
 

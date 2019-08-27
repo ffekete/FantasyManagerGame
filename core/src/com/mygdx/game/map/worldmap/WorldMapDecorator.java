@@ -78,6 +78,8 @@ public class WorldMapDecorator {
         }
 
         List<WorldObject> o = ObjectRegistry.INSTANCE.getAll(worldMap).stream().filter(worldObject -> DungeonEntrance.class.isAssignableFrom(worldObject.getClass())).peek(worldObject -> roadCreator.connect(worldMap, worldObject.getCoordinates(), Point.of(5, 5))).collect(Collectors.toList());
+
+        WildlifeDistributor.INSTANCE.populate(worldMap);
     }
 
     public WorldMap create(int steps) {

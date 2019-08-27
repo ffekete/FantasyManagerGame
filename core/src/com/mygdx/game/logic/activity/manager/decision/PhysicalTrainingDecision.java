@@ -43,7 +43,7 @@ public class PhysicalTrainingDecision implements Decision {
             moveAndInteractActivity.add(movementActivity)
                     .add(physicalTrainingActivity);
 
-            actor.getActivityStack().clear();
+            actor.getActivityStack().reset();
             actor.getActivityStack().add(moveAndInteractActivity);
             return true;
         }

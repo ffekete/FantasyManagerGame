@@ -80,6 +80,8 @@ public abstract class CompoundActivity implements Activity {
         for(int i = currentActivity; i < activities.size(); i++) {
             activities.get(currentActivity).resume();
         }
+        currentActivity = 0;
+
     }
 
     @Override

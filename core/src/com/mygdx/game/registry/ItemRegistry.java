@@ -4,6 +4,9 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.armor.BlackPlateMail;
+import com.mygdx.game.item.armor.ChainMailArmor;
+import com.mygdx.game.item.armor.LeatherArmor;
+import com.mygdx.game.item.armor.PlateMailArmor;
 import com.mygdx.game.item.category.Category;
 import com.mygdx.game.item.category.Legendary;
 import com.mygdx.game.item.category.Tier1;
@@ -19,6 +22,7 @@ import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.*;
+import com.mygdx.game.item.weapon.twohandedsword.Flamberge;
 import com.mygdx.game.map.Map2D;
 
 import java.util.ArrayList;
@@ -45,11 +49,14 @@ public class ItemRegistry {
                     .add(MediumShield.class)
                     // Sword
                     .add(ShortSword.class)
+                    .add(Flamberge.class)
                     // staff
                     .add(JadeStaff.class)
                     // bow
                     .add(LongBow.class)
                     // Armor
+                    .add(LeatherArmor.class)
+                    .add(ChainMailArmor.class)
                     .build())
 
             .put(Tier2.class, ImmutableList.<Class<? extends Item>>builder()
@@ -59,6 +66,7 @@ public class ItemRegistry {
                     // Sword
                     .add(ShortSwordPlusOne.class)
                     // Armor
+                    .add(PlateMailArmor.class)
                     .build())
 
             .put(Tier3.class, ImmutableList.<Class<? extends Item>>builder()

@@ -3,7 +3,6 @@ package com.mygdx.game.logic.activity.manager.decision;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.selector.ClosestEnemySelector;
-import com.mygdx.game.logic.selector.SelectionUtils;
 import com.mygdx.game.item.weapon.RangedWeapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.CompoundActivity;
@@ -50,7 +49,7 @@ public class MoveAndRangedAttackDecision implements Decision {
         if (enemy != null) {
             if (distance(actor.getCoordinates(), enemy.getCoordinates()) > actor.getAttackRange()) {
 
-                actor.getActivityStack().clear();
+                actor.getActivityStack().reset();
 
                 PathFinder pathFinder = mapRegistry.getPathFinderFor(actor.getCurrentMap());
 

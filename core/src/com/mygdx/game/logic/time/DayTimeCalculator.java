@@ -13,6 +13,10 @@ public class DayTimeCalculator {
         actualTime++;
     }
 
+    public void setActualTime(long l) {
+        this.actualTime = l;
+    }
+
     public long getHour() {
         return actualTime / Config.Time.TICK_PER_HOUR % Config.Time.HOUR_PER_DAY;
     }

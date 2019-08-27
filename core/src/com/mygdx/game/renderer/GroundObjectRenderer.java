@@ -14,6 +14,7 @@ import com.mygdx.game.object.floor.TileableFloorObject;
 import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.registry.TextureRegistry;
+import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
 import com.mygdx.game.renderer.selector.FloorTileSelector;
 
@@ -33,6 +34,10 @@ public class GroundObjectRenderer implements Renderer<Map2D> {
 
     @Override
     public void draw(Map2D dungeon, SpriteBatch spriteBatch) {
+
+        if (CameraPositionController.INSTANCE.getZoom() > Config.Engine.ZOOM_MAX_TO_SMALL_MAP) {
+            return;
+        }
 
         // draw objects
         int startY = (int) rendererToolsRegistry.getCamera().position.y;

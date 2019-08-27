@@ -3,7 +3,6 @@ package com.mygdx.game.logic.activity.manager.decision;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.selector.ClosestEnemySelector;
-import com.mygdx.game.logic.selector.SelectionUtils;
 import com.mygdx.game.item.weapon.RangedWeapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.CompoundActivity;
@@ -48,7 +47,7 @@ public class MoveAndAttackDecision implements Decision {
         if (enemy != null) {
             if (distance(actor.getCoordinates(), enemy.getCoordinates()) > actor.getAttackRange()) {
 
-                actor.getActivityStack().clear();
+                actor.getActivityStack().reset();
 
                 PathFinder pathFinder = mapRegistry.getPathFinderFor(actor.getCurrentMap());
 
@@ -94,7 +93,7 @@ public class MoveAndAttackDecision implements Decision {
                         (!enemy.getActivityStack().getCurrent().getMainClass().equals(SimpleAttackActivity.class)
                                 && !enemy.getActivityStack().contains(OffensiveSpellCastActivity.class))) {
 
-                    enemy.getActivityStack().clear();
+                    enemy.getActivityStack().reset();
                     if (path.size() - 1 < enemy.getAttackRange()) {
                         enemy.getActivityStack().add(new SimpleAttackActivity(enemy, actor));
                     } else {

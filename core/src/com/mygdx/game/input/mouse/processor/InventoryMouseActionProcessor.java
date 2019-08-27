@@ -19,6 +19,15 @@ public class InventoryMouseActionProcessor {
     }
 
     public boolean onMouseMoved(int screenX, int screenY) {
+        if (screenX >= InventoryRenderer.ARMOR_X - 40 && screenX <= InventoryRenderer.ARMOR_X + 40 &&
+                screenY >= InventoryRenderer.ARMOR_Y - 40 && screenY <= InventoryRenderer.ARMOR_Y + 40
+                && InventoryGameLogicController.INSTANCE.getActor().getWornArmor() != null) {
+
+            InventoryRenderer.INSTANCE.setItemText(InventoryGameLogicController.INSTANCE.getActor().getWornArmor().getName() +
+                    "\n\n" + InventoryGameLogicController.INSTANCE.getActor().getWornArmor().getDescription());
+            return true;
+        }
+
         if (screenX >= InventoryRenderer.RIGHT_HAND_X - 40 && screenX <= InventoryRenderer.RIGHT_HAND_X + 40 &&
                 screenY >= InventoryRenderer.RIGHT_HAND_Y - 40 && screenY <= InventoryRenderer.RIGHT_HAND_Y + 40
                 && InventoryGameLogicController.INSTANCE.getActor().getRightHandItem() != null) {

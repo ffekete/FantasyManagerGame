@@ -66,6 +66,10 @@ public class ActivityStack {
 
     public void clear() {
         activities.clear();
+    }
+
+    public void reset() {
+        activities.clear();
         activities.add(new IdleActivity(actor));
     }
 
@@ -77,9 +81,19 @@ public class ActivityStack {
     }
 
     public void add(Activity activity) {
-        actor.getActivityStack().clear();
+        //actor.getActivityStack().reset();
         ActorMovementHandler.INSTANCE.clearPath(actor);
         this.activities.offer(activity);
+        if(this.activities.peek().equals(activity)) {
+            long suspended = activities.parallelStream()
+                    .peek(activity1 -> {
+                        if(!activity1.equals(activity)) {
+                            activity1.suspend();
+                        }
+                    }).count();
+            System.out.println("Suspended " + suspended + " activities");
+        }
+
     }
 
     public boolean finishedCurrentPeriod() {

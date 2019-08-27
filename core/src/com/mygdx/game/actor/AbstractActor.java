@@ -15,12 +15,14 @@ import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.ItemFactory;
+import com.mygdx.game.item.OneHandedItem;
 import com.mygdx.game.item.armor.Armor;
 import com.mygdx.game.item.factory.Placement;
 import com.mygdx.game.item.money.MoneyBag;
 import com.mygdx.game.item.money.MoneyContainer;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.spelltome.SpellTome;
+import com.mygdx.game.item.weapon.TwohandedWeapon;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
@@ -255,13 +257,25 @@ public abstract class AbstractActor implements Actor {
             equipable.onEquip(this);
             System.out.println(name + " equipped in left hand " + equipable);
 
-        } else if (Weapon.class.isAssignableFrom(equipable.getClass())) {
+        } else if (OneHandedItem.class.isAssignableFrom(equipable.getClass())) {
             unequip(this.rightHand);
             rightHand = equipable;
             inventory.remove(equipable);
             equipable.onEquip(this);
             System.out.println(name + " equipped in right hand " + equipable);
+        } else if(TwohandedWeapon.class.isAssignableFrom(equipable.getClass())) {
+            unequip(this.rightHand);
+            unequip(this.leftHand);
+            rightHand = equipable;
+            equipable.onEquip(this);
+            System.out.println(name + " equipped in both hands " + equipable);
+        } else if(Armor.class.isAssignableFrom(equipable.getClass())) {
+            unequip(this.getWornArmor());
+            this.wornArmor = (Armor) equipable;
+            equipable.onEquip(this);
+            System.out.println(name + " equipped armor " + equipable);
         }
+        inventory.remove(equipable);
     }
 
     @Override
@@ -281,6 +295,11 @@ public abstract class AbstractActor implements Actor {
             inventory.add(equipable);
             equipable.onRemove(this);
             System.out.println(name + " unequipped in right hand " + equipable);
+        } else if(Armor.class.isAssignableFrom(equipable.getClass())) {
+            this.wornArmor = null;
+            inventory.add(equipable);
+            equipable.onRemove(this);
+            System.out.println(name + " unequipped armor " + equipable);
         }
     }
 

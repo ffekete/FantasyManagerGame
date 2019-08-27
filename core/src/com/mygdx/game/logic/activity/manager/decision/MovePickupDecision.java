@@ -3,7 +3,6 @@ package com.mygdx.game.logic.activity.manager.decision;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.selector.ItemSelector;
-import com.mygdx.game.logic.selector.SelectionUtils;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.compound.MovePickupActivity;
@@ -42,7 +41,7 @@ public class MovePickupDecision implements Decision {
                 Activity activity = new MovePickupActivity(Config.Activity.MOVE_PICKUP_PRIORITY, PickUpItemActivity.class)
                         .add(new MovementActivity(actor, item.getX(), item.getY(), 1, new PathFinder()))
                         .add(new PickUpItemActivity(actor, item));
-                actor.getActivityStack().clear();
+                actor.getActivityStack().reset();
                 actor.getActivityStack().add(activity);
                 ActorMovementHandler.INSTANCE.clearPath(actor);
                 return true;

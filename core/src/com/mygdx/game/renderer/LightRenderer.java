@@ -2,10 +2,12 @@ package com.mygdx.game.renderer;
 
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Config;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.registry.LightSourceRegistry;
 import com.mygdx.game.registry.TextureRegistry;
+import com.mygdx.game.renderer.camera.CameraPositionController;
 
 public class LightRenderer implements Renderer<Map2D> {
 
@@ -19,6 +21,10 @@ public class LightRenderer implements Renderer<Map2D> {
 
     @Override
     public void draw(Map2D map, SpriteBatch spriteBatch) {
+
+        if (CameraPositionController.INSTANCE.getZoom() > Config.Engine.ZOOM_MAX_TO_SMALL_MAP) {
+            return;
+        }
 
         spriteBatch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_DST_ALPHA);
 

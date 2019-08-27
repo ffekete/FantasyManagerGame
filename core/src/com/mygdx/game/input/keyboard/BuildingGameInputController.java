@@ -30,9 +30,9 @@ public class BuildingGameInputController {
         if(keycode == Input.Keys.B) {
             GameFlowControllerFacade.INSTANCE.setGameState(GameState.Sandbox);
             for(Actor actor : actorRegistry.getActors(mapRegistry.getCurrentMapToShow())) {
-                //actor.getActivityStack().clear();
+                //actor.getActivityStack().reset();
                 //ActorMovementHandler.INSTANCE.clearPath(actor);
-                // todo if actor moves clear that activity
+                // todo if actor moves reset that activity
             }
         }
 

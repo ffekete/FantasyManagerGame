@@ -12,6 +12,9 @@ import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.actor.worker.Smith;
 import com.mygdx.game.item.Item;
+import com.mygdx.game.item.armor.ChainMailArmor;
+import com.mygdx.game.item.armor.LeatherArmor;
+import com.mygdx.game.item.armor.PlateMailArmor;
 import com.mygdx.game.item.buildertool.Hammer;
 import com.mygdx.game.item.component.WolfPelt;
 import com.mygdx.game.item.food.Bread;
@@ -25,6 +28,7 @@ import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.*;
+import com.mygdx.game.item.weapon.twohandedsword.Flamberge;
 import com.mygdx.game.logic.action.*;
 import com.mygdx.game.map.TileBase;
 import com.mygdx.game.map.dungeon.DungeonType;
@@ -120,19 +124,25 @@ public class TextureRegistry {
                 .build();
 
         itemTextures = ImmutableMap.<Class, Optional<Texture>>builder()
-                .put(ShortSword.class, texturePathResolver.resolve("items/ShortSword.png"))
-                .put(ShortSwordPlusOne.class, texturePathResolver.resolve("items/ShortSword.png"))
-                .put(ShortSwordPlusFour.class, texturePathResolver.resolve("items/ShortSword.png"))
+                .put(ShortSword.class, texturePathResolver.resolve("items/weapons/ShortSword.png"))
+                .put(ShortSwordPlusOne.class, texturePathResolver.resolve("items/weapons/ShortSword.png"))
+                .put(ShortSwordPlusFour.class, texturePathResolver.resolve("items/weapons/ShortSword.png"))
                 .put(SmallHealingPotion.class, texturePathResolver.resolve("items/HealingPotion.png"))
                 .put(SmallManaPotion.class, texturePathResolver.resolve("items/ManaPotion.png"))
                 .put(SmallAntiVenomPotion.class, texturePathResolver.resolve("items/AntiVenom.png"))
                 .put(SmallShiled.class, texturePathResolver.resolve("items/SmallShield.png"))
                 .put(MediumShield.class, texturePathResolver.resolve("items/MediumShield.png"))
-                .put(PoisonFang.class, texturePathResolver.resolve("items/PoisonFang.png"))
-                .put(FlameTongue.class, texturePathResolver.resolve("items/Flametongue.png"))
-                .put(JadeStaff.class, texturePathResolver.resolve("items/JadeStaff.png"))
-                .put(LongBow.class, texturePathResolver.resolve("items/LongBow.png"))
+                .put(PoisonFang.class, texturePathResolver.resolve("items/weapons/PoisonFang.png"))
+                .put(FlameTongue.class, texturePathResolver.resolve("items/weapons/Flametongue.png"))
+                .put(JadeStaff.class, texturePathResolver.resolve("items/weapons/JadeStaff.png"))
+                .put(LongBow.class, texturePathResolver.resolve("items/weapons/LongBow.png"))
+                .put(Flamberge.class, texturePathResolver.resolve("items/weapons/Flamberge.png"))
                 .put(Hammer.class, texturePathResolver.resolve("effects/Hammer.png"))
+
+                // armor
+                .put(LeatherArmor.class, texturePathResolver.resolve("items/armors/LeatherArmor.png"))
+                .put(ChainMailArmor.class, texturePathResolver.resolve("items/armors/ChainMailArmor.png"))
+                .put(PlateMailArmor.class, texturePathResolver.resolve("items/armors/PlateMailArmor.png"))
 
                 // components
                 .put(WolfPelt.class, texturePathResolver.resolve("items/components/WolfPelt.png"))

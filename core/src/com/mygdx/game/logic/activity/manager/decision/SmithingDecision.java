@@ -5,11 +5,9 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
 import com.mygdx.game.logic.activity.single.InteractActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
-import com.mygdx.game.logic.activity.single.PhysicalTrainingActivity;
 import com.mygdx.game.logic.activity.single.SmithingActivity;
 import com.mygdx.game.object.house.House;
 import com.mygdx.game.object.interactive.Anvil;
-import com.mygdx.game.object.interactive.PracticeFigure;
 import com.mygdx.game.object.interactive.Smelter;
 import com.mygdx.game.registry.HouseRegistry;
 import com.mygdx.game.registry.MapRegistry;
@@ -25,17 +23,17 @@ public class SmithingDecision implements Decision {
         }
 
         if (SmithingActivity.class.equals(actor.getActivityStack().getCurrent().getMainClass())) {
-            if ((SmithingActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getCurrentActivity().getClass()) && ((SmithingActivity) actor.getActivityStack().getCurrent().getCurrentActivity()).getInteractedCounter() % 30 != 0))
+            if ((SmithingActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getCurrentActivity().getClass()) && ((SmithingActivity) actor.getActivityStack().getCurrent().getCurrentActivity()).getInteractedCounter() % 10 != 0))
                 return true;
             else {
 
-                if ((SmithingActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getCurrentActivity().getClass()) && ((SmithingActivity) actor.getActivityStack().getCurrent().getCurrentActivity()).getInteractedCounter() % 30 == 0)) {
+                if ((SmithingActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getCurrentActivity().getClass()) && ((SmithingActivity) actor.getActivityStack().getCurrent().getCurrentActivity()).getInteractedCounter() % 10 == 0)) {
 
                     ((SmithingActivity) actor.getActivityStack().getCurrent().getCurrentActivity()).increaseInteractedCounter();
 
                     House house = HouseRegistry.INSTANCE.getOwnedHouses().getOrDefault(actor, null);
                     if (house == null) {
-                        actor.getActivityStack().clear();
+                        actor.getActivityStack().reset();
                         return false;
                     }
 
@@ -43,7 +41,7 @@ public class SmithingDecision implements Decision {
                     List<Smelter> smelters = house.getFurnitureOfType(Smelter.class);
 
                     if (anvils.isEmpty() || smelters.isEmpty()) {
-                        actor.getActivityStack().clear();
+                        actor.getActivityStack().reset();
                         return false;
                     }
 
@@ -79,7 +77,7 @@ public class SmithingDecision implements Decision {
         moveAndInteractActivity.add(movementActivity)
                 .add(smithingActivity);
 
-        actor.getActivityStack().clear();
+        actor.getActivityStack().reset();
         actor.getActivityStack().add(moveAndInteractActivity);
         return true;
 

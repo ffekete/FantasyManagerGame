@@ -19,6 +19,7 @@ import com.mygdx.game.sound.DistanceBasedSoundPlayerProvider;
 import com.mygdx.game.utils.MapUtils;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -160,9 +161,9 @@ public class MovementActivity implements Activity {
     private void playFootstepSound() {
         if (MapRegistry.INSTANCE.getCurrentMapToShow().equals(actor.getCurrentMap())) {
 
-            if (counter % 15 == limit) {
+            if (counter % 15 == limit && SoundRegistry.INSTANCE.getFor(MovementActivity.class).isPresent()) {
                 limit = new Random().nextInt(8) < 4 ? 8 : 0;
-                distanceBasedSoundPlayer.play(SoundRegistry.INSTANCE.getFor(MovementActivity.class), actor.getCoordinates(), 0.05f, 0.01f);
+                distanceBasedSoundPlayer.play(SoundRegistry.INSTANCE.getFor(MovementActivity.class).get(), actor.getCoordinates(), 0.05f, 0.01f);
             }
         }
     }

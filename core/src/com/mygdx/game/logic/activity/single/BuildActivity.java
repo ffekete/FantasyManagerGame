@@ -70,7 +70,7 @@ public class BuildActivity implements Activity {
 
     @Override
     public void resume() {
-
+        firstRun = true;
     }
 
     @Override
