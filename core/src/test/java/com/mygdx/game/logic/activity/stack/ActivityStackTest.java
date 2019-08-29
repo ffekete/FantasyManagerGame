@@ -79,12 +79,17 @@ public class ActivityStackTest {
         SimpleEatingActivity simpleEatingActivity = mock(SimpleEatingActivity.class);
 
 
+        SimpleEatingActivity simpleEatingActivity2 = mock(SimpleEatingActivity.class);
+
+        when(movementActivity.compareTo(simpleEatingActivity2)).thenReturn(-1);
         when(movementActivity.compareTo(sleepActivity)).thenReturn(1);
         when(movementActivity.compareTo(simpleEatingActivity)).thenReturn(1);
 
+        when(sleepActivity.compareTo(simpleEatingActivity2)).thenReturn(-1);
         when(sleepActivity.compareTo(movementActivity)).thenReturn(-1);
         when(sleepActivity.compareTo(simpleEatingActivity)).thenReturn(-1);
 
+        when(simpleEatingActivity.compareTo(simpleEatingActivity2)).thenReturn(-1);
         when(simpleEatingActivity.compareTo(sleepActivity)).thenReturn(1);
         when(simpleEatingActivity.compareTo(movementActivity)).thenReturn(-1);
 
@@ -97,9 +102,13 @@ public class ActivityStackTest {
 
         actor.getActivityStack().add(sleepActivity);
 
+        actor.getActivityStack().add(simpleEatingActivity2);
+
         verify(movementActivity, times(2)).suspend();
         verify(simpleEatingActivity, times(1)).suspend();
         verify(sleepActivity, times(0)).suspend();
+        verify(simpleEatingActivity2, times(0)).suspend();
+
     }
 
 }

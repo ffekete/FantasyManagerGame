@@ -15,6 +15,7 @@ public class OffensiveSpellCastActivity implements Activity {
     private final Actor target;
     private int counter = Config.Rules.SPELL_CAST_FREQUENCY;
     private boolean firstRun = true;
+    private boolean suspended = false;
 
 
     public OffensiveSpellCastActivity(Spell spell, Actor caster, Actor target) {
@@ -57,17 +58,17 @@ public class OffensiveSpellCastActivity implements Activity {
 
     @Override
     public void suspend() {
-
+        suspended = true;
     }
 
     @Override
     public void resume() {
-
+        suspended = false;
     }
 
     @Override
     public boolean isSuspended() {
-        return false;
+        return suspended;
     }
 
     @Override

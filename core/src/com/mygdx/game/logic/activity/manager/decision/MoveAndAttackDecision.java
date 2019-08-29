@@ -37,8 +37,9 @@ public class MoveAndAttackDecision implements Decision {
             return false;
 
         // already attacking, the decision chain should end here
-        if (actor.getActivityStack().getCurrent().getMainClass().equals(SimpleAttackActivity.class) ||
-                actor.getActivityStack().getCurrent().getMainClass().equals(OffensiveSpellCastActivity.class)) {
+        if (actor.getActivityStack().contains(SimpleAttackActivity.class) ||
+                actor.getActivityStack().contains(RangedAttackActivity.class) ||
+                actor.getActivityStack().contains(OffensiveSpellCastActivity.class)) {
             return true;
         }
 
@@ -121,7 +122,8 @@ public class MoveAndAttackDecision implements Decision {
     }
 
     private boolean isActorAlreadyFighting(Actor enemy) {
-        return enemy.getActivityStack().getCurrent().getMainClass().isAssignableFrom(SimpleAttackActivity.class) ||
-                enemy.getActivityStack().getCurrent().getCurrentClass().isAssignableFrom(OffensiveSpellCastActivity.class);
+        return enemy.getActivityStack().contains(SimpleAttackActivity.class) ||
+                enemy.getActivityStack().contains(RangedAttackActivity.class) ||
+                enemy.getActivityStack().contains(OffensiveSpellCastActivity.class);
     }
 }

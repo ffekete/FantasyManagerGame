@@ -35,7 +35,6 @@ public class SupportDecision implements Decision {
                 .findFirst();
 
         if (targetActor.isPresent()) {
-            actor.getActivityStack().reset();
             actor.getActivityStack().add(new SupportActivity(actor, targetActor.get(), 1, mapRegistry.getPathFinderFor(actor.getCurrentMap())));
             return true;
         }

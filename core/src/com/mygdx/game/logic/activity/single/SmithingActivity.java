@@ -30,6 +30,7 @@ public class SmithingActivity implements Activity {
     private Action action;
     private boolean firstRun = true;
     private int interactedCounter = 1;
+    private boolean suspended = false;
 
     private Sound hitSound = Gdx.audio.newSound(Gdx.files.internal("sounds/hit/hit07.mp3"));
 
@@ -63,7 +64,6 @@ public class SmithingActivity implements Activity {
 
     @Override
     public void cancel() {
-        actor.getActivityStack().reset();
         object.cancel();
     }
 
@@ -79,19 +79,17 @@ public class SmithingActivity implements Activity {
 
     @Override
     public void suspend() {
-
+        suspended = true;
     }
 
     @Override
     public void resume() {
-        // find way back to anvil
-        firstRun = true;
-
+        suspended = false;
     }
 
     @Override
     public boolean isSuspended() {
-        return false;
+        return suspended;
     }
 
     @Override

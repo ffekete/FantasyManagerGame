@@ -13,7 +13,7 @@ public class ExplorationDecision implements Decision {
             return false;
         }
 
-        if (actor.getActivityStack().getCurrent().getMainClass().equals(ExplorationActivity.class)) {
+        if (actor.getActivityStack().contains(ExplorationActivity.class)) {
             // already doing activity, the decision chain should end here
             return true;
         }

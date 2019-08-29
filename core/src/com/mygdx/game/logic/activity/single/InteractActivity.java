@@ -9,6 +9,7 @@ public class InteractActivity implements Activity {
 
     private Actor actor;
     private InteractiveObject object;
+    private boolean suspended = false;
 
     public InteractActivity(Actor actor, InteractiveObject object) {
         this.actor = actor;
@@ -47,17 +48,17 @@ public class InteractActivity implements Activity {
 
     @Override
     public void suspend() {
-
+        suspended = true;
     }
 
     @Override
     public void resume() {
-
+        suspended = false;
     }
 
     @Override
     public boolean isSuspended() {
-        return false;
+        return suspended;
     }
 
     @Override

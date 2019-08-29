@@ -112,7 +112,7 @@ public class Config {
     }
 
     public static class CommonActivity {
-        public static final int SLEEP_PRIORITY = 965;
+        public static final int SLEEP_PRIORITY = 925;
     }
 
     public static class SmithActivity {

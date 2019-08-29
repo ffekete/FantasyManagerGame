@@ -32,6 +32,7 @@ public class ExecuteCutDownActivity implements Activity {
     private int counter;
     private boolean firstRun = true;
     Action action;
+    private boolean suspended = false;
 
     public ExecuteCutDownActivity(Actor actor, Command<Cuttable> command) {
         this.actor = actor;
@@ -75,17 +76,17 @@ public class ExecuteCutDownActivity implements Activity {
 
     @Override
     public void suspend() {
-
+        suspended = true;
     }
 
     @Override
     public void resume() {
-
+        suspended = false;
     }
 
     @Override
     public boolean isSuspended() {
-        return false;
+        return suspended;
     }
 
     @Override

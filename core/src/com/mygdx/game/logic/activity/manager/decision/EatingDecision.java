@@ -7,15 +7,22 @@ import com.mygdx.game.logic.activity.single.SimpleEatingActivity;
 public class EatingDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
-        if(!actor.isSleeping() && actor.isHungry() && !actor.getActivityStack().getCurrent().getMainClass().equals(SimpleEatingActivity.class)) {
+
+        if(actor.isSleeping()) {
+            return false;
+        }
+
+        if(actor.getActivityStack().contains(SimpleEatingActivity.class)) {
+            return true;
+        }
+
+        if(actor.isHungry()) {
             if(actor.getInventory().has(Food.class)) {
                 SimpleEatingActivity simpleEatingActivity = new SimpleEatingActivity(actor);
                 actor.getActivityStack().reset();
                 actor.getActivityStack().add(simpleEatingActivity);
                 return true;
             }
-        } else if(actor.getActivityStack().contains(SimpleEatingActivity.class)){
-            return true;
         }
         return false;
     }

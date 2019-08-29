@@ -28,7 +28,7 @@ public class MoveAndCutDecision implements Decision {
             return false;
         }
 
-        if (actor.getActivityStack().contains(MoveAndCutDownActivity.class)) {
+        if (actor.getActivityStack().contains(ExecuteCutDownActivity.class)) {
             return true;
         }
 

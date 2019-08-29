@@ -13,6 +13,7 @@ public class SleepAtCampfireActivity implements Activity {
     private Actor actor;
     private int counter = 0;
     private CampFire campFire;
+    private boolean suspended = false;
 
     public SleepAtCampfireActivity(Actor actor, CampFire campFire) {
         this.actor = actor;
@@ -52,17 +53,17 @@ public class SleepAtCampfireActivity implements Activity {
 
     @Override
     public void suspend() {
-
+        suspended = true;
     }
 
     @Override
     public void resume() {
-
+        suspended = false;
     }
 
     @Override
     public boolean isSuspended() {
-        return false;
+        return suspended;
     }
 
     @Override

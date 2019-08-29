@@ -9,6 +9,7 @@ public class SleepOutsideActivity implements Activity {
 
     private Actor actor;
     private int counter = 0;
+    private boolean suspended = false;
 
     public SleepOutsideActivity(Actor actor) {
         this.actor = actor;
@@ -47,17 +48,17 @@ public class SleepOutsideActivity implements Activity {
 
     @Override
     public void suspend() {
-
+        suspended = true;
     }
 
     @Override
     public void resume() {
-
+        suspended = false;
     }
 
     @Override
     public boolean isSuspended() {
-        return false;
+        return suspended;
     }
 
     @Override

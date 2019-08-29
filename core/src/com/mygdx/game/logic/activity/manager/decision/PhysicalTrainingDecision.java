@@ -20,7 +20,7 @@ public class PhysicalTrainingDecision implements Decision {
             return false;
         }
 
-        if (PhysicalTrainingActivity.class.equals(actor.getActivityStack().getCurrent().getMainClass())) {
+        if (actor.getActivityStack().contains(PhysicalTrainingActivity.class)) {
             return true;
         }
 
@@ -43,7 +43,6 @@ public class PhysicalTrainingDecision implements Decision {
             moveAndInteractActivity.add(movementActivity)
                     .add(physicalTrainingActivity);
 
-            actor.getActivityStack().reset();
             actor.getActivityStack().add(moveAndInteractActivity);
             return true;
         }

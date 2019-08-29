@@ -13,6 +13,7 @@ public class ConsumeAntiVenomPotion implements Activity {
     private int counter = 0;
     private int speed;
     private boolean firstRun = true;
+    private boolean suspended = false;
 
     public ConsumeAntiVenomPotion(Actor actor, AntiVenomPotion antiVenomPotion) {
         this.actor = actor;
@@ -52,17 +53,17 @@ public class ConsumeAntiVenomPotion implements Activity {
 
     @Override
     public void suspend() {
-
+        suspended = true;
     }
 
     @Override
     public void resume() {
-        firstRun = true;
+        suspended = false;
     }
 
     @Override
     public boolean isSuspended() {
-        return false;
+        return suspended;
     }
 
     @Override

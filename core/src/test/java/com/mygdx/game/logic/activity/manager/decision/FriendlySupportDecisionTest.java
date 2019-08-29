@@ -11,6 +11,7 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveThenAttackActivity;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.activity.single.ExplorationActivity;
+import com.mygdx.game.logic.activity.single.SimpleAttackActivity;
 import com.mygdx.game.logic.activity.single.SupportActivity;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
@@ -88,7 +89,7 @@ public class FriendlySupportDecisionTest {
         activityManager.manage(target);
         activityManager.manage(support);
 
-        assertThat(target.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+        assertThat(target.getActivityStack().contains(SimpleAttackActivity.class), is(true));
         assertThat(support.getActivityStack().contains(ExplorationActivity.class), is(true));
     }
 

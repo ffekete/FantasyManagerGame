@@ -22,10 +22,9 @@ public class EquipDecision implements Decision {
             return false;
         }
 
-        if (actor.getActivityStack().getCurrent().getMainClass().equals(EquipActivity.class)) {
+        if (actor.getActivityStack().contains(EquipActivity.class)) {
             return true;
         }
-
 
         if (actor.getInventory().has(Equipable.class)) {
             Equipable equipable = actor.getInventory().get(Equipable.class);

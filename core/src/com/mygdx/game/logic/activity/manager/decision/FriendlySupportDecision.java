@@ -26,7 +26,7 @@ public class FriendlySupportDecision implements Decision {
             return false;
         }
 
-        if (actor.getActivityStack().getCurrent().getMainClass().equals(SupportActivity.class)) {
+        if (actor.getActivityStack().contains(SupportActivity.class)) {
             return true;
         }
 
@@ -40,7 +40,6 @@ public class FriendlySupportDecision implements Decision {
                 .findFirst();
 
         if (targetActor.isPresent()) {
-            actor.getActivityStack().reset();
             actor.getActivityStack().add(new SupportActivity(actor, targetActor.get(), 1, mapRegistry.getPathFinderFor(actor.getCurrentMap())));
             return true;
         }

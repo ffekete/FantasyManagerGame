@@ -20,7 +20,7 @@ public class ShootingTrainingDecision implements Decision {
             return false;
         }
 
-        if (ShootingTrainingActivity.class.equals(actor.getActivityStack().getCurrent().getMainClass())) {
+        if (actor.getActivityStack().contains(ShootingTrainingActivity.class)) {
             return true;
         }
 
@@ -43,7 +43,6 @@ public class ShootingTrainingDecision implements Decision {
             moveAndInteractActivity.add(movementActivity)
                     .add(shootingTrainingActivity);
 
-            actor.getActivityStack().reset();
             actor.getActivityStack().add(moveAndInteractActivity);
             return true;
         }

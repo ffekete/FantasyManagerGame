@@ -29,7 +29,7 @@ public class MoveAndBuildDecision implements Decision {
             return false;
         }
 
-        if (actor.getActivityStack().contains(MoveAndBuildActivity.class)) {
+        if (actor.getActivityStack().contains(BuildActivity.class)) {
             return true;
         }
 
@@ -37,7 +37,6 @@ public class MoveAndBuildDecision implements Decision {
             // find block to build
             List<BuildingBlock> blocks = objectRegistry.getBuildingBlock();
             if (!blocks.isEmpty()) {
-                System.out.println("Found building block!");
                 WorldObject worldObject = blocks.get(0);
 
                 MoveAndBuildActivity moveAndBuildActivity = new MoveAndBuildActivity(Config.BuilderActivity.BUILD_PRIORITY, BuildActivity.class);

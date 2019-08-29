@@ -22,6 +22,7 @@ public class BuildActivity implements Activity {
     private BuildingBlock object;
     private int counter;
     private boolean firstRun = true;
+    private boolean suspended = false;
     Action action;
 
     public BuildActivity(Actor actor, BuildingBlock object) {
@@ -65,17 +66,17 @@ public class BuildActivity implements Activity {
 
     @Override
     public void suspend() {
-
+        suspended = true;
     }
 
     @Override
     public void resume() {
-        firstRun = true;
+        suspended = false;
     }
 
     @Override
     public boolean isSuspended() {
-        return false;
+        return suspended;
     }
 
     @Override

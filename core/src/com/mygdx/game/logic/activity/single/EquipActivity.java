@@ -9,6 +9,7 @@ public class EquipActivity implements Activity {
 
     private Actor actor;
     private Equipable equipable;
+    private boolean suspended = false;
 
     public EquipActivity(Actor actor, Equipable equipable) {
         this.actor = actor;
@@ -47,17 +48,17 @@ public class EquipActivity implements Activity {
 
     @Override
     public void suspend() {
-
+        suspended = true;
     }
 
     @Override
     public void resume() {
-
+        suspended = false;
     }
 
     @Override
     public boolean isSuspended() {
-        return false;
+        return suspended;
     }
 
     @Override

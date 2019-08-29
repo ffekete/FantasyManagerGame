@@ -22,11 +22,10 @@ public class SmithingDecision implements Decision {
             return false;
         }
 
-        if (SmithingActivity.class.equals(actor.getActivityStack().getCurrent().getMainClass())) {
+        if ((actor.getActivityStack().contains(SmithingActivity.class))) {
             if ((SmithingActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getCurrentActivity().getClass()) && ((SmithingActivity) actor.getActivityStack().getCurrent().getCurrentActivity()).getInteractedCounter() % 10 != 0))
                 return true;
             else {
-
                 if ((SmithingActivity.class.isAssignableFrom(actor.getActivityStack().getCurrent().getCurrentActivity().getClass()) && ((SmithingActivity) actor.getActivityStack().getCurrent().getCurrentActivity()).getInteractedCounter() % 10 == 0)) {
 
                     ((SmithingActivity) actor.getActivityStack().getCurrent().getCurrentActivity()).increaseInteractedCounter();
@@ -77,7 +76,6 @@ public class SmithingDecision implements Decision {
         moveAndInteractActivity.add(movementActivity)
                 .add(smithingActivity);
 
-        actor.getActivityStack().reset();
         actor.getActivityStack().add(moveAndInteractActivity);
         return true;
 

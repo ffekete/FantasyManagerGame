@@ -26,7 +26,7 @@ public class MovePickupDecision implements Decision {
             return false;
         }
 
-        if (actor.getActivityStack().getCurrent().getMainClass().equals(PickUpItemActivity.class)) {
+        if (actor.getActivityStack().contains(PickUpItemActivity.class)) {
             return true;
         }
 

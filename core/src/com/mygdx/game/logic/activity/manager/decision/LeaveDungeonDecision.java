@@ -27,7 +27,7 @@ public class LeaveDungeonDecision implements Decision {
             return false;
         }
 
-        if(actor.getActivityStack().getCurrent().getMainClass().equals(InteractActivity.class)) {
+        if(actor.getActivityStack().contains(InteractActivity.class)) {
             return true;
         }
 

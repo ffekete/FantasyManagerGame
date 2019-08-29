@@ -17,7 +17,7 @@ public class ConsumeAntiVenomPotionDecision implements Decision {
             return false;
         }
 
-        if (actor.getActivityStack().getCurrent().getMainClass().equals(ConsumeAntiVenomPotion.class)) {
+        if (actor.getActivityStack().contains(ConsumeAntiVenomPotion.class)) {
             return true;
         }
 

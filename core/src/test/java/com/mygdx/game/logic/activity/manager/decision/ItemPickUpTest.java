@@ -11,6 +11,7 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
 import com.mygdx.game.logic.activity.compound.MovePickupActivity;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
+import com.mygdx.game.logic.activity.single.PickUpItemActivity;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.map.dungeon.Dungeon;
@@ -50,7 +51,7 @@ public class ItemPickUpTest {
         new ActivityManager().manage(actor);
 
         assertThat(actor.getActivityStack().getSize(), is(2));
-        assertThat(actor.getActivityStack().contains(MovePickupActivity.class), is(true));
+        assertThat(actor.getActivityStack().contains(PickUpItemActivity.class), is(true));
     }
 
     @Test

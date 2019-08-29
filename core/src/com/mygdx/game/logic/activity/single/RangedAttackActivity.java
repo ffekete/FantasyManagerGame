@@ -95,13 +95,11 @@ public class RangedAttackActivity implements Activity, CooldownActivity {
     @Override
     public void suspend() {
         suspended = true;
-        actionRegistry.remove(actor.getCurrentMap(), action);
     }
 
     @Override
     public void resume() {
         suspended = false;
-        actionRegistry.add(actor.getCurrentMap(), action);
     }
 
     @Override
@@ -162,6 +160,6 @@ public class RangedAttackActivity implements Activity, CooldownActivity {
 
     @Override
     public Class<? extends Activity> getMainClass() {
-        return SimpleAttackActivity.class;
+        return RangedAttackActivity.class;
     }
 }

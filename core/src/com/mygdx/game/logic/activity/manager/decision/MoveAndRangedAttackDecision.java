@@ -40,8 +40,9 @@ public class MoveAndRangedAttackDecision implements Decision {
         }
 
         // already attacking, the decision chain should end here
-        if (actor.getActivityStack().getCurrent().getMainClass().equals(SimpleAttackActivity.class) ||
-                actor.getActivityStack().getCurrent().getMainClass().equals(OffensiveSpellCastActivity.class)) {
+        if (actor.getActivityStack().contains(SimpleAttackActivity.class) ||
+                actor.getActivityStack().contains(RangedAttackActivity.class) ||
+                actor.getActivityStack().contains(OffensiveSpellCastActivity.class)) {
             return true;
         }
 
@@ -93,7 +94,7 @@ public class MoveAndRangedAttackDecision implements Decision {
                         actorPath.add(path.get(i));
                     }
 
-                    CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY, SimpleAttackActivity.class);
+                    CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY, RangedAttackActivity.class);
                     compoundActivityForActor.add(new PreCalculatedMovementActivity(actor, actorPath));
                     compoundActivityForActor.add(new RangedAttackActivity(actor, enemy));
                     actor.getActivityStack().add(compoundActivityForActor);

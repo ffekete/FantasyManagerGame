@@ -29,19 +29,13 @@ public class DungeonVisitingDecision implements Decision {
             return false;
         }
 
-        if(!actor.getActivityStack().getCurrent().getMainClass().equals(MoveAndInteractActivity.class)  && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())) {
-            List<Cluster> clusters = new ArrayList<>();
+        if(actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
+            return true;
+        }
 
-            for (int i = -10; i <= 10; i++)
-                for (int j = -10; j <= 10; j++) {
-                    if (actor.getX()/ Config.WorldMap.CLUSTER_DIVIDER + i >= 0 && actor.getX() / Config.WorldMap.CLUSTER_DIVIDER + i <= Config.WorldMap.WORLD_WIDTH / Config.WorldMap.CLUSTER_DIVIDER &&
-                            actor.getY()/ Config.WorldMap.CLUSTER_DIVIDER + j >= 0 && actor.getY() / Config.WorldMap.CLUSTER_DIVIDER + j <= Config.WorldMap.WORLD_HEIGHT / Config.WorldMap.CLUSTER_DIVIDER) {
-                        Cluster cluster = new Cluster(actor.getX()/ Config.WorldMap.CLUSTER_DIVIDER + i, actor.getY()/ Config.WorldMap.CLUSTER_DIVIDER + j);
-                        clusters.add(cluster);
-                    }
-                }
+        if(Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())) {
 
-            for (Cluster cluster : clusters) {
+            for (Cluster cluster : Cluster.ofSurrounding(actor.getCurrentMap(), actor.getX(), actor.getY(), 5)) {
 
                 WorldObject closestObject = null;
                 Optional<Set<WorldObject>> optionalWorldObjects = ObjectRegistry.INSTANCE.getObjects(actor.getCurrentMap(), cluster);
@@ -60,7 +54,7 @@ public class DungeonVisitingDecision implements Decision {
                         && closestObject != null
                         && DungeonEntrance.class.isAssignableFrom(closestObject.getClass())
                         && !((DungeonEntrance) closestObject).getTo().areAllLevelsExplored()) {
-                    actor.getActivityStack().reset();
+
                     MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY, MoveAndInteractActivity.class);
 
                     moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1, new PathFinder()));
@@ -68,12 +62,8 @@ public class DungeonVisitingDecision implements Decision {
 
                     actor.getActivityStack().add(moveAndInteractActivity);
                     return true;
-                } else if (actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
-                    return true;
                 }
             }
-        } else if (actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
-            return true;
         }
 
         return false;

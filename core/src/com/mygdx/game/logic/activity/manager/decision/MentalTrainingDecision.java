@@ -20,7 +20,7 @@ public class MentalTrainingDecision implements Decision {
             return false;
         }
 
-        if (MentalTrainingActivity.class.equals(actor.getActivityStack().getCurrent().getMainClass())) {
+        if ((actor.getActivityStack().contains(MentalTrainingActivity.class))) {
             return true;
         }
 

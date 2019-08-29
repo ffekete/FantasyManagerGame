@@ -27,7 +27,9 @@ public class MovePickupEatDecision implements Decision {
             return false;
         }
 
-        if (actor.isHungry() && !actor.getActivityStack().contains(MovePickupEatActivity.class)) {
+        if(actor.getActivityStack().contains(SimpleEatingActivity.class))
+
+        if (actor.isHungry()) {
 
             List<Item> items = itemRegistry.getAllItems(actor.getCurrentMap());
             if(!items.isEmpty()) {
@@ -44,9 +46,6 @@ public class MovePickupEatDecision implements Decision {
                     return true;
                 }
             }
-        } else if(actor.getActivityStack().contains(MovePickupEatActivity.class)) {
-            // already doing activity, the decision chain should end here
-            return true;
         }
         return false;
     }

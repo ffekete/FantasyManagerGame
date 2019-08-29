@@ -69,16 +69,16 @@ public abstract class CompoundActivity implements Activity {
     @Override
     public void suspend() {
         suspended = true;
-        for(int i = currentActivity; i < activities.size(); i++) {
-            activities.get(currentActivity).suspend();
+        for(int i = 0; i < activities.size(); i++) {
+            activities.get(i).suspend();
         }
     }
 
     @Override
     public void resume() {
         suspended = false;
-        for(int i = currentActivity; i < activities.size(); i++) {
-            activities.get(currentActivity).resume();
+        for(int i = 0; i < activities.size(); i++) {
+            activities.get(i).resume();
         }
         currentActivity = 0;
 

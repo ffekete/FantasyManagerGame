@@ -31,7 +31,6 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     private final Actor enemy;
     private Action action;
     private boolean suspended = false;
-    private ShapeGraphicAttribute target;
 
     public SimpleAttackActivity(Actor actor, Actor enemy) {
         this.actor = actor;
@@ -100,13 +99,11 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     @Override
     public void suspend() {
         suspended = true;
-        actionRegistry.remove(actor.getCurrentMap(), action);
     }
 
     @Override
     public void resume() {
         suspended = false;
-        actionRegistry.add(actor.getCurrentMap(), action);
     }
 
     @Override

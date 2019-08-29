@@ -5,6 +5,7 @@ import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.item.resources.Wood;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveAndStoreActivity;
+import com.mygdx.game.logic.activity.single.DropItemActivity;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.worldmap.WorldMap;
 import com.mygdx.game.object.factory.ObjectFactory;
@@ -38,7 +39,7 @@ public class MoveAndDropDecisionTest {
         moveAndDropDecision.decide(actor);
         long duration = System.currentTimeMillis() - start;
 
-        assertThat(actor.getActivityStack().contains(MoveAndStoreActivity.class), is(true));
+        assertThat(actor.getActivityStack().contains(DropItemActivity.class), is(true));
         assertThat(duration, is(lessThan(80L)));
     }
 

@@ -23,7 +23,7 @@ public class ActivityStack {
     }
 
     public boolean contains(Class clazz) {
-        return activities.stream().filter(activity -> activity.getClass().isAssignableFrom(clazz)).count() == 1;
+        return activities.stream().filter(activity -> activity.getMainClass().equals(clazz)).count() >= 1;
     }
 
     public int getSize() {
@@ -91,7 +91,10 @@ public class ActivityStack {
                             activity1.suspend();
                         }
                     }).count();
-            System.out.println("Suspended " + suspended + " activities");
+            System.out.println(actor.getName() + " suspended " + suspended + " activities by " + activity.getMainClass());
+            for(Activity activity1 : activities) {
+                System.out.println(" -> X " + activity1.getMainClass());
+            }
         }
 
     }

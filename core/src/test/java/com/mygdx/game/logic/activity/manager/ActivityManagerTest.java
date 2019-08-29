@@ -12,10 +12,7 @@ import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.activity.manager.decision.MoveAndAttackDecision;
 import com.mygdx.game.logic.activity.manager.decision.MoveAndRangedAttackDecision;
-import com.mygdx.game.logic.activity.single.MovementActivity;
-import com.mygdx.game.logic.activity.single.OffensiveSpellCastActivity;
-import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
-import com.mygdx.game.logic.activity.single.RangedAttackActivity;
+import com.mygdx.game.logic.activity.single.*;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
@@ -78,9 +75,9 @@ public class ActivityManagerTest {
         activityManager.manage(goblin);
         activityManager.manage(skeleton2);
 
-        assertThat(hero.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
-        assertThat(goblin.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
-        assertThat(skeleton2.getActivityStack().contains(MoveThenAttackActivity.class), is(false));
+        assertThat(hero.getActivityStack().contains(SimpleAttackActivity.class), is(true));
+        assertThat(goblin.getActivityStack().contains(SimpleAttackActivity.class), is(true));
+        assertThat(skeleton2.getActivityStack().contains(SimpleAttackActivity.class), is(false));
 
         // perform next task for goblin
         for (int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
@@ -96,7 +93,7 @@ public class ActivityManagerTest {
         }
 
         activityManager.manage(skeleton);
-        assertThat(skeleton.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+        assertThat(skeleton.getActivityStack().contains(SimpleAttackActivity.class), is(true));
 
 
         // perform next task for skeleton
@@ -213,9 +210,9 @@ public class ActivityManagerTest {
         activityManager.manage(goblin);
         activityManager.manage(skeleton2);
 
-        assertThat(hero.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
-        assertThat(goblin.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
-        assertThat(skeleton2.getActivityStack().contains(MoveThenAttackActivity.class), is(false));
+        assertThat(hero.getActivityStack().contains(SimpleAttackActivity.class), is(true));
+        assertThat(goblin.getActivityStack().contains(SimpleAttackActivity.class), is(true));
+        assertThat(skeleton2.getActivityStack().contains(SimpleAttackActivity.class), is(false));
 
         // perform next task for goblin
         for (int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
@@ -226,7 +223,7 @@ public class ActivityManagerTest {
         assertThat(goblin.getY(), is(14));
 
         activityManager.manage(skeleton);
-        assertThat(skeleton.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+        assertThat(skeleton.getActivityStack().contains(SimpleAttackActivity.class), is(true));
 
 
         // perform next task for skeleton
@@ -308,7 +305,7 @@ public class ActivityManagerTest {
         activityManager.manage(goblin);
 
         assertThat(hero.getActivityStack().contains(RangedAttackActivity.class), is(true));
-        assertThat(goblin.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+        assertThat(goblin.getActivityStack().contains(SimpleAttackActivity.class), is(true));
 
         // perform next task for goblin
         for (int i = 0; i <= goblin.getMovementSpeed() * 3; i++) {
@@ -319,7 +316,7 @@ public class ActivityManagerTest {
         assertThat(goblin.getY(), is(14));
 
         activityManager.manage(skeleton);
-        assertThat(skeleton.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+        assertThat(skeleton.getActivityStack().contains(SimpleAttackActivity.class), is(true));
 
 
         // perform next task for skeleton
@@ -385,7 +382,7 @@ public class ActivityManagerTest {
         activityManager.manage(hero);
 
         assertThat(hero.getActivityStack().contains(OffensiveSpellCastActivity.class), is(true));
-        assertThat(goblin.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+        assertThat(goblin.getActivityStack().contains(SimpleAttackActivity.class), is(true));
     }
 
     @Test
@@ -423,7 +420,7 @@ public class ActivityManagerTest {
 
 
         assertThat(hero.getActivityStack().contains(RangedAttackActivity.class), is(true));
-        assertThat(goblin.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+        assertThat(goblin.getActivityStack().contains(SimpleAttackActivity.class), is(true));
     }
 
     @Test
@@ -534,7 +531,7 @@ public class ActivityManagerTest {
         assertThat(goblin.getY(), is(15));
 
         activityManager.manage(skeleton);
-        assertThat(skeleton.getActivityStack().contains(MoveThenAttackActivity.class), is(true));
+        assertThat(skeleton.getActivityStack().contains(SimpleAttackActivity.class), is(true));
 
 
         // perform next task for skeleton

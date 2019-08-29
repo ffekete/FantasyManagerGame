@@ -13,12 +13,10 @@ import com.mygdx.game.sound.DistanceBasedSoundPlayer;
 
 public class MentalTrainingActivity implements Activity {
 
-    private final ActionRegistry actionRegistry = ActionRegistry.INSTANCE;
-
     private Actor actor;
     private InteractiveObject object;
     private int counter = 0;
-    private Action action;
+    private boolean suspended = false;
 
     private Sound hitSound = Gdx.audio.newSound(Gdx.files.internal("sounds/hit/hit07.mp3"));
 
@@ -67,17 +65,17 @@ public class MentalTrainingActivity implements Activity {
 
     @Override
     public void suspend() {
-
+        suspended = true;
     }
 
     @Override
     public void resume() {
-
+        suspended = false;
     }
 
     @Override
     public boolean isSuspended() {
-        return false;
+        return suspended;
     }
 
     @Override

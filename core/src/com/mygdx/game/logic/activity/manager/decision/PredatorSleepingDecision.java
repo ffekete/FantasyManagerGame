@@ -15,8 +15,6 @@ public class PredatorSleepingDecision implements Decision {
 
         if ((!DayTimeCalculator.INSTANCE.isItNight() || actor.isSleepy()) && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())) {
             SleepActivity sleepActivity = new SleepActivity(actor);
-
-            actor.getActivityStack().reset();
             actor.getActivityStack().add(sleepActivity);
             return true;
         }

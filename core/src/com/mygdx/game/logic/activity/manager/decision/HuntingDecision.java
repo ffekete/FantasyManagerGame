@@ -27,7 +27,7 @@ public class HuntingDecision implements Decision {
             return true;
         }
 
-        if(actor.getActivityStack().getCurrent().getMainClass().equals(SimpleAttackActivity.class)) {
+        if(actor.getActivityStack().contains(SimpleAttackActivity.class)) {
             return true;
         }
 

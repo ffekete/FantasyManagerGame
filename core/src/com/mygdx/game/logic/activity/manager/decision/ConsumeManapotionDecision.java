@@ -15,7 +15,7 @@ public class ConsumeManapotionDecision implements Decision {
             return false;
         }
 
-        if (actor.getActivityStack().getCurrent().getMainClass().equals(ConsumeManaPotion.class)) {
+        if (actor.getActivityStack().contains(ConsumeManaPotion.class)) {
             return true;
         }
 
