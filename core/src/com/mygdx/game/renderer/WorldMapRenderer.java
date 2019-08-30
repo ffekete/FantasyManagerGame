@@ -1,18 +1,16 @@
 package com.mygdx.game.renderer;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Config;
 import com.mygdx.game.logic.time.DayTimeCalculator;
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.logic.visibility.VisitedArea;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.worldmap.WorldMapTile;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
-import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.renderer.selector.DirtTileSelector;
 

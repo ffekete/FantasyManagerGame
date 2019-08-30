@@ -4,7 +4,6 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.item.weapon.sword.ShortSword;
-
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;

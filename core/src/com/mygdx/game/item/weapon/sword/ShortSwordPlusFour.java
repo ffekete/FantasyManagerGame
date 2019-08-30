@@ -5,7 +5,6 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.OneHandedItem;
-import com.mygdx.game.item.category.Tier2;
 import com.mygdx.game.item.category.Tier4;
 import com.mygdx.game.logic.Point;
 

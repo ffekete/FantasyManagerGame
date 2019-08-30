@@ -2,7 +2,6 @@ package com.mygdx.game.actor.component.attribute;
 
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.actor.monster.Lich;
 
 import java.util.Map;
 import java.util.Random;

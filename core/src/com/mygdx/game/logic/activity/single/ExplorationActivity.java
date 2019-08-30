@@ -9,12 +9,7 @@ import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.map.Map2D;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Deque;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class ExplorationActivity implements Activity {
 

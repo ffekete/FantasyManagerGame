@@ -1,8 +1,6 @@
 package com.mygdx.game.music;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.MusicRegistry;
 

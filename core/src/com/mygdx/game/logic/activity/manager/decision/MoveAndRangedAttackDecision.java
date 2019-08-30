@@ -2,7 +2,6 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.logic.selector.ClosestEnemySelector;
 import com.mygdx.game.item.weapon.RangedWeapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.CompoundActivity;
@@ -13,6 +12,7 @@ import com.mygdx.game.logic.activity.single.RangedAttackActivity;
 import com.mygdx.game.logic.activity.single.SimpleAttackActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
+import com.mygdx.game.logic.selector.ClosestEnemySelector;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 
@@ -94,7 +94,7 @@ public class MoveAndRangedAttackDecision implements Decision {
                         actorPath.add(path.get(i));
                     }
 
-                    CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY, RangedAttackActivity.class);
+                    CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.RANGED_ATTACK_PRIORITY, RangedAttackActivity.class);
                     compoundActivityForActor.add(new PreCalculatedMovementActivity(actor, actorPath));
                     compoundActivityForActor.add(new RangedAttackActivity(actor, enemy));
                     actor.getActivityStack().add(compoundActivityForActor);

@@ -3,13 +3,12 @@ package com.mygdx.game.logic.activity;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Warrior;
-import com.mygdx.game.map.Map2D;
-import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.single.ExplorationActivity;
 import com.mygdx.game.logic.visibility.VisitedArea;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.registry.MapRegistry;
-
 import org.testng.annotations.Test;
 
 public class ExplorationActivityIntegrationTest {

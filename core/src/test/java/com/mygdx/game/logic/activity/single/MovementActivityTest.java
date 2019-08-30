@@ -7,7 +7,6 @@ import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.effect.MovementSpeedReduction;
-import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;

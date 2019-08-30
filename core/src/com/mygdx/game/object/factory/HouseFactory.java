@@ -2,9 +2,9 @@ package com.mygdx.game.object.factory;
 
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.interactive.PracticeFigure;
 import com.mygdx.game.object.floor.WoodenFloor;
 import com.mygdx.game.object.furniture.WoodenBed;
+import com.mygdx.game.object.interactive.PracticeFigure;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.object.wall.WoodenWall;
 import com.mygdx.game.object.wall.WoodenWallDoor;
@@ -19,6 +19,7 @@ public class HouseFactory {
         // reset area
         for (int i = x; i <= x + length; i++)
             for (int j = y; j <= y + length; j++) {
+                ObjectRegistry.INSTANCE.getObjectGrid().computeIfAbsent(map, v -> new WorldObject[map.getWidth()][map.getHeight()][2]);
                 WorldObject object = ObjectRegistry.INSTANCE.getObjectGrid().get(map)[i][j][0];
                 if (object != null)
                     ObjectFactory.remove(map, object);

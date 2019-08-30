@@ -2,14 +2,17 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.logic.selector.ClosestEnemySelector;
 import com.mygdx.game.item.weapon.RangedWeapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.CompoundActivity;
 import com.mygdx.game.logic.activity.compound.MoveThenAttackActivity;
-import com.mygdx.game.logic.activity.single.*;
+import com.mygdx.game.logic.activity.single.OffensiveSpellCastActivity;
+import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
+import com.mygdx.game.logic.activity.single.RangedAttackActivity;
+import com.mygdx.game.logic.activity.single.SimpleAttackActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
+import com.mygdx.game.logic.selector.ClosestEnemySelector;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 
@@ -83,7 +86,7 @@ public class MoveAndAttackDecision implements Decision {
                         actorPath.add(path.get(i));
                     }
                     //actorMovementHandler.registerActorPath(actor, actorPath);
-                    CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY, SimpleAttackActivity.class);
+                    CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.ATTACK_PRIORITY, SimpleAttackActivity.class);
                     compoundActivityForActor.add(new PreCalculatedMovementActivity(actor, actorPath));
                     compoundActivityForActor.add(new SimpleAttackActivity(actor, enemy));
                     actor.getActivityStack().add(compoundActivityForActor);
@@ -106,7 +109,7 @@ public class MoveAndAttackDecision implements Decision {
                         }
 
                         //actorMovementHandler.registerActorPath(enemy, enemyPath);
-                        CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY, SimpleAttackActivity.class);
+                        CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.ATTACK_PRIORITY, SimpleAttackActivity.class);
                         compoundActivityForActor.add(new PreCalculatedMovementActivity(enemy, enemyPath));
                         compoundActivityForActor.add(new SimpleAttackActivity(enemy, actor));
                         enemy.getActivityStack().add(compoundActivityForActor);

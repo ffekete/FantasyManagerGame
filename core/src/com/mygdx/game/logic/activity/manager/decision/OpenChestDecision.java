@@ -15,7 +15,6 @@ import com.mygdx.game.object.decoration.TreasureChest;
 import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;

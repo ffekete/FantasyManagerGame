@@ -3,10 +3,8 @@ package com.mygdx.game.renderer.camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.MapRegistry;
-import com.mygdx.game.registry.RendererToolsRegistry;
 
 import java.util.HashMap;
 import java.util.Map;

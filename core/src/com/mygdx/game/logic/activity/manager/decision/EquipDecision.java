@@ -8,7 +8,6 @@ import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.weapon.TwohandedWeapon;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.activity.single.EquipActivity;
-import com.mygdx.game.logic.activity.single.SleepActivity;
 import com.mygdx.game.logic.attack.WeaponSkillSelector;
 
 public class EquipDecision implements Decision {

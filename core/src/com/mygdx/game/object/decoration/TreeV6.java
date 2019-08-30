@@ -1,11 +1,11 @@
 package com.mygdx.game.object.decoration;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.item.resources.Resource;
+import com.mygdx.game.item.resources.Wood;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.Cuttable;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.item.resources.Resource;
-import com.mygdx.game.item.resources.Wood;
 
 import java.util.Random;
 

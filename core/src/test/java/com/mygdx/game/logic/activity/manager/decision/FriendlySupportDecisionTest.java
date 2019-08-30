@@ -8,7 +8,6 @@ import com.mygdx.game.actor.monster.SkeletonWarrior;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.activity.compound.MoveThenAttackActivity;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.activity.single.ExplorationActivity;
 import com.mygdx.game.logic.activity.single.SimpleAttackActivity;

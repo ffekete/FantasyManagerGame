@@ -5,9 +5,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier1;
-import com.mygdx.game.item.weapon.RangedWeapon;
 import com.mygdx.game.item.weapon.TwohandedWeapon;
-import com.mygdx.game.logic.Point;
 
 import java.util.Random;
 

@@ -7,7 +7,6 @@ import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.Dungeon;
 import com.mygdx.game.map.dungeon.DungeonType;
-
 import org.testng.annotations.Test;
 
 import static org.hamcrest.CoreMatchers.is;

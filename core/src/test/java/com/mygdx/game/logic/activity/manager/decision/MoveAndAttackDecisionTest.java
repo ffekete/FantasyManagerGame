@@ -5,17 +5,15 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.item.weapon.bow.LongBow;
-import com.mygdx.game.map.Map2D;
-import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
-import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.visibility.VisitedArea;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
-
 import com.mygdx.game.registry.VisibilityMapRegistry;
 import org.testng.annotations.Test;
 

@@ -1,6 +1,5 @@
 package com.mygdx.game.object.factory;
 
-import com.google.common.collect.ImmutableSet;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.furniture.Furniture;

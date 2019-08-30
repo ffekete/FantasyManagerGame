@@ -1,7 +1,6 @@
 package com.mygdx.game.object.light;
 
 import com.badlogic.gdx.graphics.Color;
-import com.mygdx.game.actor.Actor;
 
 public class ConstantLightSource implements LightSource {
 

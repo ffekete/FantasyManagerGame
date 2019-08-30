@@ -19,17 +19,13 @@ import com.mygdx.game.item.OneHandedItem;
 import com.mygdx.game.item.armor.Armor;
 import com.mygdx.game.item.factory.Placement;
 import com.mygdx.game.item.money.MoneyBag;
-import com.mygdx.game.item.money.MoneyContainer;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.spelltome.SpellTome;
 import com.mygdx.game.item.weapon.TwohandedWeapon;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
-import com.mygdx.game.logic.activity.compound.MoveAndSleepActivity;
 import com.mygdx.game.logic.activity.single.SleepActivity;
-import com.mygdx.game.logic.activity.single.SleepAtCampfireActivity;
-import com.mygdx.game.logic.activity.single.SleepOutsideActivity;
 import com.mygdx.game.logic.activity.stack.ActivityStack;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.ActorRegistry;
@@ -145,7 +141,7 @@ public abstract class AbstractActor implements Actor {
     // override this later for monsters!
     @Override
     public boolean isHungry() {
-        return needs.get(Needs.Eat) >= Config.Rules.BASE_HUNGER_LIMIT * 075f;
+        return needs.get(Needs.Eat) >= Config.Rules.BASE_HUNGER_LIMIT * 0.75f;
     }
 
     @Override
@@ -530,7 +526,7 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public boolean isSleeping() {
-        return activityStack.getCurrent().getMainClass().equals(SleepActivity.class);
+        return activityStack.contains(SleepActivity.class);
     }
 
     @Override

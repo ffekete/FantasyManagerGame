@@ -6,7 +6,6 @@ import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.object.decoration.CampFire;
 import com.mygdx.game.object.factory.ObjectFactory;
-import com.mygdx.game.registry.ObjectRegistry;
 
 public class SleepAtCampfireActivity implements Activity {
 

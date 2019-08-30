@@ -2,7 +2,6 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.logic.selector.ItemSelector;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.compound.MovePickupActivity;
@@ -10,6 +9,7 @@ import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.activity.single.PickUpItemActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
+import com.mygdx.game.logic.selector.ItemSelector;
 import com.mygdx.game.registry.ItemRegistry;
 
 import java.util.List;

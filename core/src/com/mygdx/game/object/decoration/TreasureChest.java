@@ -11,7 +11,6 @@ import com.mygdx.game.object.furniture.Furniture;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class TreasureChest implements WorldObject, InteractiveObject, ContainerObject, Obstacle, Furniture {
 

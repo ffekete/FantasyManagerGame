@@ -1,7 +1,6 @@
 package com.mygdx.game.registry;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.map.Map2D;

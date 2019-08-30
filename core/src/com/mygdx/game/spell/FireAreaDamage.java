@@ -2,9 +2,8 @@ package com.mygdx.game.spell;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.MagicSkill;
-import com.mygdx.game.logic.selector.AreaBasedEnemiesSelector;
-import com.mygdx.game.logic.selector.SelectionUtils;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.selector.AreaBasedEnemiesSelector;
 import com.mygdx.game.map.Map2D;
 
 import java.util.List;

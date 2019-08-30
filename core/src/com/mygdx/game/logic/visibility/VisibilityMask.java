@@ -1,9 +1,9 @@
 package com.mygdx.game.logic.visibility;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.map.Map2D;
 
 import java.util.ArrayList;
 import java.util.HashSet;

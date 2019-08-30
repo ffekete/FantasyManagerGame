@@ -3,7 +3,6 @@ package com.mygdx.game.object.furniture;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.InteractiveObject;
-import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.OwnedObject;
 import com.mygdx.game.object.WorldObject;
 

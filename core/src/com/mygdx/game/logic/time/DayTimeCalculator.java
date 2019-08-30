@@ -1,6 +1,5 @@
 package com.mygdx.game.logic.time;
 
-import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.Config;
 
 public class DayTimeCalculator {

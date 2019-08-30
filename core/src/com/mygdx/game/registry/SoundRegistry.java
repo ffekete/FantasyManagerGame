@@ -1,13 +1,10 @@
 package com.mygdx.game.registry;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.resolver.ModdablePathAudioResolver;
-import com.mygdx.game.resolver.ModdablePathResolver;
 
 import java.util.Map;
 import java.util.Optional;

@@ -5,7 +5,6 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.interactive.Anvil;
-import com.mygdx.game.object.interactive.PracticeFigure;
 
 public class IncompleteAnvil implements WorldObject, Obstacle, Furniture, BuildingBlock {
 

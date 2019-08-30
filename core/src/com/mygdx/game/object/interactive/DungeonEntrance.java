@@ -1,10 +1,10 @@
 package com.mygdx.game.object.interactive;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.map.Map2D;
-import com.mygdx.game.object.InteractiveObject;
 import com.mygdx.game.logic.CharacterMap2dSwitcher;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.object.InteractiveObject;
 import com.mygdx.game.object.Obstacle;
 
 public class DungeonEntrance implements InteractiveObject, Obstacle {

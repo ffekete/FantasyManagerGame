@@ -1,7 +1,7 @@
 package com.mygdx.game.registry;
 
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.pathfinding.PathFinder;
+import com.mygdx.game.map.Map2D;
 
 import java.util.HashMap;
 import java.util.Iterator;

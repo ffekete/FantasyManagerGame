@@ -3,7 +3,6 @@ package com.mygdx.game.object.floor;
 import com.mygdx.game.Config;
 import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.object.StorageArea;
 import com.mygdx.game.object.TileableObject;
 
 import java.util.Arrays;

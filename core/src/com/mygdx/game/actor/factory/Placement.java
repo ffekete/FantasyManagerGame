@@ -1,8 +1,8 @@
 package com.mygdx.game.actor.factory;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.ActorRegistry;
 
 import java.util.Random;

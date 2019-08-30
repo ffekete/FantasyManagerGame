@@ -1,11 +1,11 @@
 package com.mygdx.game.rules.levelup;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.MeleeActor;
 import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.Skill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.hero.Hero;
-import com.mygdx.game.actor.MeleeActor;
 
 import java.util.Arrays;
 import java.util.List;

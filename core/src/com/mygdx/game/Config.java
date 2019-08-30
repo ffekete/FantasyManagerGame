@@ -116,8 +116,8 @@ public class Config {
     }
 
     public static class SmithActivity {
-        public static final int SMELTER_USING_PRIORITY = 880;
-        public static final int SMITHING_PRIORITY = 900;
+        public static final int SMELTER_USING_PRIORITY = 980;
+        public static final int SMITHING_PRIORITY = 1000;
     }
 
     public static class BuilderActivity {
@@ -126,16 +126,21 @@ public class Config {
         public static final int BUILD_PRIORITY = 1000;
     }
 
+    public static class WildlifeActivity {
+        public static final int HUNTING_ACTIVITY = 1000;
+    }
+
     public static class Activity {
 
         public static final int HEALING_POTION_CONSUME_PRIORITY = 70;
         public static final int MANA_POTION_CONSUME_PRIORITY = 80;
         public static final int ANTIVENOM_POTION_CONSUME_PRIORITY = 90;
         public static final int EQUIP_PRIORITY = 100;
-        public static final int RANGED_ATTACK_PRIORITY = 890;
-        public static final int OFFENSIVE_SPELL_CAST_PRIORITY = 900;
-        public static final int ATTACK_PRIORITY = 910;
-        public static final int MOVE_THEN_ATTACK_PRIORITY = 920;
+
+        public static final int RANGED_ATTACK_PRIORITY = 560;
+        public static final int OFFENSIVE_SPELL_CAST_PRIORITY = 570;
+        public static final int ATTACK_PRIORITY = 580;
+
         public static final int OPEN_CHEST_PRIORITY = 930;
         public static final int MOVE_PICKUP_PRIORITY = 940;
         public static final int PICKUP_PRIORITY = 950;

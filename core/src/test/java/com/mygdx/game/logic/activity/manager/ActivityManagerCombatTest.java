@@ -8,30 +8,26 @@ import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.Goblin;
 import com.mygdx.game.actor.monster.Skeleton;
 import com.mygdx.game.item.weapon.bow.LongBow;
-import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.ShortSword;
-import com.mygdx.game.logic.activity.manager.decision.MoveAndAttackDecision;
-import com.mygdx.game.logic.activity.manager.decision.MoveAndRangedAttackDecision;
-import com.mygdx.game.logic.activity.single.*;
-import com.mygdx.game.logic.actor.ActorMovementHandler;
-import com.mygdx.game.map.Map2D;
-import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveThenAttackActivity;
+import com.mygdx.game.logic.activity.single.OffensiveSpellCastActivity;
+import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
+import com.mygdx.game.logic.activity.single.RangedAttackActivity;
+import com.mygdx.game.logic.activity.single.SimpleAttackActivity;
 import com.mygdx.game.logic.visibility.VisibilityMask;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
-
-import com.mygdx.game.spell.OffensiveSpell;
 import org.testng.annotations.Test;
-import org.w3c.dom.ranges.Range;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class ActivityManagerTest {
+public class ActivityManagerCombatTest {
 
     @Test
     public void testFindClosestEnemyAndMove_allMelee() throws InterruptedException {

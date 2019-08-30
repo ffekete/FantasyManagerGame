@@ -1,9 +1,8 @@
 package com.mygdx.game.input.mouse;
 
 import com.badlogic.gdx.math.Vector3;
-import com.mygdx.game.logic.Point;
 import com.mygdx.game.input.mouse.processor.BuilderMouseActionProcessor;
-import com.mygdx.game.registry.MapRegistry;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.RendererToolsRegistry;
 
 public class BuilderMoueInputController implements Controller {

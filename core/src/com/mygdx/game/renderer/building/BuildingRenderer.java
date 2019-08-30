@@ -7,8 +7,8 @@ import com.mygdx.game.logic.GameState;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.RendererToolsRegistry;
-import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.renderer.InfoScreenRenderer;
+import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.stage.StageConfigurer;
 import com.mygdx.game.utils.GdxUtils;
 

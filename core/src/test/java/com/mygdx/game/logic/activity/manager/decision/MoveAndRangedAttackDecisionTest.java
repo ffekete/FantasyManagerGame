@@ -10,7 +10,6 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
 import com.mygdx.game.logic.activity.single.RangedAttackActivity;
-import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;

@@ -7,16 +7,13 @@ import com.mygdx.game.common.util.MathUtil;
 import com.mygdx.game.logic.activity.CompoundActivity;
 import com.mygdx.game.logic.activity.compound.MoveThenAttackActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
-import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
 import com.mygdx.game.logic.activity.single.SimpleAttackActivity;
-import com.mygdx.game.logic.activity.single.SleepActivity;
-import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.map.Cluster;
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
 public class HuntingDecision implements Decision {
@@ -24,7 +21,7 @@ public class HuntingDecision implements Decision {
     public boolean decide(Actor actor) {
 
         if (actor.isSleeping()) {
-            return true;
+            return false;
         }
 
         if(actor.getActivityStack().contains(SimpleAttackActivity.class)) {
@@ -53,10 +50,11 @@ public class HuntingDecision implements Decision {
         if(!preys.isEmpty()) {
             Actor prey = preys.poll();
 
-            CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.MOVE_THEN_ATTACK_PRIORITY, SimpleAttackActivity.class);
+            CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.WildlifeActivity.HUNTING_ACTIVITY, SimpleAttackActivity.class);
             compoundActivityForActor.add(new MovementActivity(actor, prey.getX(), prey.getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
             compoundActivityForActor.add(new SimpleAttackActivity(actor, prey));
             actor.getActivityStack().add(compoundActivityForActor);
+            return true;
         }
 
         return false;

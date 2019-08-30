@@ -4,7 +4,6 @@ import com.mygdx.game.Config;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.map.Map2D;
-import com.mygdx.game.object.decoration.TreasureChest;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.ItemRegistry;

@@ -1,9 +1,8 @@
 package com.mygdx.game.actor.inventory;
 
+import com.mygdx.game.item.Item;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.food.Food;
-import com.mygdx.game.item.Item;
-
 import org.testng.annotations.Test;
 
 import static org.hamcrest.CoreMatchers.is;

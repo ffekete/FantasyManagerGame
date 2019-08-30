@@ -4,7 +4,6 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.item.resources.Wood;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.activity.compound.MoveAndStoreActivity;
 import com.mygdx.game.logic.activity.single.DropItemActivity;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.worldmap.WorldMap;

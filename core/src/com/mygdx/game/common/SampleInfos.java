@@ -1,6 +1,9 @@
 package com.mygdx.game.common;
 
-import com.mygdx.game.*;
+import com.mygdx.game.CaveDungeonRendererSample;
+import com.mygdx.game.CombatSample;
+import com.mygdx.game.RoomsDungeonRendererSample;
+import com.mygdx.game.WorldMapSample;
 
 import java.util.ArrayList;
 import java.util.Arrays;

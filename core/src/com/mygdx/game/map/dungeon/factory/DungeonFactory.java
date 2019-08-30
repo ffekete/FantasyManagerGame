@@ -3,18 +3,15 @@ package com.mygdx.game.map.dungeon.factory;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.factory.ActorFactory;
-import com.mygdx.game.actor.factory.ActorPlacementStrategy;
 import com.mygdx.game.actor.factory.Placement;
 import com.mygdx.game.actor.monster.MonsterTier;
 import com.mygdx.game.item.category.*;
-import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.map.dungeon.Decorator;
 import com.mygdx.game.map.dungeon.Dungeon;
 import com.mygdx.game.map.dungeon.DungeonGenerator;
 import com.mygdx.game.map.dungeon.MapGenerator;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonDecorator;
-import com.mygdx.game.map.dungeon.decorator.Decoration;
 import com.mygdx.game.map.dungeon.decorator.ItemPlacementHandler;
 import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
 

@@ -2,7 +2,6 @@ package com.mygdx.game.renderer.selector;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.map.Map2D;
-import com.mygdx.game.map.dungeon.DungeonType;
 import com.mygdx.game.map.worldmap.WorldMap;
 import com.mygdx.game.map.worldmap.WorldMapTile;
 import com.mygdx.game.registry.TextureRegistry;

@@ -6,20 +6,19 @@ import com.mygdx.game.actor.component.skill.Skill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.component.trait.Trait;
 import com.mygdx.game.actor.inventory.Inventory;
-import com.mygdx.game.item.Item;
-import com.mygdx.game.item.spelltome.SpellTome;
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Equipable;
+import com.mygdx.game.item.Item;
 import com.mygdx.game.item.armor.Armor;
+import com.mygdx.game.item.spelltome.SpellTome;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.stack.ActivityStack;
+import com.mygdx.game.map.Map2D;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public interface Actor {
 

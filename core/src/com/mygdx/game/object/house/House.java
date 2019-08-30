@@ -6,6 +6,8 @@ import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.object.furniture.Furniture;
 import com.mygdx.game.object.wall.Wall;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,10 +23,16 @@ public class House {
     private Point bottomRight;
 
     public House() {
+        walls = new HashSet<>();
+        furnitures = new HashSet<>();
+        floors = new HashSet<>();
     }
 
     public House(Actor owner) {
         this.owner = owner;
+        walls = new HashSet<>();
+        furnitures = new HashSet<>();
+        floors = new HashSet<>();
     }
 
     public Set<Wall> getWalls() {
@@ -36,8 +44,13 @@ public class House {
     }
 
     public <T extends Furniture> List<T> getFurnitureOfType(Class<T> clazz) {
-        return furnitures.stream().filter(f -> clazz.isAssignableFrom(f.getClass())).map(o -> (T)o)
+        List<T> furnitures1 = furnitures.stream().filter(f -> clazz.isAssignableFrom(f.getClass())).map(o -> (T)o)
         .collect(Collectors.toList());
+
+        if(furnitures1 == null) {
+            return Collections.emptyList();
+        }
+        else return furnitures1;
     }
 
     public Set<Floor> getFloors() {

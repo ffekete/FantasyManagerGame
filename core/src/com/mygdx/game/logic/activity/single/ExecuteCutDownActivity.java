@@ -2,7 +2,6 @@ package com.mygdx.game.logic.activity.single;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.buildertool.Hammer;
 import com.mygdx.game.logic.Point;
@@ -11,15 +10,11 @@ import com.mygdx.game.logic.action.HammerSwingAction;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.command.Command;
 import com.mygdx.game.object.Cuttable;
-import com.mygdx.game.object.Targetable;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.factory.ObjectFactory;
-import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.ActionRegistry;
 import com.mygdx.game.registry.CommandRegistry;
 import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.registry.TextureRegistry;
-import org.hamcrest.core.CombinableMatcher;
 
 public class ExecuteCutDownActivity implements Activity {
 

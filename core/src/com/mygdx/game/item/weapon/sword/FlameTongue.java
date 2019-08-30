@@ -6,7 +6,6 @@ import com.mygdx.game.effect.FireDamage;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.OneHandedItem;
 import com.mygdx.game.item.category.Legendary;
-import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.registry.EffectRegistry;
 

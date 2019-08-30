@@ -6,7 +6,6 @@ import com.mygdx.game.item.Item;
 import com.mygdx.game.item.ItemFactory;
 import com.mygdx.game.item.component.WolfPelt;
 import com.mygdx.game.item.factory.Placement;
-import com.mygdx.game.item.food.RabbitMeat;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,21 +16,6 @@ public class Wolf extends AbstractActor implements MeleeActor {
 
     public Wolf() {
         this.setAlignment(NEUTRAL);
-    }
-
-    @Override
-    public boolean isHungry() {
-        return false;
-    }
-
-    @Override
-    public void increaseHunger(int amount) {
-
-    }
-
-    @Override
-    public void decreaseHunger(int amount) {
-
     }
 
     @Override
@@ -51,11 +35,6 @@ public class Wolf extends AbstractActor implements MeleeActor {
 
     @Override
     public int getSleepinessLevel() {
-        return 0;
-    }
-
-    @Override
-    public int getHungerLevel() {
         return 0;
     }
 

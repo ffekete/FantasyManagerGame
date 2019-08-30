@@ -2,20 +2,19 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.map.Cluster;
-import com.mygdx.game.map.Map2D;
-import com.mygdx.game.object.InteractiveObject;
-import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
 import com.mygdx.game.logic.activity.single.InteractActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.pathfinding.PathFinder;
+import com.mygdx.game.map.Cluster;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.object.InteractiveObject;
+import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.registry.ObjectRegistry;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;

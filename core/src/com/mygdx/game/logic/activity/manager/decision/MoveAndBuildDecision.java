@@ -5,15 +5,11 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.activity.compound.MoveAndBuildActivity;
-import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
 import com.mygdx.game.logic.activity.single.BuildActivity;
-import com.mygdx.game.logic.activity.single.InteractActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.map.Map2D;
-import com.mygdx.game.object.InteractiveObject;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.interactive.Ladder;
 import com.mygdx.game.registry.ObjectRegistry;
 
 import java.util.List;

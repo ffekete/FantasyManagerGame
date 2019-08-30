@@ -2,11 +2,9 @@ package com.mygdx.game.animation.object;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.animation.Animation;
 import com.mygdx.game.object.AnimatedObject;
-import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 
 public class WorldObjectAnimation implements Animation {

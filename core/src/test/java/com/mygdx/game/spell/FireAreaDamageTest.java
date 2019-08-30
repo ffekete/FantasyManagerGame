@@ -10,12 +10,10 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.map.dungeon.Dungeon;
 import com.mygdx.game.registry.ActorRegistry;
-import com.mygdx.game.registry.MapRegistry;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.testng.Assert.*;
 
 public class FireAreaDamageTest {
 

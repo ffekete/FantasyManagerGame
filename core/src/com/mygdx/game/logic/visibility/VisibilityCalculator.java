@@ -4,11 +4,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class VisibilityCalculator {

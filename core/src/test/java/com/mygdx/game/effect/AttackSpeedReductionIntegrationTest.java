@@ -1,6 +1,5 @@
 package com.mygdx.game.effect;
 
-import com.badlogic.gdx.Gdx;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.effect.manager.EffectManager;
@@ -8,8 +7,6 @@ import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.EffectRegistry;
-import com.mygdx.game.util.GdxGraphicsDecorator;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -22,11 +19,6 @@ public class AttackSpeedReductionIntegrationTest {
     private ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     private EffectRegistry effectRegistry = EffectRegistry.INSTANCE;
     private EffectManager effectManager = EffectManager.INSTANCE;
-
-    @Before
-    public void setUp() {
-        Gdx.graphics = new GdxGraphicsDecorator();
-    }
 
     @Test
     public void testForDamage() {

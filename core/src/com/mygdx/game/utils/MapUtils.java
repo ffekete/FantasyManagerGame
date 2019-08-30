@@ -4,9 +4,7 @@ import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.worldmap.WorldMap;
 import com.mygdx.game.map.worldmap.WorldMapTile;
 import com.mygdx.game.object.TileableObject;
-import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.object.floor.TileableFloorObject;
 
 public class MapUtils {

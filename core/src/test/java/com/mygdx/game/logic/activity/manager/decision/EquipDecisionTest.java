@@ -9,7 +9,6 @@ import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.ShortSword;
-
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;

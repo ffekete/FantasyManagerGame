@@ -4,12 +4,10 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.common.util.MathUtil;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.activity.CompoundActivity;
 import com.mygdx.game.logic.activity.compound.MoveAndSleepActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.activity.single.SleepActivity;
 import com.mygdx.game.logic.activity.single.SleepAtCampfireActivity;
-import com.mygdx.game.logic.activity.single.SleepOutsideActivity;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.map.Cluster;
 import com.mygdx.game.map.Map2D;
@@ -23,9 +21,8 @@ import com.mygdx.game.registry.HouseRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.ObjectRegistry;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class SleepingDecision implements Decision {
     @Override
@@ -41,10 +38,10 @@ public class SleepingDecision implements Decision {
 
             if (house != null) {
 
-                Optional<Bed> bed = house.getFurnitures().stream().filter(furniture -> Bed.class.isAssignableFrom(furniture.getClass())).map(furniture -> (Bed) furniture).findAny();
+                List<Bed> bed = house.getFurnitureOfType(Bed.class);
 
 
-                if (!bed.isPresent() || MathUtil.distance(((WorldObject)bed.get()).getCoordinates(), actor.getCoordinates()) >= 20) {
+                if (bed.isEmpty() || MathUtil.distance(((WorldObject)bed.get(0)).getCoordinates(), actor.getCoordinates()) >= 20) {
 
                     // find a spot to camp
 
@@ -66,9 +63,9 @@ public class SleepingDecision implements Decision {
                     actor.getActivityStack().add(moveAndSleepActivity);
                     return true;
                 } else {
-                    System.out.println(actor.getName() + " has a bed, going to " + ((WorldObject)bed.get()).getX() + " " + ((WorldObject)bed.get()).getY());
+                    System.out.println(actor.getName() + " has a bed, going to " + ((WorldObject)bed.get(0)).getX() + " " + ((WorldObject)bed.get(0)).getY());
                     MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY, SleepActivity.class);
-                    moveAndSleepActivity.add(new MovementActivity(actor, (int) ((WorldObject) bed.get()).getX(), (int) ((WorldObject) bed.get()).getY(), 0, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
+                    moveAndSleepActivity.add(new MovementActivity(actor, (int) ((WorldObject) bed.get(0)).getX(), (int) ((WorldObject) bed.get(0)).getY(), 0, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
                     moveAndSleepActivity.add(new SleepActivity(actor));
 
                     actor.getActivityStack().add(moveAndSleepActivity);

@@ -1,9 +1,9 @@
 package com.mygdx.game.registry;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.map.Cluster;
 import com.mygdx.game.map.Map2D;
-import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 
 import java.util.*;

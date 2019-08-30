@@ -2,7 +2,6 @@ package com.mygdx.game.item.buildertool;
 
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Item;
-import com.mygdx.game.logic.Point;
 
 public class Hammer extends AbstractItem implements Item {
 

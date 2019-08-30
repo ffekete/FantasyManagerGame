@@ -4,7 +4,6 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.effect.Effect;
 import com.mygdx.game.effect.Poison;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

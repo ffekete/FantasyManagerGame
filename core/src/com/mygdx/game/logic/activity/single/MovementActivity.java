@@ -1,25 +1,18 @@
 package com.mygdx.game.logic.activity.single;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.common.util.MathUtil;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.ThreadManager;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.registry.MapRegistry;
-import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.registry.SoundRegistry;
-import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.sound.DistanceBasedSoundPlayer;
 import com.mygdx.game.sound.DistanceBasedSoundPlayerProvider;
-import com.mygdx.game.utils.MapUtils;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;

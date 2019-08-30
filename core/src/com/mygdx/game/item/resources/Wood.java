@@ -2,7 +2,6 @@ package com.mygdx.game.item.resources;
 
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Item;
-import com.mygdx.game.item.resources.Resource;
 import com.mygdx.game.logic.Point;
 
 public class Wood extends AbstractItem implements Item, Resource {

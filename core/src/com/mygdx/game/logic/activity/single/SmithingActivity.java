@@ -1,7 +1,5 @@
 package com.mygdx.game.logic.activity.single;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.Craftable;
@@ -31,8 +29,6 @@ public class SmithingActivity implements Activity {
     private boolean firstRun = true;
     private int interactedCounter = 1;
     private boolean suspended = false;
-
-    private Sound hitSound = Gdx.audio.newSound(Gdx.files.internal("sounds/hit/hit07.mp3"));
 
     public SmithingActivity(Actor actor, CraftingObject object) {
         this.actor = actor;

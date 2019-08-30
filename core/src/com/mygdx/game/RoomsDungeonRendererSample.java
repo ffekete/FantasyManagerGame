@@ -29,9 +29,9 @@ import com.mygdx.game.object.decoration.StandingTorch;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.*;
-import com.mygdx.game.renderer.sandbox.SandboxRendererBatch;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.renderer.gui.ActorGuiRenderer;
+import com.mygdx.game.renderer.sandbox.SandboxRendererBatch;
 import com.mygdx.game.utils.GdxUtils;
 
 

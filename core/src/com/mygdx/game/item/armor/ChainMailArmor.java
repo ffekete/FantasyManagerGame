@@ -5,7 +5,6 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier1;
-import com.mygdx.game.item.category.Tier3;
 
 public class ChainMailArmor extends AbstractItem implements Armor, Tier1, Craftable {
 

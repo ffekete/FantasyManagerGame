@@ -14,8 +14,6 @@ import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 
-import java.awt.font.ShapeGraphicAttribute;
-
 public class SimpleAttackActivity implements Activity, CooldownActivity {
 
     private ActorRegistry actorRegistry = ActorRegistry.INSTANCE;

@@ -10,7 +10,6 @@ import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.InteractiveObject;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.interactive.Ladder;
 import com.mygdx.game.registry.ObjectRegistry;
 

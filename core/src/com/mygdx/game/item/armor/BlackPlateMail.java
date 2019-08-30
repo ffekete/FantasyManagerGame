@@ -5,7 +5,6 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier3;
-import com.mygdx.game.logic.Point;
 
 public class BlackPlateMail extends AbstractItem implements Armor, Tier3, Craftable {
 

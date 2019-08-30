@@ -1,7 +1,6 @@
 package com.mygdx.game.actor.wildlife;
 
 import com.mygdx.game.actor.AbstractActor;
-import com.mygdx.game.actor.MeleeActor;
 import com.mygdx.game.actor.Prey;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.ItemFactory;
@@ -9,7 +8,6 @@ import com.mygdx.game.item.factory.Placement;
 import com.mygdx.game.item.food.RabbitMeat;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static com.mygdx.game.faction.Alignment.NEUTRAL;

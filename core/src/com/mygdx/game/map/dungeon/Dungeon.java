@@ -1,12 +1,12 @@
 package com.mygdx.game.map.dungeon;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.logic.pathfinding.PathFinder;
-import com.mygdx.game.map.TileBase;
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
+import com.mygdx.game.map.Map2D;
+import com.mygdx.game.map.TileBase;
 
 import java.util.Random;
 

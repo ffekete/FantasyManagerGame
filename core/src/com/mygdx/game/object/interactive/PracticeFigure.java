@@ -1,13 +1,10 @@
 package com.mygdx.game.object.interactive;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.*;
 import com.mygdx.game.object.furniture.Furniture;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class PracticeFigure implements WorldObject, InteractiveObject, Obstacle, AnimatedObject, Furniture, TrainingObject {

@@ -2,10 +2,11 @@ package com.mygdx.game.object.interactive;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.object.*;
+import com.mygdx.game.object.InteractiveObject;
+import com.mygdx.game.object.Obstacle;
+import com.mygdx.game.object.TrainingObject;
+import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.furniture.Furniture;
-
-import java.util.Random;
 
 public class BookCase implements WorldObject, InteractiveObject, Obstacle, Furniture, TrainingObject {
 

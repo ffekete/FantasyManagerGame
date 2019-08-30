@@ -4,7 +4,6 @@ import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.interactive.Anvil;
 import com.mygdx.game.object.interactive.Smelter;
 
 public class IncompleteSmelter implements WorldObject, Obstacle, Furniture, BuildingBlock {

@@ -1,7 +1,6 @@
 package com.mygdx.game.logic.activity.single;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.activity.Activity;
 
 public class TimedIdleActivity implements Activity {

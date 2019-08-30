@@ -9,7 +9,6 @@ import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
-import com.mygdx.game.logic.activity.compound.MovePickupActivity;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.activity.single.PickUpItemActivity;
 import com.mygdx.game.logic.visibility.VisibilityMask;

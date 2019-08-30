@@ -1,9 +1,10 @@
 package com.mygdx.game.map.dungeon.cave;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.map.Map2D;
-import com.mygdx.game.map.dungeon.*;
-import com.mygdx.game.map.dungeon.decorator.ItemPlacementHandler;
+import com.mygdx.game.map.dungeon.Dungeon;
+import com.mygdx.game.map.dungeon.DungeonGenerator;
+import com.mygdx.game.map.dungeon.DungeonType;
+import com.mygdx.game.map.dungeon.Tile;
 
 import java.util.Random;
 

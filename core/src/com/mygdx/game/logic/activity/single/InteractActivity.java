@@ -2,8 +2,8 @@ package com.mygdx.game.logic.activity.single;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.object.InteractiveObject;
 import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.object.InteractiveObject;
 
 public class InteractActivity implements Activity {
 

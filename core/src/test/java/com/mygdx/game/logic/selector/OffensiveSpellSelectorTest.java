@@ -2,16 +2,10 @@ package com.mygdx.game.logic.selector;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.trait.Trait;
-import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.monster.SkeletonWarrior;
-import com.mygdx.game.item.weapon.bow.LongBow;
-import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.activity.compound.MoveThenAttackActivity;
-import com.mygdx.game.logic.activity.manager.ActivityManager;
-import com.mygdx.game.logic.activity.single.ExplorationActivity;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.map.dungeon.Dungeon;
@@ -23,7 +17,6 @@ import com.mygdx.game.spell.offensive.FireBall;
 import com.mygdx.game.spell.offensive.FireBolt;
 import org.testng.annotations.Test;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;

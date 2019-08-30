@@ -2,11 +2,6 @@ package com.mygdx.game.actor.monster;
 
 import com.mygdx.game.actor.AbstractActor;
 import com.mygdx.game.actor.MeleeActor;
-import com.mygdx.game.item.Item;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static com.mygdx.game.faction.Alignment.ENEMY;
 

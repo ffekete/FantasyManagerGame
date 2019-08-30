@@ -3,10 +3,10 @@ package com.mygdx.game.logic.activity.manager.decision;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
-import com.mygdx.game.logic.activity.single.PhysicalTrainingActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
-import com.mygdx.game.object.interactive.PracticeFigure;
+import com.mygdx.game.logic.activity.single.PhysicalTrainingActivity;
 import com.mygdx.game.object.house.House;
+import com.mygdx.game.object.interactive.PracticeFigure;
 import com.mygdx.game.registry.HouseRegistry;
 import com.mygdx.game.registry.MapRegistry;
 

@@ -2,11 +2,10 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.logic.selector.ClosestEnemySelector;
-import com.mygdx.game.logic.selector.SelectionUtils;
 import com.mygdx.game.logic.activity.Activity;
-import com.mygdx.game.logic.selector.OffensiveSpellSelector;
 import com.mygdx.game.logic.activity.single.OffensiveSpellCastActivity;
+import com.mygdx.game.logic.selector.ClosestEnemySelector;
+import com.mygdx.game.logic.selector.OffensiveSpellSelector;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.spell.Spell;
 

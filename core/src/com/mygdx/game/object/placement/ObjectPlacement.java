@@ -1,9 +1,9 @@
 package com.mygdx.game.object.placement;
 
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.registry.ObjectRegistry;
 

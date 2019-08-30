@@ -1,7 +1,6 @@
 package com.mygdx.game.map.worldmap;
 
 import com.mygdx.game.Config;
-import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.MapGenerator;
 
 public class WorldMapGenerator implements MapGenerator {

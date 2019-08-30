@@ -2,16 +2,7 @@ package com.mygdx.game.logic.activity.single;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
-import com.mygdx.game.logic.actor.ActorMovementHandler;
-import com.mygdx.game.logic.pathfinding.PathFinder;
-
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class WaitActivity implements Activity {
 

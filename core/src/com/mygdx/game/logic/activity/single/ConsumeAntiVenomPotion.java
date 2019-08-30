@@ -3,7 +3,6 @@ package com.mygdx.game.logic.activity.single;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.potion.AntiVenomPotion;
-import com.mygdx.game.item.potion.ManaPotion;
 import com.mygdx.game.logic.activity.Activity;
 
 public class ConsumeAntiVenomPotion implements Activity {

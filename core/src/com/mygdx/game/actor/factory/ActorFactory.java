@@ -1,19 +1,13 @@
 package com.mygdx.game.actor.factory;
 
-import com.badlogic.gdx.graphics.Color;
-import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.attribute.AttributePopulator;
 import com.mygdx.game.actor.component.skill.SkillPopulator;
 import com.mygdx.game.actor.worker.Worker;
 import com.mygdx.game.animation.FullBodyActorAnimation;
 import com.mygdx.game.map.Map2D;
-import com.mygdx.game.object.light.ActorLightSource;
-import com.mygdx.game.object.light.LightSource;
-import com.mygdx.game.object.light.LightSourceType;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
-import com.mygdx.game.registry.LightSourceRegistry;
 
 public class ActorFactory {
 

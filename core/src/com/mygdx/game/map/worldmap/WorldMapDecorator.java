@@ -3,7 +3,6 @@ package com.mygdx.game.map.worldmap;
 import com.google.common.collect.ImmutableList;
 import com.mygdx.game.Config;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.map.TileBase;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.decoration.*;
 import com.mygdx.game.object.factory.ObjectFactory;
@@ -11,7 +10,6 @@ import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.ObjectRegistry;
 
-import java.awt.*;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;

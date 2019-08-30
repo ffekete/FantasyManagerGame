@@ -2,19 +2,13 @@ package com.mygdx.game.input.mouse.processor;
 
 import com.mygdx.game.builder.BuilderTool;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.map.Cluster;
-import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.object.placement.ObjectPlacement;
-import com.mygdx.game.object.wall.IncompleteWoodenWall;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.ItemRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.ObjectRegistry;
-
-import java.util.Optional;
-import java.util.Set;
 
 public class BuilderMouseActionProcessor {
 

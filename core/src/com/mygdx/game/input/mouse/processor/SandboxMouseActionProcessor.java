@@ -1,32 +1,25 @@
 package com.mygdx.game.input.mouse.processor;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.logic.GameState;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.logic.action.Action;
-import com.mygdx.game.logic.action.TargetMarkerAction;
-import com.mygdx.game.logic.command.CutDownCommand;
-import com.mygdx.game.map.Cluster;
 import com.mygdx.game.menu.CraftingObjectPopupMenuBuilder;
 import com.mygdx.game.menu.CuttablePopupMenuBuilder;
 import com.mygdx.game.object.CraftingObject;
-import com.mygdx.game.object.Cuttable;
 import com.mygdx.game.object.Targetable;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.interactive.DungeonEntrance;
-import com.mygdx.game.registry.*;
+import com.mygdx.game.registry.ActorRegistry;
+import com.mygdx.game.registry.ItemRegistry;
+import com.mygdx.game.registry.MapRegistry;
+import com.mygdx.game.registry.ObjectRegistry;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.stage.StageConfigurer;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class SandboxMouseActionProcessor {

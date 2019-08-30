@@ -6,7 +6,6 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.TileableWallObject;
-import com.mygdx.game.object.floor.TileableFloorObject;
 
 import java.util.Arrays;
 import java.util.List;

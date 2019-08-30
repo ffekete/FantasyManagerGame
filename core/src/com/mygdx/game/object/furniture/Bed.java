@@ -1,4 +1,4 @@
 package com.mygdx.game.object.furniture;
 
-public interface Bed {
+public interface Bed extends Furniture {
 }

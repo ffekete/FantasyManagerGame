@@ -4,7 +4,6 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.category.Tier1;
-import com.mygdx.game.logic.Point;
 
 public class Bread extends AbstractItem implements Food, Tier1 {
 

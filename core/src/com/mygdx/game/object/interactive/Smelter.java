@@ -2,11 +2,11 @@ package com.mygdx.game.object.interactive;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.worker.Smith;
-import com.mygdx.game.item.Craftable;
-import com.mygdx.game.item.category.Category;
-import com.mygdx.game.item.category.Tier1;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.object.*;
+import com.mygdx.game.object.AnimatedObject;
+import com.mygdx.game.object.InteractiveObject;
+import com.mygdx.game.object.Obstacle;
+import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.furniture.Furniture;
 
 import java.util.Random;

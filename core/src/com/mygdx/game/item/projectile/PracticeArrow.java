@@ -1,13 +1,10 @@
 package com.mygdx.game.item.projectile;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.item.weapon.bow.Bow;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.action.Action;
 import com.mygdx.game.logic.action.ArrowAction;
-import com.mygdx.game.logic.attack.AttackController;
 import com.mygdx.game.registry.ActionRegistry;
-import com.mygdx.game.spell.PhysicalDamage;
 import com.mygdx.game.spell.ProjectilePathCalculator;
 
 import java.util.ArrayList;

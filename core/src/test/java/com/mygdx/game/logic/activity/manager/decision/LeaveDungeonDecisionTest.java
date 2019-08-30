@@ -11,9 +11,8 @@ import com.mygdx.game.map.worldmap.WorldMapGenerator;
 import com.mygdx.game.object.LinkedWorldObjectFactory;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.placement.ObjectPlacement;
-
 import com.mygdx.game.registry.ObjectRegistry;
-import org.junit.Before;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -23,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 public class LeaveDungeonDecisionTest {
 
-    @Before
+    @BeforeMethod
     public void setUp() {
         ObjectRegistry.INSTANCE.clear();
     }

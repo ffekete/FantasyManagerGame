@@ -1,7 +1,6 @@
 package com.mygdx.game.object;
 
 import com.google.common.collect.ImmutableMap;
-import com.mygdx.game.Config;
 import com.mygdx.game.map.Cluster;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.interactive.DungeonEntrance;

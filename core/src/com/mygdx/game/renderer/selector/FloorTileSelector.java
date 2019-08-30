@@ -2,7 +2,6 @@ package com.mygdx.game.renderer.selector;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.object.WorldObject;
-import com.mygdx.game.object.floor.TileableFloorObject;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.utils.MapUtils;
 
