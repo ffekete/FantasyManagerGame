@@ -53,9 +53,8 @@ public class SmithingDecision implements Decision {
                     actor.getActivityStack().add(moveAndInteractActivity);
                     return true;
                 }
-
-                return true;
             }
+            return true;
         }
 
         House house = HouseRegistry.INSTANCE.getOwnedHouses().getOrDefault(actor, null);

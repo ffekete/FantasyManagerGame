@@ -91,10 +91,10 @@ public class ActivityStack {
                             activity1.suspend();
                         }
                     }).count();
-            System.out.println(actor.getName() + " suspended " + suspended + " activities by " + activity.getMainClass());
-            for(Activity activity1 : activities) {
-                System.out.println(" -> X " + activity1.getMainClass());
-            }
+//            System.out.println(actor.getName() + " suspended " + suspended + " activities by " + activity.getMainClass());
+//            for(Activity activity1 : activities) {
+//                System.out.println(" -> X " + activity1.getMainClass());
+//            }
         }
 
     }

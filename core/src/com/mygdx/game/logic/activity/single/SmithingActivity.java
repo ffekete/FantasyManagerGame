@@ -52,10 +52,12 @@ public class SmithingActivity implements Activity {
 
     @Override
     public void init() {
-        object.onInteract(actor);
-        List<Class<Craftable>> craftables = ItemRegistry.INSTANCE.getFor(Tier1.class).stream().filter(item -> Craftable.class.isAssignableFrom(item)).map(item -> (Class<Craftable>) item).collect(Collectors.toList());
-        object.start(craftables.get(new Random().nextInt(craftables.size())));
-        firstRun = false;
+        if(firstRun) {
+            object.onInteract(actor);
+            List<Class<Craftable>> craftables = ItemRegistry.INSTANCE.getFor(Tier1.class).stream().filter(item -> Craftable.class.isAssignableFrom(item)).map(item -> (Class<Craftable>) item).collect(Collectors.toList());
+            object.start(craftables.get(new Random().nextInt(craftables.size())));
+            firstRun = false;
+        }
     }
 
     @Override
