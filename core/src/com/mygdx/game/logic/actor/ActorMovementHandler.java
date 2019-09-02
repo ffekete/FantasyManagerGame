@@ -148,7 +148,7 @@ public class ActorMovementHandler {
 
             ActorRegistry.INSTANCE.remove(movableActor.getCurrentMap(), movableActor, false);
             movableActor.setCoordinates(new Point(next.getX(), next.getY()));
-            ActorRegistry.INSTANCE.add(movableActor.getCurrentMap(), movableActor);
+            ActorRegistry.INSTANCE.add(movableActor.getCurrentMap(), movableActor, false);
             changedCoordList.add(movableActor);
             return true;
         }

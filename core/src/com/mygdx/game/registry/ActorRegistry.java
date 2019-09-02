@@ -33,10 +33,15 @@ public class ActorRegistry {
     private Map<Map2D, Map<Cluster, List<Actor>>> actors = new ConcurrentHashMap<>();
 
     public void add(Map2D map, Actor actor) {
+        add(map, actor, true);
+    }
+
+    public void add(Map2D map, Actor actor, boolean first) {
         actors.computeIfAbsent(map, value -> new HashMap<>());
         actors.get(map).computeIfAbsent(Cluster.of(actor.getX(), actor.getY()), v -> new CopyOnWriteArrayList<>());
         actors.get(map).get(Cluster.of(actor.getX(), actor.getY())).add(actor);
-        addToBucket(actor, map);
+        if(first)
+            addToBucket(actor, map);
         // actor grid is updated in Placement
     }
 
