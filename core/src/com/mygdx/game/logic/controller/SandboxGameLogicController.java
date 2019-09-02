@@ -66,7 +66,7 @@ public class SandboxGameLogicController implements Controller {
 
             long s0 = System.currentTimeMillis();
             calculateVisibilityForMaps();
-            System.out.println("s0: " + (System.currentTimeMillis() - s0));
+            //System.out.println("s0: " + (System.currentTimeMillis() - s0));
 
             MusicPlayer.INSTANCE.choose();
 
@@ -79,7 +79,7 @@ public class SandboxGameLogicController implements Controller {
                     });
                 }
             });
-            System.out.println("Ez: " + (System.currentTimeMillis() - s));
+            //System.out.println("Ez: " + (System.currentTimeMillis() - s));
 
             long i = System.currentTimeMillis();
             MapRegistry.INSTANCE.getMaps().forEach(map -> {
@@ -95,17 +95,15 @@ public class SandboxGameLogicController implements Controller {
             });
             bucketNr = (bucketNr + 1) % Config.Engine.BUCKET_SIZE;
 
-            System.out.println("Ez meg: " + (System.currentTimeMillis() - i));
+            //System.out.println("Ez meg: " + (System.currentTimeMillis() - i));
 
             spellManager.update();
             projectileManager.update();
             effectmanager.update();
 
-            long s1 = System.currentTimeMillis();
             for (RegeneratorImpl regenerator : RegeneratorImpl.values()) {
                 regenerator.regenerateAll();
             }
-            System.out.println("Ez itt az: " + (System.currentTimeMillis() - s1));
         }
         if (Config.SHOW_ELAPSED_TIME && System.currentTimeMillis() - start > 0)
             System.out.println("Elapsed time in GameLogicUpdater " + (System.currentTimeMillis() - start));

@@ -3,12 +3,10 @@ package com.mygdx.game.logic.visibility;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.map.Map2D;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class VisibilityMask {
 
@@ -42,9 +40,9 @@ public class VisibilityMask {
         }
     }
 
-    private final List<ChangedArea> changedAreas = new ArrayList<>();
+    private final Map<Actor, List<ChangedArea>> changedAreas = new HashMap<>();
 
-    public List<ChangedArea> getChangedAreas() {
+    public Map<Actor, List<ChangedArea>> getChangedAreas() {
         return changedAreas;
     }
 
@@ -56,39 +54,44 @@ public class VisibilityMask {
         return height;
     }
 
-    public void reset() {
-        for (ChangedArea area : changedAreas) {
-            for (int i = Math.max(0, area.p1.getX()); i <= Math.min(area.p2.getX(), width-1); i++) {
-                for (int j = Math.max(0, area.p1.getY()); j <= Math.min(area.p2.getY(), height-1); j++) {
+    public void reset(Actor actor) {
+        changedAreas.computeIfAbsent(actor, v -> new ArrayList<>());
+        for (ChangedArea area : changedAreas.get(actor)) {
+            for (int i = Math.max(0, area.p1.getX()); i <= Math.min(area.p2.getX(), width - 1); i++) {
+                for (int j = Math.max(0, area.p1.getY()); j <= Math.min(area.p2.getY(), height - 1); j++) {
 
                     //if(distance(area.actor.getCoordinates(), Point.of(i,j)) > 15) {
-                        mask[i][j].remove(area.actor);
+                    mask[i][j].remove(area.actor);
                     //}
                 }
             }
         }
-        changedAreas.clear();
+        changedAreas.get(actor).clear();
     }
 
     public void mask(Map2D map, VisitedArea[][] visitedAreaMap) {
         if (width != map.getWidth() || height != map.getHeight())
             throw new IllegalArgumentException("Map sizes are not matching with mask!");
 
-        for (ChangedArea area : changedAreas) {
-            for (int i = Math.max(0, area.p1.getX()); i <= Math.min(area.p2.getX(), width-1); i++) {
-                for (int j = Math.max(0, area.p1.getY()); j <= Math.min(area.p2.getY(), height-1); j++) {
-                    if (!mask[i][j].isEmpty() && mask[i][j].stream().noneMatch(actor -> actor.getAlignment().equals(Alignment.FRIENDLY))) {
-                        if (visitedAreaMap[i][j] == VisitedArea.NOT_VISITED) {
+        for (Actor actor : ActorMovementHandler.INSTANCE.getChangedCoordList()) {
+
+            changedAreas.computeIfAbsent(actor, v -> new ArrayList<>());
+            for (ChangedArea area : changedAreas.get(actor)) {
+                for (int i = Math.max(0, area.p1.getX()); i <= Math.min(area.p2.getX(), width - 1); i++) {
+                    for (int j = Math.max(0, area.p1.getY()); j <= Math.min(area.p2.getY(), height - 1); j++) {
+                        if (!mask[i][j].isEmpty() && mask[i][j].stream().noneMatch(actor1 -> actor1.getAlignment().equals(Alignment.FRIENDLY))) {
+                            if (visitedAreaMap[i][j] == VisitedArea.NOT_VISITED) {
+                            } else {
+                                visitedAreaMap[i][j] = VisitedArea.VISITED_BUT_NOT_VISIBLE; // visited but not seen
+                            }
+                        } else if (mask[i][j].isEmpty()) {
+                            if (visitedAreaMap[i][j] == VisitedArea.NOT_VISITED) {
+                            } else {
+                                visitedAreaMap[i][j] = VisitedArea.VISITED_BUT_NOT_VISIBLE; // visited but not seen
+                            }
                         } else {
-                            visitedAreaMap[i][j] = VisitedArea.VISITED_BUT_NOT_VISIBLE; // visited but not seen
+                            visitedAreaMap[i][j] = VisitedArea.VISIBLE; // visited and seen
                         }
-                    } else if (mask[i][j].isEmpty()) {
-                        if (visitedAreaMap[i][j] == VisitedArea.NOT_VISITED) {
-                        } else {
-                            visitedAreaMap[i][j] = VisitedArea.VISITED_BUT_NOT_VISIBLE; // visited but not seen
-                        }
-                    } else {
-                        visitedAreaMap[i][j] = VisitedArea.VISIBLE; // visited and seen
                     }
                 }
             }
@@ -108,6 +111,7 @@ public class VisibilityMask {
     }
 
     public void addChangedArea(int x1, int y1, int x2, int y2, Actor actor) {
-        changedAreas.add(new ChangedArea(new Point(x1, y1), new Point(x2, y2), actor));
+        changedAreas.computeIfAbsent(actor, v -> new ArrayList<>());
+        changedAreas.get(actor).add(new ChangedArea(new Point(x1, y1), new Point(x2, y2), actor));
     }
 }
