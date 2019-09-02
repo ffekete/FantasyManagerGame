@@ -26,7 +26,7 @@ public class VisibilityCalculator {
 
     public VisibilityMask generateMask(Map2D map, List<Actor> points) {
         VisibilityMask mask = visibilityMapRegistry.getFor(map);
-        if(mask == null) {
+        if (mask == null) {
             mask = new VisibilityMask(width, height);
         } else {
 
@@ -141,7 +141,38 @@ public class VisibilityCalculator {
             y = Math.min(y, height - 1);
 
             visibilityMask.setValue(x, y, value);
-            if (map.isObstacle(x,y) || map.getTile(x,y).isObstacle()) break;
+
+            if (x < map.getWidth() - 1 && !(map.isObstacle(x + 1, y) || map.getTile(x + 1, y).isObstacle())) {
+                visibilityMask.setValue(x + 1, y, value);
+            }
+
+            if (x > 0 && !(map.isObstacle(x - 1, y) || map.getTile(x - 1, y).isObstacle())) {
+                visibilityMask.setValue(x - 1, y, value);
+            }
+
+            if (y + 1 < map.getHeight() && !(map.isObstacle(x, y + 1) || map.getTile(x, y + 1).isObstacle())) {
+                visibilityMask.setValue(x, y + 1, value);
+            }
+
+            if (y - 1 >= 0 && !(map.isObstacle(x, y - 1) || map.getTile(x, y - 1).isObstacle())) {
+                visibilityMask.setValue(x, y - 1, value);
+            }
+
+            if ((x - 1 >= 0 && y - 1 >= 0) && !(map.isObstacle(x - 1, y - 1) || map.getTile(x - 1, y - 1).isObstacle())) {
+                visibilityMask.setValue(x - 1, y - 1, value);
+            }
+
+            if ((y + 1 < map.getHeight() && x - 1 >= 0) && !(map.isObstacle(x - 1, y + 1) || map.getTile(x - 1, y + 1).isObstacle())) {
+                visibilityMask.setValue(x - 1, y + 1, value);
+            }
+
+
+            if ((x + 1 < map.getWidth() && y - 1 >= 0) && !(map.isObstacle(x + 1, y - 1) || map.getTile(x + 1, y - 1).isObstacle())) {
+                visibilityMask.setValue(x + 1, y - 1, value);
+            }
+
+
+            if (map.isObstacle(x, y) || map.getTile(x, y).isObstacle()) break;
 
 
             numerator += shortest;
@@ -158,7 +189,7 @@ public class VisibilityCalculator {
 
     private void refine(VisibilityMask mask) {
 
-        for(Actor actor1 : ActorMovementHandler.INSTANCE.getChangedCoordList()) { // O(n)
+        for (Actor actor1 : ActorMovementHandler.INSTANCE.getChangedCoordList()) { // O(n)
             for (int k = 0; k < mask.getChangedAreas().get(actor1).size(); k++) { // O(m)
                 changedArea = mask.getChangedAreas().get(actor1).get(k);
                 for (int i = Math.max(1, changedArea.p1.getX()); i < Math.min(changedArea.p2.getX(), mask.getWidth() - 1); i++) {
@@ -217,7 +248,7 @@ public class VisibilityCalculator {
 
     private void calculateFor(Actor actor, int range, VisibilityMask visibilityMask, Map2D map) {
 
-        visibilityMask.addChangedArea(actor.getX() - range -2, actor.getY() - range -2, actor.getX() + range + 2, actor.getY() + range +2, actor);
+        visibilityMask.addChangedArea(actor.getX() - range - 2, actor.getY() - range - 2, actor.getX() + range + 2, actor.getY() + range + 2, actor);
 
         List<Integer[]> points = midPointCircleDraw(actor.getX(), actor.getY(), range);
 
