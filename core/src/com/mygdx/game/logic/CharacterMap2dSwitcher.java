@@ -1,6 +1,7 @@
 package com.mygdx.game.logic;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.interactive.DungeonEntrance;
@@ -24,7 +25,7 @@ public class CharacterMap2dSwitcher {
 
     public void switchTo(Map2D to, Map2D from, Actor actor) {
         actorRegistry.getActorGrid().get(from)[actor.getX()][actor.getY()] = null;
-        actorRegistry.remove(from, actor);
+        actorRegistry.remove(from, actor, false);
         actor.setCurrentMap(to);
 
         Optional<List<WorldObject>> ladders = objectRegistry.getObject(to, Ladder.class);
@@ -43,18 +44,22 @@ public class CharacterMap2dSwitcher {
         if(!actor.getCurrentMap().getTile(enter.getX() + 1, enter.getY()).isObstacle() &&
                 !actor.getCurrentMap().getTile(enter.getX() + 1, enter.getY()).isObstacle()) {
             actor.setCoordinates(Point.of(enter.getX() + 1, enter.getY()));
+            ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
 
         } else if(!actor.getCurrentMap().getTile(enter.getX() - 1, enter.getY()).isObstacle() &&
                 !actor.getCurrentMap().getTile(enter.getX() - 1, enter.getY()).isObstacle()) {
             actor.setCoordinates(Point.of(enter.getX() - 1, enter.getY()));
+            ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
 
         } else if(!actor.getCurrentMap().getTile(enter.getX(), enter.getY() + 1).isObstacle() &&
                 !actor.getCurrentMap().getTile(enter.getX(), enter.getY() + 1).isObstacle()) {
             actor.setCoordinates(Point.of(enter.getX() , enter.getY() + 1));
+            ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
 
         } else if(!actor.getCurrentMap().getTile(enter.getX() , enter.getY() - 1).isObstacle() &&
                 !actor.getCurrentMap().getTile(enter.getX(), enter.getY() - 1).isObstacle()) {
             actor.setCoordinates(Point.of(enter.getX(), enter.getY() - 1));
+            ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
         } else {
             throw new RuntimeException("Entry area is surrounded");
         }

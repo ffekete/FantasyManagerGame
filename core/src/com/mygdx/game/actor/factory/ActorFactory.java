@@ -6,7 +6,6 @@ import com.mygdx.game.actor.component.skill.SkillPopulator;
 import com.mygdx.game.actor.worker.Worker;
 import com.mygdx.game.animation.FullBodyActorAnimation;
 import com.mygdx.game.map.Map2D;
-import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.AnimationRegistry;
 
 public class ActorFactory {
@@ -21,7 +20,6 @@ public class ActorFactory {
             e.printStackTrace();
         }
         if(actor != null) {
-            ActorRegistry.INSTANCE.add(map, actor);
             actor.setCurrentMap(map);
             placementStrategy.place(actor, map);
             AnimationRegistry.INSTANCE.add(actor, new FullBodyActorAnimation());

@@ -7,6 +7,7 @@ import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.ActorRegistry;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,8 @@ public class ActorMovementHandler {
     private final ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
 
     private Map<Actor, Direction> directions = new HashMap<>();
+
+    private List<Actor> changedCoordList = new ArrayList<>();
 
     public ActorMovementHandler() {
         this.paths = new ConcurrentHashMap<>();
@@ -143,14 +146,17 @@ public class ActorMovementHandler {
         if (path != null && !path.isEmpty()) {
             PathFinder.Node next = path.remove(path.size() - 1);
 
-            ActorRegistry.INSTANCE.remove(movableActor.getCurrentMap(), movableActor);
+            ActorRegistry.INSTANCE.remove(movableActor.getCurrentMap(), movableActor, false);
             movableActor.setCoordinates(new Point(next.getX(), next.getY()));
             ActorRegistry.INSTANCE.add(movableActor.getCurrentMap(), movableActor);
-
-            //ActorRegistry.INSTANCE.get
+            changedCoordList.add(movableActor);
             return true;
         }
         return false;
+    }
+
+    public List<Actor> getChangedCoordList() {
+        return changedCoordList;
     }
 
     public void updateDirection(Actor actor, Direction direction) {

@@ -24,7 +24,7 @@ public class WildlifeDistributor {
 
     public void populate(WorldMap worldMap) {
 
-        for(int i = 0; i < 30; i++) {
+        for(int i = 0; i < 200; i++) {
             int index = new Random().nextInt(preys.size());
             ActorFactory.INSTANCE.create(preys.get(index), worldMap, Placement.RANDOM);
         }

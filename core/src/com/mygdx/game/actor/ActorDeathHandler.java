@@ -10,7 +10,7 @@ public class ActorDeathHandler {
     public static final ActorDeathHandler INSTANCE = new ActorDeathHandler();
 
     public void kill(Actor actor) {
-        ActorRegistry.INSTANCE.remove(actor.getCurrentMap(), actor);
+        ActorRegistry.INSTANCE.remove(actor.getCurrentMap(), actor, true);
         AnimationRegistry.INSTANCE.remove(actor);
         ActorMovementHandler.INSTANCE.clearPath(actor);
         AttackController.INSTANCE.clearAttackingHistory(actor);

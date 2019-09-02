@@ -26,7 +26,9 @@ public class Config {
     }
 
     public static class Engine {
-        public static final int NUMBER_OF_THREADS = 4;
+
+        public static final int BUCKET_SIZE = 60;
+        public static final int NUMBER_OF_THREADS = 16;
         public static final boolean ENABLE_8_WAYS_PATHFINDING = false;
         public static final float ACTOR_HEIGHT = 0.7f;
         public static final Color NIGHT_COLOR = Color.valueOf("5f5f5fff");

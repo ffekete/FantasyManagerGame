@@ -2,6 +2,7 @@ package com.mygdx.game.actor.factory;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.ActorRegistry;
 
@@ -19,9 +20,10 @@ public enum Placement implements ActorPlacementStrategy {
 
             } while (map.isObstacle(x, y) || map.getTile(x, y).isObstacle());
 
-            ActorRegistry.INSTANCE.remove(actor.getCurrentMap(), actor);
+            ActorRegistry.INSTANCE.remove(actor.getCurrentMap(), actor, false);
             actor.setCoordinates(new Point(x, y));
             ActorRegistry.INSTANCE.add(actor.getCurrentMap(), actor);
+            ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
         }
 
         @Override
@@ -42,9 +44,10 @@ public enum Placement implements ActorPlacementStrategy {
 
         @Override
         public void place(Actor actor, Map2D map) {
-            ActorRegistry.INSTANCE.remove(actor.getCurrentMap(), actor);
+            ActorRegistry.INSTANCE.remove(actor.getCurrentMap(), actor, false);
             actor.setCoordinates(new Point(x, y));
             ActorRegistry.INSTANCE.add(actor.getCurrentMap(), actor);
+            ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
         }
 
         public Placement X(int xValue) {

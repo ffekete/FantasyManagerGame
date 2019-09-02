@@ -5,8 +5,10 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.regenerator.RegeneratorImpl;
 import com.mygdx.game.effect.manager.EffectManager;
+import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.projectile.manager.ProjectileManager;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
+import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisibilityMask;
@@ -19,6 +21,7 @@ import com.mygdx.game.spell.manager.SpellManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SandboxGameLogicController implements Controller {
 
@@ -32,6 +35,8 @@ public class SandboxGameLogicController implements Controller {
     private final ProjectileManager projectileManager;
 
     private boolean pauseGame = true;
+
+    private int bucketNr = 0;
 
     private MapRegistry mapRegistry = MapRegistry.INSTANCE;
     private DayTimeCalculator dayTimeCalculator = DayTimeCalculator.INSTANCE;
@@ -59,27 +64,48 @@ public class SandboxGameLogicController implements Controller {
 
             dayTimeCalculator.update();
 
+            long s0 = System.currentTimeMillis();
             calculateVisibilityForMaps();
+            System.out.println("s0: " + (System.currentTimeMillis() - s0));
 
             MusicPlayer.INSTANCE.choose();
 
+            long s = System.currentTimeMillis();
             MapRegistry.INSTANCE.getMaps().forEach(map -> {
                 if (actorRegistry.containsAnyHeroes(map)) {
+
+                    actorRegistry.getBucketedActors(map, bucketNr).forEach(actor -> {
+                        activityManager.manage(actor);
+                    });
+                }
+            });
+            System.out.println("Ez: " + (System.currentTimeMillis() - s));
+
+            long i = System.currentTimeMillis();
+            MapRegistry.INSTANCE.getMaps().forEach(map -> {
+                if (actorRegistry.containsAnyHeroes(map)) {
+
                     actorRegistry.getActors(map).forEach(actor -> {
                         actor.increaseHunger(1);
                         actor.increaseSleepiness(1);
                         actor.increaseTrainingNeeds(1);
                         actor.getActivityStack().performNext();
-                        activityManager.manage(actor);
                     });
                 }
             });
+            bucketNr = (bucketNr + 1) % Config.Engine.BUCKET_SIZE;
+
+            System.out.println("Ez meg: " + (System.currentTimeMillis() - i));
+
             spellManager.update();
             projectileManager.update();
             effectmanager.update();
+
+            long s1 = System.currentTimeMillis();
             for (RegeneratorImpl regenerator : RegeneratorImpl.values()) {
                 regenerator.regenerateAll();
             }
+            System.out.println("Ez itt az: " + (System.currentTimeMillis() - s1));
         }
         if (Config.SHOW_ELAPSED_TIME && System.currentTimeMillis() - start > 0)
             System.out.println("Elapsed time in GameLogicUpdater " + (System.currentTimeMillis() - start));
@@ -88,9 +114,10 @@ public class SandboxGameLogicController implements Controller {
     private void calculateVisibilityForMaps() {
         for (Map2D map : mapRegistry.getMaps()) {
             if (actorRegistry.containsAnyHeroes(map)) {
-                List<Actor> coordinatesForVisibilityCalculation = new ArrayList<>();
+
+                List<Actor> coordinatesForVisibilityCalculation;
                 // get all actors in the list
-                coordinatesForVisibilityCalculation.addAll(actorRegistry.getActors(map));
+                coordinatesForVisibilityCalculation = actorRegistry.getActors(map);
 
                 VisibilityCalculator visibilityCalculator = map.getVisibilityCalculator();
                 // generate visible areas for all the actors
@@ -98,6 +125,7 @@ public class SandboxGameLogicController implements Controller {
                 VisibilityMapRegistry.INSTANCE.add(map, visibilityMask);
             }
         }
+        ActorMovementHandler.INSTANCE.getChangedCoordList().clear();
     }
 
     @Override
