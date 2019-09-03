@@ -1,8 +1,10 @@
 package com.mygdx.game.logic.visibility;
 
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.map.Map2D;
+import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 
 import java.util.*;
@@ -187,62 +189,86 @@ public class VisibilityCalculator {
         }
     }
 
-    private void refine(VisibilityMask mask) {
+    private void line(int x, int y, int x2, int y2, Map2D map, boolean canBeBlocked) {
+        int w = x2 - x;
+        int h = y2 - y;
+        int dx1 = 0, dy1 = 0, dx2 = 0, dy2 = 0;
+        if (w < 0) dx1 = -1;
+        else if (w > 0) dx1 = 1;
+        if (h < 0) dy1 = -1;
+        else if (h > 0) dy1 = 1;
+        if (w < 0) dx2 = -1;
+        else if (w > 0) dx2 = 1;
+        int longest = Math.abs(w);
+        int shortest = Math.abs(h);
+        if (!(longest > shortest)) {
+            longest = Math.abs(h);
+            shortest = Math.abs(w);
+            if (h < 0) dy2 = -1;
+            else if (h > 0) dy2 = 1;
+            dx2 = 0;
+        }
+        int numerator = longest >> 1;
+        for (int i = 0; i <= longest; i++) {
 
-        for (Actor actor1 : ActorMovementHandler.INSTANCE.getChangedCoordList()) { // O(n)
-            for (int k = 0; k < mask.getChangedAreas().get(actor1).size(); k++) { // O(m)
-                changedArea = mask.getChangedAreas().get(actor1).get(k);
-                for (int i = Math.max(1, changedArea.p1.getX()); i < Math.min(changedArea.p2.getX(), mask.getWidth() - 1); i++) {
-                    for (int j = Math.max(1, changedArea.p1.getY()); j < Math.min(changedArea.p2.getY(), mask.getHeight() - 1); j++) {
-                        int a = mask.getValue(i - 1, j).size() > 0 ? 1 : 0;
-                        int b = mask.getValue(i + 1, j).size() > 0 ? 1 : 0;
-                        int c = mask.getValue(i, j - 1).size() > 0 ? 1 : 0;
-                        int d = mask.getValue(i, j + 1).size() > 0 ? 1 : 0;
-                        int sum = a + b + c + d;
-                        if (((mask.getValue(i, j).isEmpty() && sum >= 3)
-                                || (mask.getValue(i, j).size() < sum))) {
 
-                            Map<Actor, Integer> actors = new HashMap<>();
+            x = Math.max(x, 0);
+            y = Math.max(y, 0);
+            x = Math.min(x, width - 1);
+            y = Math.min(y, height - 1);
 
-                            for (Actor actor : mask.getValue(i - 1, j)) {
-                                if (actors.containsKey(actor)) {
-                                    actors.put(actor, actors.get(actor) + 1);
-                                } else {
-                                    actors.put(actor, 1);
-                                }
-                            }
+            map.getVisitedareaMap()[x][y] = VisitedArea.VISITED_BUT_NOT_VISIBLE;
 
-                            for (Actor actor : mask.getValue(i + 1, j)) {
-                                if (actors.containsKey(actor)) {
-                                    actors.put(actor, actors.get(actor) + 1);
-                                } else {
-                                    actors.put(actor, 1);
-                                }
-                            }
-
-                            for (Actor actor : mask.getValue(i, j - 1)) {
-                                if (actors.containsKey(actor)) {
-                                    actors.put(actor, actors.get(actor) + 1);
-                                } else {
-                                    actors.put(actor, 1);
-                                }
-                            }
-
-                            for (Actor actor : mask.getValue(i, j + 1)) {
-                                if (actors.containsKey(actor)) {
-                                    actors.put(actor, actors.get(actor) + 1);
-                                } else {
-                                    actors.put(actor, 1);
-                                }
-                            }
-
-                            Set<Actor> finalActors = actors.keySet().stream().filter(key -> actors.get(key) >= 3).collect(Collectors.toSet());
-
-                            mask.setAllValue(i, j, finalActors);
-                        }
-                    }
-                }
+            if (x < map.getWidth() - 1 && !(map.isObstacle(x + 1, y) || map.getTile(x + 1, y).isObstacle())) {
+                map.getVisitedareaMap()[x + 1][y] = VisitedArea.VISITED_BUT_NOT_VISIBLE;
             }
+
+            if (x > 0 && !(map.isObstacle(x - 1, y) || map.getTile(x - 1, y).isObstacle())) {
+                map.getVisitedareaMap()[x - 1][y] = VisitedArea.VISITED_BUT_NOT_VISIBLE;
+            }
+
+            if (y + 1 < map.getHeight() && !(map.isObstacle(x, y + 1) || map.getTile(x, y + 1).isObstacle())) {
+                map.getVisitedareaMap()[x][y + 1] = VisitedArea.VISITED_BUT_NOT_VISIBLE;
+            }
+
+            if (y - 1 >= 0 && !(map.isObstacle(x, y - 1) || map.getTile(x, y - 1).isObstacle())) {
+                map.getVisitedareaMap()[x][y - 1] = VisitedArea.VISITED_BUT_NOT_VISIBLE;
+            }
+
+            if ((x - 1 >= 0 && y - 1 >= 0) && !(map.isObstacle(x - 1, y - 1) || map.getTile(x - 1, y - 1).isObstacle())) {
+                map.getVisitedareaMap()[x - 1][y - 1] = VisitedArea.VISITED_BUT_NOT_VISIBLE;
+            }
+
+            if ((y + 1 < map.getHeight() && x - 1 >= 0) && !(map.isObstacle(x - 1, y + 1) || map.getTile(x - 1, y + 1).isObstacle())) {
+                map.getVisitedareaMap()[x - 1][y + 1] = VisitedArea.VISITED_BUT_NOT_VISIBLE;
+            }
+
+
+            if ((x + 1 < map.getWidth() && y - 1 >= 0) && !(map.isObstacle(x + 1, y - 1) || map.getTile(x + 1, y - 1).isObstacle())) {
+                map.getVisitedareaMap()[x + 1][y - 1] = VisitedArea.VISITED_BUT_NOT_VISIBLE;
+            }
+
+            if (canBeBlocked && (map.isObstacle(x, y) || map.getTile(x, y).isObstacle())) break;
+
+
+            numerator += shortest;
+            if (!(numerator < longest)) {
+                numerator -= longest;
+                x += dx1;
+                y += dy1;
+            } else {
+                x += dx2;
+                y += dy2;
+            }
+        }
+    }
+
+    public void calculateFor(Point p, int range, Map2D map, boolean canBeBlocked) {
+
+        List<Integer[]> points = midPointCircleDraw(p.getX(), p.getY(), range);
+
+        for (Integer[] point : points) {
+            line(p.getX(), p.getY(), point[0], point[1], map, canBeBlocked);
         }
     }
 

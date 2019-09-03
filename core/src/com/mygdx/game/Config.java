@@ -129,7 +129,7 @@ public class Config {
     }
 
     public static class WildlifeActivity {
-        public static final int HUNTING_ACTIVITY = 1000;
+        public static final int HUNTING_PRIORITY = 1000;
     }
 
     public static class Activity {
@@ -146,6 +146,7 @@ public class Config {
         public static final int OPEN_CHEST_PRIORITY = 930;
         public static final int MOVE_PICKUP_PRIORITY = 940;
         public static final int PICKUP_PRIORITY = 950;
+        public static final int HUNTING_PRIORITY = 950;
         public static final int MOVE_PICKUP_EAT_PRIORITY = 960;
         public static final int EAT_PRIORITY = 970;
         public static final int TRAINING_PRIORITY = 975;

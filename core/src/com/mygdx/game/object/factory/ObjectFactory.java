@@ -96,4 +96,16 @@ public class ObjectFactory {
             AnimationRegistry.INSTANCE.remove((AnimatedObject) worldObject);
 
     }
+
+    public static void remove(Map2D map, int x, int y) {
+        WorldObject o = ObjectRegistry.INSTANCE.getObjectGrid().get(map)[x][y][0];
+
+        if(o != null)
+            ObjectRegistry.INSTANCE.remove(map, o);
+
+        o = ObjectRegistry.INSTANCE.getObjectGrid().get(map)[x][y][1];
+
+        if(o != null)
+            ObjectRegistry.INSTANCE.remove(map, o);
+    }
 }

@@ -16,7 +16,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
-public class HuntingDecision implements Decision {
+public class RangerHuntingDecision implements Decision {
     @Override
     public boolean decide(Actor actor) {
 
@@ -50,7 +50,7 @@ public class HuntingDecision implements Decision {
         if(!preys.isEmpty()) {
             Actor prey = preys.poll();
 
-            CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.WildlifeActivity.HUNTING_PRIORITY, SimpleAttackActivity.class);
+            CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.Activity.HUNTING_PRIORITY, SimpleAttackActivity.class);
             compoundActivityForActor.add(new MovementActivity(actor, prey.getX(), prey.getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
             compoundActivityForActor.add(new SimpleAttackActivity(actor, prey));
             actor.getActivityStack().add(compoundActivityForActor);

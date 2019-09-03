@@ -1,9 +1,8 @@
 package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.logic.activity.single.SleepActivity;
+import com.mygdx.game.logic.activity.single.DayTimeSleepActivity;
 import com.mygdx.game.logic.time.DayTimeCalculator;
-import com.mygdx.game.map.Map2D;
 
 public class PredatorSleepingDecision implements Decision {
     @Override
@@ -13,8 +12,8 @@ public class PredatorSleepingDecision implements Decision {
             return true;
         }
 
-        if ((!DayTimeCalculator.INSTANCE.isItNight() || actor.isSleepy()) && Map2D.MapType.WORLD_MAP.equals(actor.getCurrentMap().getMapType())) {
-            SleepActivity sleepActivity = new SleepActivity(actor);
+        if ((!DayTimeCalculator.INSTANCE.isItNight() || actor.isSleepy())) {
+            DayTimeSleepActivity sleepActivity = new DayTimeSleepActivity(actor);
             actor.getActivityStack().add(sleepActivity);
             return true;
         }

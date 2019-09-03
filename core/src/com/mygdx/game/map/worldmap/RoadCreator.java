@@ -1,6 +1,7 @@
 package com.mygdx.game.map.worldmap;
 
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
@@ -8,61 +9,48 @@ import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.floor.DirtRoad;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.placement.ObjectPlacement;
+import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.ObjectRegistry;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 public class RoadCreator {
 
     public void connect(Map2D map, Point p1, Point p2) {
+        PathFinder pathFinder = MapRegistry.INSTANCE.getPathFinderFor(map);
+
         Set<WorldObject> alreadyBuilt = new HashSet<>();
 
-        Point current = p1;
         boolean returnAfterThis = false;
 
+        List<PathFinder.Node> path = pathFinder.findAStar(p1, p2);
+
         int i = 0;
-        while ((current.getX() != p2.getX() || current.getY() != p2.getY())) {
-            int x, y;
-
-            x = current.getX();
-            y = current.getY();
-
-            if (new Random().nextInt(3) != 0) {
-                if (current.getX() < p2.getX()) {
-                    x = current.getX() + 1;
-                } else if (current.getX() > p2.getX()) {
-                    x = current.getX() - 1;
-                }
-            } else {
-
-                if (current.getY() < p2.getY()) {
-                    y = current.getY() + 1;
-                } else if (current.getY() > p2.getY()) {
-                    y = current.getY() - 1;
-                }
+        for(PathFinder.Node node : path) {
+            if(ObjectRegistry.INSTANCE.getObjectGrid().get(map)[node.getX()][node.getY()][1] != null && !DungeonEntrance.class.isAssignableFrom(ObjectRegistry.INSTANCE.getObjectGrid().get(map)[node.getX()][node.getY()][1].getClass())) {
+                ObjectFactory.remove(map, node.getX(), node.getY());
             }
 
-            WorldObject worldObject = ObjectRegistry.INSTANCE.getObjectGrid().get(map)[current.getX()][current.getY()][1];
+            WorldObject worldObject = ObjectRegistry.INSTANCE.getObjectGrid().get(map)[node.getX()][node.getY()][1];
 
-            if (adjacentRoad(map, current.getX(), current.getY(), alreadyBuilt)) {
+            if (adjacentRoad(map, node.getX(), node.getY(), alreadyBuilt)) {
                 returnAfterThis = true;
             }
 
             if (i != 0 && worldObject != null && Obstacle.class.isAssignableFrom(worldObject.getClass()) && !DungeonEntrance.class.isAssignableFrom(worldObject.getClass())) {
                 ObjectRegistry.INSTANCE.remove(map, worldObject);
             }
+            i++;
 
-            alreadyBuilt.add(ObjectFactory.create(DirtRoad.class, map, ObjectPlacement.FIXED.X(current.getX()).Y(current.getY())));
-            map.setTraverseCost(current.getX(), current.getY(), 0.2f);
+            alreadyBuilt.add(ObjectFactory.create(DirtRoad.class, map, ObjectPlacement.FIXED.X(node.getX()).Y(node.getY())));
+            map.setTraverseCost(node.getX(), node.getY(), 0.2f);
 
             if (returnAfterThis) {
                 return;
             }
-
-            current = Point.of(x, y);
-            i++;
         }
 
     }

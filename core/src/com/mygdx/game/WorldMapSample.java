@@ -71,9 +71,6 @@ public class WorldMapSample extends SampleBase {
     private OrthographicCamera camera;
 
     WorldMap worldMap;
-    Map2D dungeon;
-    Map2D dungeon2;
-    SandboxGameLogicController sandboxGameLogicController = SandboxGameLogicController.INSTANCE;
     OrthographicCamera infoCamera;
     Viewport infoViewPort;
     Viewport viewport;
@@ -87,11 +84,9 @@ public class WorldMapSample extends SampleBase {
     Actor smith;
 
     MapGenerator<WorldMap> mapGenerator = new WorldMapGenerator();
-    DungeonFactory dungeonFactory = DungeonFactory.INSTANCE;
 
     ShapeRenderer shapeRenderer;
 
-    ImageButton buildButton;
     Stage sandboxStage;
     Stage builderStage;
     Stage inventoryStage;
@@ -220,22 +215,7 @@ public class WorldMapSample extends SampleBase {
 
         //hero.addExperiencePoints(100000);
 
-        dungeon = dungeonFactory.create(CaveDungeonCreator.class);
-        dungeon2 = dungeonFactory.create(DungeonWithRoomsCreator.class);
-
-        LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(15).Y(15), ObjectPlacement.RANDOM);
-        LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon2, ObjectPlacement.FIXED.X(13).Y(13), ObjectPlacement.RANDOM);
-
-        ObjectFactory.create(Tree.class, worldMap, ObjectPlacement.FIXED.X(10).Y(10));
-        ObjectFactory.create(Tree.class, worldMap, ObjectPlacement.FIXED.X(11).Y(10));
-        ObjectFactory.create(Tree.class, worldMap, ObjectPlacement.FIXED.X(10).Y(11));
-        ObjectFactory.create(YellowFlower.class, worldMap, ObjectPlacement.FIXED.X(6).Y(6));
-        ObjectFactory.create(BlueFlower.class, worldMap, ObjectPlacement.FIXED.X(7).Y(7));
-        ObjectFactory.create(Bush.class, worldMap, ObjectPlacement.FIXED.X(6).Y(7));
-
         MapRegistry.INSTANCE.add(worldMap);
-        MapRegistry.INSTANCE.add(dungeon);
-        MapRegistry.INSTANCE.add(dungeon2);
 
         hero.setName("Gandalf");
 
@@ -248,8 +228,7 @@ public class WorldMapSample extends SampleBase {
         // decorate
         WorldMapDecorator worldMapDecorator = new WorldMapDecorator();
 
-        WorldMapDirtSpreadDecorator worldMapDirtSpreadDecorator = new WorldMapDirtSpreadDecorator();
-        worldMapDirtSpreadDecorator.decorate(2, worldMap);
+
 
         worldMapDecorator.decorate(2, worldMap);
 
@@ -265,7 +244,7 @@ public class WorldMapSample extends SampleBase {
         HouseFactory.INSTANCE.create(1, 8, 3, worldMap);
         //ObjectFactory.create(BookCase.class, worldMap, ObjectPlacement.FIXED.X(2).Y(2));
 
-        HouseFactory.INSTANCE.create(1, 13, 3, worldMap);
+        //HouseFactory.INSTANCE.create(1, 13, 3, worldMap);
 
         Actor wolf = ActorFactory.INSTANCE.create(Wolf.class, worldMap, Placement.FIXED.X(11).Y(11));
         Actor rabbit = ActorFactory.INSTANCE.create(Rabbit.class, worldMap, Placement.FIXED.X(13).Y(11));

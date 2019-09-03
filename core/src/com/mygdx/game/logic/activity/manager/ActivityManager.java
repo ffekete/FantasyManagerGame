@@ -44,6 +44,7 @@ public class ActivityManager {
                         new OpenChestDecision(),
                         new MovePickupDecision(),
                         new SleepingDecision(),
+                        new HuntingDecision(),
                         new EatingDecision(),
                         new ShootingTrainingDecision(),
                         new LeaveDungeonDecision(),

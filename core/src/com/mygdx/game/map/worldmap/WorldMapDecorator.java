@@ -3,12 +3,14 @@ package com.mygdx.game.map.worldmap;
 import com.google.common.collect.ImmutableList;
 import com.mygdx.game.Config;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.decoration.*;
 import com.mygdx.game.object.factory.ObjectFactory;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.ObjectRegistry;
+import com.mygdx.game.registry.TownDataRegistry;
 
 import java.util.List;
 import java.util.Random;
@@ -19,6 +21,7 @@ public class WorldMapDecorator {
     private final static boolean DEBUG = false;
 
     private final RoadCreator roadCreator = new RoadCreator();
+    private WorldMapDirtSpreadDecorator worldMapDirtSpreadDecorator = new WorldMapDirtSpreadDecorator();
 
     private int deathLimit = 5;
     private int birthLimit = 3;
@@ -51,17 +54,26 @@ public class WorldMapDecorator {
 
         WorldMap newMap = create(step);
 
+        for(int i = 0; i < TownDataRegistry.INSTANCE.getTownCentreRadius(); i++) {
+            for (int j = 0; j < TownDataRegistry.INSTANCE.getTownCentreRadius(); j++) {
+
+            }
+        }
+
         // decoration
         for (int i = 0; i < newMap.getWidth(); i++) {
             for (int j = 0; j < newMap.getHeight(); j++) {
                 if (newMap.getTile(i, j).isObstacle()) {
                     int index = new Random().nextInt(decorations.size());
 
-                    if (ObjectRegistry.INSTANCE.getObjectGrid().get(worldMap)[i][j][1] == null)
+                    if (!ObjectRegistry.INSTANCE.getObjectGrid().containsKey(worldMap) || ObjectRegistry.INSTANCE.getObjectGrid().get(worldMap)[i][j][1] == null)
                         ObjectFactory.create(decorations.get(index), worldMap, ObjectPlacement.FIXED.X(i).Y(j));
                 }
             }
         }
+
+        // dirt
+        worldMapDirtSpreadDecorator.decorate(2, worldMap);
 
         // grass
         for (int i = 0; i < newMap.getWidth(); i++) {
@@ -75,9 +87,15 @@ public class WorldMapDecorator {
             }
         }
 
-        List<WorldObject> o = ObjectRegistry.INSTANCE.getAll(worldMap).stream().filter(worldObject -> DungeonEntrance.class.isAssignableFrom(worldObject.getClass())).peek(worldObject -> roadCreator.connect(worldMap, worldObject.getCoordinates(), Point.of(5, 5))).collect(Collectors.toList());
+       // List<WorldObject> o = ObjectRegistry.INSTANCE.getAll(worldMap).stream().filter(worldObject -> DungeonEntrance.class.isAssignableFrom(worldObject.getClass())).peek(worldObject -> roadCreator.connect(worldMap, worldObject.getCoordinates(), Point.of(5, 5))).collect(Collectors.toList());
 
         WildlifeDistributor.INSTANCE.populate(worldMap);
+
+        // revela area of townCenter
+        worldMap.getVisibilityCalculator().calculateFor(TownDataRegistry.INSTANCE.getTownCenter(), TownDataRegistry.INSTANCE.getTownCentreRadius(), worldMap, false);
+
+        new DungeonEntrancePlacer().place(worldMap);
+
     }
 
     public WorldMap create(int steps) {
