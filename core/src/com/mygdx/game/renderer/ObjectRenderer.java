@@ -9,17 +9,14 @@ import com.mygdx.game.builder.BuildingBlock;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.map.Map2D;
-import com.mygdx.game.object.AnimatedObject;
-import com.mygdx.game.object.ContainerObject;
-import com.mygdx.game.object.TileableWallObject;
-import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.*;
 import com.mygdx.game.object.decoration.Decoration;
 import com.mygdx.game.object.decoration.Rotatable;
 import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.registry.*;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.renderer.gui.component.GuiComponent;
-import com.mygdx.game.renderer.selector.WallTileSelector;
+import com.mygdx.game.renderer.selector.TileSelector;
 
 public class ObjectRenderer implements Renderer<Map2D> {
 
@@ -66,8 +63,8 @@ public class ObjectRenderer implements Renderer<Map2D> {
                             continue;
                         }
 
-                        if (TileableWallObject.class.isAssignableFrom(worldObject.getClass())) {
-                            spriteBatch.draw(WallTileSelector.INSTANCE.getFor(objectRegistry.getObjectGrid().get(dungeon), worldObject), worldObject.getX(), worldObject.getY(), 1, 1);
+                        if (TileableObject.class.isAssignableFrom(worldObject.getClass())) {
+                            spriteBatch.draw(TileSelector.INSTANCE.getFor(objectRegistry.getObjectGrid().get(dungeon), worldObject, ((TileableObject)worldObject).getClass()), worldObject.getX(), worldObject.getY(), 1, 1);
                         } else if (AnimatedObject.class.isAssignableFrom(worldObject.getClass())) {
                             if (dungeon.getVisitedareaMap()[(int) worldObject.getX()][(int) worldObject.getY()] == VisitedArea.VISIBLE)
                                 animationRegistry.get((AnimatedObject) worldObject).drawKeyFrame(spriteBatch, worldObject.getX(), worldObject.getY(), 1, Direction.RIGHT);

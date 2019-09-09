@@ -7,7 +7,7 @@ public class Config {
     public static final int SCREEN_WIDTH = 1024;
     public static final int SCREEN_HEIGHT = 768;
 
-    public static final boolean SHOW_ELAPSED_TIME = true;
+    public static final boolean SHOW_ELAPSED_TIME = false;
     public static final boolean SHOW_ELAPSED_TIME_IN_RENDERER = false;
 
     public static class Rules {
@@ -120,6 +120,10 @@ public class Config {
     public static class SmithActivity {
         public static final int SMELTER_USING_PRIORITY = 980;
         public static final int SMITHING_PRIORITY = 1000;
+    }
+
+    public static final class ShopKeeperActivity {
+        public static final int SHOPKEEPING_PRIORITY = 1000;
     }
 
     public static class BuilderActivity {

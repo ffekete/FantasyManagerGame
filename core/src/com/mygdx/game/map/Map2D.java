@@ -24,7 +24,9 @@ public interface Map2D {
     MapType getMapType();
 
     boolean isObstacle(int x, int y);
+    boolean isNoViewBlockingObstacle(int x, int y);
     void setObstacle(int x, int y, boolean value);
+    void setNoViewBlockingObstacle(int x, int y, boolean value);
 
     int getTileVariation(int x, int y);
 

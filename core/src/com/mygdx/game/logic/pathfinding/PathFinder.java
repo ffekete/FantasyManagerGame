@@ -223,7 +223,7 @@ public class PathFinder {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
 
-                obstacleMap[i][j] = new Node(map.getTile(i, j).isObstacle() || map.isObstacle(i,j) ? 1 : 0, i, j, map.getTraverseCost(i,j));
+                obstacleMap[i][j] = new Node(map.getTile(i, j).isObstacle() || map.isObstacle(i,j) || map.isNoViewBlockingObstacle(i,j) ? 1 : 0, i, j, map.getTraverseCost(i,j));
             }
         }
     }

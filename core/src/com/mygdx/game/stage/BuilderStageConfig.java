@@ -13,10 +13,7 @@ import com.mygdx.game.logic.controller.GameFlowControllerFacade;
 import com.mygdx.game.object.floor.IncompleteDirtRoad;
 import com.mygdx.game.object.floor.IncompleteStorageAreaFloor;
 import com.mygdx.game.object.floor.IncompleteWoodenFloor;
-import com.mygdx.game.object.furniture.IncompleteAnvil;
-import com.mygdx.game.object.furniture.IncompletePracticeFigure;
-import com.mygdx.game.object.furniture.IncompleteSmelter;
-import com.mygdx.game.object.furniture.IncompleteWoodenBed;
+import com.mygdx.game.object.furniture.*;
 import com.mygdx.game.object.wall.IncompleteWoodenDoorWall;
 import com.mygdx.game.object.wall.IncompleteWoodenFence;
 import com.mygdx.game.object.wall.IncompleteWoodenWall;
@@ -319,6 +316,21 @@ public class BuilderStageConfig {
 
         });
         furnitureGroup.add(buildAnvil).width(30).center();
+
+        ImageButton buildShopkeeperDesk = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildShopkeepersDeskButton.png")), 0, 0, 32, 32)),
+                new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildShopkeepersDeskButton.png")), 32, 0, 32, 32)));
+
+        buildShopkeeperDesk.addListener(new TextTooltip("You can build a shopkeeper's desk with this.", textTooltipStyle));
+        buildShopkeeperDesk.addListener(new ClickListener() {
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                BuilderTool.INSTANCE.setBlockToBuild(IncompleteShopkeepersDesk.class);
+                return true;
+            }
+
+        });
+        furnitureGroup.add(buildShopkeeperDesk).width(30).center();
 
         ImageButton buildSmelter = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildSmelterButton.png")), 0, 0, 32, 32)),
                 new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildSmelterButton.png")), 32, 0, 32, 32)));

@@ -10,6 +10,7 @@ import com.mygdx.game.actor.monster.*;
 import com.mygdx.game.actor.wildlife.Rabbit;
 import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
+import com.mygdx.game.actor.worker.Shopkeeper;
 import com.mygdx.game.actor.worker.Smith;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.armor.ChainMailArmor;
@@ -95,6 +96,7 @@ public class TextureRegistry {
                 // workers
                 .put(Builder.class, texturePathResolver.resolve("actors/worker/Builder.png"))
                 .put(Smith.class, texturePathResolver.resolve("actors/worker/Smith.png"))
+                .put(Shopkeeper.class, texturePathResolver.resolve("actors/worker/Shopkeeper.png"))
 
                 // Wildlife
                 .put(Wolf.class, texturePathResolver.resolve("actors/wildlife/Wolf.png"))
@@ -225,6 +227,8 @@ public class TextureRegistry {
                 .put(IncompletePracticeFigure.class, Arrays.asList(texturePathResolver.resolve("object/furniture/IncompletePracticeFigure.png")))
                 .put(IncompleteAnvil.class, Arrays.asList(texturePathResolver.resolve("object/crafting/IncompleteAnvil.png")))
                 .put(IncompleteSmelter.class, Arrays.asList(texturePathResolver.resolve("object/crafting/IncompleteSmelter.png")))
+                .put(IncompleteShopkeepersDesk.class, Arrays.asList(texturePathResolver.resolve("object/furniture/IncompleteShopkeeperDeskTile.png")))
+                .put(ShopkeepersDesk.class, Arrays.asList(texturePathResolver.resolve("object/furniture/ShopkeeperDeskTile.png")))
 
                 .build();
 

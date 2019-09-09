@@ -10,8 +10,10 @@ import com.mygdx.game.actor.monster.*;
 import com.mygdx.game.actor.wildlife.Rabbit;
 import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
+import com.mygdx.game.actor.worker.Shopkeeper;
 import com.mygdx.game.actor.worker.Smith;
 import com.mygdx.game.logic.activity.manager.decision.*;
+import com.mygdx.game.logic.activity.manager.decision.shopkeeper.ShopKeepingDecision;
 
 import java.util.List;
 import java.util.Map;
@@ -33,6 +35,10 @@ public class ActivityManager {
                 .put(Smith.class, ImmutableList.of(
                         new SleepingDecision(),
                         new SmithingDecision()))
+
+                .put(Shopkeeper.class, ImmutableList.of(
+                        new ShopKeepingDecision(),
+                        new SleepingDecision()))
 
                 .put(Ranger.class, ImmutableList.of(
                         new ConsumeHealingpotionDecision(),

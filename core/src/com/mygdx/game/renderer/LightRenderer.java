@@ -3,6 +3,7 @@ package com.mygdx.game.renderer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Config;
+import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.registry.LightSourceRegistry;
@@ -23,6 +24,10 @@ public class LightRenderer implements Renderer<Map2D> {
     public void draw(Map2D map, SpriteBatch spriteBatch) {
 
         if (CameraPositionController.INSTANCE.getZoom() > Config.Engine.ZOOM_MAX_TO_SMALL_MAP) {
+            return;
+        }
+
+        if(!DayTimeCalculator.INSTANCE.isItNight() && !DayTimeCalculator.INSTANCE.isDusk() && !DayTimeCalculator.INSTANCE.isDawn()) {
             return;
         }
 

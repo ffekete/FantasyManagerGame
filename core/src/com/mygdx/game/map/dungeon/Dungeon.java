@@ -25,6 +25,7 @@ public class Dungeon implements Map2D {
     private Dungeon previousLevel = null;
     private boolean[][] obstacle;
     private float traverseCost[][];
+    private boolean[][] noViewBlockingObstacle;
 
     public Dungeon(int width, int height, DungeonType dungeonType) {
         this.height = height;
@@ -32,6 +33,7 @@ public class Dungeon implements Map2D {
         this.dungeonType = dungeonType;
 
         obstacle = new boolean[width][height];
+        noViewBlockingObstacle = new boolean[width][height];
 
         visibilityCalculator = new VisibilityCalculator(width, height);
 
@@ -181,5 +183,15 @@ public class Dungeon implements Map2D {
 
     public Dungeon getPreviousLevel() {
         return previousLevel;
+    }
+
+    @Override
+    public boolean isNoViewBlockingObstacle(int x, int y) {
+        return noViewBlockingObstacle[x][y];
+    }
+
+    @Override
+    public void setNoViewBlockingObstacle(int x, int y, boolean value) {
+        noViewBlockingObstacle[x][y] = value;
     }
 }

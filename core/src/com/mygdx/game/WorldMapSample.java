@@ -21,6 +21,7 @@ import com.mygdx.game.actor.hero.Wizard;
 import com.mygdx.game.actor.wildlife.Rabbit;
 import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
+import com.mygdx.game.actor.worker.Shopkeeper;
 import com.mygdx.game.actor.worker.Smith;
 import com.mygdx.game.common.SampleBase;
 import com.mygdx.game.common.SampleInfo;
@@ -82,6 +83,7 @@ public class WorldMapSample extends SampleBase {
     Actor warrior;
     Actor builder;
     Actor smith;
+    Actor shopkeeper;
 
     MapGenerator<WorldMap> mapGenerator = new WorldMapGenerator();
 
@@ -134,6 +136,8 @@ public class WorldMapSample extends SampleBase {
         builder = ActorFactory.INSTANCE.create(Builder.class, worldMap, Placement.FIXED.X(7).Y(10));
 
         smith = ActorFactory.INSTANCE.create(Smith.class, worldMap, Placement.FIXED.X(8).Y(10));
+
+        shopkeeper = ActorFactory.INSTANCE.create(Shopkeeper.class, worldMap, Placement.FIXED.X(6).Y(5));
 
         warrior = ActorFactory.INSTANCE.create(Warrior.class, worldMap, Placement.FIXED.X(8).Y(11));
         warrior.equip(new ShortSwordPlusFour());

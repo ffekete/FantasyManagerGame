@@ -2,6 +2,7 @@ package com.mygdx.game.object.placement;
 
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
+import com.mygdx.game.object.NoViewBlockinObstacle;
 import com.mygdx.game.object.Obstacle;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.floor.Floor;
@@ -21,7 +22,9 @@ public enum ObjectPlacement implements ObjectPlacementStrategy {
 
             } while (map.isObstacle(x, y) || map.getTile(x, y).isObstacle());
 
-            if (Obstacle.class.isAssignableFrom(object.getClass()))
+            if (NoViewBlockinObstacle.class.isAssignableFrom(object.getClass()))
+                map.setNoViewBlockingObstacle(x, y, true);
+            else if (Obstacle.class.isAssignableFrom(object.getClass()))
                 map.setObstacle(x, y, true);
             else {
                 int index = Floor.class.isAssignableFrom(object.getClass()) ? 1 : 0;
@@ -53,7 +56,9 @@ public enum ObjectPlacement implements ObjectPlacementStrategy {
         @Override
         public void place(WorldObject object, Map2D map) {
             object.setCoordinates(new Point(x, y));
-            if (Obstacle.class.isAssignableFrom(object.getClass())) {
+            if (NoViewBlockinObstacle.class.isAssignableFrom(object.getClass()))
+                map.setNoViewBlockingObstacle(x, y, true);
+            else if (Obstacle.class.isAssignableFrom(object.getClass())) {
                 map.setObstacle(x, y, true);
             } else {
                 int index = Floor.class.isAssignableFrom(object.getClass()) ? 1 : 0;
