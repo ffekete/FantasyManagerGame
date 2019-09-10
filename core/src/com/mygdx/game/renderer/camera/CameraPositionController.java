@@ -3,6 +3,7 @@ package com.mygdx.game.renderer.camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.MapRegistry;
 
@@ -34,6 +35,12 @@ public class CameraPositionController {
         coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(0, 0));
         coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).x += x;
         coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).y += y;
+    }
+
+    public void setCameraPosition(com.mygdx.game.logic.Point position) {
+        coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(0, 0));
+        coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).x = position.getX();
+        coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).y = position.getY();
     }
 
     public Point getCameraposition() {

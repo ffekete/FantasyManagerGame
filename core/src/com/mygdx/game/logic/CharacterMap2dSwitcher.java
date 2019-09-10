@@ -25,7 +25,7 @@ public class CharacterMap2dSwitcher {
 
     public void switchTo(Map2D to, Map2D from, Actor actor) {
         actorRegistry.getActorGrid().get(from)[actor.getX()][actor.getY()] = null;
-        actorRegistry.remove(from, actor, false);
+        actorRegistry.remove(from, actor, true);
         actor.setCurrentMap(to);
 
         Optional<List<WorldObject>> ladders = objectRegistry.getObject(to, Ladder.class);
@@ -65,7 +65,7 @@ public class CharacterMap2dSwitcher {
         }
 
 
-        actorRegistry.add(to, actor, false);
+        actorRegistry.add(to, actor, true);
 
         if(cameraPositionController.getFocusedOn() == actor) {
             mapRegistry.setCurrentMapToShow(to);

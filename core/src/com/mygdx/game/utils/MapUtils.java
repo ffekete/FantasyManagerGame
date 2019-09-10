@@ -13,19 +13,19 @@ public class MapUtils {
         int mask = 0;
         int index = TileableFloorObject.class.isAssignableFrom(clazz) ? 0 : 1;
 
-        if (y + 1 >= worldObjects[0].length || (worldObjects[x][y + 1][index] != null && (isConnectible(worldObjects[x][y + 1][index], clazz)))) {
+        if (y + 1 < worldObjects[0].length && (worldObjects[x][y + 1][index] != null && (isConnectible(worldObjects[x][y + 1][index], clazz)))) {
             mask += 1;
         }
 
-        if (x + 1 >= worldObjects.length || (worldObjects[x + 1][y][index] != null && isConnectible(worldObjects[x + 1][y][index], clazz))) {
+        if (x + 1 < worldObjects.length && (worldObjects[x + 1][y][index] != null && isConnectible(worldObjects[x + 1][y][index], clazz))) {
             mask += 2;
         }
 
-        if (y - 1 < 0 || (worldObjects[x][y - 1][index] != null && isConnectible(worldObjects[x][y - 1][index], clazz))) {
+        if (y - 1 >= 0 && (worldObjects[x][y - 1][index] != null && isConnectible(worldObjects[x][y - 1][index], clazz))) {
             mask += 4;
         }
 
-        if (x - 1 < 0 || (worldObjects[x - 1][y][index] != null && isConnectible(worldObjects[x - 1][y][index], clazz))) {
+        if (x - 1 >= 0 && (worldObjects[x - 1][y][index] != null && isConnectible(worldObjects[x - 1][y][index], clazz))) {
             mask += 8;
         }
 
@@ -40,8 +40,6 @@ public class MapUtils {
         }
 
         return false;
-
-        //return clazz.isAssignableFrom(worldObject.getClass());
     }
 
 
@@ -50,19 +48,19 @@ public class MapUtils {
     public static int bitmask4bitForTile(WorldMap map, int x, int y, WorldMapTile tile, int skip) {
         int mask = 0;
 
-        if (y + skip >= map.getHeight() || map.getTile(x, y + skip).equals(tile)) {
+        if (y + skip < map.getHeight() && map.getTile(x, y + skip).equals(tile)) {
             mask += 1;
         }
 
-        if (x + skip >= map.getWidth() || map.getTile(x + skip, y).equals(tile)) {
+        if (x + skip < map.getWidth() && map.getTile(x + skip, y).equals(tile)) {
             mask += 2;
         }
 
-        if (y - skip < 0 || map.getTile(x, y - skip).equals(tile)) {
+        if (y - skip >= 0 && map.getTile(x, y - skip).equals(tile)) {
             mask += 4;
         }
 
-        if (x - skip < 0 || map.getTile(x - skip, y).equals(tile)) {
+        if (x - skip >= 0 && map.getTile(x - skip, y).equals(tile)) {
             mask += 8;
         }
 
@@ -72,19 +70,19 @@ public class MapUtils {
     public static int bitmask4bit(Map2D map, int x, int y) {
         int mask = 0;
 
-        if (y + 1 >= map.getHeight() || map.getTile(x, y + 1).isObstacle()) {
+        if (y + 1 < map.getHeight() && map.getTile(x, y + 1).isObstacle()) {
             mask += 1;
         }
 
-        if (x + 1 >= map.getWidth() || map.getTile(x + 1, y).isObstacle()) {
+        if (x + 1 < map.getWidth() && map.getTile(x + 1, y).isObstacle()) {
             mask += 2;
         }
 
-        if (y - 1 < 0 || map.getTile(x, y - 1).isObstacle()) {
+        if (y - 1 >= 0 && map.getTile(x, y - 1).isObstacle()) {
             mask += 4;
         }
 
-        if (x - 1 < 0 || map.getTile(x - 1, y).isObstacle()) {
+        if (x - 1 >= 0 && map.getTile(x - 1, y).isObstacle()) {
             mask += 8;
         }
 

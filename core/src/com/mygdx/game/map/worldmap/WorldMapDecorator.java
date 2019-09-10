@@ -91,7 +91,7 @@ public class WorldMapDecorator {
 
         WildlifeDistributor.INSTANCE.populate(worldMap);
 
-        // revela area of townCenter
+        // reveal area of townCenter
         worldMap.getVisibilityCalculator().calculateFor(TownDataRegistry.INSTANCE.getTownCenter(), TownDataRegistry.INSTANCE.getTownCentreRadius(), worldMap, false);
 
         new DungeonEntrancePlacer().place(worldMap);

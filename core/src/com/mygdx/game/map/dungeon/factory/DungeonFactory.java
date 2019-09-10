@@ -14,6 +14,7 @@ import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonDecorator;
 import com.mygdx.game.map.dungeon.decorator.ItemPlacementHandler;
 import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
+import com.mygdx.game.registry.MapRegistry;
 
 import java.util.Map;
 import java.util.Random;
@@ -41,6 +42,7 @@ public class DungeonFactory {
         }
 
         Dungeon dungeon = dungeonGenerator.create(3);
+        MapRegistry.INSTANCE.add(dungeon);
 
         if (dungeon != null) {
             decoratorMap.get(clazz).decorate(dungeon);

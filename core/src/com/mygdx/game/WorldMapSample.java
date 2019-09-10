@@ -44,6 +44,7 @@ import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.MapGenerator;
 import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.map.dungeon.factory.DungeonFactory;
+import com.mygdx.game.map.dungeon.factory.WorldMapFactory;
 import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
 import com.mygdx.game.map.worldmap.WorldMap;
 import com.mygdx.game.map.worldmap.WorldMapDecorator;
@@ -60,6 +61,7 @@ import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.RendererToolsRegistry;
+import com.mygdx.game.registry.TownDataRegistry;
 import com.mygdx.game.renderer.RenderingFacade;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.stage.StageConfigurer;
@@ -129,7 +131,7 @@ public class WorldMapSample extends SampleBase {
 
         StageConfigurer.INSTANCE.configureButtons();
 
-        worldMap = mapGenerator.create(0);
+        worldMap = WorldMapFactory.INSTANCE.create();
 
         InputConfigurer.INSTANCE.setInputProcessor(StageConfigurer.INSTANCE.getFor(GameState.Sandbox), StageConfigurer.INSTANCE.getFor(GameState.Builder),  this);
 
@@ -219,8 +221,6 @@ public class WorldMapSample extends SampleBase {
 
         //hero.addExperiencePoints(100000);
 
-        MapRegistry.INSTANCE.add(worldMap);
-
         hero.setName("Gandalf");
 
         hero.equip(new JadeStaff());
@@ -229,12 +229,6 @@ public class WorldMapSample extends SampleBase {
 
         MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
 
-        // decorate
-        WorldMapDecorator worldMapDecorator = new WorldMapDecorator();
-
-
-
-        worldMapDecorator.decorate(2, worldMap);
 
         HouseFactory.INSTANCE.create(7,1, 3, worldMap);
 
@@ -248,12 +242,16 @@ public class WorldMapSample extends SampleBase {
         HouseFactory.INSTANCE.create(1, 8, 3, worldMap);
         //ObjectFactory.create(BookCase.class, worldMap, ObjectPlacement.FIXED.X(2).Y(2));
 
-        //HouseFactory.INSTANCE.create(1, 13, 3, worldMap);
+        HouseFactory.INSTANCE.create(1, 13, 3, worldMap);
 
         Actor wolf = ActorFactory.INSTANCE.create(Wolf.class, worldMap, Placement.FIXED.X(11).Y(11));
         Actor rabbit = ActorFactory.INSTANCE.create(Rabbit.class, worldMap, Placement.FIXED.X(13).Y(11));
         wolf.increaseSleepiness(48000);
 
+        Map2D m = DungeonFactory.INSTANCE.create(DungeonWithRoomsCreator.class);
+        LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, m, ObjectPlacement.FIXED.X(15).Y(15), ObjectPlacement.RANDOM);
+
+        m.getVisibilityCalculator().calculateFor(m.getDefaultSpawnPoint(), 3, m, false);
     }
 
     @Override

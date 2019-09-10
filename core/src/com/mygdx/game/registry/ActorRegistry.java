@@ -36,23 +36,23 @@ public class ActorRegistry {
         add(map, actor, true);
     }
 
-    public void add(Map2D map, Actor actor, boolean first) {
+    public void add(Map2D map, Actor actor, boolean updateBucket) {
         actors.computeIfAbsent(map, value -> new HashMap<>());
         actors.get(map).computeIfAbsent(Cluster.of(actor.getX(), actor.getY()), v -> new CopyOnWriteArrayList<>());
         actors.get(map).get(Cluster.of(actor.getX(), actor.getY())).add(actor);
-        if(first)
+        if(updateBucket)
             addToBucket(actor, map);
         // actor grid is updated in Placement
     }
 
-    public void remove(Map2D map, Actor actor, boolean permanent) {
+    public void remove(Map2D map, Actor actor, boolean updateBucket) {
         if(actors.containsKey(map) && actors.get(map).containsKey(Cluster.of(actor.getX(), actor.getY())))
             actors.get(map).get(Cluster.of(actor.getX(), actor.getY())).remove(actor);
 
         if(actorGrid.containsKey(map))
             actorGrid.get(map)[actor.getX()][actor.getY()] = null;
 
-        if(permanent && bucket.containsKey(bucketInverse.get(actor)) && bucketInverse.containsKey(actor)) {
+        if(updateBucket && bucket.containsKey(bucketInverse.get(actor)) && bucketInverse.containsKey(actor)) {
             bucket.get(bucketInverse.get(actor)).remove(actor);
             bucketInverse.remove(actor);
         }

@@ -56,6 +56,7 @@ public class SandboxMouseActionProcessor {
 
         if (DungeonEntrance.class.isAssignableFrom(worldObject.get().getClass())) {
             MapRegistry.INSTANCE.setCurrentMapToShow(((DungeonEntrance) worldObject.get()).getTo());
+            CameraPositionController.INSTANCE.setCameraPosition(((DungeonEntrance) worldObject.get()).getTo().getDefaultSpawnPoint());
             return true;
         }
 

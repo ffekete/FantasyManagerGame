@@ -41,6 +41,8 @@ public class LinkedWorldObjectFactory {
         placement.place(object, fromMap);
         placement2.place(object2, toMap);
 
+        toMap.setDefaultSpawningPoint(object2.getCoordinates());
+
         objectRegistry.add(fromMap,
                 Cluster.of((int) object.getX(),
                         (int) object.getY()),

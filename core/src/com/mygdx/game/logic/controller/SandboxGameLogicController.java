@@ -7,6 +7,7 @@ import com.mygdx.game.actor.regenerator.RegeneratorImpl;
 import com.mygdx.game.effect.manager.EffectManager;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.projectile.manager.ProjectileManager;
+import com.mygdx.game.logic.HousePopulator;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.time.DayTimeCalculator;
@@ -93,6 +94,11 @@ public class SandboxGameLogicController implements Controller {
                     });
                 }
             });
+
+            if(bucketNr >= Config.Engine.BUCKET_SIZE -1) {
+                HousePopulator.INSTANCE.update();
+            }
+
             bucketNr = (bucketNr + 1) % Config.Engine.BUCKET_SIZE;
 
             //System.out.println("Ez meg: " + (System.currentTimeMillis() - i));

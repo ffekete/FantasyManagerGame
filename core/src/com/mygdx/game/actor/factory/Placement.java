@@ -20,7 +20,7 @@ public enum Placement implements ActorPlacementStrategy {
 
             } while (map.isObstacle(x, y) || map.getTile(x, y).isObstacle());
 
-            ActorRegistry.INSTANCE.remove(actor.getCurrentMap(), actor, false);
+            ActorRegistry.INSTANCE.remove(actor.getCurrentMap(), actor, true);
             actor.setCoordinates(new Point(x, y));
             ActorRegistry.INSTANCE.add(actor.getCurrentMap(), actor, true);
             ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
@@ -44,7 +44,7 @@ public enum Placement implements ActorPlacementStrategy {
 
         @Override
         public void place(Actor actor, Map2D map) {
-            ActorRegistry.INSTANCE.remove(actor.getCurrentMap(), actor, false);
+            ActorRegistry.INSTANCE.remove(actor.getCurrentMap(), actor, true);
             actor.setCoordinates(new Point(x, y));
             ActorRegistry.INSTANCE.add(actor.getCurrentMap(), actor, true);
             ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);

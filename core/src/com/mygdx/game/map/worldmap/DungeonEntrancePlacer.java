@@ -43,6 +43,8 @@ public class DungeonEntrancePlacer {
 
             WorldObject dungeonEntrance = LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, dungeon, ObjectPlacement.FIXED.X(x).Y(y), ObjectPlacement.RANDOM);
 
+
+
             if(previous != null) {
                 new RoadCreator().connect(worldMap, previous.getCoordinates(), dungeonEntrance.getCoordinates());
             }

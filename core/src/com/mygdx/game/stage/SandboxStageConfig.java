@@ -22,15 +22,15 @@ public class SandboxStageConfig {
 
     private boolean hideButtonGroup = false;
 
-    Drawable inventoryButtonUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/InventoryButton.png"))));
-    Drawable inventoryButtonDown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/InventoryButton.png"))));
+    Drawable inventoryButtonUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/InventoryButton.png")), 0,0,64, 64));
+    Drawable inventoryButtonDown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/InventoryButton.png")), 64, 0, 64, 64));
 
     Drawable buildButtonUp = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButton.png")), 0,0,64, 64));
     Drawable buildButtonDown = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("ui/button/BuildButton.png")), 64, 0, 64, 64));
 
 
     ImageButton buildButton = new ImageButton(buildButtonUp, buildButtonDown);
-    ImageButton inventoryButton = new ImageButton(buildButtonUp, buildButtonDown);
+    ImageButton inventoryButton = new ImageButton(inventoryButtonUp, inventoryButtonDown);
 
     public SandboxStageConfig() {
         buttonGroup = new HorizontalGroup().pad(10, 0, 70, 10).bottom().left().wrap(false);
