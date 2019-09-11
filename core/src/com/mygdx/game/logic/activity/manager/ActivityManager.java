@@ -50,6 +50,7 @@ public class ActivityManager {
                         new OpenChestDecision(),
                         new MovePickupDecision(),
                         new SleepingDecision(),
+                        new EmbarkOnExplorationQuestDecision(),
                         new HuntingDecision(),
                         new EatingDecision(),
                         new ShootingTrainingDecision(),
@@ -77,6 +78,7 @@ public class ActivityManager {
                         new LeaveDungeonDecision(),
                         new DungeonVisitingDecision(),
                         new FriendlySupportDecision(),
+                        new EmbarkOnExplorationQuestDecision(),
                         new ExplorationDecision(),
                         new MovePickupEatDecision(),
                         new WanderingDecision())
@@ -97,6 +99,7 @@ public class ActivityManager {
                         new MentalTrainingDecision(),
                         new LeaveDungeonDecision(),
                         new DungeonVisitingDecision(),
+                        new EmbarkOnExplorationQuestDecision(),
                         new FriendlySupportDecision(),
                         new ExplorationDecision(),
                         new MovePickupEatDecision(),

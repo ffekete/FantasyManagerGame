@@ -34,7 +34,7 @@ public class MovementActivityTest {
         goblin.setAttribute(Attributes.Reflexes, 10);
         goblin.setAttribute(Attributes.Dexterity, 10);
 
-        MovementActivity movementActivity = spy(new MovementActivity(goblin, actor.getX(), actor.getY(), 1, new PathFinder()));
+        MovementActivity movementActivity = spy(new MovementActivity(goblin, actor.getX(), actor.getY(), 1));
 
         movementActivity.init();
 

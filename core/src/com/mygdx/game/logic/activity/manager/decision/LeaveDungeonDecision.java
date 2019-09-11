@@ -37,7 +37,7 @@ public class LeaveDungeonDecision implements Decision {
                 if (!((Ladder)worldObject).getTo().equals(actor.getCurrentMap())) {
                     MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY, InteractActivity.class);
 
-                    moveAndInteractActivity.add(new MovementActivity(actor, (int)worldObject.getX(), (int)worldObject.getY(), 1, new PathFinder()));
+                    moveAndInteractActivity.add(new MovementActivity(actor, (int)worldObject.getX(), (int)worldObject.getY(), 1));
                     moveAndInteractActivity.add(new InteractActivity(actor, (InteractiveObject) worldObject));
 
                     actor.getActivityStack().add(moveAndInteractActivity);

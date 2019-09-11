@@ -38,7 +38,7 @@ public class MentalTrainingDecision implements Decision {
             }
 
             MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.TRAINING_PRIORITY, MentalTrainingActivity.class);
-            MovementActivity movementActivity = new MovementActivity(actor, (int) bookCases.get(0).getX(), (int) bookCases.get(0).getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap()));
+            MovementActivity movementActivity = new MovementActivity(actor, (int) bookCases.get(0).getX(), (int) bookCases.get(0).getY(), 1);
             MentalTrainingActivity mentalTrainingActivity = new MentalTrainingActivity(actor, bookCases.get(0));
             moveAndInteractActivity.add(movementActivity)
                     .add(mentalTrainingActivity);

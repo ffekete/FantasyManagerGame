@@ -31,7 +31,7 @@ public class ActivityStackTest {
         MapRegistry.INSTANCE.setCurrentMapToShow(map);
 
         actor.getActivityStack().add(new SleepActivity(actor));
-        MovementActivity movementActivity = new MovementActivity(actor, 5, 5, 0, MapRegistry.INSTANCE.getPathFinderFor(map));
+        MovementActivity movementActivity = new MovementActivity(actor, 5, 5, 0);
         movementActivity.suspend();
         actor.getActivityStack().add(movementActivity);
 

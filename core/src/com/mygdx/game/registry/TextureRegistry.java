@@ -114,6 +114,7 @@ public class TextureRegistry {
                 .put(SparksAction.class, texturePathResolver.resolve("effects/Sparks.png"))
                 .put(SmallExplosionAction.class, texturePathResolver.resolve("effects/ExplosionEffect.png"))
                 .put(TargetMarkerAction.class, texturePathResolver.resolve("ui/marker/TargetMarker.png"))
+                .put(LocationMarkerAction.class, texturePathResolver.resolve("ui/marker/TargetMarker.png"))
                 .build();
 
         guiTextures = ImmutableMap.<GuiComponent, Optional<Texture>>builder()

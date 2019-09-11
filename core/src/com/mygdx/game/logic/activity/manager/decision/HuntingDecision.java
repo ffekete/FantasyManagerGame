@@ -51,7 +51,7 @@ public class HuntingDecision implements Decision {
             Actor prey = preys.poll();
 
             CompoundActivity compoundActivityForActor = new MoveThenAttackActivity(Config.WildlifeActivity.HUNTING_PRIORITY, SimpleAttackActivity.class);
-            compoundActivityForActor.add(new MovementActivity(actor, prey.getX(), prey.getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
+            compoundActivityForActor.add(new MovementActivity(actor, prey.getX(), prey.getY(), 1));
             compoundActivityForActor.add(new SimpleAttackActivity(actor, prey));
             actor.getActivityStack().add(compoundActivityForActor);
             return true;

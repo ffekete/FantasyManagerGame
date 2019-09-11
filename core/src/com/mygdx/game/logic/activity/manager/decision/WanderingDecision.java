@@ -44,7 +44,7 @@ public class WanderingDecision implements Decision {
 
                 Point target = findNextUnexploredArea(actor.getCurrentMap(), actor.getX(), actor.getY());
 
-                Activity activity = new MovementActivity(actor, target.getX(), target.getY(), 0, new PathFinder());
+                Activity activity = new MovementActivity(actor, target.getX(), target.getY(), 0);
                 actor.getActivityStack().add(activity);
                 return true;
             }
@@ -57,7 +57,7 @@ public class WanderingDecision implements Decision {
 
                 Point target = findNextUnexploredArea(actor.getCurrentMap(), actor.getX(), actor.getY());
                 if(target != null) {
-                    activity.add(new MovementActivity(actor, target.getX(), target.getY(), 0, new PathFinder()));
+                    activity.add(new MovementActivity(actor, target.getX(), target.getY(), 0));
                     actor.getActivityStack().add(activity);
                     return true;
                 } else {

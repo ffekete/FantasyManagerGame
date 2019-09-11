@@ -37,7 +37,7 @@ public class MoveAndBuildDecision implements Decision {
 
                 MoveAndBuildActivity moveAndBuildActivity = new MoveAndBuildActivity(Config.BuilderActivity.BUILD_PRIORITY, BuildActivity.class);
 
-                moveAndBuildActivity.add(new MovementActivity(actor, (int) worldObject.getX(), (int) worldObject.getY(), 1, new PathFinder()));
+                moveAndBuildActivity.add(new MovementActivity(actor, (int) worldObject.getX(), (int) worldObject.getY(), 1));
                 moveAndBuildActivity.add(new BuildActivity(actor, (BuildingBlock) worldObject));
 
                 actor.getActivityStack().add(moveAndBuildActivity);

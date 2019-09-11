@@ -57,7 +57,7 @@ public class MoveAndDropDecision implements Decision {
             actor.setyOffset(0.0f);
 
             Activity activity = new MoveAndStoreActivity(Config.BuilderActivity.STORE_PRIORITY, DropItemActivity.class)
-                    .add(new MovementActivity(actor, (int) area.get().getX(), (int) area.get().getY(), 1, new PathFinder()))
+                    .add(new MovementActivity(actor, (int) area.get().getX(), (int) area.get().getY(), 1))
                     .add(new DropItemActivity(actor, item, area.get()));
             actor.getActivityStack().add(activity);
             ActorMovementHandler.INSTANCE.clearPath(actor);

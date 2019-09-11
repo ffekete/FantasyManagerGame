@@ -38,7 +38,7 @@ public class ShootingTrainingDecision implements Decision {
             }
 
             MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.TRAINING_PRIORITY, ShootingTrainingActivity.class);
-            MovementActivity movementActivity = new MovementActivity(actor, (int) shootingTargets.get(0).getX(), (int) shootingTargets.get(0).getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap()));
+            MovementActivity movementActivity = new MovementActivity(actor, (int) shootingTargets.get(0).getX(), (int) shootingTargets.get(0).getY(), 1);
             ShootingTrainingActivity shootingTrainingActivity = new ShootingTrainingActivity(actor, shootingTargets.get(0));
             moveAndInteractActivity.add(movementActivity)
                     .add(shootingTrainingActivity);

@@ -57,7 +57,7 @@ public class SleepingDecision implements Decision {
                     Point target = campFire.getNextFreeSpace();
                     campFire.bookSpace(target);
 
-                    moveAndSleepActivity.add(new MovementActivity(actor, target.getX(), target.getY(), 0, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
+                    moveAndSleepActivity.add(new MovementActivity(actor, target.getX(), target.getY(), 0));
                     moveAndSleepActivity.add(sleepActivity);
 
                     actor.getActivityStack().add(moveAndSleepActivity);
@@ -65,7 +65,7 @@ public class SleepingDecision implements Decision {
                 } else {
                     System.out.println(actor.getName() + " has a bed, going to " + ((WorldObject)bed.get(0)).getX() + " " + ((WorldObject)bed.get(0)).getY());
                     MoveAndSleepActivity moveAndSleepActivity = new MoveAndSleepActivity(Config.CommonActivity.SLEEP_PRIORITY, SleepActivity.class);
-                    moveAndSleepActivity.add(new MovementActivity(actor, (int) ((WorldObject) bed.get(0)).getX(), (int) ((WorldObject) bed.get(0)).getY(), 0, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
+                    moveAndSleepActivity.add(new MovementActivity(actor, (int) ((WorldObject) bed.get(0)).getX(), (int) ((WorldObject) bed.get(0)).getY(), 0));
                     moveAndSleepActivity.add(new SleepActivity(actor));
 
                     actor.getActivityStack().add(moveAndSleepActivity);
@@ -86,7 +86,7 @@ public class SleepingDecision implements Decision {
                 Point target = campFire.getNextFreeSpace();
                 campFire.bookSpace(target);
 
-                moveAndSleepActivity.add(new MovementActivity(actor, target.getX(), target.getY(), 0, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap())));
+                moveAndSleepActivity.add(new MovementActivity(actor, target.getX(), target.getY(), 0));
                 moveAndSleepActivity.add(sleepActivity);
 
                 actor.getActivityStack().add(moveAndSleepActivity);

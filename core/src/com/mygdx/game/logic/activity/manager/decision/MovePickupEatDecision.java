@@ -38,7 +38,7 @@ public class MovePickupEatDecision implements Decision {
                 if(food != null) {
                     // go for it
                     Activity activity = new MovePickupEatActivity(Config.Activity.MOVE_PICKUP_EAT_PRIORITY, SimpleEatingActivity.class)
-                            .add(new MovementActivity(actor, food.getX(), food.getY(), 1, new PathFinder()))
+                            .add(new MovementActivity(actor, food.getX(), food.getY(), 1))
                             .add(new PickUpItemActivity(actor, food))
                             .add(new SimpleEatingActivity(actor));
                     actor.getActivityStack().reset();

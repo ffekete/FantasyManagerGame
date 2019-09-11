@@ -11,8 +11,8 @@ public class SupportActivity extends MovementActivity {
     private final Actor actor;
 
 
-    public SupportActivity(Actor actor, Actor targetActor, int range, PathFinder pathFinder) {
-        super(actor, targetActor.getX(), targetActor.getY(), range, pathFinder);
+    public SupportActivity(Actor actor, Actor targetActor, int range) {
+        super(actor, targetActor.getX(), targetActor.getY(), range);
         this.targetActor = targetActor;
         this.actor = actor;
     }

@@ -38,7 +38,7 @@ public class PhysicalTrainingDecision implements Decision {
             }
 
             MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.TRAINING_PRIORITY, PhysicalTrainingActivity.class);
-            MovementActivity movementActivity = new MovementActivity(actor, (int) practiceFigures.get(0).getX(), (int) practiceFigures.get(0).getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap()));
+            MovementActivity movementActivity = new MovementActivity(actor, (int) practiceFigures.get(0).getX(), (int) practiceFigures.get(0).getY(), 1);
             PhysicalTrainingActivity physicalTrainingActivity = new PhysicalTrainingActivity(actor, practiceFigures.get(0));
             moveAndInteractActivity.add(movementActivity)
                     .add(physicalTrainingActivity);

@@ -37,11 +37,11 @@ public class MovementActivity implements Activity {
     private ExecutorService executor = ThreadManager.INSTANCE.getExecutor();
     DistanceBasedSoundPlayer distanceBasedSoundPlayer = DistanceBasedSoundPlayerProvider.INSTANCE.provide();
 
-    public MovementActivity(Actor actor, int targetX, int targetY, int range, PathFinder pathFinder) {
+    public MovementActivity(Actor actor, int targetX, int targetY, int range) {
         this.actor = actor;
         this.targetX = targetX;
         this.targetY = targetY;
-        this.pathFinder = pathFinder;
+        this.pathFinder = MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap());
         this.actorMovementHandler = ActorMovementHandler.INSTANCE;
         this.range = range;
     }

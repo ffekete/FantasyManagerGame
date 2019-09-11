@@ -53,7 +53,7 @@ public class OpenChestDecision implements Decision {
 
                 MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.OPEN_CHEST_PRIORITY, MoveAndInteractActivity.class);
 
-                moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1, new PathFinder()));
+                moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1));
                 moveAndInteractActivity.add(new InteractActivity(actor, (InteractiveObject) closestObject));
 
                 actor.getActivityStack().add(moveAndInteractActivity);

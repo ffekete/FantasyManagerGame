@@ -45,7 +45,7 @@ public class SmithingDecision implements Decision {
                     }
 
                     MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.SmithActivity.SMELTER_USING_PRIORITY, SmithingActivity.class);
-                    MovementActivity movementActivity = new MovementActivity(actor, (int) smelters.get(0).getX(), (int) smelters.get(0).getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap()));
+                    MovementActivity movementActivity = new MovementActivity(actor, (int) smelters.get(0).getX(), (int) smelters.get(0).getY(), 1);
                     InteractActivity smithingActivity = new InteractActivity(actor, smelters.get(0));
                     moveAndInteractActivity.add(movementActivity)
                             .add(smithingActivity);
@@ -70,7 +70,7 @@ public class SmithingDecision implements Decision {
         }
 
         MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.SmithActivity.SMITHING_PRIORITY, SmithingActivity.class);
-        MovementActivity movementActivity = new MovementActivity(actor, (int) anvils.get(0).getX(), (int) anvils.get(0).getY(), 1, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap()));
+        MovementActivity movementActivity = new MovementActivity(actor, (int) anvils.get(0).getX(), (int) anvils.get(0).getY(), 1);
         SmithingActivity smithingActivity = new SmithingActivity(actor, anvils.get(0));
         moveAndInteractActivity.add(movementActivity)
                 .add(smithingActivity);

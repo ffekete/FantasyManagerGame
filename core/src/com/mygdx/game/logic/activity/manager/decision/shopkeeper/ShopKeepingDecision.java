@@ -41,7 +41,7 @@ public class ShopKeepingDecision implements Decision {
         }
 
         MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.ShopKeeperActivity.SHOPKEEPING_PRIORITY, ShopKeepingActivity.class);
-        MovementActivity movementActivity = new MovementActivity(actor, (int) counterParts.get(0).getX(), (int) counterParts.get(0).getY(), 0, MapRegistry.INSTANCE.getPathFinderFor(actor.getCurrentMap()));
+        MovementActivity movementActivity = new MovementActivity(actor, (int) counterParts.get(0).getX(), (int) counterParts.get(0).getY(), 0);
         ShopKeepingActivity shopKeepingActivity = new ShopKeepingActivity(actor, counterParts.get(0));
         moveAndInteractActivity.add(movementActivity)
                 .add(shopKeepingActivity);

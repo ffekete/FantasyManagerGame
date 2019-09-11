@@ -15,6 +15,7 @@ import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.music.MusicPlayer;
+import com.mygdx.game.quest.QuestManager;
 import com.mygdx.game.registry.ActorRegistry;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
@@ -83,6 +84,9 @@ public class SandboxGameLogicController implements Controller {
             //System.out.println("Ez: " + (System.currentTimeMillis() - s));
 
             long i = System.currentTimeMillis();
+
+            QuestManager.INSTANCE.update();
+
             MapRegistry.INSTANCE.getMaps().forEach(map -> {
                 if (actorRegistry.containsAnyHeroes(map)) {
 

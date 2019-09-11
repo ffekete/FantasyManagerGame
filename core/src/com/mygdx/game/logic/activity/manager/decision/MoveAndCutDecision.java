@@ -46,7 +46,7 @@ public class MoveAndCutDecision implements Decision {
                 ExecuteCutDownActivity executeCutDownActivity = new ExecuteCutDownActivity(actor, command);
                 command.setExecutor(actor);
 
-                moveAndCutDownActivity.add(new MovementActivity(actor, (int) command.getTarget().getX(), (int) command.getTarget().getY(), 1, new PathFinder()));
+                moveAndCutDownActivity.add(new MovementActivity(actor, (int) command.getTarget().getX(), (int) command.getTarget().getY(), 1));
                 moveAndCutDownActivity.add(executeCutDownActivity);
 
                 actor.getActivityStack().add(moveAndCutDownActivity);

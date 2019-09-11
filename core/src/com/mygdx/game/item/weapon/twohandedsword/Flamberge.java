@@ -13,8 +13,6 @@ import java.util.Random;
 
 public class Flamberge extends AbstractItem implements TwohandedWeapon, Sword, Tier1, Craftable {
 
-    private Point coordinates = new Point(0,0);
-
     @Override
     public int getDamage() {
         return new Random().nextInt(8) + 2;
@@ -47,7 +45,7 @@ public class Flamberge extends AbstractItem implements TwohandedWeapon, Sword, T
 
     @Override
     public int getPower() {
-        return Config.Item.SHORT_SWORD_POWER;
+        return Config.Item.FLAMBERGE_POWER;
     }
 
     @Override

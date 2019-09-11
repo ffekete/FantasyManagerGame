@@ -11,10 +11,8 @@ import com.mygdx.game.object.CraftingObject;
 import com.mygdx.game.object.Targetable;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.interactive.DungeonEntrance;
-import com.mygdx.game.registry.ActorRegistry;
-import com.mygdx.game.registry.ItemRegistry;
-import com.mygdx.game.registry.MapRegistry;
-import com.mygdx.game.registry.ObjectRegistry;
+import com.mygdx.game.quest.MoveToLocationQuest;
+import com.mygdx.game.registry.*;
 import com.mygdx.game.renderer.camera.CameraPositionController;
 import com.mygdx.game.stage.StageConfigurer;
 
@@ -51,6 +49,10 @@ public class SandboxMouseActionProcessor {
         worldObject = getObjectOnCell(realWorldCoord);
 
         if (!worldObject.isPresent()) {
+
+            MoveToLocationQuest moveToLocationQuest = new MoveToLocationQuest(realWorldCoord, MapRegistry.INSTANCE.getCurrentMapToShow());
+            QuestRegistry.INSTANCE.add(MapRegistry.INSTANCE.getCurrentMapToShow(), moveToLocationQuest);
+
             return false;
         }
 
