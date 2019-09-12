@@ -2,6 +2,7 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.common.util.MathUtil;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
 import com.mygdx.game.logic.activity.single.InteractActivity;
@@ -39,7 +40,7 @@ public class OpenChestDecision implements Decision {
             Optional<Set<WorldObject>> optionalWorldObjects = ObjectRegistry.INSTANCE.getObjects(actor.getCurrentMap(), cluster);
             if (optionalWorldObjects.isPresent()) {
                 List<WorldObject> optionalWorldObject = optionalWorldObjects.get().stream()
-                        .filter(object -> InteractiveObject.class.isAssignableFrom(object.getClass()) && distance(object.getCoordinates(), actor.getCoordinates()) < 100)
+                        .filter(object -> InteractiveObject.class.isAssignableFrom(object.getClass()) && MathUtil.distance(object.getCoordinates(), actor.getCoordinates()) < 100)
                         .collect(Collectors.toList());
 
                 if (!optionalWorldObject.isEmpty()) {
@@ -50,8 +51,6 @@ public class OpenChestDecision implements Decision {
             }
 
             if (closestObject != null && (((TreasureChest) closestObject).getSize() > 0 || ((TreasureChest) closestObject).getMoney() > 0)) {
-                ActorMovementHandler.INSTANCE.clearPath(actor);
-
                 MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.OPEN_CHEST_PRIORITY, OpeningChestActivity.class);
 
                 moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1));
@@ -59,22 +58,9 @@ public class OpenChestDecision implements Decision {
 
                 actor.getActivityStack().add(moveAndInteractActivity);
                 return true;
-            } else if (actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
-                return true;
             }
         }
 
         return false;
     }
-
-    private double distance(Point p1, Point p2) {
-        if (p1 == null || p2 == null)
-            return Double.MAX_VALUE;
-
-        int a = Math.abs(p1.getX() - p2.getX());
-        int b = Math.abs(p1.getY() - p2.getY());
-
-        return Math.sqrt(a * a + b * b);
-    }
-
 }

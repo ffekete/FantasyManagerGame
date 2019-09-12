@@ -45,6 +45,9 @@ public class ActivityStack {
             activity.init();
         }
 
+        if(activity.isSuspended())
+            activity.resume();
+
         activity.countDown();
 
         if (activity.isTriggered()) {
@@ -52,16 +55,19 @@ public class ActivityStack {
             if (activity.isDone()) {
                 activity.clear();
                 activities.remove(activity);
+                ActorMovementHandler.INSTANCE.clearPath(actor);
             }
         }
         else if (activity.isCancellable()) {
             activity.cancel();
             activities.remove(activity);
-        } else {
-            if (activity.isSuspended()) {
-                activity.resume();
-            }
+            ActorMovementHandler.INSTANCE.clearPath(actor);
         }
+//        } else {
+//            if (activity.isSuspended()) {
+//                activity.resume();
+//            }
+//        }
     }
 
     public void clear() {

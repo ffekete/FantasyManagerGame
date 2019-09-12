@@ -43,7 +43,7 @@ public class MentalTrainingDecision implements Decision {
             moveAndInteractActivity.add(movementActivity)
                     .add(mentalTrainingActivity);
 
-            actor.getActivityStack().reset();
+            //actor.getActivityStack().reset();
             actor.getActivityStack().add(moveAndInteractActivity);
             return true;
         }

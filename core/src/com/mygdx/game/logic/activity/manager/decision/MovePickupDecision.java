@@ -41,9 +41,10 @@ public class MovePickupDecision implements Decision {
                 Activity activity = new MovePickupActivity(Config.Activity.MOVE_PICKUP_PRIORITY, PickUpItemActivity.class)
                         .add(new MovementActivity(actor, item.getX(), item.getY(), 1))
                         .add(new PickUpItemActivity(actor, item));
-                actor.getActivityStack().reset();
+                //actor.getActivityStack().reset();
                 actor.getActivityStack().add(activity);
-                ActorMovementHandler.INSTANCE.clearPath(actor);
+                //ActorMovementHandler.INSTANCE.clearPath(actor);
+
                 return true;
             }
         }

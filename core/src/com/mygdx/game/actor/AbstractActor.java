@@ -271,6 +271,7 @@ public abstract class AbstractActor implements Actor {
             equipable.onEquip(this);
             System.out.println(name + " equipped armor " + equipable);
         }
+        else throw new RuntimeException("WTF?");
         inventory.remove(equipable);
     }
 

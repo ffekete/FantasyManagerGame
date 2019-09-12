@@ -106,7 +106,7 @@ public class DropItemActivity implements Activity, CooldownActivity {
 
         ItemRegistry.INSTANCE.add(actor.getCurrentMap(), item);
 
-        ActorMovementHandler.INSTANCE.clearPath(actor);
+        //ActorMovementHandler.INSTANCE.clearPath(actor);
 
         // todo what to do with this? itemRegistry.getAllItems(actor.getCurrentMap()).remove(item);
     }

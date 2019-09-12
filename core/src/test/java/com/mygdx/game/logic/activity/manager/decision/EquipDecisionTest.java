@@ -4,6 +4,8 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.item.armor.BlackPlateMail;
+import com.mygdx.game.item.armor.ChainMailArmor;
+import com.mygdx.game.item.armor.LeatherArmor;
 import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.bow.LongBow;
@@ -31,6 +33,36 @@ public class EquipDecisionTest {
         Decision decision = new EquipDecision();
         boolean result = decision.decide(actor);
         assertThat(result, is(true));
+    }
+
+    @Test
+    public void testShouldPass_betterArmorInInventory() {
+        Actor actor = new Warrior();
+        actor.equip(new LeatherArmor());
+        actor.getInventory().add(new ChainMailArmor());
+        Decision decision = new EquipDecision();
+        boolean result = decision.decide(actor);
+        assertThat(result, is(true));
+    }
+
+    @Test
+    public void testShouldFail_worseArmorInInventory() {
+        Actor actor = new Warrior();
+        actor.equip(new ChainMailArmor());
+        actor.getInventory().add(new LeatherArmor());
+        Decision decision = new EquipDecision();
+        boolean result = decision.decide(actor);
+        assertThat(result, is(false));
+    }
+
+    @Test
+    public void testShouldFail_equalArmorInInventory() {
+        Actor actor = new Warrior();
+        actor.equip(new LeatherArmor());
+        actor.getInventory().add(new LeatherArmor());
+        Decision decision = new EquipDecision();
+        boolean result = decision.decide(actor);
+        assertThat(result, is(false));
     }
 
     @Test

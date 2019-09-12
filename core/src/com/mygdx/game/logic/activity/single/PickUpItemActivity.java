@@ -89,7 +89,7 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
         actor.setxOffset(0);
         actor.setyOffset(0);
         actor.pickUp(item);
-        ActorMovementHandler.INSTANCE.clearPath(actor);
+        //ActorMovementHandler.INSTANCE.clearPath(actor);
         itemRegistry.getAllItems(actor.getCurrentMap()).remove(item);
     }
 

@@ -51,7 +51,7 @@ public class MoveAndAttackDecision implements Decision {
         if (enemy != null) {
             if (distance(actor.getCoordinates(), enemy.getCoordinates()) > actor.getAttackRange()) {
 
-                actor.getActivityStack().reset();
+                //actor.getActivityStack().reset();
 
                 PathFinder pathFinder = mapRegistry.getPathFinderFor(actor.getCurrentMap());
 
@@ -97,7 +97,7 @@ public class MoveAndAttackDecision implements Decision {
                         (!enemy.getActivityStack().getCurrent().getMainClass().equals(SimpleAttackActivity.class)
                                 && !enemy.getActivityStack().contains(OffensiveSpellCastActivity.class))) {
 
-                    enemy.getActivityStack().reset();
+                    //enemy.getActivityStack().reset();
                     if (path.size() - 1 < enemy.getAttackRange()) {
                         enemy.getActivityStack().add(new SimpleAttackActivity(enemy, actor));
                     } else {

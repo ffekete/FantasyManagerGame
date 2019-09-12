@@ -33,7 +33,7 @@ public class InteractActivity implements Activity {
 
     @Override
     public void cancel() {
-        actor.getActivityStack().reset();
+        //actor.getActivityStack().reset();
     }
 
     @Override

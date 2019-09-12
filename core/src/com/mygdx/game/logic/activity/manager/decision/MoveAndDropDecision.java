@@ -60,7 +60,7 @@ public class MoveAndDropDecision implements Decision {
                     .add(new MovementActivity(actor, (int) area.get().getX(), (int) area.get().getY(), 1))
                     .add(new DropItemActivity(actor, item, area.get()));
             actor.getActivityStack().add(activity);
-            ActorMovementHandler.INSTANCE.clearPath(actor);
+            //ActorMovementHandler.INSTANCE.clearPath(actor);
             return true;
 
         }

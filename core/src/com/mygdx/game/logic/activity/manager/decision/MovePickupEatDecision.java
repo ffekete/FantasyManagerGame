@@ -41,7 +41,7 @@ public class MovePickupEatDecision implements Decision {
                             .add(new MovementActivity(actor, food.getX(), food.getY(), 1))
                             .add(new PickUpItemActivity(actor, food))
                             .add(new SimpleEatingActivity(actor));
-                    actor.getActivityStack().reset();
+                    //actor.getActivityStack().reset();
                     actor.getActivityStack().add(activity);
                     return true;
                 }

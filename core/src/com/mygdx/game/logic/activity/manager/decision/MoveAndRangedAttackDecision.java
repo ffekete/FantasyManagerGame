@@ -50,7 +50,7 @@ public class MoveAndRangedAttackDecision implements Decision {
         if (enemy != null) {
             if (distance(actor.getCoordinates(), enemy.getCoordinates()) > actor.getAttackRange()) {
 
-                actor.getActivityStack().reset();
+                //actor.getActivityStack().reset();
 
                 PathFinder pathFinder = mapRegistry.getPathFinderFor(actor.getCurrentMap());
 

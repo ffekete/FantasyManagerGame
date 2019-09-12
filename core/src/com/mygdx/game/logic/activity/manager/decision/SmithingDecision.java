@@ -32,7 +32,7 @@ public class SmithingDecision implements Decision {
 
                     House house = HouseRegistry.INSTANCE.getOwnedHouses().getOrDefault(actor, null);
                     if (house == null) {
-                        actor.getActivityStack().reset();
+                        //actor.getActivityStack().reset();
                         return false;
                     }
 
@@ -40,7 +40,7 @@ public class SmithingDecision implements Decision {
                     List<Smelter> smelters = house.getFurnitureOfType(Smelter.class);
 
                     if (anvils.isEmpty() || smelters.isEmpty()) {
-                        actor.getActivityStack().reset();
+                        //actor.getActivityStack().reset();
                         return false;
                     }
 

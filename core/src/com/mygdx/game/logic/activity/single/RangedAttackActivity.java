@@ -2,6 +2,7 @@ package com.mygdx.game.logic.activity.single;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.common.util.MathUtil;
 import com.mygdx.game.item.projectile.Arrow;
 import com.mygdx.game.item.projectile.Projectile;
 import com.mygdx.game.item.weapon.bow.Bow;
@@ -131,7 +132,7 @@ public class RangedAttackActivity implements Activity, CooldownActivity {
             return true;
         }
 
-        int distance = (int)Math.sqrt(Math.abs(actor.getX() - enemy.getX()) * (Math.abs(actor.getX() - enemy.getX()) + Math.abs(actor.getY() - enemy.getY()) * Math.abs(actor.getY() - enemy.getY())));
+        int distance = (int)MathUtil.distance(actor.getCoordinates(), enemy.getCoordinates());
 
         if(distance > actor.getAttackRange()) {
             System.out.println("Enemy ran away + " + distance + " " + actor.getAttackRange());

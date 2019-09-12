@@ -155,9 +155,6 @@ public class ActivityManager {
     }
 
     public void manage(Actor actor) {
-        if(actor.getActorClass().equals("Ranger")) {
-            System.out.println("aye");
-        }
         for (int i = 0; i < decisionTable.get(actor.getClass()).size(); i++) {
             if (decisionTable.get(actor.getClass()).get(i).decide(actor)) {
                 break;

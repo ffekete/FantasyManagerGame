@@ -19,12 +19,12 @@ public class MusicPlayer {
 //        }
         music = MusicRegistry.INSTANCE.getFor(MapRegistry.INSTANCE.getCurrentMapToShow().getMapType());
 
-        if(previousMusic != music) {
-            if(previousMusic != null)
-                previousMusic.pause();
-            previousMusic = music;
-            music.play();
-        }
+//        if(previousMusic != music) {
+//            if(previousMusic != null)
+//                previousMusic.pause();
+//            previousMusic = music;
+//            music.play();
+//        }
 
     }
 

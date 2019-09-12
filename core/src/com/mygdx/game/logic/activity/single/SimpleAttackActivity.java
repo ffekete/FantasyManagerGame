@@ -118,7 +118,7 @@ public class SimpleAttackActivity implements Activity, CooldownActivity {
     public void clear() {
         actor.setxOffset(0);
         actor.setyOffset(0);
-        ActorMovementHandler.INSTANCE.clearPath(actor);
+        //ActorMovementHandler.INSTANCE.clearPath(actor);
         animationRegistry.remove(enemy);
         AttackController.INSTANCE.clearAttackingHistory(actor);
         actionRegistry.remove(enemy.getCurrentMap(), action);

@@ -38,6 +38,7 @@ import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.ShortSwordPlusFour;
 import com.mygdx.game.logic.GameState;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
 import com.mygdx.game.logic.controller.SandboxGameLogicController;
 import com.mygdx.game.map.Map2D;
@@ -46,10 +47,7 @@ import com.mygdx.game.map.dungeon.cave.CaveDungeonCreator;
 import com.mygdx.game.map.dungeon.factory.DungeonFactory;
 import com.mygdx.game.map.dungeon.factory.WorldMapFactory;
 import com.mygdx.game.map.dungeon.room.DungeonWithRoomsCreator;
-import com.mygdx.game.map.worldmap.WorldMap;
-import com.mygdx.game.map.worldmap.WorldMapDecorator;
-import com.mygdx.game.map.worldmap.WorldMapDirtSpreadDecorator;
-import com.mygdx.game.map.worldmap.WorldMapGenerator;
+import com.mygdx.game.map.worldmap.*;
 import com.mygdx.game.object.LinkedWorldObjectFactory;
 import com.mygdx.game.object.decoration.BlueFlower;
 import com.mygdx.game.object.decoration.Bush;
@@ -253,6 +251,8 @@ public class WorldMapSample extends SampleBase {
         LinkedWorldObjectFactory.INSTANCE.create(DungeonEntrance.class, worldMap, m, ObjectPlacement.FIXED.X(15).Y(15), ObjectPlacement.RANDOM);
 
         m.getVisibilityCalculator().calculateFor(m.getDefaultSpawnPoint(), 3, m, false);
+
+        new RiverCreator().connect(worldMap, Point.of(15, 18) , Point.of(20, 25));
     }
 
     @Override

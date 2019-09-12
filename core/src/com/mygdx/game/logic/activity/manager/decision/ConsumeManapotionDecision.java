@@ -21,7 +21,7 @@ public class ConsumeManapotionDecision implements Decision {
 
         if (actor.getInventory().has(ManaPotion.class)) {
             if (actor.getMana() < actor.getMaxMana() / Config.Actor.LOW_MANA_THRESHOLD_DIVIDER) {
-                actor.getActivityStack().reset();
+                //actor.getActivityStack().reset();
                 Activity activity = new ConsumeManaPotion(actor, actor.getInventory().get(ManaPotion.class));
                 actor.getActivityStack().add(activity);
                 return true;

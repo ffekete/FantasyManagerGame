@@ -11,6 +11,7 @@ import com.mygdx.game.logic.visibility.VisitedArea;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.*;
 import com.mygdx.game.object.decoration.Decoration;
+import com.mygdx.game.object.decoration.River;
 import com.mygdx.game.object.decoration.Rotatable;
 import com.mygdx.game.object.floor.Floor;
 import com.mygdx.game.registry.*;
@@ -55,7 +56,11 @@ public class ObjectRenderer implements Renderer<Map2D> {
                 WorldObject worldObject = objectRegistry.getObjectGrid().get(dungeon)[i][j][1];
                 if (worldObject != null) {
 
-                    setColorForObjects(dungeon, spriteBatch, i, j, worldObject);
+                    if(River.class.isAssignableFrom(worldObject.getClass())) {
+                        spriteBatch.setColor(Color.valueOf("FFFFFF99"));
+                    } else {
+                        setColorForObjects(dungeon, spriteBatch, i, j, worldObject);
+                    }
 
                     if (dungeon.getVisitedareaMap()[i][j] != VisitedArea.NOT_VISITED) {
                         // skipping ground objects

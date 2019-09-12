@@ -1,6 +1,7 @@
 package com.mygdx.game.renderer.selector;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.object.AnimatedTiledObject;
 import com.mygdx.game.object.TileableObject;
 import com.mygdx.game.object.TileableWallObject;
 import com.mygdx.game.object.WorldObject;
@@ -25,8 +26,9 @@ public class TileSelector {
 
         int mask = MapUtils.bitmask4bit(worldObjects, (int) worldObject.getX(), (int) worldObject.getY(), clazz);
 
+        int xOffset = AnimatedTiledObject.class.isAssignableFrom(worldObject.getClass()) ? ((AnimatedTiledObject)worldObject).getPhase() : 0;
         // rock
-        textureRegion.setRegion((mask % 4) * 16, (mask / 4) * 16, 16, 16);
+        textureRegion.setRegion(xOffset * 64 + (mask % 4) * 16, (mask / 4) * 16, 16, 16);
         return textureRegion;
     }
 

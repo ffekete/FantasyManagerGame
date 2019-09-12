@@ -206,6 +206,9 @@ public class TextureRegistry {
                 .put(Rock.class, Arrays.asList(texturePathResolver.resolve("object/decoration/Rock.png")))
                 .put(Log.class, Arrays.asList(texturePathResolver.resolve("object/decoration/Log.png")))
 
+                // River
+                .put(River.class, Arrays.asList(texturePathResolver.resolve("object/decoration/RiverTile.png")))
+
                 // Wall
                 .put(IncompleteWoodenWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallTilesetIncomplete.png")))
                 .put(IncompleteWoodenDoorWall.class, Arrays.asList(texturePathResolver.resolve("object/wall/WoodenWallDoorTilesetIncomplete.png")))
