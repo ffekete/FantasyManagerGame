@@ -38,7 +38,9 @@ public class EquipDecision implements Decision {
                 }
             } else if (OneHandedItem.class.isAssignableFrom(equipable.getClass())) {
 
-                if (actor.getRightHandItem() == null || (actor.getRightHandItem().getPower() < equipable.getPower() || weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable) > weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) {
+                if (actor.getRightHandItem() == null ||
+                        (weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable).equals(weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) &&  actor.getRightHandItem().getPower() < equipable.getPower() ||
+                        (weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable) > weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) {
                     if (actor.getRightHandItem() != null) {
                         System.out.println("Weapon skill for old: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()));
                         System.out.println("Weapon skill for new: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable));
@@ -48,7 +50,9 @@ public class EquipDecision implements Decision {
                     return true;
                 }
             } else if (TwohandedWeapon.class.isAssignableFrom(equipable.getClass())) {
-                if (actor.getRightHandItem() == null || (actor.getRightHandItem().getPower() < equipable.getPower() || weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable) > weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) {
+                if (actor.getRightHandItem() == null ||
+                        (weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable).equals(weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) &&  actor.getRightHandItem().getPower() < equipable.getPower() ||
+                        (weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable) > weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) {
                     if (actor.getRightHandItem() != null) {
                         System.out.println("Weapon skill for old: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()));
                         System.out.println("Weapon skill for new: " + weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable));

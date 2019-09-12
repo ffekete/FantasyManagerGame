@@ -123,7 +123,7 @@ public abstract class AbstractActor implements Actor {
         // remove first from actorGrid
         if(coordinates != null) {
             ActorRegistry.INSTANCE.getActorGrid().computeIfAbsent(currentMap, value -> new Actor[currentMap.getWidth()][currentMap.getHeight()]);
-            ActorRegistry.INSTANCE.getActorGrid().remove(currentMap)[getX()][getY()] = null;
+            ActorRegistry.INSTANCE.getActorGrid().get(currentMap)[getX()][getY()] = null;
         }
 
         this.coordinates = point;

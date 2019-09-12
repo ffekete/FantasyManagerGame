@@ -161,7 +161,20 @@ public class EquipDecisionTest {
     }
 
     @Test
-    public void testShouldFail_equalWeaponSkillIsForNewItem() {
+    public void testShouldFail_equalWeaponSkillIsForNewItem_sameItemInInventory() {
+        Actor actor = new Warrior();
+        actor.equip(new LongBow());
+        actor.getInventory().add(new LongBow());
+
+        actor.getWeaponSkills().put(WeaponSkill.Bow, 1);
+
+        Decision decision = new EquipDecision();
+        boolean result = decision.decide(actor);
+        assertThat(result, is(false));
+    }
+
+    @Test
+    public void testShouldPass_equalWeaponSkillIsForNewItem_morePowerfulItemInInventory() {
         Actor actor = new Warrior();
         actor.equip(new ShortSword());
         actor.getInventory().add(new LongBow());

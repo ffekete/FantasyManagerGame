@@ -20,12 +20,15 @@ public class WorldMapDecorator {
 
     private final static boolean DEBUG = false;
 
-    private final RoadCreator roadCreator = new RoadCreator();
     private WorldMapDirtSpreadDecorator worldMapDirtSpreadDecorator = new WorldMapDirtSpreadDecorator();
 
     private int deathLimit = 5;
     private int birthLimit = 3;
     private float chanceToStartAlive = 46;
+
+    private final List<Class<? extends WorldObject>> rareDecorations = ImmutableList.<Class<? extends WorldObject>>builder()
+            .add(Pond.class)
+            .build();
 
     private final List<Class<? extends WorldObject>> decorations = ImmutableList.<Class<? extends WorldObject>>builder()
             .add(Tree.class)
@@ -36,6 +39,8 @@ public class WorldMapDecorator {
             .add(TreeV6.class)
             .add(TreeV7.class)
             .add(TreeV8.class)
+            .add(TreeV9.class)
+            .add(TreeV10.class)
             .add(Bush.class)
             .add(GiantLeafPlant.class)
             .add(YellowFlower.class)
@@ -54,7 +59,7 @@ public class WorldMapDecorator {
 
         WorldMap newMap = create(step);
 
-        for(int i = 0; i < TownDataRegistry.INSTANCE.getTownCentreRadius(); i++) {
+        for (int i = 0; i < TownDataRegistry.INSTANCE.getTownCentreRadius(); i++) {
             for (int j = 0; j < TownDataRegistry.INSTANCE.getTownCentreRadius(); j++) {
 
             }
@@ -64,10 +69,18 @@ public class WorldMapDecorator {
         for (int i = 0; i < newMap.getWidth(); i++) {
             for (int j = 0; j < newMap.getHeight(); j++) {
                 if (newMap.getTile(i, j).isObstacle()) {
-                    int index = new Random().nextInt(decorations.size());
 
-                    if (!ObjectRegistry.INSTANCE.getObjectGrid().containsKey(worldMap) || ObjectRegistry.INSTANCE.getObjectGrid().get(worldMap)[i][j][1] == null)
-                        ObjectFactory.create(decorations.get(index), worldMap, ObjectPlacement.FIXED.X(i).Y(j));
+                    boolean rare = new Random().nextInt(100) == 0;
+
+                    if (rare) {
+                        int index = new Random().nextInt(rareDecorations.size());
+                        if (!ObjectRegistry.INSTANCE.getObjectGrid().containsKey(worldMap) || ObjectRegistry.INSTANCE.getObjectGrid().get(worldMap)[i][j][1] == null)
+                            ObjectFactory.create(rareDecorations.get(index), worldMap, ObjectPlacement.FIXED.X(i).Y(j));
+                    } else {
+                        int index = new Random().nextInt(decorations.size());
+                        if (!ObjectRegistry.INSTANCE.getObjectGrid().containsKey(worldMap) || ObjectRegistry.INSTANCE.getObjectGrid().get(worldMap)[i][j][1] == null)
+                            ObjectFactory.create(decorations.get(index), worldMap, ObjectPlacement.FIXED.X(i).Y(j));
+                    }
                 }
             }
         }
@@ -81,13 +94,13 @@ public class WorldMapDecorator {
 
                 int index = new Random().nextInt(grassVariation.size());
 
-                if (worldMap.getTile(i,j).equals(WorldMapTile.GRASS) && ObjectRegistry.INSTANCE.getObjectGrid().get(worldMap)[i][j][1] == null && new Random().nextInt(3) == 0)
+                if (worldMap.getTile(i, j).equals(WorldMapTile.GRASS) && ObjectRegistry.INSTANCE.getObjectGrid().get(worldMap)[i][j][1] == null && new Random().nextInt(3) == 0)
                     ObjectFactory.create(grassVariation.get(index), worldMap, ObjectPlacement.FIXED.X(i).Y(j));
 
             }
         }
 
-       // List<WorldObject> o = ObjectRegistry.INSTANCE.getAll(worldMap).stream().filter(worldObject -> DungeonEntrance.class.isAssignableFrom(worldObject.getClass())).peek(worldObject -> roadCreator.connect(worldMap, worldObject.getCoordinates(), Point.of(5, 5))).collect(Collectors.toList());
+        // List<WorldObject> o = ObjectRegistry.INSTANCE.getAll(worldMap).stream().filter(worldObject -> DungeonEntrance.class.isAssignableFrom(worldObject.getClass())).peek(worldObject -> roadCreator.connect(worldMap, worldObject.getCoordinates(), Point.of(5, 5))).collect(Collectors.toList());
 
         WildlifeDistributor.INSTANCE.populate(worldMap);
 

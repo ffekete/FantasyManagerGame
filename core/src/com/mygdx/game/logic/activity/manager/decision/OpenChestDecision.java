@@ -6,6 +6,7 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
 import com.mygdx.game.logic.activity.single.InteractActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
+import com.mygdx.game.logic.activity.single.OpeningChestActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.map.Cluster;
@@ -28,7 +29,7 @@ public class OpenChestDecision implements Decision {
             return false;
         }
 
-        if (actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
+        if (actor.getActivityStack().contains(OpeningChestActivity.class)) {
             return true;
         }
 
@@ -51,7 +52,7 @@ public class OpenChestDecision implements Decision {
             if (closestObject != null && (((TreasureChest) closestObject).getSize() > 0 || ((TreasureChest) closestObject).getMoney() > 0)) {
                 ActorMovementHandler.INSTANCE.clearPath(actor);
 
-                MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.OPEN_CHEST_PRIORITY, MoveAndInteractActivity.class);
+                MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.OPEN_CHEST_PRIORITY, OpeningChestActivity.class);
 
                 moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1));
                 moveAndInteractActivity.add(new InteractActivity(actor, (InteractiveObject) closestObject));

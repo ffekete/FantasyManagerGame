@@ -66,7 +66,7 @@ public class Config {
     public static class Item {
         public static final int BREAD_NUTRITION = 100000;
         public static final int RABBIT_MEAT_NUTRITION = 50000;
-        public static final int PICK_UP_ITEM_DISTANCE = 15;
+        public static final int PICK_UP_ITEM_DISTANCE = 30;
         public static final int HEALING_POTION_STRENGTH = 20;
         public static final int MANA_POTION_STRENGTH = 20;
 
@@ -150,6 +150,7 @@ public class Config {
         public static final int OPEN_CHEST_PRIORITY = 930;
         public static final int MOVE_PICKUP_PRIORITY = 940;
         public static final int PICKUP_PRIORITY = 950;
+        public static final int EXPLORATION_QUEST_PRIORITY = 945;
         public static final int HUNTING_PRIORITY = 950;
         public static final int MOVE_PICKUP_EAT_PRIORITY = 960;
         public static final int EAT_PRIORITY = 970;

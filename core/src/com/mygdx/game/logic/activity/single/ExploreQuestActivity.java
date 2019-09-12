@@ -1,5 +1,6 @@
 package com.mygdx.game.logic.activity.single;
 
+import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 
 public class ExploreQuestActivity extends MovementActivity {
@@ -9,7 +10,7 @@ public class ExploreQuestActivity extends MovementActivity {
     }
 
     @Override
-    public void clear() {
-        super.clear();
+    public int getPriority() {
+        return Config.Activity.EXPLORATION_QUEST_PRIORITY;
     }
 }

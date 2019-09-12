@@ -1,24 +1,24 @@
 package com.mygdx.game.object.decoration;
 
+import com.mygdx.game.actor.Actor;
+import com.mygdx.game.item.resources.Resource;
+import com.mygdx.game.item.resources.Wood;
 import com.mygdx.game.logic.Point;
-import com.mygdx.game.object.NoViewBlockinObstacle;
+import com.mygdx.game.object.Cuttable;
 import com.mygdx.game.object.WorldObject;
 
 import java.util.Random;
 
-public class Log implements WorldObject, Decoration, Rotatable {
+public class TreeV9 implements WorldObject, Decoration, Cuttable {
 
-    private final float worldMapSize = new Random().nextFloat() / 2f + 0.5f;
-
-    private boolean flipX;
-    private boolean flipY;
+    private final float worldMapSize = new Random().nextFloat() / 2f + 1.1f;
 
     private Point coordinates;
 
-    public Log(Point point) {
+    private float progress;
+
+    public TreeV9(Point point) {
         coordinates = point;
-        flipX = new Random().nextInt() % 2 == 0;
-        flipY = new Random().nextInt() % 2 == 0;
     }
 
     @Override
@@ -47,12 +47,18 @@ public class Log implements WorldObject, Decoration, Rotatable {
     }
 
     @Override
-    public boolean getFlipX() {
-        return flipX;
+    public void addProgress(float progress) {
+        this.progress += progress;
     }
 
     @Override
-    public boolean getFlipY() {
-        return flipY;
+    public Class<? extends Resource> finish(Actor actor) {
+
+        return Wood.class;
+    }
+
+    @Override
+    public boolean isFinished() {
+        return progress >= 100f;
     }
 }

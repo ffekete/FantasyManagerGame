@@ -1,5 +1,7 @@
 package com.mygdx.game.input.mouse.processor;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.Item;
@@ -29,7 +31,6 @@ public class SandboxMouseActionProcessor {
     private final MapRegistry mapRegistry = MapRegistry.INSTANCE;
     private final ItemRegistry itemRegistry = ItemRegistry.INSTANCE;
 
-    private Window window;
 
     private Optional<WorldObject> worldObject;
 
@@ -50,9 +51,11 @@ public class SandboxMouseActionProcessor {
 
         if (!worldObject.isPresent()) {
 
-            MoveToLocationQuest moveToLocationQuest = new MoveToLocationQuest(realWorldCoord, MapRegistry.INSTANCE.getCurrentMapToShow());
-            QuestRegistry.INSTANCE.add(MapRegistry.INSTANCE.getCurrentMapToShow(), moveToLocationQuest);
-
+            if(Gdx.input.isKeyPressed(Input.Keys.X) && !mapRegistry.getCurrentMapToShow().isObstacle(realWorldCoord.getX(), realWorldCoord.getY()) && !mapRegistry.getCurrentMapToShow().getTile(realWorldCoord.getX(), realWorldCoord.getY()).isObstacle()) {
+                MoveToLocationQuest moveToLocationQuest = new MoveToLocationQuest(realWorldCoord, MapRegistry.INSTANCE.getCurrentMapToShow());
+                QuestRegistry.INSTANCE.add(MapRegistry.INSTANCE.getCurrentMapToShow(), moveToLocationQuest);
+                return true;
+            }
             return false;
         }
 
@@ -70,6 +73,12 @@ public class SandboxMouseActionProcessor {
 
         if (CraftingObject.class.isAssignableFrom(worldObject.get().getClass())) {
             StageConfigurer.INSTANCE.getFor(GameState.Sandbox).addActor(CraftingObjectPopupMenuBuilder.INSTANCE.build((CraftingObject) worldObject.get(), mouseCoord, realWorldCoord));
+            return true;
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.X) && !mapRegistry.getCurrentMapToShow().isObstacle(realWorldCoord.getX(), realWorldCoord.getY()) && !mapRegistry.getCurrentMapToShow().getTile(realWorldCoord.getX(), realWorldCoord.getY()).isObstacle()) {
+            MoveToLocationQuest moveToLocationQuest = new MoveToLocationQuest(realWorldCoord, MapRegistry.INSTANCE.getCurrentMapToShow());
+            QuestRegistry.INSTANCE.add(MapRegistry.INSTANCE.getCurrentMapToShow(), moveToLocationQuest);
             return true;
         }
 

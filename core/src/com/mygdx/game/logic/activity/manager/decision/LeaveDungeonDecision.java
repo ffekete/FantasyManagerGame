@@ -4,6 +4,7 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
+import com.mygdx.game.logic.activity.single.DungeonLeavingActivity;
 import com.mygdx.game.logic.activity.single.InteractActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.pathfinding.PathFinder;
@@ -26,7 +27,7 @@ public class LeaveDungeonDecision implements Decision {
             return false;
         }
 
-        if(actor.getActivityStack().contains(InteractActivity.class)) {
+        if(actor.getActivityStack().contains(DungeonLeavingActivity.class)) {
             return true;
         }
 
@@ -35,7 +36,7 @@ public class LeaveDungeonDecision implements Decision {
             List<WorldObject> entrances = objectRegistry.getObject(actor.getCurrentMap(), Ladder.class).get();
             for (WorldObject worldObject : entrances) {
                 if (!((Ladder)worldObject).getTo().equals(actor.getCurrentMap())) {
-                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY, InteractActivity.class);
+                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY, DungeonLeavingActivity.class);
 
                     moveAndInteractActivity.add(new MovementActivity(actor, (int)worldObject.getX(), (int)worldObject.getY(), 1));
                     moveAndInteractActivity.add(new InteractActivity(actor, (InteractiveObject) worldObject));

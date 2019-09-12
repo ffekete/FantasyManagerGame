@@ -26,6 +26,6 @@ public class MonsterToExperienceMapper {
         if(Hero.class.isAssignableFrom(clazz)) {
             return 0; // friendly kill doesn't count, sorry
         }
-        return monsterToExperianceMap.get(clazz);
+        return monsterToExperianceMap.getOrDefault(clazz, 0L);
     }
 }

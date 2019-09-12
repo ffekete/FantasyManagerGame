@@ -164,12 +164,13 @@ public class WorldMapSample extends SampleBase {
         ranger.getInventory().add(new SmallHealingPotion());
         ranger.getInventory().add(new SmallHealingPotion());
 
-        ranger.getInventory().add(new Bread());
-        ranger.getInventory().add(new Bread());
-        ranger.getInventory().add(new Bread());
-        ranger.getInventory().add(new Bread());
+//        ranger.getInventory().add(new Bread());
+//        ranger.getInventory().add(new Bread());
+//        ranger.getInventory().add(new Bread());
+//        ranger.getInventory().add(new Bread());
         ranger.increaseSleepiness(10000);
         ranger.increaseTrainingNeeds(48000);
+        ranger.increaseHunger(98000);
 
         hero = ActorFactory.INSTANCE.create(Wizard.class, worldMap, Placement.FIXED.X(9).Y(10));
         hero.getInventory().add(new SmallHealingPotion());

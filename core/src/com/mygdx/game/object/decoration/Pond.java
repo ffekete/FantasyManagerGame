@@ -6,19 +6,16 @@ import com.mygdx.game.object.WorldObject;
 
 import java.util.Random;
 
-public class Log implements WorldObject, Decoration, Rotatable {
+public class Pond implements WorldObject, Decoration, NoViewBlockinObstacle {
 
-    private final float worldMapSize = new Random().nextFloat() / 2f + 0.5f;
-
-    private boolean flipX;
-    private boolean flipY;
+    private final float worldMapSize = new Random().nextFloat() / 2f + 1.1f;
 
     private Point coordinates;
 
-    public Log(Point point) {
+    private float progress;
+
+    public Pond(Point point) {
         coordinates = point;
-        flipX = new Random().nextInt() % 2 == 0;
-        flipY = new Random().nextInt() % 2 == 0;
     }
 
     @Override
@@ -46,13 +43,4 @@ public class Log implements WorldObject, Decoration, Rotatable {
         return worldMapSize;
     }
 
-    @Override
-    public boolean getFlipX() {
-        return flipX;
-    }
-
-    @Override
-    public boolean getFlipY() {
-        return flipY;
-    }
 }

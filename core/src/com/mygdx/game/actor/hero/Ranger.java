@@ -16,4 +16,9 @@ public class Ranger extends AbstractActor implements MeleeActor, Hero {
     public String getActorClass() {
         return "Ranger";
     }
+
+    @Override
+    public int getVisibilityRange() {
+        return 10;
+    }
 }

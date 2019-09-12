@@ -114,7 +114,7 @@ public class TextureRegistry {
                 .put(SparksAction.class, texturePathResolver.resolve("effects/Sparks.png"))
                 .put(SmallExplosionAction.class, texturePathResolver.resolve("effects/ExplosionEffect.png"))
                 .put(TargetMarkerAction.class, texturePathResolver.resolve("ui/marker/TargetMarker.png"))
-                .put(LocationMarkerAction.class, texturePathResolver.resolve("ui/marker/TargetMarker.png"))
+                .put(LocationMarkerAction.class, texturePathResolver.resolve("ui/marker/LocationMarker.png"))
                 .build();
 
         guiTextures = ImmutableMap.<GuiComponent, Optional<Texture>>builder()
@@ -195,6 +195,9 @@ public class TextureRegistry {
                 .put(TreeV6.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV6.png")))
                 .put(TreeV7.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV7.png")))
                 .put(TreeV8.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV8.png")))
+                .put(TreeV9.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV9.png")))
+                .put(TreeV10.class, Arrays.asList(texturePathResolver.resolve("object/decoration/TreeV10.png")))
+                .put(Pond.class, Arrays.asList(texturePathResolver.resolve("object/decoration/Pond.png")))
                 .put(YellowFlower.class, Arrays.asList(texturePathResolver.resolve("object/decoration/YellowFlower.png")))
                 .put(BlueFlower.class, Arrays.asList(texturePathResolver.resolve("object/decoration/BlueFlower.png")))
                 .put(Bush.class, Arrays.asList(texturePathResolver.resolve("object/decoration/Bush.png")))

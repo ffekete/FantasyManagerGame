@@ -5,6 +5,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
+import com.mygdx.game.logic.activity.single.DungeonVisitingActivity;
 import com.mygdx.game.logic.activity.single.InteractActivity;
 import com.mygdx.game.logic.activity.single.MovementActivity;
 import com.mygdx.game.logic.pathfinding.PathFinder;
@@ -28,7 +29,7 @@ public class DungeonVisitingDecision implements Decision {
             return false;
         }
 
-        if(actor.getActivityStack().contains(MoveAndInteractActivity.class)) {
+        if(actor.getActivityStack().contains(DungeonVisitingActivity.class)) {
             return true;
         }
 
@@ -54,7 +55,7 @@ public class DungeonVisitingDecision implements Decision {
                         && DungeonEntrance.class.isAssignableFrom(closestObject.getClass())
                         && !((DungeonEntrance) closestObject).getTo().areAllLevelsExplored()) {
 
-                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY, MoveAndInteractActivity.class);
+                    MoveAndInteractActivity moveAndInteractActivity = new MoveAndInteractActivity(Config.Activity.INTERACT_PRIORITY, DungeonVisitingActivity.class);
 
                     moveAndInteractActivity.add(new MovementActivity(actor, (int) closestObject.getX(), (int) closestObject.getY(), 1));
                     moveAndInteractActivity.add(new InteractActivity(actor, (InteractiveObject) closestObject));
