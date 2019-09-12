@@ -546,6 +546,11 @@ public abstract class AbstractActor implements Actor {
     }
 
     @Override
+    public void setCoordinates(int x, int y) {
+        this.coordinates.update(x,y);
+    }
+
+    @Override
     public List<Item> drop() {
         List<Item> items = new ArrayList<>();
         if(this.getLeftHandItem() != null) {

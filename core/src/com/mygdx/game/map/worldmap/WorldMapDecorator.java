@@ -22,6 +22,8 @@ public class WorldMapDecorator {
 
     private WorldMapDirtSpreadDecorator worldMapDirtSpreadDecorator = new WorldMapDirtSpreadDecorator();
 
+    private RiverCreator riverCreator = new RiverCreator();
+
     private int deathLimit = 5;
     private int birthLimit = 3;
     private float chanceToStartAlive = 46;
@@ -108,6 +110,23 @@ public class WorldMapDecorator {
         worldMap.getVisibilityCalculator().calculateFor(TownDataRegistry.INSTANCE.getTownCenter(), TownDataRegistry.INSTANCE.getTownCentreRadius(), worldMap, false);
 
         new DungeonEntrancePlacer().place(worldMap);
+
+        for(int i = 0; i < 3; i++) {
+            int x = 0, y = 0, x2, y2;
+            do {
+                x = new Random().nextInt(worldMap.getWidth());
+                y = new Random().nextInt(worldMap.getHeight());
+
+            } while (worldMap.isObstacle(x, y) || worldMap.getTile(x, y).isObstacle());
+
+            do {
+                x2 = new Random().nextInt(worldMap.getWidth());
+                y2 = new Random().nextInt(worldMap.getHeight());
+
+            } while (worldMap.isObstacle(x2, y2) || worldMap.getTile(x2, y2).isObstacle());
+
+            riverCreator.connect(worldMap, Point.of(x,y), Point.of(x2, y2));
+        }
 
     }
 

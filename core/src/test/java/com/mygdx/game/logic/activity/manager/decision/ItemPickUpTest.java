@@ -10,6 +10,7 @@ import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
+import com.mygdx.game.logic.activity.single.OpeningChestActivity;
 import com.mygdx.game.logic.activity.single.PickUpItemActivity;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
@@ -77,12 +78,12 @@ public class ItemPickUpTest {
         new ActivityManager().manage(actor);
 
         assertThat(actor.getActivityStack().getSize(), is(2));
-        assertThat(actor.getActivityStack().contains(MoveAndInteractActivity.class), is(true));
+        assertThat(actor.getActivityStack().contains(OpeningChestActivity.class), is(true));
 
         new ActivityManager().manage(actor);
 
         assertThat(actor.getActivityStack().getSize(), is(2));
-        assertThat(actor.getActivityStack().contains(MoveAndInteractActivity.class), is(true));
+        assertThat(actor.getActivityStack().contains(OpeningChestActivity.class), is(true));
     }
 
 }

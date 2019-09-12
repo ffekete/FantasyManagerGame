@@ -3,10 +3,7 @@ package com.mygdx.game.object.decoration;
 import com.badlogic.gdx.graphics.Color;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
-import com.mygdx.game.object.AnimatedObject;
-import com.mygdx.game.object.Obstacle;
-import com.mygdx.game.object.Sittable;
-import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.*;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.object.light.LightSourceType;
 
@@ -15,7 +12,7 @@ import java.util.Map;
 import java.util.Random;
 
 
-public class CampFire implements WorldObject, LightSource, AnimatedObject, Obstacle, Sittable {
+public class CampFire implements WorldObject, LightSource, AnimatedObject, NoViewBlockinObstacle, Sittable {
 
     private Point coordinates;
     private Map2D map;

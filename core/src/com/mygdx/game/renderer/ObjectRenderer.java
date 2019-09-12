@@ -57,7 +57,7 @@ public class ObjectRenderer implements Renderer<Map2D> {
                 if (worldObject != null) {
 
                     if(River.class.isAssignableFrom(worldObject.getClass())) {
-                        spriteBatch.setColor(Color.valueOf("FFFFFF99"));
+                        spriteBatch.setColor(Color.valueOf("FFFFFFCC"));
                     } else {
                         setColorForObjects(dungeon, spriteBatch, i, j, worldObject);
                     }

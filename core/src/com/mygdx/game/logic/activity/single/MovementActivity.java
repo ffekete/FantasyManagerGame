@@ -85,7 +85,7 @@ public class MovementActivity implements Activity {
     public void init() {
         actorMovementHandler.clearPath(actor);
         pathFinder.init(actor.getCurrentMap());
-        path = executor.submit(() -> pathFinder.findAStar(new Point(actor.getX(), actor.getY()), new Point(targetX, targetY)));
+        path = executor.submit(() -> pathFinder.findAStar(actor.getCoordinates(), new Point(targetX, targetY)));
 
         actor.setxOffset(0);
         actor.setyOffset(0);
