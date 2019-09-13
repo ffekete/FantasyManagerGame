@@ -9,6 +9,7 @@ import com.mygdx.game.logic.GameState;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.menu.CraftingObjectPopupMenuBuilder;
 import com.mygdx.game.menu.CuttablePopupMenuBuilder;
+import com.mygdx.game.menu.EmptyAreaPopupMenuBuilder;
 import com.mygdx.game.object.CraftingObject;
 import com.mygdx.game.object.Targetable;
 import com.mygdx.game.object.WorldObject;
@@ -51,9 +52,8 @@ public class SandboxMouseActionProcessor {
 
         if (!worldObject.isPresent()) {
 
-            if(Gdx.input.isKeyPressed(Input.Keys.X) && !mapRegistry.getCurrentMapToShow().isObstacle(realWorldCoord.getX(), realWorldCoord.getY()) && !mapRegistry.getCurrentMapToShow().getTile(realWorldCoord.getX(), realWorldCoord.getY()).isObstacle()) {
-                MoveToLocationQuest moveToLocationQuest = new MoveToLocationQuest(realWorldCoord, MapRegistry.INSTANCE.getCurrentMapToShow());
-                QuestRegistry.INSTANCE.add(MapRegistry.INSTANCE.getCurrentMapToShow(), moveToLocationQuest);
+            if (!mapRegistry.getCurrentMapToShow().isObstacle(realWorldCoord.getX(), realWorldCoord.getY()) && !mapRegistry.getCurrentMapToShow().getTile(realWorldCoord.getX(), realWorldCoord.getY()).isObstacle()) {
+                StageConfigurer.INSTANCE.getFor(GameState.Sandbox).addActor(EmptyAreaPopupMenuBuilder.INSTANCE.build(mouseCoord, realWorldCoord));
                 return true;
             }
             return false;
@@ -76,9 +76,8 @@ public class SandboxMouseActionProcessor {
             return true;
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.X) && !mapRegistry.getCurrentMapToShow().isObstacle(realWorldCoord.getX(), realWorldCoord.getY()) && !mapRegistry.getCurrentMapToShow().getTile(realWorldCoord.getX(), realWorldCoord.getY()).isObstacle()) {
-            MoveToLocationQuest moveToLocationQuest = new MoveToLocationQuest(realWorldCoord, MapRegistry.INSTANCE.getCurrentMapToShow());
-            QuestRegistry.INSTANCE.add(MapRegistry.INSTANCE.getCurrentMapToShow(), moveToLocationQuest);
+        if (!mapRegistry.getCurrentMapToShow().isObstacle(realWorldCoord.getX(), realWorldCoord.getY()) && !mapRegistry.getCurrentMapToShow().getTile(realWorldCoord.getX(), realWorldCoord.getY()).isObstacle()) {
+            StageConfigurer.INSTANCE.getFor(GameState.Sandbox).addActor(EmptyAreaPopupMenuBuilder.INSTANCE.build(mouseCoord, realWorldCoord));
             return true;
         }
 

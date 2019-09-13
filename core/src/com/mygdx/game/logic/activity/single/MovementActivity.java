@@ -58,8 +58,7 @@ public class MovementActivity implements Activity {
         if (path != null && path.isDone()) {
 
             try {
-
-                if (path.get() == null) {
+                if (path != null && path.get() == null) {
                     System.out.println("Inaccessible area");
                 } else {
                     actorMovementHandler.registerActorPath(actor, path.get());
@@ -69,6 +68,7 @@ public class MovementActivity implements Activity {
             } catch (ExecutionException e) {
                 e.printStackTrace();
             }
+
             path = null;
         } else if (path != null && !path.isDone()) {
             //wait
@@ -126,7 +126,7 @@ public class MovementActivity implements Activity {
 
     @Override
     public void clear() {
-        actorMovementHandler.clearPath(actor);
+
     }
 
     @Override
@@ -178,6 +178,14 @@ public class MovementActivity implements Activity {
 
     public int getTargetY() {
         return targetY;
+    }
+
+    public void setTargetX(int targetX) {
+        this.targetX = targetX;
+    }
+
+    public void setTargetY(int targetY) {
+        this.targetY = targetY;
     }
 
     @Override

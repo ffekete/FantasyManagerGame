@@ -34,4 +34,9 @@ public class MoneyBag extends AbstractItem implements MoneyContainer {
     public void pickedUp(Actor actor) {
         actor.addMoney(this.amount);
     }
+
+    @Override
+    public int getPrice() {
+        return 0;
+    }
 }

@@ -3,6 +3,7 @@ package com.mygdx.game.logic;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.map.Map2D;
+import com.mygdx.game.object.LinkedWorldObject;
 import com.mygdx.game.object.WorldObject;
 import com.mygdx.game.object.interactive.DungeonEntrance;
 import com.mygdx.game.object.interactive.Ladder;
@@ -24,6 +25,10 @@ public class CharacterMap2dSwitcher {
     private final MapRegistry mapRegistry = MapRegistry.INSTANCE;
 
     public void switchTo(Map2D to, Map2D from, Actor actor) {
+
+        // first of all, forgot about everything you did on the current map
+        actor.getActivityStack().reset();
+
         actorRegistry.getActorGrid().get(from)[actor.getX()][actor.getY()] = null;
         actorRegistry.remove(from, actor, true);
         actor.setCurrentMap(to);
@@ -36,7 +41,7 @@ public class CharacterMap2dSwitcher {
         if(ladders.isPresent() && !ladders.get().isEmpty()) {
             enter = ladders.get().get(0).getCoordinates();
         } else if(entrances.isPresent() && !entrances.get().isEmpty()) {
-            enter = entrances.get().get(0).getCoordinates();
+            enter = ((LinkedWorldObject)objectRegistry.getObject(from, Ladder.class).get().get(0)).getExit().getCoordinates();
         } else {
             throw new RuntimeException("No entrances found!");
         }

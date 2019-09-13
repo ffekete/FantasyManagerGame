@@ -37,4 +37,9 @@ public class ChainMailArmor extends AbstractItem implements Armor, Tier1, Crafta
     public String getName() {
         return "Chain mail armor";
     }
+
+    @Override
+    public int getPrice() {
+        return 100;
+    }
 }

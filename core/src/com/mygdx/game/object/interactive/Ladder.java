@@ -6,13 +6,15 @@ import com.mygdx.game.logic.CharacterMap2dSwitcher;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.InteractiveObject;
+import com.mygdx.game.object.LinkedWorldObject;
 import com.mygdx.game.object.light.LightSource;
 import com.mygdx.game.object.light.LightSourceType;
 
-public class Ladder implements InteractiveObject, LightSource {
+public class Ladder implements InteractiveObject, LightSource, LinkedWorldObject {
 
     private final Map2D to;
     private final Map2D from;
+    private LinkedWorldObject exit;
 
     private final CharacterMap2dSwitcher characterMap2dSwitcher = CharacterMap2dSwitcher.INSTANCE;
 
@@ -94,5 +96,16 @@ public class Ladder implements InteractiveObject, LightSource {
 
     public Map2D getFrom() {
         return from;
+    }
+
+
+    @Override
+    public LinkedWorldObject getExit() {
+        return exit;
+    }
+
+    @Override
+    public void setExit(LinkedWorldObject object) {
+        this.exit = object;
     }
 }

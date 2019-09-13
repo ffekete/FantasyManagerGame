@@ -3,9 +3,15 @@ package com.mygdx.game.logic.activity.single;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
+import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 import com.mygdx.game.logic.time.DayTimeCalculator;
+import com.mygdx.game.object.WorldObject;
+import com.mygdx.game.object.furniture.Bed;
+import com.mygdx.game.object.house.House;
+import com.mygdx.game.registry.ActorRegistry;
+import com.mygdx.game.registry.ObjectRegistry;
 
 public class SleepActivity implements Activity {
 
@@ -66,7 +72,56 @@ public class SleepActivity implements Activity {
 
     @Override
     public void clear() {
+        WorldObject object = getObject(actor.getX(), actor.getY());
+        if (object != null && Bed.class.isAssignableFrom(object.getClass())) {
 
+
+            if (object.getX() + 1 < actor.getCurrentMap().getWidth() && !actor.getCurrentMap().getTile((int) object.getX() + 1, (int) object.getY()).isObstacle() &&
+                    !actor.getCurrentMap().getTile((int) object.getX() + 1, (int) object.getY()).isObstacle() &&
+                    getObject(actor.getX() + 1, actor.getY()) == null) {
+                ActorMovementHandler.INSTANCE.moveTo(actor, Point.of(object.getX() + 1, object.getY()));
+                ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
+
+            } else if (object.getX() - 1 >= 0 && !actor.getCurrentMap().getTile((int) object.getX() - 1, (int) object.getY()).isObstacle() &&
+                    !actor.getCurrentMap().getTile((int) object.getX() - 1, (int) object.getY()).isObstacle() && getObject(actor.getX() - 1, actor.getY()) == null) {
+                ActorMovementHandler.INSTANCE.moveTo(actor, Point.of(object.getX() - 1, object.getY()));
+                ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
+
+            } else if (object.getY() + 1 < actor.getCurrentMap().getHeight() && !actor.getCurrentMap().getTile((int) object.getX(), (int) object.getY() + 1).isObstacle() &&
+                    !actor.getCurrentMap().getTile((int) object.getX(), (int) object.getY() + 1).isObstacle() && getObject(actor.getX(), actor.getY() + 1) == null) {
+                ActorMovementHandler.INSTANCE.moveTo(actor, Point.of(object.getX(), object.getY() + 1));
+                ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
+
+            } else if (object.getY() + 1 >= 0 && !actor.getCurrentMap().getTile((int) object.getX(), (int) object.getY() - 1).isObstacle() &&
+                    !actor.getCurrentMap().getTile((int) object.getX(), (int) object.getY() - 1).isObstacle() && getObject(actor.getX(), actor.getY() - 1) != null) {
+                ActorMovementHandler.INSTANCE.moveTo(actor, Point.of(object.getX(), object.getY() - 1));
+                ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
+
+            } else if (object.getX() + 1 < actor.getCurrentMap().getWidth() && !actor.getCurrentMap().getTile((int) object.getX() + 1, (int) object.getY()).isObstacle() &&
+                    !actor.getCurrentMap().getTile((int) object.getX() + 1, (int) object.getY()).isObstacle()) {
+                ActorMovementHandler.INSTANCE.moveTo(actor, Point.of(object.getX() + 1, object.getY()));
+                ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
+
+            } else if (object.getX() - 1 >= 0 && !actor.getCurrentMap().getTile((int) object.getX() - 1, (int) object.getY()).isObstacle() &&
+                    !actor.getCurrentMap().getTile((int) object.getX() - 1, (int) object.getY()).isObstacle()) {
+                ActorMovementHandler.INSTANCE.moveTo(actor, Point.of(object.getX() - 1, object.getY()));
+                ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
+
+            } else if (object.getY() + 1 < actor.getCurrentMap().getHeight() && !actor.getCurrentMap().getTile((int) object.getX(), (int) object.getY() + 1).isObstacle() &&
+                    !actor.getCurrentMap().getTile((int) object.getX(), (int) object.getY() + 1).isObstacle()) {
+                ActorMovementHandler.INSTANCE.moveTo(actor, Point.of(object.getX(), object.getY() + 1));
+                ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
+
+            } else if (object.getY() + 1 >= 0 && !actor.getCurrentMap().getTile((int) object.getX(), (int) object.getY() - 1).isObstacle() &&
+                    !actor.getCurrentMap().getTile((int) object.getX(), (int) object.getY() - 1).isObstacle()) {
+                ActorMovementHandler.INSTANCE.moveTo(actor, Point.of(object.getX(), object.getY() - 1));
+                ActorMovementHandler.INSTANCE.getChangedCoordList().add(actor);
+            }
+        }
+    }
+
+    private WorldObject getObject(int x, int y) {
+        return ObjectRegistry.INSTANCE.getObjectGrid().get(actor.getCurrentMap())[x][y][1];
     }
 
     @Override

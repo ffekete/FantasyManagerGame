@@ -15,7 +15,7 @@ public class LinkedWorldObjectFactory {
 
     public static final LinkedWorldObjectFactory INSTANCE = new LinkedWorldObjectFactory();
 
-    private final Map<Class<? extends WorldObject>, Class<? extends WorldObject>> linkedObjects = ImmutableMap.<Class<? extends WorldObject>, Class<? extends WorldObject>>builder()
+    private final Map<Class<? extends LinkedWorldObject>, Class<? extends LinkedWorldObject>> linkedObjects = ImmutableMap.<Class<? extends LinkedWorldObject>, Class<? extends LinkedWorldObject>>builder()
             .put(DungeonEntrance.class, Ladder.class)
             .build();
 
@@ -24,11 +24,11 @@ public class LinkedWorldObjectFactory {
     private LinkedWorldObjectFactory() {
     }
 
-    public WorldObject create(Class<? extends WorldObject> clazz, Map2D fromMap, Map2D toMap, ObjectPlacement placement, ObjectPlacement placement2) {
+    public WorldObject create(Class<? extends LinkedWorldObject> clazz, Map2D fromMap, Map2D toMap, ObjectPlacement placement, ObjectPlacement placement2) {
         // this goes to fromMap map
-        WorldObject object = null;
+        LinkedWorldObject object = null;
         // and this goes to toMap
-        WorldObject object2 = null;
+        LinkedWorldObject object2 = null;
 
         try {
             object = clazz.getDeclaredConstructor(Map2D.class, Map2D.class).newInstance(toMap, fromMap);
@@ -37,6 +37,9 @@ public class LinkedWorldObjectFactory {
             e.printStackTrace();
             return null;
         }
+
+        object.setExit(object2);
+        object2.setExit(object);
 
         placement.place(object, fromMap);
         placement2.place(object2, toMap);

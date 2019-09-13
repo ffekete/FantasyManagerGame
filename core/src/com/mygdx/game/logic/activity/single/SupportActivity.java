@@ -18,6 +18,13 @@ public class SupportActivity extends MovementActivity {
     }
 
     @Override
+    public void resume() {
+        super.setTargetX(targetActor.getX());
+        super.setTargetY(targetActor.getY());
+        super.resume();
+    }
+
+    @Override
     public int getPriority() {
         return Config.Activity.SUPPORT_PRIORITY;
     }

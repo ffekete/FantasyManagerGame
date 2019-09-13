@@ -24,4 +24,9 @@ public class SmallManaPotion extends AbstractItem implements Consumable, ManaPot
     public String getName() {
         return "Small mana potion";
     }
+
+    @Override
+    public int getPrice() {
+        return 50;
+    }
 }

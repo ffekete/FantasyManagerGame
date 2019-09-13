@@ -52,6 +52,7 @@ public class PickUpItemActivity implements Activity, CooldownActivity {
 
     @Override
     public void cancel() {
+        System.out.println("Ouch");
     }
 
     @Override

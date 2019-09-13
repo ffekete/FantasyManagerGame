@@ -107,6 +107,8 @@ public class ActorRegistry {
         return bucket.get(index).get(map);
     }
 
+
+
     public List<Actor> getActors(Map2D map) {
         if (!actors.containsKey(map))
             return Collections.emptyList();
@@ -131,6 +133,15 @@ public class ActorRegistry {
         }
 
         return (actors.get(dungeon).values().stream().flatMap(clust -> clust.stream()).anyMatch(actor -> Alignment.FRIENDLY.equals(actor.getAlignment())));
+    }
+
+    public List<Actor> getActors(Map2D map, List<Cluster> clusters) {
+        List<Actor> actors1 = new ArrayList<>();
+        for(Cluster cluster : clusters) {
+            actors.get(map).computeIfAbsent(cluster, v -> new ArrayList<>());
+            actors1.addAll(actors.get(map).get(cluster));
+        }
+        return actors1;
     }
 
     public List<Actor> getActor(Map2D map, Cluster cluster) {

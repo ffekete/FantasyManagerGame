@@ -25,4 +25,9 @@ public class RabbitMeat extends AbstractItem implements Food {
     public String getName() {
         return "Rabbit meat";
     }
+
+    @Override
+    public int getPrice() {
+        return 2;
+    }
 }

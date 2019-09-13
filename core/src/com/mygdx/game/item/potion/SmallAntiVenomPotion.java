@@ -25,4 +25,9 @@ public class SmallAntiVenomPotion extends AbstractItem implements Consumable, An
     public String getName() {
         return "Antivenom potion";
     }
+
+    @Override
+    public int getPrice() {
+        return 50;
+    }
 }

@@ -27,4 +27,9 @@ public class Bread extends AbstractItem implements Food, Tier1 {
     public int getNutritionAmount() {
         return Config.Item.BREAD_NUTRITION;
     }
+
+    @Override
+    public int getPrice() {
+        return 2;
+    }
 }

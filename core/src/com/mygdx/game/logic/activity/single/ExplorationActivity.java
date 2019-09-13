@@ -28,12 +28,17 @@ public class ExplorationActivity implements Activity {
     private int targetX = 0;
     private int targetY = 0;
 
+    boolean[][] alreadyChecked;
+
     // performance enhancement
     private Point point;
     private final List<Point> allPoints = new ArrayList<>();
 
     public ExplorationActivity(Map2D targetDungeon, Actor actor) {
         this.targetDungeon = targetDungeon;
+
+        alreadyChecked = new boolean[targetDungeon.getWidth()][targetDungeon.getHeight()];
+
         this.actor = actor;
         boolean[][] alreadyChecked = new boolean[targetDungeon.getWidth()][targetDungeon.getHeight()];
         Point target = findNextUnexploredArea(alreadyChecked, targetDungeon, actor.getX(), actor.getY());
@@ -59,7 +64,7 @@ public class ExplorationActivity implements Activity {
         // if dungeon explored or someone else explored the area
         if (movementActivity.isDone()) {
             movementActivity.clear();
-            boolean[][] alreadyChecked = new boolean[targetDungeon.getWidth()][targetDungeon.getHeight()];
+
             Point target = findNextUnexploredArea(alreadyChecked, targetDungeon, actor.getX(), actor.getY());
             if (target != null) {
                 targetX = target.getX();
@@ -156,11 +161,23 @@ public class ExplorationActivity implements Activity {
     @Override
     public void suspend() {
         movementActivity.suspend();
+        suspended = true;
     }
 
     @Override
     public void resume() {
-        movementActivity.resume();
+
+        movementActivity.clear();
+
+        Point target = findNextUnexploredArea(alreadyChecked, targetDungeon, actor.getX(), actor.getY());
+        if (target != null) {
+            targetX = target.getX();
+            targetY = target.getY();
+            this.movementActivity = new MovementActivity(actor, target.getX(), target.getY(), 0);
+            movementActivity.init();
+        }
+
+        suspended = false;
     }
 
     @Override

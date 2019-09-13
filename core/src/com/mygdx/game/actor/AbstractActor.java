@@ -496,6 +496,11 @@ public abstract class AbstractActor implements Actor {
     }
 
     @Override
+    public void removeMoney(int amount) {
+        this.money = Math.max(0, money - amount);
+    }
+
+    @Override
     public boolean hasTrait(Trait trait) {
         return traitList.has(trait);
     }

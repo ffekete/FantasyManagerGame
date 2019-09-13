@@ -37,4 +37,9 @@ public class PlateMailArmor extends AbstractItem implements Armor, Tier2, Crafta
     public String getName() {
         return "Plate mail armor";
     }
+
+    @Override
+    public int getPrice() {
+        return 500;
+    }
 }

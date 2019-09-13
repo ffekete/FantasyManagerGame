@@ -147,6 +147,8 @@ public class Config {
         public static final int OFFENSIVE_SPELL_CAST_PRIORITY = 570;
         public static final int ATTACK_PRIORITY = 580;
 
+        public static final int SELL_ITEM_PRIORITY = 700;
+
         public static final int OPEN_CHEST_PRIORITY = 930;
         public static final int MOVE_PICKUP_PRIORITY = 940;
         public static final int PICKUP_PRIORITY = 950;

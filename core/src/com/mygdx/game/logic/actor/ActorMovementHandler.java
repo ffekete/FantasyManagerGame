@@ -141,13 +141,23 @@ public class ActorMovementHandler {
         if (path != null && !path.isEmpty()) {
             PathFinder.Node next = path.remove(path.size() - 1);
 
-            ActorRegistry.INSTANCE.remove(movableActor.getCurrentMap(), movableActor, false);
-            movableActor.setCoordinates(new Point(next.getX(), next.getY()));
-            ActorRegistry.INSTANCE.add(movableActor.getCurrentMap(), movableActor, false);
+            moveTo(movableActor, next);
             changedCoordList.add(movableActor);
             return true;
         }
         return false;
+    }
+
+    public void moveTo(Actor movableActor, Point next) {
+        ActorRegistry.INSTANCE.remove(movableActor.getCurrentMap(), movableActor, false);
+        movableActor.setCoordinates(next);
+        ActorRegistry.INSTANCE.add(movableActor.getCurrentMap(), movableActor, false);
+    }
+
+    private void moveTo(Actor movableActor, PathFinder.Node next) {
+        ActorRegistry.INSTANCE.remove(movableActor.getCurrentMap(), movableActor, false);
+        movableActor.setCoordinates(new Point(next.getX(), next.getY()));
+        ActorRegistry.INSTANCE.add(movableActor.getCurrentMap(), movableActor, false);
     }
 
     public List<Actor> getChangedCoordList() {

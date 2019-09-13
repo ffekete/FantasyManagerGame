@@ -10,4 +10,5 @@ public interface Item {
     String getDescription();
     String getName();
     void pickedUp(Actor actor);
+    int getPrice();
 }

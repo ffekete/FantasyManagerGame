@@ -22,4 +22,9 @@ public class SmallHealingPotion extends AbstractItem implements Consumable, Heal
     public String getName() {
         return "Small healing potion";
     }
+
+    @Override
+    public int getPrice() {
+        return 20;
+    }
 }

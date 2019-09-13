@@ -37,4 +37,9 @@ public class LeatherArmor extends AbstractItem implements Armor, Tier1, Craftabl
     public String getName() {
         return "Leather armor";
     }
+
+    @Override
+    public int getPrice() {
+        return 80;
+    }
 }

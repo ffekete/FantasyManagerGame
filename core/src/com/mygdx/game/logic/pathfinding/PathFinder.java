@@ -6,17 +6,12 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PathFinder {
 
     public static final float DEFAULT_EFFORT = 100;
-    private final Pool<Node> nodePool = new Pool<Node>() {
-        @Override
-        protected Node newObject() {
-            return new Node(0,0,0, DEFAULT_EFFORT);
-        }
-    };
 
     // 8 ways pathfinding
     //private static final int[][] availableNodesForCheck = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
@@ -70,8 +65,7 @@ public class PathFinder {
         List<Node> path = new ArrayList<>();
         List<Node> allNodes = new ArrayList<>();
 
-        Node startNode = nodePool.obtain();
-
+        Node startNode = new Node(0, 0, 0, DEFAULT_EFFORT);
         startNode.tile = map[start.getX()][start.getY()].tile;
         startNode.x = start.getX();
         startNode.y = start.getY();
@@ -80,7 +74,7 @@ public class PathFinder {
         startNode.g = startNode.f = startNode.h = 0f;
         startNode.parent = null;
 
-        Node end = nodePool.obtain();
+        Node end = new Node(0,0,0,DEFAULT_EFFORT);
         end.tile = map[target.getX()][target.getY()].tile;
         end.x = target.getX();
         end.y = target.getY();
@@ -133,7 +127,7 @@ public class PathFinder {
                         continue;
                     }
 
-                    Node child = nodePool.obtain();
+                    Node child = new Node(0,0,0,DEFAULT_EFFORT);
                     allNodes.add(child);
                     child.tile = map[x][y].tile;
                     child.x = x;
@@ -151,7 +145,7 @@ public class PathFinder {
                 if (closedNodes.contains(child))
                     continue;
                 child.g = current.g + child.effort;
-                child.h = (float)distance(child, end);
+                child.h = (float) distance(child, end);
                 child.f = child.g + child.h;
 
                 if (openNodes.contains(child)) {
@@ -164,11 +158,7 @@ public class PathFinder {
             }
         }
 
-        for(Node n : allNodes) {
-            nodePool.free(n);
-        }
-
-        return null;
+        return Collections.emptyList();
     }
 
     public static void main(String[] args) {
@@ -223,7 +213,7 @@ public class PathFinder {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
 
-                obstacleMap[i][j] = new Node(map.getTile(i, j).isObstacle() || map.isObstacle(i,j) || map.isNoViewBlockingObstacle(i,j) ? 1 : 0, i, j, map.getTraverseCost(i,j));
+                obstacleMap[i][j] = new Node(map.getTile(i, j).isObstacle() || map.isObstacle(i, j) || map.isNoViewBlockingObstacle(i, j) ? 1 : 0, i, j, map.getTraverseCost(i, j));
             }
         }
     }
@@ -243,7 +233,7 @@ public class PathFinder {
         return a * a + b * b;
     }
 
-    public static class Node implements Pool.Poolable {
+    public static class Node {
         private int x;
         private int y;
         private Node parent;
@@ -253,10 +243,10 @@ public class PathFinder {
 
         @Override
         public boolean equals(Object obj) {
-            if(!this.getClass().equals(obj.getClass())) {
+            if (!this.getClass().equals(obj.getClass())) {
                 return false;
             }
-            return ((Node)obj).x ==x && ((Node)obj).y == y && effort == ((Node)obj).effort;
+            return ((Node) obj).x == x && ((Node) obj).y == y && effort == ((Node) obj).effort;
         }
 
         @Override
@@ -283,12 +273,6 @@ public class PathFinder {
 
         public int getTile() {
             return tile;
-        }
-
-        @Override
-        public void reset() {
-            tile = 0;
-            effort = DEFAULT_EFFORT;
         }
     }
 }

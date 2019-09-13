@@ -10,7 +10,10 @@ import com.mygdx.game.logic.activity.single.SleepActivity;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
+import com.mygdx.game.object.furniture.WoodenBed;
+import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.MapRegistry;
+import org.testng.annotations.ObjectFactory;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -26,6 +29,8 @@ public class ActivityStackTest {
         Map2D map = new DummyDungeonCreator().create(3);
 
         Actor actor = ActorFactory.INSTANCE.create(Smith.class, map, Placement.FIXED.X(0).Y(0));
+
+        com.mygdx.game.object.factory.ObjectFactory.create(WoodenBed.class, map, ObjectPlacement.FIXED.X(10).Y(10));
 
         MapRegistry.INSTANCE.add(map);
         MapRegistry.INSTANCE.setCurrentMapToShow(map);

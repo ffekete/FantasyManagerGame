@@ -20,6 +20,8 @@ import java.util.Map;
 
 public class ActivityManager {
 
+    public static final ActivityManager INSTANCE = new ActivityManager();
+
     private Map<Class<? extends Actor>, List<Decision>> decisionTable;
 
     public ActivityManager() {
@@ -47,6 +49,7 @@ public class ActivityManager {
                         new EquipDecision(),
                         new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
+                        new SellItemDecision(),
                         new OpenChestDecision(),
                         new MovePickupDecision(),
                         new SleepingDecision(),
@@ -70,6 +73,7 @@ public class ActivityManager {
                         new EquipDecision(),
                         new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
+                        new SellItemDecision(),
                         new OpenChestDecision(),
                         new MovePickupDecision(),
                         new SleepingDecision(),
@@ -92,6 +96,7 @@ public class ActivityManager {
                         new OffensiveSpellCastDecision(),
                         new MoveAndRangedAttackDecision(),
                         new MoveAndAttackDecision(),
+                        new SellItemDecision(),
                         new OpenChestDecision(),
                         new MovePickupDecision(),
                         new SleepingDecision(),

@@ -45,7 +45,7 @@ public class SandboxGameLogicController implements Controller {
 
     public SandboxGameLogicController(ActorRegistry actorRegistry) {
         this.actorRegistry = actorRegistry;
-        this.activityManager = new ActivityManager();
+        this.activityManager = ActivityManager.INSTANCE;
         effectmanager = EffectManager.INSTANCE;
         spellManager = SpellManager.INSTANCE;
         projectileManager = ProjectileManager.INSTANCE;

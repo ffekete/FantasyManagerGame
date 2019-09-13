@@ -59,8 +59,7 @@ public class MoveToLocationQuest implements Quest {
                 .collect(Collectors.toList());
 
         for(Actor a : rewardedActors) {
-            a.addExperiencePoints(100);
-            a.addMoney(50);
+            a.addExperiencePoints(10);
         }
 
         ActionRegistry.INSTANCE.remove(map, action);

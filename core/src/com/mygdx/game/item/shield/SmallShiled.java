@@ -39,4 +39,9 @@ public class SmallShiled extends AbstractItem implements Shield, Tier1, Craftabl
     public int getDefense() {
         return defense;
     }
+
+    @Override
+    public int getPrice() {
+        return 30;
+    }
 }

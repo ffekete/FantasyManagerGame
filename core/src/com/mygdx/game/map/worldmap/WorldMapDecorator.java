@@ -126,6 +126,7 @@ public class WorldMapDecorator {
             } while (worldMap.isObstacle(x2, y2) || worldMap.getTile(x2, y2).isObstacle());
 
             riverCreator.connect(worldMap, Point.of(x,y), Point.of(x2, y2));
+            System.out.println("Connectiong river ends: " + x + " " + y + " " + x2 + " " + y2);
         }
 
     }

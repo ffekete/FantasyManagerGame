@@ -43,4 +43,9 @@ public class MediumShield extends AbstractItem implements Shield, Tier1, Craftab
     public String getName() {
         return "Medium shield";
     }
+
+    @Override
+    public int getPrice() {
+        return 50;
+    }
 }

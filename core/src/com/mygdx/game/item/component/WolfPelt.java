@@ -13,4 +13,9 @@ public class WolfPelt extends AbstractItem implements Component {
     public String getName() {
         return "Wolf pelt";
     }
+
+    @Override
+    public int getPrice() {
+        return 5;
+    }
 }

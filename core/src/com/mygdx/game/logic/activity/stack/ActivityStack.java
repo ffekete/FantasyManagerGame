@@ -2,6 +2,7 @@ package com.mygdx.game.logic.activity.stack;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.activity.single.IdleActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
 
@@ -56,12 +57,14 @@ public class ActivityStack {
                 activity.clear();
                 activities.remove(activity);
                 ActorMovementHandler.INSTANCE.clearPath(actor);
+                ActivityManager.INSTANCE.manage(actor);
             }
         }
         else if (activity.isCancellable()) {
             activity.cancel();
             activities.remove(activity);
             ActorMovementHandler.INSTANCE.clearPath(actor);
+            ActivityManager.INSTANCE.manage(actor);
         }
 //        } else {
 //            if (activity.isSuspended()) {
@@ -88,7 +91,6 @@ public class ActivityStack {
 
     public void add(Activity activity) {
         //actor.getActivityStack().reset();
-        ActorMovementHandler.INSTANCE.clearPath(actor);
         this.activities.offer(activity);
         if(this.activities.peek().equals(activity)) {
             long suspended = activities.parallelStream()

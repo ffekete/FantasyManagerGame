@@ -14,4 +14,9 @@ public class Hammer extends AbstractItem implements Item {
     public String getName() {
         return "Hammer";
     }
+
+    @Override
+    public int getPrice() {
+        return 5;
+    }
 }

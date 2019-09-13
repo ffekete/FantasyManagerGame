@@ -19,4 +19,9 @@ public class Wood extends AbstractItem implements Item, Resource {
     public String getName() {
         return null;
     }
+
+    @Override
+    public int getPrice() {
+        return 3;
+    }
 }

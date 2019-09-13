@@ -86,6 +86,7 @@ public interface Actor {
     int getSkillLevel(Skill skill);
     int getMoney();
     void addMoney(int amount);
+    void removeMoney(int amount);
 
     boolean hasTrait(Trait trait);
     void addTrait(Trait trait);

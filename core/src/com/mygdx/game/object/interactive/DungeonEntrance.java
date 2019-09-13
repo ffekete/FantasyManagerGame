@@ -5,12 +5,14 @@ import com.mygdx.game.logic.CharacterMap2dSwitcher;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.InteractiveObject;
+import com.mygdx.game.object.LinkedWorldObject;
 import com.mygdx.game.object.Obstacle;
 
-public class DungeonEntrance implements InteractiveObject, Obstacle {
+public class DungeonEntrance implements InteractiveObject, Obstacle, LinkedWorldObject {
 
     private final Map2D to;
     private final Map2D from;
+    private LinkedWorldObject exit;
 
     private final CharacterMap2dSwitcher characterMap2dSwitcher = CharacterMap2dSwitcher.INSTANCE;
 
@@ -68,6 +70,16 @@ public class DungeonEntrance implements InteractiveObject, Obstacle {
 
     public Map2D getTo() {
         return to;
+    }
+
+    @Override
+    public LinkedWorldObject getExit() {
+        return exit;
+    }
+
+    @Override
+    public void setExit(LinkedWorldObject object) {
+        this.exit = object;
     }
 
     public Map2D getFrom() {

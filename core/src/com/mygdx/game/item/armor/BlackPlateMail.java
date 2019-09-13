@@ -37,4 +37,9 @@ public class BlackPlateMail extends AbstractItem implements Armor, Tier3, Crafta
     public String getName() {
         return "Black plate mail";
     }
+
+    @Override
+    public int getPrice() {
+        return 1200;
+    }
 }
