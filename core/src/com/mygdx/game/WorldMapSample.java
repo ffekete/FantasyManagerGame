@@ -170,7 +170,7 @@ public class WorldMapSample extends SampleBase {
         ranger.increaseTrainingNeeds(48000);
         ranger.increaseHunger(98000);
 
-        hero = ActorFactory.INSTANCE.create(Wizard.class, worldMap, Placement.FIXED.X(9).Y(10));
+        hero = ActorFactory.INSTANCE.create(Wizard.class, worldMap, Placement.FIXED.X(3).Y(3));
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
@@ -229,19 +229,15 @@ public class WorldMapSample extends SampleBase {
         MapRegistry.INSTANCE.setCurrentMapToShow(worldMap);
 
 
-        HouseFactory.INSTANCE.create(7,1, 3, worldMap);
+       //HouseFactory.INSTANCE.create(7,1, 3, worldMap);
 
         HouseFactory.INSTANCE.create(0,0, 5, worldMap);
-        //ObjectFactory.create(Anvil.class, worldMap, ObjectPlacement.FIXED.X(3).Y(3));
-        //ObjectFactory.create(TreasureChest.class, worldMap, ObjectPlacement.FIXED.X(4).Y(3));
 
-        HouseFactory.INSTANCE.create(15, 1, 3, worldMap);
-        //ObjectFactory.create(ShootingTarget.class, worldMap, ObjectPlacement.FIXED.X(17).Y(2));
+        //HouseFactory.INSTANCE.create(15, 1, 3, worldMap);
 
-        HouseFactory.INSTANCE.create(1, 8, 3, worldMap);
-        //ObjectFactory.create(BookCase.class, worldMap, ObjectPlacement.FIXED.X(2).Y(2));
+        //HouseFactory.INSTANCE.create(1, 8, 3, worldMap);
 
-        HouseFactory.INSTANCE.create(1, 13, 3, worldMap);
+        //HouseFactory.INSTANCE.create(1, 13, 3, worldMap);
 
         Actor wolf = ActorFactory.INSTANCE.create(Wolf.class, worldMap, Placement.FIXED.X(11).Y(11));
         Actor rabbit = ActorFactory.INSTANCE.create(Rabbit.class, worldMap, Placement.FIXED.X(13).Y(11));

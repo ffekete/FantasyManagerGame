@@ -18,6 +18,7 @@ public class CampFire implements WorldObject, LightSource, AnimatedObject, NoVie
     private Map2D map;
     private Color color = Color.valueOf("AABB22FF");
     private int phase = new Random().nextInt(3);
+    private long maxFreeSpace = 0;
 
     private float flickering = 0.0f;
     private int counter = 0;
@@ -76,6 +77,8 @@ public class CampFire implements WorldObject, LightSource, AnimatedObject, NoVie
         spaces.put(Point.of(coordinates.getX() + 1, coordinates.getY()), getAvailability(coordinates.getX() + 1, coordinates.getY()));
         spaces.put(Point.of(coordinates.getX(), coordinates.getY() - 1), getAvailability(coordinates.getX(), coordinates.getY() - 1));
         spaces.put(Point.of(coordinates.getX(), coordinates.getY() + 1), getAvailability(coordinates.getX(), coordinates.getY() + 1));
+
+        maxFreeSpace = spaces.values().stream().filter(available -> available == true).count();
     }
 
     @Override
@@ -120,7 +123,7 @@ public class CampFire implements WorldObject, LightSource, AnimatedObject, NoVie
 
     @Override
     public boolean allFree() {
-        return !spaces.values().contains(false);
+        return spaces.values().stream().filter(a -> a).count() == maxFreeSpace;
     }
 
     @Override

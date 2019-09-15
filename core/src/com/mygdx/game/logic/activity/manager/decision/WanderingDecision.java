@@ -97,10 +97,17 @@ public class WanderingDecision implements Decision {
 
                 List<Point> newPoints = new ArrayList<>();
 
-                newPoints.add(obtainPoint(px, py - 1));
-                newPoints.add(obtainPoint(px, py + 1));
-                newPoints.add(obtainPoint(px + 1, py));
-                newPoints.add(obtainPoint(px - 1, py));
+                if (py - 1 >= 0 && !alreadyChecked[px][py - 1])
+                    newPoints.add(obtainPoint(px, py - 1));
+
+                if (py + 1 < targetDungeon.getHeight() - 1 && !alreadyChecked[px][py + 1])
+                    newPoints.add(obtainPoint(px, py + 1));
+
+                if (px + 1 < targetDungeon.getWidth() - 1 && !alreadyChecked[px + 1][py])
+                    newPoints.add(obtainPoint(px + 1, py));
+
+                if (px - 1 >= 0 && !alreadyChecked[px - 1][py])
+                    newPoints.add(obtainPoint(px - 1, py));
 
                 if (Config.Engine.ENABLE_8_WAYS_PATHFINDING) {
                     newPoints.add(obtainPoint(px + 1, py - 1));
