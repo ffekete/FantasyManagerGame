@@ -142,12 +142,22 @@ public class ObjectRenderer implements Renderer<Map2D> {
         }
     }
 
-    private boolean isActorAdjacent(Map2D dungeon, int i, int j) {
-        return
-                ((i - 1 >= 0 && j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i - 1][j + 1] != null) ||
-                        ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j] != null ||
-                        (j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i][j + 1] != null) ||
-                        (i + 1 < dungeon.getWidth() && j + 1 < dungeon.getHeight() && ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[i + 1][j + 1] != null));
+    private boolean isActorAdjacent(Map2D dungeon, int x, int y) {
+
+        for(int i = -1; i < 2; i++) {
+            for(int j = -1; j < 2; j++) {
+
+                if(x + i >= dungeon.getWidth() || y + j >= dungeon.getHeight() || x + i < 0 || y + j < 0) {
+                    continue;
+                }
+
+                if(ActorRegistry.INSTANCE.getActorGrid().get(dungeon)[x + i][y + j] != null) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     private int getIndex(WorldObject object) {

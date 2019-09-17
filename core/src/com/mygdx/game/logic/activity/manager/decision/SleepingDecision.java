@@ -19,7 +19,6 @@ import com.mygdx.game.object.furniture.Bed;
 import com.mygdx.game.object.house.House;
 import com.mygdx.game.object.placement.ObjectPlacement;
 import com.mygdx.game.registry.HouseRegistry;
-import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.ObjectRegistry;
 
 import java.util.*;
@@ -88,7 +87,7 @@ public class SleepingDecision implements Decision {
 
                 // start camp
                 CampFire campFire = fires.orElseGet(() -> {
-                    Point p = findNextUnexploredArea(actor.getCurrentMap(), actor.getX(), actor.getY());
+                    Point p = findNextOpenArea(actor.getCurrentMap(), actor.getX(), actor.getY());
                     return ObjectFactory.create(CampFire.class, actor.getCurrentMap(), ObjectPlacement.FIXED.X(p.getX()).Y(p.getY()));
                 });
 
@@ -109,7 +108,7 @@ public class SleepingDecision implements Decision {
     }
 
 
-    public Point findNextUnexploredArea(Map2D targetDungeon, int x, int y) {
+    public Point findNextOpenArea(Map2D targetDungeon, int x, int y) {
         boolean[][] alreadyChecked = new boolean[targetDungeon.getWidth()][targetDungeon.getHeight()];
         if (x < 0 || y < 0 || x >= targetDungeon.getWidth() || y >= targetDungeon.getHeight() || targetDungeon.getTile(x, y).isObstacle()) {
             return null;
@@ -123,12 +122,14 @@ public class SleepingDecision implements Decision {
             int px = next.getX();
             int py = next.getY();
 
-            if (px < 0 || py < 0 || px >= targetDungeon.getWidth() || py >= targetDungeon.getHeight() || alreadyChecked[px][py] || targetDungeon.isObstacle(px, py) || targetDungeon.getTile(px, py).isObstacle()) {
+            if (px < 0 || py < 0 || px >= targetDungeon.getWidth() || py >= targetDungeon.getHeight() || alreadyChecked[px][py]) {
+
+            } else if (targetDungeon.isObstacle(px, py) || targetDungeon.getTile(px, py).isObstacle()) {
+                alreadyChecked[px][py] = true;
 
             } else {
                 alreadyChecked[px][py] = true;
-
-                if (ObjectRegistry.INSTANCE.getObjectGrid().get(targetDungeon)[px][py][0] == null && ObjectRegistry.INSTANCE.getObjectGrid().get(targetDungeon)[px][py][1] == null) {
+                if (adjacentIsAllFree(targetDungeon, px, py)) {
                     for (Point p : allPoints) {
                         pointPool.free(p);
                     }
@@ -140,10 +141,10 @@ public class SleepingDecision implements Decision {
                 if (py - 1 >= 0 && !alreadyChecked[px][py - 1])
                     newPoints.add(obtainPoint(px, py - 1));
 
-                if (py + 1 <= targetDungeon.getHeight() - 1 && !alreadyChecked[px][py + 1])
+                if (py + 1 < targetDungeon.getHeight() && !alreadyChecked[px][py + 1])
                     newPoints.add(obtainPoint(px, py + 1));
 
-                if (px + 1 <= targetDungeon.getWidth() - 1 && !alreadyChecked[px + 1][py])
+                if (px + 1 < targetDungeon.getWidth() && !alreadyChecked[px + 1][py])
                     newPoints.add(obtainPoint(px + 1, py));
 
                 if (px - 1 >= 0 && !alreadyChecked[px - 1][py])
@@ -163,6 +164,23 @@ public class SleepingDecision implements Decision {
         }
         // no more visited area
         return null;
+    }
+
+    private boolean adjacentIsAllFree(Map2D dungeon, int x, int y) {
+        for (int i = -1; i < 2; i++) {
+            for (int j = -1; j < 2; j++) {
+
+                if (x + i >= dungeon.getWidth() || y + j >= dungeon.getHeight() || x + i < 0 || y + j < 0) {
+                    continue;
+                }
+
+                if (ObjectRegistry.INSTANCE.getObjectGrid().get(dungeon)[x + i][y + j][0] != null || ObjectRegistry.INSTANCE.getObjectGrid().get(dungeon)[x + i][y + j][1] != null) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 

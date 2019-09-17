@@ -26,9 +26,8 @@ public class CameraPositionController {
 
     public void update() {
         coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(0, 0));
-        Point newCoord = new Point(0, 0);
-        newCoord.x = coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).x;
-        newCoord.y = coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).y;
+        coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).x = coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).x;
+        coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).y = coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).y;
     }
 
     public void offset(float x, float y) {
@@ -69,7 +68,8 @@ public class CameraPositionController {
             focusedOn = actor;
         } else {
             coord.computeIfAbsent(MapRegistry.INSTANCE.getCurrentMapToShow(), value -> new Point(focusedOn.getX(), focusedOn.getY()));
-            coord.put(MapRegistry.INSTANCE.getCurrentMapToShow(), new Point(focusedOn.getX(), focusedOn.getY()));
+            coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).x = focusedOn.getX();
+            coord.get(MapRegistry.INSTANCE.getCurrentMapToShow()).y = focusedOn.getY();
             focusedOn = null;
         }
     }

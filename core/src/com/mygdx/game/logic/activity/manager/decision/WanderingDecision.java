@@ -83,8 +83,10 @@ public class WanderingDecision implements Decision {
             int px = next.getX();
             int py = next.getY();
 
-            if (px < 0 || py < 0 || px >= targetDungeon.getWidth() || py >= targetDungeon.getHeight() || alreadyChecked[px][py] || targetDungeon.getTile(px, py).isObstacle()) {
+            if (px < 0 || py < 0 || px >= targetDungeon.getWidth() || py >= targetDungeon.getHeight() || alreadyChecked[px][py]) {
 
+            } else if(targetDungeon.getTile(px, py).isObstacle() || targetDungeon.isObstacle(px, py)) {
+                alreadyChecked[px][py] = true;
             } else {
                 alreadyChecked[px][py] = true;
 

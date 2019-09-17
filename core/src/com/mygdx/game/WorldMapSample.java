@@ -223,6 +223,7 @@ public class WorldMapSample extends SampleBase {
         hero.setName("Gandalf");
 
         hero.equip(new JadeStaff());
+        hero.getInventory().add(new LeatherArmor());
 
         smith.setName("Will");
 

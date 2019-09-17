@@ -3,6 +3,7 @@ package com.mygdx.game.logic.actor;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.pathfinding.Node;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.ActorRegistry;
@@ -17,7 +18,7 @@ public class ActorMovementHandler {
 
     public static final ActorMovementHandler INSTANCE = new ActorMovementHandler();
 
-    private final Map<Actor, List<PathFinder.Node>> paths;
+    private final Map<Actor, List<Node>> paths;
 
     private Map<Actor, Direction> directions = new HashMap<>();
 
@@ -27,7 +28,7 @@ public class ActorMovementHandler {
         this.paths = new ConcurrentHashMap<>();
     }
 
-    public void registerActorPath(Actor actor, List<PathFinder.Node> path) {
+    public void registerActorPath(Actor actor, List<Node> path) {
         paths.put(actor, path);
     }
 
@@ -72,17 +73,17 @@ public class ActorMovementHandler {
         if (!paths.containsKey(actor) || paths.get(actor).isEmpty()) {
             return null;
         } else {
-            List<PathFinder.Node> path = paths.get(actor);
-            PathFinder.Node node = path.get(path.size() - 1);
+            List<Node> path = paths.get(actor);
+            Node node = path.get(path.size() - 1);
             return new Point(node.getX(), node.getY());
         }
     }
 
-    public PathFinder.Node getNextPathPoint(Actor actor) {
+    public Node getNextPathPoint(Actor actor) {
         if (!paths.containsKey(actor) || paths.get(actor).isEmpty()) {
             return null;
         } else {
-            List<PathFinder.Node> path = paths.get(actor);
+            List<Node> path = paths.get(actor);
             return path.get(path.size() - 1);
         }
     }
@@ -125,12 +126,12 @@ public class ActorMovementHandler {
     }
 
     public boolean moveToNextPathPoint(Actor movableActor) {
-        List<PathFinder.Node> path = paths.get(movableActor);
+        List<Node> path = paths.get(movableActor);
         if (path == null || path.isEmpty()) {
             return false;
         }
 
-        PathFinder.Node nextNode = path.get(path.size() - 1);
+        Node nextNode = path.get(path.size() - 1);
         if (movableActor.getCurrentMap().getTile(nextNode.getX(), nextNode.getY()).isObstacle()) {
             PathFinder pathFinder = new PathFinder();
             pathFinder.init(movableActor.getCurrentMap());
@@ -139,7 +140,7 @@ public class ActorMovementHandler {
         }
 
         if (path != null && !path.isEmpty()) {
-            PathFinder.Node next = path.remove(path.size() - 1);
+            Node next = path.remove(path.size() - 1);
 
             moveTo(movableActor, next);
             changedCoordList.add(movableActor);
@@ -154,7 +155,7 @@ public class ActorMovementHandler {
         ActorRegistry.INSTANCE.add(movableActor.getCurrentMap(), movableActor, false);
     }
 
-    private void moveTo(Actor movableActor, PathFinder.Node next) {
+    private void moveTo(Actor movableActor, Node next) {
         ActorRegistry.INSTANCE.remove(movableActor.getCurrentMap(), movableActor, false);
         movableActor.setCoordinates(new Point(next.getX(), next.getY()));
         ActorRegistry.INSTANCE.add(movableActor.getCurrentMap(), movableActor, false);

@@ -1,6 +1,7 @@
 package com.mygdx.game.map.worldmap;
 
 import com.mygdx.game.logic.Point;
+import com.mygdx.game.logic.pathfinding.Node;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.object.Obstacle;
@@ -26,10 +27,10 @@ public class RoadCreator {
 
         boolean returnAfterThis = false;
 
-        List<PathFinder.Node> path = pathFinder.findAStar(p1, p2);
+        List<Node> path = pathFinder.findAStar(p1, p2);
 
         int i = 0;
-        for(PathFinder.Node node : path) {
+        for(Node node : path) {
             if(ObjectRegistry.INSTANCE.getObjectGrid().get(map)[node.getX()][node.getY()][1] != null && !DungeonEntrance.class.isAssignableFrom(ObjectRegistry.INSTANCE.getObjectGrid().get(map)[node.getX()][node.getY()][1].getClass())) {
                 ObjectFactory.remove(map, node.getX(), node.getY());
             }

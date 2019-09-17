@@ -36,8 +36,7 @@ public class ExplorationActivityIntegrationTest {
         actor.setCoordinates(new Point(5,5));
         activity = new ExplorationActivity(dungeon, actor);
         //activity.init();
-        boolean[][] checked = new boolean[Config.Dungeon.DUNGEON_WIDTH][Config.Dungeon.DUNGEON_HEIGHT];
-        Point p = activity.findNextUnexploredArea(checked, dungeon, 5,5);
+        Point p = activity.findNextUnexploredArea(dungeon, 5,5);
 
         System.out.println(p.getX() + " " + p.getY());
     }

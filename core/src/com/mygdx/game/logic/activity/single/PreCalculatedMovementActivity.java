@@ -4,6 +4,7 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
+import com.mygdx.game.logic.pathfinding.Node;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 
 import java.util.List;
@@ -20,9 +21,9 @@ public class PreCalculatedMovementActivity implements Activity {
     private int speed;
     private int targetX;
     private int targetY;
-    private final List<PathFinder.Node> path;
+    private final List<Node> path;
 
-    public PreCalculatedMovementActivity(Actor actor, List<PathFinder.Node> path) {
+    public PreCalculatedMovementActivity(Actor actor, List<Node> path) {
         this.actor = actor;
         this.path = path;
         this.actorMovementHandler = ActorMovementHandler.INSTANCE;

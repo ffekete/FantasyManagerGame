@@ -4,6 +4,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Config;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
+import com.sun.deploy.util.ReflectionUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,7 +56,7 @@ public class PathFinder {
     }
 
     public void addObstacle(int x, int y, int value) {
-        obstacleMap[x][y].tile = value;
+        obstacleMap[x][y].setTile(value);
     }
 
     public List<Node> findAStar(Point start, Point target) {
@@ -65,24 +66,35 @@ public class PathFinder {
         List<Node> path = new ArrayList<>();
         List<Node> allNodes = new ArrayList<>();
 
-        Node startNode = new Node(0, 0, 0, DEFAULT_EFFORT);
-        startNode.tile = map[start.getX()][start.getY()].tile;
-        startNode.x = start.getX();
-        startNode.y = start.getY();
-        startNode.effort = map[startNode.x][startNode.y].effort;
+        Node startNode = new Node(map[start.getX()][start.getY()].getTile(), start.getX(), start.getY(), DEFAULT_EFFORT);
+        try {
+            System.out.println("&&&&&&&");
+
+            System.out.println(startNode);
+
+            System.out.println(start.getX());
+            System.out.println(start.getY());
+            System.out.println(map[start.getX()][start.getY()].getTile());
+        } catch (NullPointerException e) {
+            // wtf?
+            System.out.println("WTF?");
+        }
+        startNode.setX(start.getX());
+        startNode.setY(start.getY());
+        startNode.effort = map[startNode.getX()][startNode.getY()].effort;
 
         startNode.g = startNode.f = startNode.h = 0f;
-        startNode.parent = null;
+        startNode.setParent(null);
 
-        Node end = new Node(0,0,0,DEFAULT_EFFORT);
-        end.tile = map[target.getX()][target.getY()].tile;
-        end.x = target.getX();
-        end.y = target.getY();
+        Node end = new Node(0, 0, 0, DEFAULT_EFFORT);
+        end.setTile(map[target.getX()][target.getY()].getTile());
+        end.setX(target.getX());
+        end.setY(target.getY());
 
         end.g = end.h = end.f = 0f;
 
-        end.effort = map[end.x][end.y].effort;
-        end.parent = null;
+        end.effort = map[end.getX()][end.getY()].effort;
+        end.setParent(null);
 
         openNodes.add(startNode);
 
@@ -102,15 +114,15 @@ public class PathFinder {
             openNodes.remove(current);
             closedNodes.add(current);
 
-            if ((current.x == target.getX() && current.y == target.getY()) ||
-                    map[target.getX()][target.getY()].tile == 1 && distance(current, new Node(0, target.getX(), target.getY(), 0.f)) < 2
+            if ((current.getX() == target.getX() && current.getY() == target.getY()) ||
+                    map[target.getX()][target.getY()].getTile() == 1 && distance(current, new Node(0, target.getX(), target.getY(), 0.f)) < 2
                     ) {
                 // hurra
                 Node c = current;
                 while (c != null) {
-                    Node c1 = new Node(c.tile, c.x, c.y, c.effort);
+                    Node c1 = new Node(c.getTile(), c.getX(), c.getY(), c.effort);
                     path.add(c1);
-                    c = c.parent;
+                    c = c.getParent();
                 }
                 return path;
             }
@@ -118,23 +130,23 @@ public class PathFinder {
             List<Node> children = new ArrayList<>();
             // add children
             for (int[] i : availableNodesForCheck) {
-                int x = current.x - i[0];
-                int y = current.y - i[1];
+                int x = current.getX() - i[0];
+                int y = current.getY() - i[1];
 
                 if (x >= 0 && x < width && y >= 0 && y < height) {
 
-                    if (map[x][y].tile == 1) {
+                    if (map[x][y].getTile() == 1) {
                         continue;
                     }
 
-                    Node child = new Node(0,0,0,DEFAULT_EFFORT);
+                    Node child = new Node(0, 0, 0, DEFAULT_EFFORT);
                     allNodes.add(child);
-                    child.tile = map[x][y].tile;
-                    child.x = x;
-                    child.y = y;
+                    child.setTile(map[x][y].getTile());
+                    child.setX(x);
+                    child.setY(y);
                     child.effort = map[x][y].effort;
 
-                    child.parent = current;
+                    child.setParent(current);
 
                     children.add(child);
                 }
@@ -189,7 +201,7 @@ public class PathFinder {
 
         int i = 1;
         for (Node node : path) {
-            resultMap[node.x][node.y] = 1;
+            resultMap[node.getX()][node.getY()] = 1;
             i++;
         }
 
@@ -228,51 +240,8 @@ public class PathFinder {
     }
 
     private static int distance(Node n1, Node n2) {
-        int a = Math.abs(n2.x - n1.x);
-        int b = Math.abs(n2.y - n1.y);
+        int a = Math.abs(n2.getX() - n1.getX());
+        int b = Math.abs(n2.getY() - n1.getY());
         return a * a + b * b;
-    }
-
-    public static class Node {
-        private int x;
-        private int y;
-        private Node parent;
-        private int tile;
-        float effort;
-        float f, g, h;
-
-        @Override
-        public boolean equals(Object obj) {
-            if (!this.getClass().equals(obj.getClass())) {
-                return false;
-            }
-            return ((Node) obj).x == x && ((Node) obj).y == y && effort == ((Node) obj).effort;
-        }
-
-        @Override
-        public int hashCode() {
-            int hash = 31 * x;
-            hash = 31 * hash + Float.hashCode(effort);
-            return 31 * hash + y;
-        }
-
-        public Node(int tile, int x, int y, float effort) {
-            this.tile = tile;
-            this.x = x;
-            this.y = y;
-            this.effort = effort;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getY() {
-            return y;
-        }
-
-        public int getTile() {
-            return tile;
-        }
     }
 }

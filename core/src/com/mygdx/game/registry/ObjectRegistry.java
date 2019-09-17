@@ -87,7 +87,6 @@ public class ObjectRegistry {
         if(Obstacle.class.isAssignableFrom(object.getClass())) {
             currentMap.setObstacle((int)object.getX(), (int)object.getY(), false);
         }
-
     }
 
     public Map<Map2D, WorldObject[][][]> getObjectGrid() {

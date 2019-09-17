@@ -11,6 +11,7 @@ import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
 import com.mygdx.game.logic.activity.single.RangedAttackActivity;
 import com.mygdx.game.logic.activity.single.SimpleAttackActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
+import com.mygdx.game.logic.pathfinding.Node;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.logic.selector.ClosestEnemySelector;
 import com.mygdx.game.registry.ActorRegistry;
@@ -57,7 +58,7 @@ public class MoveAndRangedAttackTargetDecision implements Decision {
                 PathFinder pathFinder = mapRegistry.getPathFinderFor(actor.getCurrentMap());
 
                 long startDate = System.currentTimeMillis();
-                List<PathFinder.Node> path;
+                List<Node> path;
                 if (PreCalculatedMovementActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass())) {
 
                     PreCalculatedMovementActivity movementActivity = ((PreCalculatedMovementActivity) enemy.getActivityStack().getCurrent().getCurrentActivity());
@@ -80,7 +81,7 @@ public class MoveAndRangedAttackTargetDecision implements Decision {
                     actor.getActivityStack().add(new RangedAttackActivity(actor, enemy));
                 } else {
                     actorMovementHandler.clearPath(actor);
-                    List<PathFinder.Node> actorPath = new ArrayList<>();
+                    List<Node> actorPath = new ArrayList<>();
                     int start = halfWay;
                     int end = path.size();
 

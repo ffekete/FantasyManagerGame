@@ -28,8 +28,6 @@ public class ExplorationActivity implements Activity {
     private int targetX = 0;
     private int targetY = 0;
 
-    boolean[][] alreadyChecked;
-
     // performance enhancement
     private Point point;
     private final List<Point> allPoints = new ArrayList<>();
@@ -37,11 +35,8 @@ public class ExplorationActivity implements Activity {
     public ExplorationActivity(Map2D targetDungeon, Actor actor) {
         this.targetDungeon = targetDungeon;
 
-        alreadyChecked = new boolean[targetDungeon.getWidth()][targetDungeon.getHeight()];
-
         this.actor = actor;
-        boolean[][] alreadyChecked = new boolean[targetDungeon.getWidth()][targetDungeon.getHeight()];
-        Point target = findNextUnexploredArea(alreadyChecked, targetDungeon, actor.getX(), actor.getY());
+        Point target = findNextUnexploredArea(targetDungeon, actor.getX(), actor.getY());
         if (target != null) {
             targetX = target.getX();
             targetY = target.getY();
@@ -65,7 +60,7 @@ public class ExplorationActivity implements Activity {
         if (movementActivity.isDone()) {
             movementActivity.clear();
 
-            Point target = findNextUnexploredArea(alreadyChecked, targetDungeon, actor.getX(), actor.getY());
+            Point target = findNextUnexploredArea(targetDungeon, actor.getX(), actor.getY());
             if (target != null) {
                 targetX = target.getX();
                 targetY = target.getY();
@@ -83,7 +78,9 @@ public class ExplorationActivity implements Activity {
         return targetY;
     }
 
-    public Point findNextUnexploredArea(boolean[][] alreadyChecked, Map2D targetDungeon, int x, int y) {
+    public Point findNextUnexploredArea(Map2D targetDungeon, int x, int y) {
+        boolean[][] alreadyChecked = new boolean[targetDungeon.getWidth()][targetDungeon.getHeight()];
+
         if (x < 0 || y < 0 || x >= targetDungeon.getWidth() || y >= targetDungeon.getHeight() || targetDungeon.getTile(x, y).isObstacle()) {
             return null;
         }
@@ -95,7 +92,10 @@ public class ExplorationActivity implements Activity {
             int px = next.getX();
             int py = next.getY();
 
-            if (px < 0 || py < 0 || px >= targetDungeon.getWidth() || py >= targetDungeon.getHeight() || alreadyChecked[px][py] || targetDungeon.getTile(px, py).isObstacle()) {
+            if (px < 0 || py < 0 || px >= targetDungeon.getWidth() || py >= targetDungeon.getHeight() || alreadyChecked[px][py]) {
+
+            } else if(targetDungeon.getTile(px, py).isObstacle() || targetDungeon.isObstacle(px, py)) {
+                alreadyChecked[px][py] = true;
 
             } else {
                 alreadyChecked[px][py] = true;
@@ -176,7 +176,7 @@ public class ExplorationActivity implements Activity {
 
         movementActivity.clear();
 
-        Point target = findNextUnexploredArea(alreadyChecked, targetDungeon, actor.getX(), actor.getY());
+        Point target = findNextUnexploredArea(targetDungeon, actor.getX(), actor.getY());
         if (target != null) {
             targetX = target.getX();
             targetY = target.getY();

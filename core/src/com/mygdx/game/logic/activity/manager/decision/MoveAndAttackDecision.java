@@ -11,6 +11,7 @@ import com.mygdx.game.logic.activity.single.PreCalculatedMovementActivity;
 import com.mygdx.game.logic.activity.single.RangedAttackActivity;
 import com.mygdx.game.logic.activity.single.SimpleAttackActivity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
+import com.mygdx.game.logic.pathfinding.Node;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.logic.selector.ClosestEnemySelector;
 import com.mygdx.game.registry.ActorRegistry;
@@ -56,7 +57,7 @@ public class MoveAndAttackDecision implements Decision {
                 PathFinder pathFinder = mapRegistry.getPathFinderFor(actor.getCurrentMap());
 
                 long startDate = System.currentTimeMillis();
-                List<PathFinder.Node> path;
+                List<Node> path;
 
                 // if enemy is already moving
                 if (PreCalculatedMovementActivity.class.isAssignableFrom(enemy.getActivityStack().getCurrent().getCurrentClass())) {
@@ -78,7 +79,7 @@ public class MoveAndAttackDecision implements Decision {
                 } else {
                     // need to move closer
                     actorMovementHandler.clearPath(actor);
-                    List<PathFinder.Node> actorPath = new ArrayList<>();
+                    List<Node> actorPath = new ArrayList<>();
                     int start = isActorAlreadyFighting(enemy) ? 1 : halfWay;
                     int end = path.size();
 
@@ -102,7 +103,7 @@ public class MoveAndAttackDecision implements Decision {
                         enemy.getActivityStack().add(new SimpleAttackActivity(enemy, actor));
                     } else {
                         actorMovementHandler.clearPath(enemy);
-                        List<PathFinder.Node> enemyPath = new ArrayList<>();
+                        List<Node> enemyPath = new ArrayList<>();
 
                         for (int i = halfWay - 1; i >= 0; i--) {
                             enemyPath.add(path.get(i));

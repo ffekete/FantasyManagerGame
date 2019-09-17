@@ -6,6 +6,7 @@ import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.ThreadManager;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
+import com.mygdx.game.logic.pathfinding.Node;
 import com.mygdx.game.logic.pathfinding.PathFinder;
 import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.SoundRegistry;
@@ -30,7 +31,7 @@ public class MovementActivity implements Activity {
     private Integer counter = 0;
     private boolean done = false;
     private ActorMovementHandler actorMovementHandler;
-    private Future<List<PathFinder.Node>> path;
+    private Future<List<Node>> path;
     private int speed;
     private int limit = 0;
     private int range = 0;
