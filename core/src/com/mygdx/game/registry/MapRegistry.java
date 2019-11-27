@@ -14,6 +14,7 @@ public class MapRegistry {
     public static final MapRegistry INSTANCE = new MapRegistry();
 
     private Map2D currentMapToShow = null;
+    private Map2D worldMap = null;
 
     private Iterator<Map2D> iterator;
 
@@ -32,6 +33,14 @@ public class MapRegistry {
             iterator = maps.iterator();
             return iterator.next();
         }
+    }
+
+    public Map2D getWorldMap() {
+        return worldMap;
+    }
+
+    public void setWorldMap(Map2D worldMap) {
+        this.worldMap = worldMap;
     }
 
     public void add(Map2D map) {

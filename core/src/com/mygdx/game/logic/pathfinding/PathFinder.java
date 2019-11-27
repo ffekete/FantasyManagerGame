@@ -1,10 +1,8 @@
 package com.mygdx.game.logic.pathfinding;
 
-import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.Config;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.map.Map2D;
-import com.sun.deploy.util.ReflectionUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;

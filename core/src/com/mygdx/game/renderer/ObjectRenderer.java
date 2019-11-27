@@ -84,6 +84,7 @@ public class ObjectRenderer implements Renderer<Map2D> {
 
                             if (Decoration.class.isAssignableFrom(worldObject.getClass())) {
                                 spriteBatch.setColor(Color.valueOf("FFFFFF22"));
+                                // draw shadows
                                 spriteBatch.draw(textureRegistry.getShadowTexture(), worldObject.getX(), worldObject.getY(), 0, 0, 1, 1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0, 0, 0, 32, 32, false, false);
 
                                 if (dungeon.getVisitedareaMap()[i][j] == VisitedArea.VISITED_BUT_NOT_VISIBLE) {
@@ -93,7 +94,7 @@ public class ObjectRenderer implements Renderer<Map2D> {
                                 }
                             }
 
-                            spriteBatch.draw(textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)), worldObject.getX(), worldObject.getY(), 0, 0, 1, 1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0, 0, 0, textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)).getWidth(), textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)).getHeight(), flipX, flipY);
+                            spriteBatch.draw(textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)), worldObject.getX(), worldObject.getY(), 0.5f, 0, 1, 1, worldObject.getWorldMapSize(), worldObject.getWorldMapSize(), 0, 0, 0, textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)).getWidth(), textureRegistry.getForobject(worldObject.getClass()).get(getIndex(worldObject)).getHeight(), flipX, flipY);
                         }
 
                         if (BuildingBlock.class.isAssignableFrom(worldObject.getClass())) {

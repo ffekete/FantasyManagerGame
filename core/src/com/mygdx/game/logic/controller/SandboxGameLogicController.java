@@ -5,11 +5,12 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.regenerator.RegeneratorImpl;
 import com.mygdx.game.effect.manager.EffectManager;
-import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.projectile.manager.ProjectileManager;
 import com.mygdx.game.logic.HousePopulator;
 import com.mygdx.game.logic.activity.manager.ActivityManager;
 import com.mygdx.game.logic.actor.ActorMovementHandler;
+import com.mygdx.game.logic.controller.updater.GrowthUpdater;
+import com.mygdx.game.logic.controller.updater.HeroUpdater;
 import com.mygdx.game.logic.time.DayTimeCalculator;
 import com.mygdx.game.logic.visibility.VisibilityCalculator;
 import com.mygdx.game.logic.visibility.VisibilityMask;
@@ -21,9 +22,7 @@ import com.mygdx.game.registry.MapRegistry;
 import com.mygdx.game.registry.VisibilityMapRegistry;
 import com.mygdx.game.spell.manager.SpellManager;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SandboxGameLogicController implements Controller {
 
@@ -66,9 +65,9 @@ public class SandboxGameLogicController implements Controller {
 
             dayTimeCalculator.update();
 
-            long s0 = System.currentTimeMillis();
+            GrowthUpdater.INSTANCE.update();
+
             calculateVisibilityForMaps();
-            //System.out.println("s0: " + (System.currentTimeMillis() - s0));
 
             MusicPlayer.INSTANCE.choose();
 
@@ -81,31 +80,17 @@ public class SandboxGameLogicController implements Controller {
                     });
                 }
             });
-            //System.out.println("Ez: " + (System.currentTimeMillis() - s));
 
             long i = System.currentTimeMillis();
 
             QuestManager.INSTANCE.update();
-
-            MapRegistry.INSTANCE.getMaps().forEach(map -> {
-                if (actorRegistry.containsAnyHeroes(map)) {
-
-                    actorRegistry.getActors(map).forEach(actor -> {
-                        actor.increaseHunger(1);
-                        actor.increaseSleepiness(1);
-                        actor.increaseTrainingNeeds(1);
-                        actor.getActivityStack().performNext();
-                    });
-                }
-            });
+            HeroUpdater.INSTANCE.update();
 
             if(bucketNr >= Config.Engine.BUCKET_SIZE -1) {
                 HousePopulator.INSTANCE.update();
             }
 
             bucketNr = (bucketNr + 1) % Config.Engine.BUCKET_SIZE;
-
-            //System.out.println("Ez meg: " + (System.currentTimeMillis() - i));
 
             spellManager.update();
             projectileManager.update();

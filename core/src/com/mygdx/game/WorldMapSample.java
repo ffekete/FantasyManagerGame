@@ -131,6 +131,8 @@ public class WorldMapSample extends SampleBase {
 
         worldMap = WorldMapFactory.INSTANCE.create();
 
+        MapRegistry.INSTANCE.setWorldMap(worldMap);
+
         InputConfigurer.INSTANCE.setInputProcessor(StageConfigurer.INSTANCE.getFor(GameState.Sandbox), StageConfigurer.INSTANCE.getFor(GameState.Builder),  this);
 
         builder = ActorFactory.INSTANCE.create(Builder.class, worldMap, Placement.FIXED.X(7).Y(10));

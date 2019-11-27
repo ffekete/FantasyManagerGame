@@ -9,9 +9,9 @@ import com.mygdx.game.object.WorldObject;
 
 import java.util.Random;
 
-public class TreeV8 implements WorldObject, Decoration, Cuttable {
+public class TreeV8 implements WorldObject, Decoration, Cuttable, Growable {
 
-    private final float worldMapSize = new Random().nextFloat() / 2f + 1.1f;
+    private float worldMapSize = new Random().nextFloat() / 2f + 1.1f;
 
     private Point coordinates;
 
@@ -60,5 +60,16 @@ public class TreeV8 implements WorldObject, Decoration, Cuttable {
     @Override
     public boolean isFinished() {
         return progress >= 100f;
+    }
+
+    @Override
+    public void grow() {
+        if(worldMapSize < getMaxSize())
+            worldMapSize += 0.001f;
+    }
+
+    @Override
+    public float getMaxSize() {
+        return 1.7f;
     }
 }

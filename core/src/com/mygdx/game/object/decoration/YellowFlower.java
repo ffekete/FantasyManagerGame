@@ -5,9 +5,9 @@ import com.mygdx.game.object.WorldObject;
 
 import java.util.Random;
 
-public class YellowFlower implements WorldObject, Decoration {
+public class YellowFlower implements WorldObject, Decoration, Growable {
 
-    private final float worldMapSize = new Random().nextFloat() / 2f + 0.3f;
+    private float worldMapSize = new Random().nextFloat() / 2f + 0.3f;
 
     private Point coordinates;
 
@@ -38,5 +38,16 @@ public class YellowFlower implements WorldObject, Decoration {
     @Override
     public float getWorldMapSize() {
         return worldMapSize;
+    }
+
+    @Override
+    public void grow() {
+        if(worldMapSize < getMaxSize())
+            worldMapSize += 0.001f;
+    }
+
+    @Override
+    public float getMaxSize() {
+        return 0.8f;
     }
 }
