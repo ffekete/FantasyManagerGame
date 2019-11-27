@@ -1,6 +1,7 @@
 package com.mygdx.game.actor.wildlife;
 
 import com.mygdx.game.actor.AbstractActor;
+import com.mygdx.game.actor.BodyType;
 import com.mygdx.game.actor.MeleeActor;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.ItemFactory;
@@ -46,6 +47,11 @@ public class Wolf extends AbstractActor implements MeleeActor {
     @Override
     public List<Item> drop() {
         return Arrays.asList(ItemFactory.INSTANCE.create(WolfPelt.class, this.getCurrentMap(), Placement.FIXED.X(getX()).Y(getY())));
+    }
+
+    @Override
+    public BodyType getBodyType() {
+        return BodyType.Wolf;
     }
 
     @Override

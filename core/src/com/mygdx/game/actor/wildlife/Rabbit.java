@@ -1,6 +1,7 @@
 package com.mygdx.game.actor.wildlife;
 
 import com.mygdx.game.actor.AbstractActor;
+import com.mygdx.game.actor.BodyType;
 import com.mygdx.game.actor.Prey;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.ItemFactory;
@@ -71,5 +72,10 @@ public class Rabbit extends AbstractActor implements Prey {
     @Override
     public int getMana() {
         return 0;
+    }
+
+    @Override
+    public BodyType getBodyType() {
+        return BodyType.Humanoid;
     }
 }

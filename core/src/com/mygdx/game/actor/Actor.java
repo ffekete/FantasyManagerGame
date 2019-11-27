@@ -113,4 +113,5 @@ public interface Actor {
     int getTrainingNeeds();
     boolean wantsTraining();
     List<Item> drop();
+    BodyType getBodyType();
 }

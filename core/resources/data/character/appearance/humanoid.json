@@ -1,0 +1,11 @@
+{
+  "body": [
+    "actors/bodyparts/humanoid/humanoid_body.png"
+  ],
+  "eyes": [
+    "actors/bodyparts/humanoid/humanoid_eyes.png"
+  ],
+  "hair": [
+    "actors/bodyparts/humanoid/humanoid_hair.png"
+  ]
+}

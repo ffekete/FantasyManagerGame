@@ -1,6 +1,7 @@
 package com.mygdx.game.actor.monster;
 
 import com.mygdx.game.actor.AbstractActor;
+import com.mygdx.game.actor.BodyType;
 import com.mygdx.game.actor.CasterActor;
 import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
@@ -72,5 +73,10 @@ public class Lich extends AbstractActor implements CasterActor {
     @Override
     public String getActorClass() {
         return "Lich priest";
+    }
+
+    @Override
+    public BodyType getBodyType() {
+        return BodyType.HumanoidSkeleton;
     }
 }

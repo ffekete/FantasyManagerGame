@@ -1,6 +1,7 @@
 package com.mygdx.game.actor.monster;
 
 import com.mygdx.game.actor.AbstractActor;
+import com.mygdx.game.actor.BodyType;
 import com.mygdx.game.actor.MeleeActor;
 
 import static com.mygdx.game.faction.Alignment.ENEMY;
@@ -54,5 +55,10 @@ public class Orc extends AbstractActor implements MeleeActor {
     @Override
     public String getActorClass() {
         return "Orc warrior";
+    }
+
+    @Override
+    public BodyType getBodyType() {
+        return BodyType.Orc;
     }
 }

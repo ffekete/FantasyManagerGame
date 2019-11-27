@@ -1,6 +1,7 @@
 package com.mygdx.game.actor.hero;
 
 import com.mygdx.game.actor.AbstractActor;
+import com.mygdx.game.actor.BodyType;
 import com.mygdx.game.actor.CasterActor;
 import com.mygdx.game.actor.factory.SkillFocusFactory;
 import com.mygdx.game.item.spelltome.SpellTome;
@@ -28,5 +29,10 @@ public class Wizard extends AbstractActor implements CasterActor, Hero {
     @Override
     public String getActorClass() {
         return "Wizard";
+    }
+
+    @Override
+    public BodyType getBodyType() {
+        return BodyType.Humanoid;
     }
 }
