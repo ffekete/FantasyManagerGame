@@ -5,6 +5,7 @@ public enum BodyType {
     Humanoid("humanoid"),
     Goblin("goblin"),
     Orc("orc"),
+    Troll("troll"),
     HumanoidSkeleton("skeleton"),
     Rabbit("rabbit"),
     Wolf("wolf");

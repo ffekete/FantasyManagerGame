@@ -3,6 +3,7 @@ package com.mygdx.game.logic.activity.manager.decision;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.hero.Warrior;
+import com.mygdx.game.actor.monster.CaveTroll;
 import com.mygdx.game.item.armor.BlackPlateMail;
 import com.mygdx.game.item.armor.ChainMailArmor;
 import com.mygdx.game.item.armor.LeatherArmor;
@@ -43,6 +44,16 @@ public class EquipDecisionTest {
         Decision decision = new EquipDecision();
         boolean result = decision.decide(actor);
         assertThat(result, is(true));
+    }
+
+    @Test
+    public void testShouldFail_betterArmorInInventoryButDoesNotFit() {
+        Actor actor = new CaveTroll();
+
+        actor.getInventory().add(new ChainMailArmor());
+        Decision decision = new EquipDecision();
+        boolean result = decision.decide(actor);
+        assertThat(result, is(false));
     }
 
     @Test

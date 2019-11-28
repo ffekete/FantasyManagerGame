@@ -66,10 +66,12 @@ public class EquipDecision implements Decision {
                         return true;
                     }
                 } else if (Armor.class.isAssignableFrom(equipable.getClass())) {
-                    if (actor.getWornArmor() == null || actor.getWornArmor().getPower() < equipable.getPower()) {
-                        EquipActivity equipActivity = new EquipActivity(actor, equipable);
-                        actor.getActivityStack().add(equipActivity);
-                        return true;
+                    if (((Armor) equipable).getCompatibleBodyTypes().contains(actor.getBodyType())) {
+                        if (actor.getWornArmor() == null || actor.getWornArmor().getPower() < equipable.getPower()) {
+                            EquipActivity equipActivity = new EquipActivity(actor, equipable);
+                            actor.getActivityStack().add(equipActivity);
+                            return true;
+                        }
                     }
                 }
                 return false;

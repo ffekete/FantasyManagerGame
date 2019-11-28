@@ -1,16 +1,25 @@
 package com.mygdx.game.item.armor;
 
+import com.google.common.collect.ImmutableSet;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.BodyType;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier3;
+
+import java.util.Set;
 
 public class BlackPlateMail extends AbstractItem implements Armor, Tier3, Craftable {
 
     @Override
     public int getDamageProtection() {
         return 8;
+    }
+
+    @Override
+    public Set<BodyType> getCompatibleBodyTypes() {
+        return ImmutableSet.of(BodyType.Humanoid, BodyType.HumanoidSkeleton, BodyType.Orc);
     }
 
     @Override
