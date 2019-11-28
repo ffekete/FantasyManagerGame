@@ -5,7 +5,7 @@
       "body": {
         "colors": [
           "FFCC99",
-          "994C00",
+          "663300",
           "FFB266"
         ],
         "parts": [
@@ -14,8 +14,8 @@
       },
       "eyes": {
         "colors": [
-          "FFFFBB",
-          "FFBBBB"
+          "33FFFF",
+          "994C00"
         ],
         "parts": [
           "actors/bodyparts/humanoid/humanoid_eyes_01.png"
@@ -23,8 +23,10 @@
       },
       "hair": {
         "colors": [
-          "FFFFBB",
-          "FFBBBB"
+          "FFFF00",
+          "994C00",
+          "FF8000",
+          "000000"
         ],
         "parts": [
           "actors/bodyparts/humanoid/humanoid_hair_01.png"
@@ -36,29 +38,30 @@
       "type": "orc",
       "body": {
         "colors": [
-          "FFFFBB",
-          "FFBBBB"
+          "336600",
+          "4C9900",
+          "006633"
         ],
         "parts": [
-          "actors/bodyparts/humanoid/humanoid_body.png"
+          "actors/bodyparts/orc/orc_body.png"
         ]
       },
       "eyes": {
         "colors": [
-          "FFFFBB",
-          "FFBBBB"
+          "000000",
+          "FF0000"
         ],
         "parts": [
-          "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+          "actors/bodyparts/orc/orc_eyes_01.png"
         ]
       },
       "hair": {
         "colors": [
-          "FFFFBB",
-          "FFBBBB"
+          "000000",
+          "CC0000"
         ],
         "parts": [
-          "actors/bodyparts/humanoid/humanoid_hair_01.png"
+          "actors/bodyparts/orc/orc_hair_01.png"
         ]
       }
     },
@@ -67,29 +70,30 @@
       "type": "goblin",
       "body": {
         "colors": [
-          "FFFFBB",
-          "FFBBBB"
+          "336600",
+          "4C9900",
+          "006633"
         ],
         "parts": [
-          "actors/bodyparts/humanoid/humanoid_body.png"
+          "actors/bodyparts/orc/orc_body.png"
         ]
       },
       "eyes": {
         "colors": [
-          "FFFFBB",
-          "FFBBBB"
+          "000000",
+          "FF0000"
         ],
         "parts": [
-          "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+          "actors/bodyparts/orc/orc_eyes_01.png"
         ]
       },
       "hair": {
         "colors": [
-          "FFFFBB",
-          "FFBBBB"
+          "000000",
+          "CC0000"
         ],
         "parts": [
-          "actors/bodyparts/humanoid/humanoid_hair_01.png"
+          "actors/bodyparts/orc/orc_hair_01.png"
         ]
       }
     },
