@@ -66,7 +66,7 @@ public class EquipDecision implements Decision {
                         return true;
                     }
                 } else if (Armor.class.isAssignableFrom(equipable.getClass())) {
-                    if (((Armor) equipable).getCompatibleBodyTypes().contains(actor.getBodyType())) {
+                    if (((Armor) equipable).getCompatibleBodyTypes().contains(actor.getBodyType()) && ((Armor) equipable).getAllowedClasses().contains(actor.getClass())) {
                         if (actor.getWornArmor() == null || actor.getWornArmor().getPower() < equipable.getPower()) {
                             EquipActivity equipActivity = new EquipActivity(actor, equipable);
                             actor.getActivityStack().add(equipActivity);

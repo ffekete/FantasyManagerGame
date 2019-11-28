@@ -10,6 +10,7 @@ import com.mygdx.game.actor.Direction;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.single.*;
 import com.mygdx.game.registry.AnimationRegistry;
+import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 
 public class FullBodyActorAnimation implements ActorAnimation {
@@ -39,7 +40,8 @@ public class FullBodyActorAnimation implements ActorAnimation {
         spriteBatch.draw(getHairTexture(actor), x + offset,y+ offset, 0, 0, 1, 1, scale, scale, 0, (int)phase * 32,  32 * row, 32,32, getFlip(direction), false);
 
         // armor
-        //spriteBatch.draw(getArmorTexture(actor), x + offset,y+ offset, 0, 0, 1, 1, scale, scale, 0, (int)phase * 32,  32 * row, 32,32, getFlip(direction), false);
+        spriteBatch.draw(textureRegistry.getFor(actor.getWornArmor().getClass()), x + offset,y+ offset, 0, 0, 1, 1, scale, scale, 0f, (int)phase * 32, 32 * row, 32, 32, getFlip(direction), false);
+
 
         spriteBatch.setColor(Color.WHITE);
 

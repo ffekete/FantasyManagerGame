@@ -4,6 +4,9 @@ import com.google.common.collect.ImmutableSet;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.BodyType;
+import com.mygdx.game.actor.hero.Ranger;
+import com.mygdx.game.actor.hero.Warrior;
+import com.mygdx.game.actor.monster.*;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier1;
@@ -20,6 +23,11 @@ public class ChainMailArmor extends AbstractItem implements Armor, Tier1, Crafta
     @Override
     public void onEquip(Actor actor) {
 
+    }
+
+    @Override
+    public Set<Class<? extends Actor>> getAllowedClasses() {
+        return ImmutableSet.of(Warrior.class, Ranger.class, Orc.class, Skeleton.class, SkeletonWarrior.class, Lich.class);
     }
 
     @Override

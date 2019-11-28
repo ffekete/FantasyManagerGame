@@ -142,6 +142,7 @@ public class InventoryRenderer implements Renderer<Actor> {
         if(actor.getRightHandItem() != null)
             RendererToolsRegistry.INSTANCE.getSpriteBatch().draw(textureRegistry.getFor(actor.getRightHandItem().getClass()), RIGHT_HAND_X, RIGHT_HAND_Y, 16, 16, 28, 28, 3f, 3f, 45f, 0, 0, 32, 32, false, false);
 
+        // armor
         if(actor.getWornArmor() != null)
             RendererToolsRegistry.INSTANCE.getSpriteBatch().draw(textureRegistry.getFor(actor.getWornArmor().getClass()), ARMOR_X, ARMOR_Y, 16, 16, 28, 28, 3f, 3f, 0f, 0, 0, 32, 32, false, false);
 

@@ -4,6 +4,10 @@ import com.google.common.collect.ImmutableSet;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.BodyType;
+import com.mygdx.game.actor.hero.Warrior;
+import com.mygdx.game.actor.monster.Lich;
+import com.mygdx.game.actor.monster.Orc;
+import com.mygdx.game.actor.monster.SkeletonWarrior;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier3;
@@ -20,6 +24,11 @@ public class BlackPlateMail extends AbstractItem implements Armor, Tier3, Crafta
     @Override
     public Set<BodyType> getCompatibleBodyTypes() {
         return ImmutableSet.of(BodyType.Humanoid, BodyType.HumanoidSkeleton, BodyType.Orc);
+    }
+
+    @Override
+    public Set<Class<? extends Actor>> getAllowedClasses() {
+        return ImmutableSet.of(Warrior.class, SkeletonWarrior.class, Lich.class, Orc.class);
     }
 
     @Override
