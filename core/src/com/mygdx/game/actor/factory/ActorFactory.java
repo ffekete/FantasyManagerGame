@@ -29,7 +29,7 @@ public class ActorFactory {
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        if(actor != null) {
+        if (actor != null) {
 
             actor.setAppearance(getAppearance(actor.getBodyType().getArchetype()));
 
@@ -37,7 +37,7 @@ public class ActorFactory {
             placementStrategy.place(actor, map);
             AnimationRegistry.INSTANCE.add(actor, new FullBodyActorAnimation());
 
-            if(!Worker.class.isAssignableFrom(clazz)) {
+            if (!Worker.class.isAssignableFrom(clazz)) {
                 SkillPopulator.WeaponSkillPopulatorStrategy.RANDOM.populate(actor);
                 SkillPopulator.MagicSkillPopulatorStrategy.RANDOM.populate(actor);
                 AttributePopulator.ClassSpecificAttrbutePopulator.populate(actor);
@@ -68,6 +68,13 @@ public class ActorFactory {
 
         index = new Random().nextInt(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getHair().getColors().size());
         appearance.setHairColor(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getHair().getColors().get(index));
+
+        if (animationSet.getAnimationSets().stream().anyMatch(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)) &&
+                animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getBeard() != null) {
+
+            if(new Random().nextInt(5) == 0)
+                appearance.setBeardIndex(new Random().nextInt(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getBeard().getParts().size()));
+        }
 
         return appearance;
     }

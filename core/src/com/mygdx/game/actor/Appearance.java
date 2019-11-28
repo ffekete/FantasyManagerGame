@@ -15,6 +15,9 @@ public class Appearance {
     private int hairIndex;
     private String hairColor;
 
+    private Integer beardIndex = null;
+    private String beardColor;
+
     public int getBodyIndex() {
         return bodyIndex;
     }
@@ -39,6 +42,14 @@ public class Appearance {
         return hairColor;
     }
 
+    public Integer getBeardIndex() {
+        return beardIndex;
+    }
+
+    public String getBeardColor() {
+        return beardColor;
+    }
+
     public void setBodyIndex(int bodyIndex) {
         this.bodyIndex = bodyIndex;
     }
@@ -61,5 +72,13 @@ public class Appearance {
 
     public void setHairColor(String hairColor) {
         this.hairColor = hairColor;
+    }
+
+    public void setBeardIndex(int beardIndex) {
+        this.beardIndex = beardIndex;
+    }
+
+    public void setBeardColor(String beardColor) {
+        this.beardColor = beardColor;
     }
 }

@@ -43,9 +43,7 @@ public class MoveAndRangedAttackTargetDecision implements Decision {
         }
 
         // already attacking, the decision chain should end here
-        if (actor.getActivityStack().contains(SimpleAttackActivity.class) ||
-                actor.getActivityStack().contains(RangedAttackActivity.class) ||
-                actor.getActivityStack().contains(OffensiveSpellCastActivity.class)) {
+        if (actor.isAttacking()) {
             return true;
         }
 

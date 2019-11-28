@@ -27,7 +27,6 @@ public class ActorRenderer implements Renderer<Map2D> {
     private final ActorRegistry actorRegistry = ActorRegistry.INSTANCE;
     private final TextureRegistry textureRegistry = TextureRegistry.INSTANCE;
     private final DirectionSelector directionSelector = DirectionSelector.INSTANCE;
-    private final ActionManager actionManager = ActionManager.INSTANCE;
 
     TextureRegion textureRegion;
     TextureRegion healthBarRegion;
@@ -68,11 +67,6 @@ public class ActorRenderer implements Renderer<Map2D> {
 
                 // show mana bar
                 spriteBatch.draw(manaBarRegion, actor.getX() + actor.getxOffset() + 0.2f, actor.getY() + actor.getyOffset() + 1.1f, 1.8f * ((float) actor.getMana() / actor.getMaxMana()), 0.1f);
-
-                // show shield
-                if (actor.getLeftHandItem() != null) {
-                    spriteBatch.draw(textureRegistry.getFor(actor.getLeftHandItem().getClass()), actor.getX() + actor.getxOffset() + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, actor.getY() + actor.getyOffset() + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, 0, 0, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, 0, 0, 0, textureRegistry.getFor(actor.getLeftHandItem().getClass()).getHeight(), textureRegistry.getFor(actor.getLeftHandItem().getClass()).getWidth(), directionSelector.getDirection(actor).equals(Direction.LEFT) || directionSelector.getDirection(actor).equals(Direction.UP), false);
-                }
             }
         }
     }

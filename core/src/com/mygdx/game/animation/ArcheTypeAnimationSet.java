@@ -8,6 +8,7 @@ public class ArcheTypeAnimationSet {
     BodyPart body;
     BodyPart eyes;
     BodyPart hair;
+    BodyPart beard;
     Map<String, String> armor;
 
     public BodyPart getBody() {
@@ -28,6 +29,10 @@ public class ArcheTypeAnimationSet {
 
     public Map<String, String> getArmor() {
         return armor;
+    }
+
+    public BodyPart getBeard() {
+        return beard;
     }
 }
 

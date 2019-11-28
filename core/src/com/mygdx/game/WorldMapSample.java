@@ -28,6 +28,7 @@ import com.mygdx.game.common.SampleInfo;
 import com.mygdx.game.input.InputConfigurer;
 import com.mygdx.game.input.keyboard.KeyboardInputControllerFacade;
 import com.mygdx.game.input.mouse.MouseInputControllerFacade;
+import com.mygdx.game.item.armor.ChainMailArmor;
 import com.mygdx.game.item.armor.LeatherArmor;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
@@ -152,7 +153,7 @@ public class WorldMapSample extends SampleBase {
         warrior.getInventory().add(new Bread());
         warrior.getInventory().add(new Bread());
         warrior.getInventory().add(new Bread());
-        warrior.getInventory().add(new LeatherArmor());
+        warrior.getInventory().add(new ChainMailArmor());
         //warrior.increaseSleepiness(49000);
         warrior.increaseTrainingNeeds(49000);
 

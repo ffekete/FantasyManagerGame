@@ -3,7 +3,8 @@
     {
       "type": "humanoid",
       "armor": {
-        "leatherArmor": "actors/bodyparts/orc/leatherArmor.png"
+        "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
+        "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png"
       },
       "body": {
         "colors": [
@@ -24,6 +25,12 @@
           "actors/bodyparts/humanoid/humanoid_eyes_01.png"
         ]
       },
+      "beard": {
+              "parts" : [
+              "actors/bodyparts/humanoid/humanoid_beard.png",
+              "actors/bodyparts/humanoid/humanoid_beard_02.png"
+              ]
+      },
       "hair": {
         "colors": [
           "FFFF00",
@@ -32,7 +39,9 @@
           "000000"
         ],
         "parts": [
-          "actors/bodyparts/humanoid/humanoid_hair_01.png"
+          "actors/bodyparts/humanoid/humanoid_hair_01.png",
+          "actors/bodyparts/humanoid/humanoid_hair_02.png"
+          "actors/bodyparts/humanoid/humanoid_hair_03.png"
         ]
       }
     },
@@ -40,7 +49,8 @@
     {
       "type": "orc",
       "armor": {
-        "leatherArmor": "actors/bodyparts/orc/leatherArmor.png"
+        "leatherArmor": "actors/bodyparts/orc/leatherArmor.png",
+        "chainMailArmor": "actors/bodyparts/orc/chainMailArmor.png"
       },
       "body": {
         "colors": [
@@ -106,7 +116,8 @@
     {
       "type": "skeleton",
       "armor": {
-        "leatherArmor": "actors/bodyparts/orc/leatherArmor.png"
+        "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
+        "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png"
       },
       "body": {
         "colors": [

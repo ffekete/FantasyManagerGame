@@ -87,12 +87,19 @@ public class TextureRegistry {
                 bodyPartTextures.get(a.getType()).computeIfAbsent("body", v -> new ArrayList<>());
                 bodyPartTextures.get(a.getType()).computeIfAbsent("eyes", v -> new ArrayList<>());
                 bodyPartTextures.get(a.getType()).computeIfAbsent("hair", v -> new ArrayList<>());
+                bodyPartTextures.get(a.getType()).computeIfAbsent("beard", v -> new ArrayList<>());
 
                 if(a.getArmor() != null) {
                     a.getArmor().entrySet().stream()
                             .forEach(entry -> {
                                 armorAppearanceTextures.get(a.getType()).put(entry.getKey(), texturePathResolver.resolve(entry.getValue()).get());
                             });
+                }
+
+                if(a.getBeard() != null) {
+                    a.getBeard().getParts().forEach(beard -> {
+                        bodyPartTextures.get(a.getType()).get("beard").add(texturePathResolver.resolve(beard).get());
+                    });
                 }
 
                 a.getBody().getParts().forEach(body -> {

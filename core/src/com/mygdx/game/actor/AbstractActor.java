@@ -25,6 +25,9 @@ import com.mygdx.game.item.weapon.TwohandedWeapon;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.Activity;
+import com.mygdx.game.logic.activity.single.OffensiveSpellCastActivity;
+import com.mygdx.game.logic.activity.single.RangedAttackActivity;
+import com.mygdx.game.logic.activity.single.SimpleAttackActivity;
 import com.mygdx.game.logic.activity.single.SleepActivity;
 import com.mygdx.game.logic.activity.stack.ActivityStack;
 import com.mygdx.game.map.Map2D;
@@ -597,5 +600,12 @@ public abstract class AbstractActor implements Actor {
     @Override
     public Appearance getAppearance() {
         return this.appearance;
+    }
+
+    @Override
+    public boolean isAttacking() {
+        return this.getActivityStack().contains(SimpleAttackActivity.class) ||
+                this.getActivityStack().contains(RangedAttackActivity.class) ||
+                this.getActivityStack().contains(OffensiveSpellCastActivity.class);
     }
 }

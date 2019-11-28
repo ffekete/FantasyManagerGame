@@ -23,9 +23,7 @@ public class RangerHuntingDecision implements Decision {
             return false;
         }
 
-        if (actor.getActivityStack().contains(SimpleAttackActivity.class) ||
-                actor.getActivityStack().contains(RangedAttackActivity.class) ||
-                actor.getActivityStack().contains(OffensiveSpellCastActivity.class)) {
+        if (actor.isAttacking()) {
             return true;
         }
 

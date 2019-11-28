@@ -116,4 +116,6 @@ public interface Actor {
     BodyType getBodyType();
     void setAppearance(Appearance appearance);
     Appearance getAppearance();
+
+    boolean isAttacking();
 }
