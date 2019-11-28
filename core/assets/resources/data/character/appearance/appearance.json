@@ -40,8 +40,10 @@
         ],
         "parts": [
           "actors/bodyparts/humanoid/humanoid_hair_01.png",
-          "actors/bodyparts/humanoid/humanoid_hair_02.png"
-          "actors/bodyparts/humanoid/humanoid_hair_03.png"
+          "actors/bodyparts/humanoid/humanoid_hair_02.png",
+          "actors/bodyparts/humanoid/humanoid_hair_03.png",
+          "actors/bodyparts/humanoid/humanoid_hair_04.png",
+          "actors/bodyparts/humanoid/humanoid_hair_05.png"
         ]
       }
     },
@@ -77,7 +79,8 @@
           "CC0000"
         ],
         "parts": [
-          "actors/bodyparts/orc/orc_hair_01.png"
+          "actors/bodyparts/orc/orc_hair_01.png",
+          "actors/bodyparts/orc/orc_hair_02.png"
         ]
       }
     },
