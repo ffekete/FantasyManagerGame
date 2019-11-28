@@ -19,6 +19,11 @@ import java.util.Set;
 public class LeatherArmor extends AbstractItem implements Armor, Tier1, Craftable {
 
     @Override
+    public String getSimpleName() {
+        return "leatherArmor";
+    }
+
+    @Override
     public Set<Class<? extends Actor>> getAllowedClasses() {
         return ImmutableSet.of(Warrior.class, Ranger.class, Orc.class, Skeleton.class, SkeletonWarrior.class, Lich.class);
     }

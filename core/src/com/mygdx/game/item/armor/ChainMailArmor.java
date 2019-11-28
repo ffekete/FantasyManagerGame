@@ -16,6 +16,11 @@ import java.util.Set;
 public class ChainMailArmor extends AbstractItem implements Armor, Tier1, Craftable {
 
     @Override
+    public String getSimpleName() {
+        return "chainMailArmor";
+    }
+
+    @Override
     public int getDamageProtection() {
         return 7;
     }

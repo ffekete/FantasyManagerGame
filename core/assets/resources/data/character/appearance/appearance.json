@@ -2,6 +2,9 @@
   "content": [
     {
       "type": "humanoid",
+      "armor": {
+        "leatherArmor": "actors/bodyparts/orc/leatherArmor.png"
+      },
       "body": {
         "colors": [
           "FFCC99",
@@ -36,6 +39,9 @@
 
     {
       "type": "orc",
+      "armor": {
+        "leatherArmor": "actors/bodyparts/orc/leatherArmor.png"
+      },
       "body": {
         "colors": [
           "336600",
@@ -99,6 +105,9 @@
     },
     {
       "type": "skeleton",
+      "armor": {
+        "leatherArmor": "actors/bodyparts/orc/leatherArmor.png"
+      },
       "body": {
         "colors": [
           "FFFFBB",

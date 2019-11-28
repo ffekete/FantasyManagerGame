@@ -39,12 +39,11 @@ public class FullBodyActorAnimation implements ActorAnimation {
         spriteBatch.setColor(Color.valueOf(actor.getAppearance().getHairColor()));
         spriteBatch.draw(getHairTexture(actor), x + offset,y+ offset, 0, 0, 1, 1, scale, scale, 0, (int)phase * 32,  32 * row, 32,32, getFlip(direction), false);
 
-        // armor
-        spriteBatch.draw(textureRegistry.getFor(actor.getWornArmor().getClass()), x + offset,y+ offset, 0, 0, 1, 1, scale, scale, 0f, (int)phase * 32, 32 * row, 32, 32, getFlip(direction), false);
-
-
         spriteBatch.setColor(Color.WHITE);
 
+        // armor
+        if(actor.getWornArmor() != null)
+            spriteBatch.draw(textureRegistry.getArmor(actor.getBodyType().getArchetype(), actor.getWornArmor().getSimpleName()), x + offset,y+ offset, 0, 0, 1, 1, scale, scale, 0f, (int)phase * 32, 32 * row, 32, 32, getFlip(direction), false);
     }
 
     private boolean getFlip(Direction direction) {

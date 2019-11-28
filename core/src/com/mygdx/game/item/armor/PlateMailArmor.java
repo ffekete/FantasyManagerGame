@@ -24,6 +24,11 @@ public class PlateMailArmor extends AbstractItem implements Armor, Tier2, Crafta
     }
 
     @Override
+    public String getSimpleName() {
+        return "plateMailArmor";
+    }
+
+    @Override
     public int getDamageProtection() {
         return 8;
     }

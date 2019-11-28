@@ -11,5 +11,6 @@ public interface Armor extends Equipable {
     int getDamageProtection();
     Set<BodyType> getCompatibleBodyTypes();
     Set<Class<? extends Actor>> getAllowedClasses();
+    String getSimpleName();
 
 }

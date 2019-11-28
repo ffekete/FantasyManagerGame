@@ -17,6 +17,11 @@ import java.util.Set;
 public class BlackPlateMail extends AbstractItem implements Armor, Tier3, Craftable {
 
     @Override
+    public String getSimpleName() {
+        return "blackPlateMailArmor";
+    }
+
+    @Override
     public int getDamageProtection() {
         return 8;
     }

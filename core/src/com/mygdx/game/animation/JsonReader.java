@@ -1,13 +1,12 @@
 package com.mygdx.game.animation;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Json;
+import com.google.gson.Gson;
 
 public class JsonReader {
 
     public FullAnimationSet read() {
-        FullAnimationSet archeTypeAnimationSet = new Json().fromJson(FullAnimationSet.class, Gdx.files.internal("resources/data/character/appearance/appearance.json").readString());
-
+        FullAnimationSet archeTypeAnimationSet = new Gson().fromJson(Gdx.files.internal("resources/data/character/appearance/appearance.json").readString(), FullAnimationSet.class);
         return archeTypeAnimationSet;
     }
 

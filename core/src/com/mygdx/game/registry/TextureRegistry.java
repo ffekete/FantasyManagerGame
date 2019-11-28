@@ -70,18 +70,30 @@ public class TextureRegistry {
     private Optional<Texture> shadowTexture;
 
     private Map<String, Map<String, ArrayList<Texture>>> bodyPartTextures;
+    private Map<String, Map<String, Texture>> armorAppearanceTextures;
 
     public TextureRegistry(PathResolver<Texture> texturePathResolver) {
 
         bodyPartTextures = new HashMap<>();
+        armorAppearanceTextures = new HashMap<>();
+
+
         AnimationRegistry.INSTANCE.getAnimationSet().getAnimationSets()
                 .stream().forEach(archetype -> {
             AnimationRegistry.INSTANCE.getAnimationSet().getAnimationSets().forEach(a -> {
                 bodyPartTextures.computeIfAbsent(a.getType(), v -> new HashMap<>());
+                armorAppearanceTextures.computeIfAbsent(a.getType(), v -> new HashMap<>());
 
                 bodyPartTextures.get(a.getType()).computeIfAbsent("body", v -> new ArrayList<>());
                 bodyPartTextures.get(a.getType()).computeIfAbsent("eyes", v -> new ArrayList<>());
                 bodyPartTextures.get(a.getType()).computeIfAbsent("hair", v -> new ArrayList<>());
+
+                if(a.getArmor() != null) {
+                    a.getArmor().entrySet().stream()
+                            .forEach(entry -> {
+                                armorAppearanceTextures.get(a.getType()).put(entry.getKey(), texturePathResolver.resolve(entry.getValue()).get());
+                            });
+                }
 
                 a.getBody().getParts().forEach(body -> {
                     bodyPartTextures.get(a.getType()).get("body").add(texturePathResolver.resolve(body).get());
@@ -330,5 +342,9 @@ public class TextureRegistry {
 
     public Texture getBody(String archeType, String bodyPart, int index) {
         return bodyPartTextures.get(archeType).get(bodyPart).get(index);
+    }
+
+    public Texture getArmor(String archeType, String armorType) {
+        return armorAppearanceTextures.get(archeType).get(armorType);
     }
 }

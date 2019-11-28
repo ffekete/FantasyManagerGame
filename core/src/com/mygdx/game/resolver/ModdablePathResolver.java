@@ -12,7 +12,7 @@ public class ModdablePathResolver implements PathResolver {
     public Optional<Texture> resolve(String path) {
 
         try {
-            FileHandle fileHandle = Gdx.files.internal("../mod/" + path);
+            FileHandle fileHandle = Gdx.files.external("mod/" + path);
             return Optional.of(new Texture(fileHandle));
         } catch (Exception e) {
 
