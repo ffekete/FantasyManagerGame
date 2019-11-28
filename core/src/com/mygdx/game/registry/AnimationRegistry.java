@@ -1,8 +1,8 @@
 package com.mygdx.game.registry;
 
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.animation.ActorAnimation;
-import com.mygdx.game.animation.Animation;
+import com.mygdx.game.actor.BodyType;
+import com.mygdx.game.animation.*;
 import com.mygdx.game.object.AnimatedObject;
 
 import java.util.HashMap;
@@ -11,6 +11,12 @@ import java.util.Map;
 public class AnimationRegistry {
 
     public static final AnimationRegistry INSTANCE = new AnimationRegistry();
+
+    private FullAnimationSet animationSet = new JsonReader().read();
+
+    public FullAnimationSet getAnimationSet() {
+        return animationSet;
+    }
 
     private final Map<Actor, ActorAnimation> animations = new HashMap<>();
     private final Map<AnimatedObject, Animation> objectAnimations = new HashMap<>();

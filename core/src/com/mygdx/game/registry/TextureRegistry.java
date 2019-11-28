@@ -12,6 +12,7 @@ import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.actor.worker.Shopkeeper;
 import com.mygdx.game.actor.worker.Smith;
+import com.mygdx.game.animation.BodyPart;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.armor.ChainMailArmor;
 import com.mygdx.game.item.armor.LeatherArmor;
@@ -49,10 +50,7 @@ import com.mygdx.game.renderer.gui.component.GuiComponent;
 import com.mygdx.game.resolver.ModdablePathResolver;
 import com.mygdx.game.resolver.PathResolver;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class TextureRegistry {
@@ -71,7 +69,34 @@ public class TextureRegistry {
     private Map<MenuItem, Optional<Texture>> menuItems;
     private Optional<Texture> shadowTexture;
 
+    private Map<String, Map<String, ArrayList<Texture>>> bodyPartTextures;
+
     public TextureRegistry(PathResolver<Texture> texturePathResolver) {
+
+        bodyPartTextures = new HashMap<>();
+        AnimationRegistry.INSTANCE.getAnimationSet().getAnimationSets()
+                .stream().forEach(archetype -> {
+            AnimationRegistry.INSTANCE.getAnimationSet().getAnimationSets().forEach(a -> {
+                bodyPartTextures.computeIfAbsent(a.getType(), v -> new HashMap<>());
+
+                bodyPartTextures.get(a.getType()).computeIfAbsent("body", v -> new ArrayList<>());
+                bodyPartTextures.get(a.getType()).computeIfAbsent("eyes", v -> new ArrayList<>());
+                bodyPartTextures.get(a.getType()).computeIfAbsent("hair", v -> new ArrayList<>());
+
+                a.getBody().getParts().forEach(body -> {
+                    bodyPartTextures.get(a.getType()).get("body").add(texturePathResolver.resolve(body).get());
+                });
+
+                a.getEyes().getParts().forEach(eyes -> {
+                    bodyPartTextures.get(a.getType()).get("eyes").add(texturePathResolver.resolve(eyes).get());
+                });
+
+                a.getHair().getParts().forEach(hair -> {
+                    bodyPartTextures.get(a.getType()).get("hair").add(texturePathResolver.resolve(hair).get());
+                });
+            });
+
+        });
 
         shadowTexture = texturePathResolver.resolve("object/Shadow.png");
 
@@ -301,5 +326,9 @@ public class TextureRegistry {
 
     public Texture getShadowTexture() {
         return shadowTexture.get();
+    }
+
+    public Texture getBody(String archeType, String bodyPart, int index) {
+        return bodyPartTextures.get(archeType).get(bodyPart).get(index);
     }
 }

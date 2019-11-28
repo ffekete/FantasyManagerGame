@@ -45,6 +45,7 @@ public abstract class AbstractActor implements Actor {
     private EffectRegistry effectRegistry = EffectRegistry.INSTANCE;
     private LevelUpController levelUpController = new LevelUpController();
     private TraitList traitList;
+    private Appearance appearance;
 
     private Point coordinates;
     private Alignment alignment;
@@ -85,13 +86,13 @@ public abstract class AbstractActor implements Actor {
         this.weaponSkills = new HashMap<>();
         this.magicSkills = new HashMap<>();
 
-        this.coordinates = new Point(0,0);
+        this.coordinates = new Point(0, 0);
 
         for (Attributes a : Attributes.values()) {
             baseAttributes.put(a, 0);
         }
 
-        for(WeaponSkill s : WeaponSkill.values()) {
+        for (WeaponSkill s : WeaponSkill.values()) {
             weaponSkills.put(s, 0);
         }
         actualHp = getMaxHp();
@@ -121,7 +122,7 @@ public abstract class AbstractActor implements Actor {
     public void setCoordinates(Point point) {
 
         // remove first from actorGrid
-        if(coordinates != null) {
+        if (coordinates != null) {
             ActorRegistry.INSTANCE.getActorGrid().computeIfAbsent(currentMap, value -> new Actor[currentMap.getWidth()][currentMap.getHeight()]);
             ActorRegistry.INSTANCE.getActorGrid().get(currentMap)[getX()][getY()] = null;
         }
@@ -177,7 +178,7 @@ public abstract class AbstractActor implements Actor {
     public int getMovementSpeed() {
         int baseSpeed = 40 - getAttribute(Attributes.Dexterity);
 
-        int modifier = effectRegistry.getAll(this).stream().filter(effect -> MovementSpeedReduction.class.equals(effect.getClass())).map(Effect::getPower).reduce(0, (a, b) -> a+b);
+        int modifier = effectRegistry.getAll(this).stream().filter(effect -> MovementSpeedReduction.class.equals(effect.getClass())).map(Effect::getPower).reduce(0, (a, b) -> a + b);
 
         return baseSpeed - modifier;
 
@@ -227,7 +228,7 @@ public abstract class AbstractActor implements Actor {
     public int getAttackSpeed() {
         int baseSpeed = 50 - getAttribute(Attributes.Reflexes);
 
-        int modifier = effectRegistry.getAll(this).stream().filter(effect -> AttackSpeedReduction.class.equals(effect.getClass())).map(Effect::getPower).reduce(0, (a, b) -> a+b);
+        int modifier = effectRegistry.getAll(this).stream().filter(effect -> AttackSpeedReduction.class.equals(effect.getClass())).map(Effect::getPower).reduce(0, (a, b) -> a + b);
 
         return baseSpeed - modifier;
 
@@ -259,25 +260,24 @@ public abstract class AbstractActor implements Actor {
             inventory.remove(equipable);
             equipable.onEquip(this);
             System.out.println(name + " equipped in right hand " + equipable);
-        } else if(TwohandedWeapon.class.isAssignableFrom(equipable.getClass())) {
+        } else if (TwohandedWeapon.class.isAssignableFrom(equipable.getClass())) {
             unequip(this.rightHand);
             unequip(this.leftHand);
             rightHand = equipable;
             equipable.onEquip(this);
             System.out.println(name + " equipped in both hands " + equipable);
-        } else if(Armor.class.isAssignableFrom(equipable.getClass())) {
+        } else if (Armor.class.isAssignableFrom(equipable.getClass())) {
             unequip(this.getWornArmor());
             this.wornArmor = (Armor) equipable;
             equipable.onEquip(this);
             System.out.println(name + " equipped armor " + equipable);
-        }
-        else throw new RuntimeException("WTF?");
+        } else throw new RuntimeException("WTF?");
         inventory.remove(equipable);
     }
 
     @Override
     public void unequip(Equipable equipable) {
-        if(equipable == null) {
+        if (equipable == null) {
             return;
         }
 
@@ -292,7 +292,7 @@ public abstract class AbstractActor implements Actor {
             inventory.add(equipable);
             equipable.onRemove(this);
             System.out.println(name + " unequipped in right hand " + equipable);
-        } else if(Armor.class.isAssignableFrom(equipable.getClass())) {
+        } else if (Armor.class.isAssignableFrom(equipable.getClass())) {
             this.wornArmor = null;
             inventory.add(equipable);
             equipable.onRemove(this);
@@ -333,17 +333,17 @@ public abstract class AbstractActor implements Actor {
     @Override
     public List<Weapon> getWeapons() {
         List<Weapon> result = new ArrayList<>();
-        if(leftHand != null && Weapon.class.isAssignableFrom(leftHand.getClass()))
-            result.add(((Weapon)leftHand));
-        if(rightHand != null && Weapon.class.isAssignableFrom(rightHand.getClass()))
-            result.add(((Weapon)rightHand));
+        if (leftHand != null && Weapon.class.isAssignableFrom(leftHand.getClass()))
+            result.add(((Weapon) leftHand));
+        if (rightHand != null && Weapon.class.isAssignableFrom(rightHand.getClass()))
+            result.add(((Weapon) rightHand));
         return result;
     }
 
     @Override
     public int getDefenseValue() {
-        if(leftHand != null && Shield.class.isAssignableFrom(leftHand.getClass()))
-            return ((Shield)leftHand).getDefense();
+        if (leftHand != null && Shield.class.isAssignableFrom(leftHand.getClass()))
+            return ((Shield) leftHand).getDefense();
         return 0;
     }
 
@@ -372,7 +372,7 @@ public abstract class AbstractActor implements Actor {
         System.out.println(getName() + " I'm killed by " + killer.getName());
         activityStack.getCurrent().cancel();
         ActorDeathHandler.INSTANCE.kill(this);
-        if(this.equals(CameraPositionController.INSTANCE.getFocusedOn())) {
+        if (this.equals(CameraPositionController.INSTANCE.getFocusedOn())) {
             CameraPositionController.INSTANCE.removeFocus();
         }
         levelUpController.calculate(killer, this);
@@ -380,7 +380,7 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public int getAttackRange() {
-        return getRightHandItem() == null ? 1 : ((Weapon)getRightHandItem()).getRange();
+        return getRightHandItem() == null ? 1 : ((Weapon) getRightHandItem()).getRange();
     }
 
     @Override
@@ -475,7 +475,7 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public void increaseSkillLevel(Skill skill) {
-        if(WeaponSkill.class.isAssignableFrom(skill.getClass())) {
+        if (WeaponSkill.class.isAssignableFrom(skill.getClass())) {
             int actualLevel = getWeaponSkills().get(skill);
             getWeaponSkills().put((WeaponSkill) skill, actualLevel + 1);
         } else {
@@ -552,34 +552,34 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public void setCoordinates(int x, int y) {
-        this.coordinates.update(x,y);
+        this.coordinates.update(x, y);
     }
 
     @Override
     public List<Item> drop() {
         List<Item> items = new ArrayList<>();
-        if(this.getLeftHandItem() != null) {
+        if (this.getLeftHandItem() != null) {
             items.add(this.getLeftHandItem());
             this.unequip(this.getLeftHandItem());
         }
 
-        if(this.getRightHandItem() != null) {
+        if (this.getRightHandItem() != null) {
             items.add(this.getRightHandItem());
             this.unequip(this.getRightHandItem());
         }
 
-        if(this.getWornArmor() != null) {
+        if (this.getWornArmor() != null) {
             items.add(this.getWornArmor());
             this.unequip(this.getWornArmor());
         }
 
-        for(Item item: this.getInventory().getAll()) {
+        for (Item item : this.getInventory().getAll()) {
             items.add(item);
             item.setCoordinates(this.getCoordinates());
         }
         this.getInventory().clear();
 
-        if(money > 0) {
+        if (money > 0) {
             MoneyBag moneyBag = ItemFactory.INSTANCE.create(MoneyBag.class, currentMap, Placement.FIXED.X(getX()).Y(getY()));
             moneyBag.setAmount(money);
             items.add(moneyBag);
@@ -587,5 +587,15 @@ public abstract class AbstractActor implements Actor {
         }
 
         return items;
+    }
+
+    @Override
+    public void setAppearance(Appearance appearance) {
+        this.appearance = appearance;
+    }
+
+    @Override
+    public Appearance getAppearance() {
+        return this.appearance;
     }
 }

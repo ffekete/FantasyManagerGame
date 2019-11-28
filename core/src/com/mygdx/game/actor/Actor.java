@@ -114,4 +114,6 @@ public interface Actor {
     boolean wantsTraining();
     List<Item> drop();
     BodyType getBodyType();
+    void setAppearance(Appearance appearance);
+    Appearance getAppearance();
 }

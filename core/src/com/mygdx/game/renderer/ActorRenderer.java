@@ -59,7 +59,7 @@ public class ActorRenderer implements Renderer<Map2D> {
                     spriteBatch.draw(textureRegistry.getShadowTexture(), actor.getX() + actor.getxOffset() + 0.25f, actor.getY() + actor.getyOffset() + 0.25f, 0.5f, 0.5f);
 
                     spriteBatch.setColor(Color.valueOf("FFFFFFFF"));
-                    AnimationRegistry.INSTANCE.getAnimations().get(actor).drawKeyFrame(spriteBatch, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), Config.Engine.ACTOR_HEIGHT, directionSelector.getDirection(actor), activity, actor.getClass());
+                    AnimationRegistry.INSTANCE.getAnimations().get(actor).drawKeyFrame(spriteBatch, actor.getX() + actor.getxOffset(), actor.getY() + actor.getyOffset(), Config.Engine.ACTOR_HEIGHT, directionSelector.getDirection(actor), activity, actor);
                 }
 
             if (dungeon.getVisitedareaMap()[actor.getX()][actor.getY()] != VisitedArea.NOT_VISITED) {
