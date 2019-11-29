@@ -302,7 +302,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_body.png"
+            "actors/bodyparts/rabbit/body.png"
           ]
         },
         "eyes": {
@@ -311,7 +311,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+            "actors/bodyparts/rabbit/eyes.png"
           ]
         },
         "hair": {
@@ -320,7 +320,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_hair_01.png"
+            "actors/bodyparts/rabbit/hair.png"
           ]
         }
       },
@@ -331,7 +331,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_body.png"
+            "actors/bodyparts/rabbit/body.png"
           ]
         },
         "eyes": {
@@ -340,7 +340,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+            "actors/bodyparts/rabbit/eyes.png"
           ]
         },
         "hair": {
@@ -349,7 +349,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_hair_01.png"
+            "actors/bodyparts/rabbit/hair.png"
           ]
         }
       }
@@ -363,7 +363,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_body.png"
+            "actors/bodyparts/wolf/body.png"
           ]
         },
         "eyes": {
@@ -372,7 +372,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+            "actors/bodyparts/wolf/eyes.png"
           ]
         },
         "hair": {
@@ -381,7 +381,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_hair_01.png"
+            "actors/bodyparts/wolf/hair.png"
           ]
         }
       },
@@ -392,7 +392,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_body.png"
+            "actors/bodyparts/wolf/body.png"
           ]
         },
         "eyes": {
@@ -401,7 +401,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+            "actors/bodyparts/wolf/eyes.png"
           ]
         },
         "hair": {
@@ -410,7 +410,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_hair_01.png"
+            "actors/bodyparts/wolf/hair.png"
           ]
         }
       }

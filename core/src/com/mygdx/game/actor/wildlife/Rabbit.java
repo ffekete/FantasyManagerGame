@@ -76,6 +76,6 @@ public class Rabbit extends AbstractActor implements Prey {
 
     @Override
     public BodyType getBodyType() {
-        return BodyType.Humanoid;
+        return BodyType.Rabbit;
     }
 }
