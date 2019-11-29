@@ -4,7 +4,6 @@ import java.util.Map;
 
 public class ArcheTypeAnimationSet {
 
-    String type;
     BodyPart body;
     BodyPart eyes;
     BodyPart hair;
@@ -21,10 +20,6 @@ public class ArcheTypeAnimationSet {
 
     public BodyPart getHair() {
         return hair;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public Map<String, String> getArmor() {

@@ -2,18 +2,15 @@ package com.mygdx.game.actor.factory;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.Appearance;
-import com.mygdx.game.actor.BodyType;
+import com.mygdx.game.actor.Gender;
 import com.mygdx.game.actor.component.attribute.AttributePopulator;
 import com.mygdx.game.actor.component.skill.SkillPopulator;
 import com.mygdx.game.actor.worker.Worker;
-import com.mygdx.game.animation.ArcheTypeAnimationSet;
 import com.mygdx.game.animation.FullAnimationSet;
 import com.mygdx.game.animation.FullBodyActorAnimation;
-import com.mygdx.game.animation.JsonReader;
 import com.mygdx.game.map.Map2D;
 import com.mygdx.game.registry.AnimationRegistry;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class ActorFactory {
@@ -31,7 +28,7 @@ public class ActorFactory {
         }
         if (actor != null) {
 
-            actor.setAppearance(getAppearance(actor.getBodyType().getArchetype()));
+            actor.setAppearance(getAppearance(actor, actor.getBodyType().getArchetype()));
 
             actor.setCurrentMap(map);
             placementStrategy.place(actor, map);
@@ -51,32 +48,53 @@ public class ActorFactory {
         return actor;
     }
 
-    private Appearance getAppearance(String archeType) {
+    private Appearance getAppearance(Actor actor, String archeType) {
         Appearance appearance = new Appearance();
 
-        appearance.setBodyIndex(new Random().nextInt(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getBody().getParts().size()));
+        int genderIndex = new Random().nextInt(2);
+        Gender gender = genderIndex == 0 ? Gender.Male : Gender.Female;
+        actor.setGender(gender);
 
-        int index = new Random().nextInt(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getBody().getColors().size());
-        appearance.setBodyColor(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getBody().getColors().get(index));
+        setRandomBody(archeType, appearance, gender);
+        setRandomEyes(archeType, appearance, gender);
+        setRandomHair(archeType, appearance, gender);
+        setRandomBeard(archeType, appearance, gender);
+        return appearance;
+    }
 
-        appearance.setEyesIndex(new Random().nextInt(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getEyes().getParts().size()));
+    private void setRandomEyes(String archeType, Appearance appearance, Gender gender) {
 
-        index = new Random().nextInt(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getEyes().getColors().size());
-        appearance.setEyesColor(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getEyes().getColors().get(index));
+        int index;
+        appearance.setEyesIndex(new Random().nextInt(animationSet.getAnimationSets().stream().filter(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)).findFirst().get().getRacialAnimations().get(gender).getEyes().getParts().size()));
 
-        appearance.setHairIndex(new Random().nextInt(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getHair().getParts().size()));
+        index = new Random().nextInt(animationSet.getAnimationSets().stream().filter(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)).findFirst().get().getRacialAnimations().get(gender).getEyes().getColors().size());
+        appearance.setEyesColor(animationSet.getAnimationSets().stream().filter(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)).findFirst().get().getRacialAnimations().get(gender).getEyes().getColors().get(index));
+    }
 
-        index = new Random().nextInt(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getHair().getColors().size());
-        appearance.setHairColor(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getHair().getColors().get(index));
+    private void setRandomHair(String archeType, Appearance appearance, Gender gender) {
+        int index;
+        appearance.setHairIndex(new Random().nextInt(animationSet.getAnimationSets().stream().filter(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)).findFirst().get().getRacialAnimations().get(gender).getHair().getParts().size()));
 
-        if (animationSet.getAnimationSets().stream().anyMatch(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)) &&
-                animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getBeard() != null) {
+        index = new Random().nextInt(animationSet.getAnimationSets().stream().filter(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)).findFirst().get().getRacialAnimations().get(gender).getHair().getColors().size());
+        appearance.setHairColor(animationSet.getAnimationSets().stream().filter(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)).findFirst().get().getRacialAnimations().get(gender).getHair().getColors().get(index));
+    }
+
+    private void setRandomBody(String archeType, Appearance appearance, Gender gender) {
+        appearance.setBodyIndex(new Random().nextInt(animationSet.getAnimationSets().stream().filter(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)).findFirst().get().getRacialAnimations().get(gender).getBody().getParts().size()));
+
+        int index = new Random().nextInt(animationSet.getAnimationSets().stream().filter(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)).findFirst().get().getRacialAnimations().get(gender).getBody().getColors().size());
+        appearance.setBodyColor(animationSet.getAnimationSets().stream().filter(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)).findFirst().get().getRacialAnimations().get(gender).getBody().getColors().get(index));
+    }
+
+    private void setRandomBeard(String archeType, Appearance appearance, Gender gender) {
+        if (animationSet.getAnimationSets().stream().anyMatch(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)) &&
+                animationSet.getAnimationSets().stream().filter(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)).findFirst().get().getRacialAnimations().get(gender).getBeard() != null &&
+                !animationSet.getAnimationSets().stream().filter(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)).findFirst().get().getRacialAnimations().get(gender).getBeard().getParts().isEmpty()
+        ) {
 
             if(new Random().nextInt(5) == 0)
-                appearance.setBeardIndex(new Random().nextInt(animationSet.getAnimationSets().stream().filter(archeTypeAnimationSet -> archeTypeAnimationSet.getType().equals(archeType)).findFirst().get().getBeard().getParts().size()));
+                appearance.setBeardIndex(new Random().nextInt(animationSet.getAnimationSets().stream().filter(racialAnimationSet -> racialAnimationSet.getType().equals(archeType)).findFirst().get().getRacialAnimations().get(gender).getBeard().getParts().size()));
         }
-
-        return appearance;
     }
 
 }

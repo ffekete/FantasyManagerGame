@@ -65,7 +65,7 @@ public class FullBodyActorAnimation implements ActorAnimation {
 
         // armor
         if (actor.getWornArmor() != null)
-            spriteBatch.draw(textureRegistry.getArmor(actor.getBodyType().getArchetype(), actor.getWornArmor().getSimpleName()), x + offset, y + offset, 0, 0, 1, 1, scale, scale, 0f, (int) phase * 32, 32 * row, 32, 32, getFlip(direction), false);
+            spriteBatch.draw(textureRegistry.getArmor(actor.getBodyType().getArchetype(), actor.getWornArmor().getSimpleName(), actor.getGender()), x + offset, y + offset, 0, 0, 1, 1, scale, scale, 0f, (int) phase * 32, 32 * row, 32, 32, getFlip(direction), false);
 
         // shield
         if (actor.getLeftHandItem() != null) {
@@ -78,19 +78,19 @@ public class FullBodyActorAnimation implements ActorAnimation {
     }
 
     private Texture getBodyTexture(Actor actor) {
-        return textureRegistry.getBody(actor.getBodyType().getArchetype(), "body", actor.getAppearance().getBodyIndex());
+        return textureRegistry.getBody(actor.getBodyType().getArchetype(), "body", actor.getAppearance().getBodyIndex(), actor.getGender());
     }
 
     private Texture getHairTexture(Actor actor) {
-        return textureRegistry.getBody(actor.getBodyType().getArchetype(), "hair", actor.getAppearance().getHairIndex());
+        return textureRegistry.getBody(actor.getBodyType().getArchetype(), "hair", actor.getAppearance().getHairIndex(), actor.getGender());
     }
 
     private Texture getBeardTexture(Actor actor) {
-        return textureRegistry.getBody(actor.getBodyType().getArchetype(), "beard", actor.getAppearance().getBeardIndex());
+        return textureRegistry.getBody(actor.getBodyType().getArchetype(), "beard", actor.getAppearance().getBeardIndex(), actor.getGender());
     }
 
     private Texture getEyesTexture(Actor actor) {
-        return textureRegistry.getBody(actor.getBodyType().getArchetype(), "eyes", actor.getAppearance().getEyesIndex());
+        return textureRegistry.getBody(actor.getBodyType().getArchetype(), "eyes", actor.getAppearance().getEyesIndex(), actor.getGender());
     }
 
     private int getRow(Activity activity) {

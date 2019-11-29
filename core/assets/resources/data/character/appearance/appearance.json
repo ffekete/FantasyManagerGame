@@ -2,214 +2,417 @@
   "content": [
     {
       "type": "humanoid",
-      "armor": {
-        "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
-        "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png"
+      "male": {
+        "armor": {
+          "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
+          "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png"
+        },
+        "body": {
+          "colors": [
+            "FFCC99",
+            "663300",
+            "FFB266"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "33FFFF",
+            "994C00"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+          ]
+        },
+        "beard": {
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_beard.png",
+            "actors/bodyparts/humanoid/humanoid_beard_02.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "FFFF00",
+            "994C00",
+            "FF8000",
+            "000000"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_hair_01.png",
+            "actors/bodyparts/humanoid/humanoid_hair_02.png",
+            "actors/bodyparts/humanoid/humanoid_hair_03.png",
+            "actors/bodyparts/humanoid/humanoid_hair_04.png",
+            "actors/bodyparts/humanoid/humanoid_hair_05.png"
+          ]
+        }
       },
-      "body": {
-        "colors": [
-          "FFCC99",
-          "663300",
-          "FFB266"
-        ],
-        "parts": [
-          "actors/bodyparts/humanoid/humanoid_body.png"
-        ]
-      },
-      "eyes": {
-        "colors": [
-          "33FFFF",
-          "994C00"
-        ],
-        "parts": [
-          "actors/bodyparts/humanoid/humanoid_eyes_01.png"
-        ]
-      },
-      "beard": {
-              "parts" : [
-              "actors/bodyparts/humanoid/humanoid_beard.png",
-              "actors/bodyparts/humanoid/humanoid_beard_02.png"
-              ]
-      },
-      "hair": {
-        "colors": [
-          "FFFF00",
-          "994C00",
-          "FF8000",
-          "000000"
-        ],
-        "parts": [
-          "actors/bodyparts/humanoid/humanoid_hair_01.png",
-          "actors/bodyparts/humanoid/humanoid_hair_02.png",
-          "actors/bodyparts/humanoid/humanoid_hair_03.png",
-          "actors/bodyparts/humanoid/humanoid_hair_04.png",
-          "actors/bodyparts/humanoid/humanoid_hair_05.png"
-        ]
+      "female": {
+        "armor": {
+          "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
+          "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png"
+        },
+        "body": {
+          "colors": [
+            "FFCC99",
+            "663300",
+            "FFB266"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/female_body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "33FFFF",
+            "994C00"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/female_eyes_01.png"
+          ]
+        },
+        "beard": {
+          "parts": []
+        },
+        "hair": {
+          "colors": [
+            "FFFF00",
+            "994C00",
+            "FF8000",
+            "000000"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/female_hair_01.png"
+          ]
+        }
       }
     },
-
     {
       "type": "orc",
-      "armor": {
-        "leatherArmor": "actors/bodyparts/orc/leatherArmor.png",
-        "chainMailArmor": "actors/bodyparts/orc/chainMailArmor.png"
+      "male": {
+        "armor": {
+          "leatherArmor": "actors/bodyparts/orc/leatherArmor.png",
+          "chainMailArmor": "actors/bodyparts/orc/chainMailArmor.png"
+        },
+        "body": {
+          "colors": [
+            "336600",
+            "4C9900",
+            "006633"
+          ],
+          "parts": [
+            "actors/bodyparts/orc/orc_body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "000000",
+            "FF0000"
+          ],
+          "parts": [
+            "actors/bodyparts/orc/orc_eyes_01.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "000000",
+            "CC0000"
+          ],
+          "parts": [
+            "actors/bodyparts/orc/orc_hair_01.png",
+            "actors/bodyparts/orc/orc_hair_02.png"
+          ]
+        }
       },
-      "body": {
-        "colors": [
-          "336600",
-          "4C9900",
-          "006633"
-        ],
-        "parts": [
-          "actors/bodyparts/orc/orc_body.png"
-        ]
-      },
-      "eyes": {
-        "colors": [
-          "000000",
-          "FF0000"
-        ],
-        "parts": [
-          "actors/bodyparts/orc/orc_eyes_01.png"
-        ]
-      },
-      "hair": {
-        "colors": [
-          "000000",
-          "CC0000"
-        ],
-        "parts": [
-          "actors/bodyparts/orc/orc_hair_01.png",
-          "actors/bodyparts/orc/orc_hair_02.png"
-        ]
+      "female": {
+        "armor": {
+          "leatherArmor": "actors/bodyparts/orc/leatherArmor.png",
+          "chainMailArmor": "actors/bodyparts/orc/chainMailArmor.png"
+        },
+        "body": {
+          "colors": [
+            "336600",
+            "4C9900",
+            "006633"
+          ],
+          "parts": [
+            "actors/bodyparts/orc/orc_body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "000000",
+            "FF0000"
+          ],
+          "parts": [
+            "actors/bodyparts/orc/orc_eyes_01.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "000000",
+            "CC0000"
+          ],
+          "parts": [
+            "actors/bodyparts/orc/orc_hair_01.png",
+            "actors/bodyparts/orc/orc_hair_02.png"
+          ]
+        }
       }
     },
-
     {
       "type": "goblin",
-      "body": {
-        "colors": [
-          "336600",
-          "4C9900",
-          "006633"
-        ],
-        "parts": [
-          "actors/bodyparts/orc/orc_body.png"
-        ]
+      "male": {
+        "body": {
+          "colors": [
+            "336600",
+            "4C9900",
+            "006633"
+          ],
+          "parts": [
+            "actors/bodyparts/orc/orc_body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "000000",
+            "FF0000"
+          ],
+          "parts": [
+            "actors/bodyparts/orc/orc_eyes_01.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "000000",
+            "CC0000"
+          ],
+          "parts": [
+            "actors/bodyparts/orc/orc_hair_01.png"
+          ]
+        }
       },
-      "eyes": {
-        "colors": [
-          "000000",
-          "FF0000"
-        ],
-        "parts": [
-          "actors/bodyparts/orc/orc_eyes_01.png"
-        ]
-      },
-      "hair": {
-        "colors": [
-          "000000",
-          "CC0000"
-        ],
-        "parts": [
-          "actors/bodyparts/orc/orc_hair_01.png"
-        ]
+      "female": {
+        "body": {
+          "colors": [
+            "336600",
+            "4C9900",
+            "006633"
+          ],
+          "parts": [
+            "actors/bodyparts/orc/orc_body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "000000",
+            "FF0000"
+          ],
+          "parts": [
+            "actors/bodyparts/orc/orc_eyes_01.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "000000",
+            "CC0000"
+          ],
+          "parts": [
+            "actors/bodyparts/orc/orc_hair_01.png"
+          ]
+        }
       }
     },
     {
       "type": "skeleton",
-      "armor": {
-        "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
-        "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png"
+      "male": {
+        "armor": {
+          "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
+          "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png"
+        },
+        "body": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_hair_01.png"
+          ]
+        }
       },
-      "body": {
-        "colors": [
-          "FFFFBB",
-          "FFBBBB"
-        ],
-        "parts": [
-          "actors/bodyparts/humanoid/humanoid_body.png"
-        ]
-      },
-      "eyes": {
-        "colors": [
-          "FFFFBB",
-          "FFBBBB"
-        ],
-        "parts": [
-          "actors/bodyparts/humanoid/humanoid_eyes_01.png"
-        ]
-      },
-      "hair": {
-        "colors": [
-          "FFFFBB",
-          "FFBBBB"
-        ],
-        "parts": [
-          "actors/bodyparts/humanoid/humanoid_hair_01.png"
-        ]
+      "female": {
+        "armor": {
+          "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
+          "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png"
+        },
+        "body": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_hair_01.png"
+          ]
+        }
       }
     },
-
     {
       "type": "rabbit",
-      "body": {
-        "colors": [
-          "FFFFBB",
-          "FFBBBB"
-        ],
-        "parts": [
-          "actors/bodyparts/humanoid/humanoid_body.png"
-        ]
+      "male": {
+        "body": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_hair_01.png"
+          ]
+        }
       },
-      "eyes": {
-        "colors": [
-          "FFFFBB",
-          "FFBBBB"
-        ],
-        "parts": [
-          "actors/bodyparts/humanoid/humanoid_eyes_01.png"
-        ]
-      },
-      "hair": {
-        "colors": [
-          "FFFFBB",
-          "FFBBBB"
-        ],
-        "parts": [
-          "actors/bodyparts/humanoid/humanoid_hair_01.png"
-        ]
+      "female": {
+        "body": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_hair_01.png"
+          ]
+        }
       }
     },
-
     {
       "type": "wolf",
-      "body": {
-        "colors": [
-          "FFFFBB",
-          "FFBBBB"
-        ],
-        "parts": [
-          "actors/bodyparts/humanoid/humanoid_body.png"
-        ]
+      "male": {
+        "body": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_hair_01.png"
+          ]
+        }
       },
-      "eyes": {
-        "colors": [
-          "FFFFBB",
-          "FFBBBB"
-        ],
-        "parts": [
-          "actors/bodyparts/humanoid/humanoid_eyes_01.png"
-        ]
-      },
-      "hair": {
-        "colors": [
-          "FFFFBB",
-          "FFBBBB"
-        ],
-        "parts": [
-          "actors/bodyparts/humanoid/humanoid_hair_01.png"
-        ]
+      "female": {
+        "body": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "FFFFBB",
+            "FFBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/humanoid/humanoid_hair_01.png"
+          ]
+        }
       }
     }
   ]

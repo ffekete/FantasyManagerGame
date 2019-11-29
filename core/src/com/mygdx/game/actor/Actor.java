@@ -118,4 +118,7 @@ public interface Actor {
     Appearance getAppearance();
 
     boolean isAttacking();
+
+    Gender getGender();
+    void setGender(Gender gender);
 }

@@ -1,17 +1,16 @@
 package com.mygdx.game.animation;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class FullAnimationSet {
 
-    private ArrayList<ArcheTypeAnimationSet> content;
+    private ArrayList<RacialAnimationSet> content;
 
-    public ArrayList<ArcheTypeAnimationSet> getAnimationSets() {
+    public ArrayList<RacialAnimationSet> getAnimationSets() {
         return content;
     }
 
-    public void setAnimationSets(ArrayList<ArcheTypeAnimationSet> animationSets) {
+    public void setAnimationSets(ArrayList<RacialAnimationSet> animationSets) {
         this.content = animationSets;
     }
 }

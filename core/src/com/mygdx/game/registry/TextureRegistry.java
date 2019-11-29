@@ -3,6 +3,7 @@ package com.mygdx.game.registry;
 import com.badlogic.gdx.graphics.Texture;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
+import com.mygdx.game.actor.Gender;
 import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
@@ -12,7 +13,6 @@ import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
 import com.mygdx.game.actor.worker.Shopkeeper;
 import com.mygdx.game.actor.worker.Smith;
-import com.mygdx.game.animation.BodyPart;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.armor.ChainMailArmor;
 import com.mygdx.game.item.armor.LeatherArmor;
@@ -69,8 +69,8 @@ public class TextureRegistry {
     private Map<MenuItem, Optional<Texture>> menuItems;
     private Optional<Texture> shadowTexture;
 
-    private Map<String, Map<String, ArrayList<Texture>>> bodyPartTextures;
-    private Map<String, Map<String, Texture>> armorAppearanceTextures;
+    private Map<String, Map<Gender, Map<String, ArrayList<Texture>>>> bodyPartTextures;
+    private Map<String, Map<Gender, Map<String, Texture>>> armorAppearanceTextures;
 
     public TextureRegistry(PathResolver<Texture> texturePathResolver) {
 
@@ -81,38 +81,52 @@ public class TextureRegistry {
         AnimationRegistry.INSTANCE.getAnimationSet().getAnimationSets()
                 .stream().forEach(archetype -> {
             AnimationRegistry.INSTANCE.getAnimationSet().getAnimationSets().forEach(a -> {
-                bodyPartTextures.computeIfAbsent(a.getType(), v -> new HashMap<>());
-                armorAppearanceTextures.computeIfAbsent(a.getType(), v -> new HashMap<>());
 
-                bodyPartTextures.get(a.getType()).computeIfAbsent("body", v -> new ArrayList<>());
-                bodyPartTextures.get(a.getType()).computeIfAbsent("eyes", v -> new ArrayList<>());
-                bodyPartTextures.get(a.getType()).computeIfAbsent("hair", v -> new ArrayList<>());
-                bodyPartTextures.get(a.getType()).computeIfAbsent("beard", v -> new ArrayList<>());
+                for(Gender gender : new Gender[]{Gender.Male, Gender.Female}) {
+                    bodyPartTextures.computeIfAbsent(a.getType(), v -> new HashMap<>());
 
-                if(a.getArmor() != null) {
-                    a.getArmor().entrySet().stream()
-                            .forEach(entry -> {
-                                armorAppearanceTextures.get(a.getType()).put(entry.getKey(), texturePathResolver.resolve(entry.getValue()).get());
-                            });
-                }
+                    bodyPartTextures.get(a.getType()).computeIfAbsent(gender, v -> new HashMap<>());
+                    bodyPartTextures.get(a.getType()).computeIfAbsent(gender, v -> new HashMap<>());
+                    bodyPartTextures.get(a.getType()).computeIfAbsent(gender, v -> new HashMap<>());
+                    bodyPartTextures.get(a.getType()).computeIfAbsent(gender, v -> new HashMap<>());
 
-                if(a.getBeard() != null) {
-                    a.getBeard().getParts().forEach(beard -> {
-                        bodyPartTextures.get(a.getType()).get("beard").add(texturePathResolver.resolve(beard).get());
+
+                    bodyPartTextures.get(a.getType()).get(gender).computeIfAbsent("body", v -> new ArrayList<>());
+                    bodyPartTextures.get(a.getType()).get(gender).computeIfAbsent("eyes", v -> new ArrayList<>());
+                    bodyPartTextures.get(a.getType()).get(gender).computeIfAbsent("hair", v -> new ArrayList<>());
+                    bodyPartTextures.get(a.getType()).get(gender).computeIfAbsent("beard", v -> new ArrayList<>());
+
+                    armorAppearanceTextures.computeIfAbsent(a.getType(), v -> new HashMap<>());
+                    armorAppearanceTextures.computeIfAbsent(a.getType(), v -> new HashMap<>());
+
+                    armorAppearanceTextures.get(a.getType()).computeIfAbsent(gender, v -> new HashMap<>());
+                    armorAppearanceTextures.get(a.getType()).computeIfAbsent(gender, v -> new HashMap<>());
+
+                    if (a.getRacialAnimations().get(gender).getArmor() != null) {
+                        a.getRacialAnimations().get(gender).getArmor().entrySet().stream()
+                                .forEach(entry -> {
+                                    armorAppearanceTextures.get(a.getType()).get(gender).put(entry.getKey(), texturePathResolver.resolve(entry.getValue()).get());
+                                });
+                    }
+
+                    if (a.getRacialAnimations().get(gender).getBeard() != null) {
+                        a.getRacialAnimations().get(gender).getBeard().getParts().forEach(beard -> {
+                            bodyPartTextures.get(a.getType()).get(gender).get("beard").add(texturePathResolver.resolve(beard).get());
+                        });
+                    }
+
+                    a.getRacialAnimations().get(gender).getBody().getParts().forEach(body -> {
+                        bodyPartTextures.get(a.getType()).get(gender).get("body").add(texturePathResolver.resolve(body).get());
+                    });
+
+                    a.getRacialAnimations().get(gender).getEyes().getParts().forEach(eyes -> {
+                        bodyPartTextures.get(a.getType()).get(gender).get("eyes").add(texturePathResolver.resolve(eyes).get());
+                    });
+
+                    a.getRacialAnimations().get(gender).getHair().getParts().forEach(hair -> {
+                        bodyPartTextures.get(a.getType()).get(gender).get("hair").add(texturePathResolver.resolve(hair).get());
                     });
                 }
-
-                a.getBody().getParts().forEach(body -> {
-                    bodyPartTextures.get(a.getType()).get("body").add(texturePathResolver.resolve(body).get());
-                });
-
-                a.getEyes().getParts().forEach(eyes -> {
-                    bodyPartTextures.get(a.getType()).get("eyes").add(texturePathResolver.resolve(eyes).get());
-                });
-
-                a.getHair().getParts().forEach(hair -> {
-                    bodyPartTextures.get(a.getType()).get("hair").add(texturePathResolver.resolve(hair).get());
-                });
             });
 
         });
@@ -347,11 +361,11 @@ public class TextureRegistry {
         return shadowTexture.get();
     }
 
-    public Texture getBody(String archeType, String bodyPart, int index) {
-        return bodyPartTextures.get(archeType).get(bodyPart).get(index);
+    public Texture getBody(String archeType, String bodyPart, int index, Gender gender) {
+        return bodyPartTextures.get(archeType).get(gender).get(bodyPart).get(index);
     }
 
-    public Texture getArmor(String archeType, String armorType) {
-        return armorAppearanceTextures.get(archeType).get(armorType);
+    public Texture getArmor(String archeType, String armorType, Gender gender) {
+        return armorAppearanceTextures.get(archeType).get(gender).get(armorType);
     }
 }

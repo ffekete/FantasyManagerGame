@@ -83,6 +83,8 @@ public abstract class AbstractActor implements Actor {
 
     private final Map<Needs, Integer> needs = new HashMap<>();
 
+    private Gender gender;
+
     public AbstractActor() {
         this.traitList = new TraitList();
         this.baseAttributes = new HashMap<>();
@@ -607,5 +609,15 @@ public abstract class AbstractActor implements Actor {
         return this.getActivityStack().contains(SimpleAttackActivity.class) ||
                 this.getActivityStack().contains(RangedAttackActivity.class) ||
                 this.getActivityStack().contains(OffensiveSpellCastActivity.class);
+    }
+
+    @Override
+    public Gender getGender() {
+        return gender;
+    }
+
+    @Override
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 }
