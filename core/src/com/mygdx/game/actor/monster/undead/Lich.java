@@ -1,4 +1,4 @@
-package com.mygdx.game.actor.monster;
+package com.mygdx.game.actor.monster.undead;
 
 import com.mygdx.game.actor.AbstractActor;
 import com.mygdx.game.actor.BodyType;

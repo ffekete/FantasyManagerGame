@@ -64,9 +64,9 @@ public class FullBodyActorAnimation implements ActorAnimation {
         spriteBatch.setColor(Color.WHITE);
 
         // armor
-        if (actor.getWornArmor() != null)
+        if (actor.getWornArmor() != null) {
             spriteBatch.draw(textureRegistry.getArmor(actor.getBodyType().getArchetype(), actor.getWornArmor().getSimpleName(), actor.getGender()), x + offset, y + offset, 0, 0, 1, 1, scale, scale, 0f, (int) phase * 32, 32 * row, 32, 32, getFlip(direction), false);
-
+        }
         // shield
         if (actor.getLeftHandItem() != null) {
             spriteBatch.draw(textureRegistry.getFor(actor.getLeftHandItem().getClass()), actor.getX() + actor.getxOffset() + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, actor.getY() + actor.getyOffset() + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, 0, 0, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, 0, 0, 0, textureRegistry.getFor(actor.getLeftHandItem().getClass()).getHeight(), textureRegistry.getFor(actor.getLeftHandItem().getClass()).getWidth(), directionSelector.getDirection(actor).equals(Direction.LEFT) || directionSelector.getDirection(actor).equals(Direction.UP), false);

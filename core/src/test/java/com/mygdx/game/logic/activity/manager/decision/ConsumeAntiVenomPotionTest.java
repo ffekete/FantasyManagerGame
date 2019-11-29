@@ -2,7 +2,7 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Warrior;
-import com.mygdx.game.actor.monster.Lich;
+import com.mygdx.game.actor.monster.undead.Lich;
 import com.mygdx.game.effect.Poison;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.registry.EffectRegistry;

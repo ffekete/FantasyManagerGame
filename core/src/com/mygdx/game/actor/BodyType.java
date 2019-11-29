@@ -3,12 +3,28 @@ package com.mygdx.game.actor;
 public enum BodyType {
 
     Humanoid("humanoid"),
+    Cyclops("cyclops"),
+    Centaur("centaur"),
     Goblin("goblin"),
     Orc("orc"),
+    Medusa("medusa"),
+    Minotaurus("medusa"),
     Troll("troll"),
+    Ogre("ogre"),
     HumanoidSkeleton("skeleton"),
+    Ethereal("skeleton"),
+    Ghoul("ghoul"),
+    RatMan("ratman"),
     Rabbit("rabbit"),
-    Wolf("wolf");
+    Wolf("wolf"),
+    Bear("bear"),
+    Chimera("chimera"),
+    Imp("imp"),
+    Demon("demon"),
+    Devil("devil"),
+    Fox("fox"),
+    Pheasant("pheasant"),
+    Deer("deer");
 
     private final String archetype;
 

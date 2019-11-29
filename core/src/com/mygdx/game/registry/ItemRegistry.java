@@ -3,10 +3,7 @@ package com.mygdx.game.registry;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.item.Item;
-import com.mygdx.game.item.armor.BlackPlateMail;
-import com.mygdx.game.item.armor.ChainMailArmor;
-import com.mygdx.game.item.armor.LeatherArmor;
-import com.mygdx.game.item.armor.PlateMailArmor;
+import com.mygdx.game.item.armor.*;
 import com.mygdx.game.item.category.*;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
@@ -15,6 +12,7 @@ import com.mygdx.game.item.potion.SmallManaPotion;
 import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.bow.LongBow;
+import com.mygdx.game.item.weapon.mace.GiantClub;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.*;
 import com.mygdx.game.item.weapon.twohandedsword.Flamberge;
@@ -69,8 +67,10 @@ public class ItemRegistry {
                     // Potion
                     // Shield
                     // Sword
+                    .add(GiantClub.class)
                     // Armor
                     .add(BlackPlateMail.class)
+                    .add(TrollArmor.class)
                     .build())
 
             .put(Tier4.class, ImmutableList.<Class<? extends Item>>builder()

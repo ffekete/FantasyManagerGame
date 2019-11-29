@@ -2,7 +2,7 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Warrior;
-import com.mygdx.game.actor.monster.Skeleton;
+import com.mygdx.game.actor.monster.undead.Skeleton;
 import com.mygdx.game.logic.activity.compound.MoveAndInteractActivity;
 import com.mygdx.game.logic.activity.single.InteractActivity;
 import com.mygdx.game.map.dungeon.Dungeon;

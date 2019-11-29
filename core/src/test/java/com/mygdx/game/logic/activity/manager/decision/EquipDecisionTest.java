@@ -4,7 +4,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
-import com.mygdx.game.actor.monster.CaveTroll;
+import com.mygdx.game.actor.monster.greenskins.CaveTroll;
 import com.mygdx.game.item.armor.BlackPlateMail;
 import com.mygdx.game.item.armor.ChainMailArmor;
 import com.mygdx.game.item.armor.LeatherArmor;

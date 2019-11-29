@@ -6,7 +6,12 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
-import com.mygdx.game.actor.monster.*;
+import com.mygdx.game.actor.monster.greenskins.CaveTroll;
+import com.mygdx.game.actor.monster.greenskins.Goblin;
+import com.mygdx.game.actor.monster.greenskins.Orc;
+import com.mygdx.game.actor.monster.undead.Lich;
+import com.mygdx.game.actor.monster.undead.Skeleton;
+import com.mygdx.game.actor.monster.undead.SkeletonWarrior;
 import com.mygdx.game.actor.wildlife.Rabbit;
 import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
@@ -134,6 +139,12 @@ public class ActivityManager {
                 .put(Orc.class, ImmutableList.of(
                         new ConsumeAntiVenomPotionDecision(),
                         new MoveAndRangedAttackDecision(),
+                        new MoveAndAttackDecision(),
+                        new WanderingDecision())
+                )
+
+                .put(CaveTroll.class, ImmutableList.of(
+                        new ConsumeAntiVenomPotionDecision(),
                         new MoveAndAttackDecision(),
                         new WanderingDecision())
                 )

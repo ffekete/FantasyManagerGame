@@ -4,7 +4,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.google.common.collect.ImmutableMap;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Warrior;
-import com.mygdx.game.actor.monster.*;
+import com.mygdx.game.actor.monster.greenskins.Goblin;
+import com.mygdx.game.actor.monster.greenskins.Orc;
+import com.mygdx.game.actor.monster.undead.Lich;
+import com.mygdx.game.actor.monster.undead.Skeleton;
+import com.mygdx.game.actor.monster.undead.SkeletonWarrior;
 import com.mygdx.game.resolver.ModdablePathResolver;
 
 import java.util.Map;

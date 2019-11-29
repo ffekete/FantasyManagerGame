@@ -4,7 +4,7 @@ import com.mygdx.game.actor.component.skill.MagicSkill;
 import com.mygdx.game.actor.component.skill.WeaponSkill;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
-import com.mygdx.game.actor.monster.Skeleton;
+import com.mygdx.game.actor.monster.undead.Skeleton;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;

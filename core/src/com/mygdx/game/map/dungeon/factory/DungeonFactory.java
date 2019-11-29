@@ -57,6 +57,7 @@ public class DungeonFactory {
                 actor.setHp(actor.getMaxHp());
                 actor.setMana(actor.getMaxMana());
                 actor.equip(WeaponProvider.INSTANCE.getFor(Tier1.class));
+                actor.equip(ArmorProvider.INSTANCE.getFor(Tier1.class, actorClass));
             }
         }
 
@@ -68,6 +69,7 @@ public class DungeonFactory {
                 actor.setHp(actor.getMaxHp());
                 actor.setMana(actor.getMaxMana());
                 actor.addMoney(new Random().nextInt(30));
+                actor.equip(ArmorProvider.INSTANCE.getFor(Tier2.class, actorClass));
             }
         }
 
@@ -79,6 +81,7 @@ public class DungeonFactory {
                 actor.setHp(actor.getMaxHp());
                 actor.setMana(actor.getMaxMana());
                 actor.addMoney(new Random().nextInt(30) + 30);
+                actor.equip(ArmorProvider.INSTANCE.getFor(Tier3.class, actorClass));
             }
         }
 
@@ -90,6 +93,7 @@ public class DungeonFactory {
                 actor.setHp(actor.getMaxHp());
                 actor.setMana(actor.getMaxMana());
                 actor.addMoney(new Random().nextInt(50) + 50);
+                actor.equip(ArmorProvider.INSTANCE.getFor(Tier4.class, actorClass));
             }
         }
 

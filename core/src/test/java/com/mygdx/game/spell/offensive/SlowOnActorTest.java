@@ -2,7 +2,7 @@ package com.mygdx.game.spell.offensive;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Wizard;
-import com.mygdx.game.actor.monster.Skeleton;
+import com.mygdx.game.actor.monster.undead.Skeleton;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;
 import com.mygdx.game.map.dungeon.Dungeon;
 import com.mygdx.game.registry.ActorRegistry;

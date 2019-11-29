@@ -1,4 +1,4 @@
-package com.mygdx.game.actor.monster;
+package com.mygdx.game.actor.monster.demons;
 
 import com.mygdx.game.actor.AbstractActor;
 import com.mygdx.game.actor.BodyType;
@@ -6,9 +6,9 @@ import com.mygdx.game.actor.MeleeActor;
 
 import static com.mygdx.game.faction.Alignment.ENEMY;
 
-public class Goblin extends AbstractActor implements MeleeActor {
+public class Imp extends AbstractActor implements MeleeActor {
 
-    public Goblin() {
+    public Imp() {
         this.setAlignment(ENEMY);
     }
 
@@ -54,11 +54,11 @@ public class Goblin extends AbstractActor implements MeleeActor {
 
     @Override
     public String getActorClass() {
-        return "Goblin warrior";
+        return "Imp";
     }
 
     @Override
     public BodyType getBodyType() {
-        return BodyType.Goblin;
+        return BodyType.Imp;
     }
 }

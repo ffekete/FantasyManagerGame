@@ -7,7 +7,11 @@ import com.mygdx.game.actor.Gender;
 import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
-import com.mygdx.game.actor.monster.*;
+import com.mygdx.game.actor.monster.greenskins.Goblin;
+import com.mygdx.game.actor.monster.greenskins.Orc;
+import com.mygdx.game.actor.monster.undead.Lich;
+import com.mygdx.game.actor.monster.undead.Skeleton;
+import com.mygdx.game.actor.monster.undead.SkeletonWarrior;
 import com.mygdx.game.actor.wildlife.Rabbit;
 import com.mygdx.game.actor.wildlife.Wolf;
 import com.mygdx.game.actor.worker.Builder;
@@ -17,6 +21,7 @@ import com.mygdx.game.item.Item;
 import com.mygdx.game.item.armor.ChainMailArmor;
 import com.mygdx.game.item.armor.LeatherArmor;
 import com.mygdx.game.item.armor.PlateMailArmor;
+import com.mygdx.game.item.armor.TrollArmor;
 import com.mygdx.game.item.buildertool.Hammer;
 import com.mygdx.game.item.component.WolfPelt;
 import com.mygdx.game.item.food.Bread;
@@ -29,6 +34,7 @@ import com.mygdx.game.item.resources.Wood;
 import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.bow.LongBow;
+import com.mygdx.game.item.weapon.mace.GiantClub;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.*;
 import com.mygdx.game.item.weapon.twohandedsword.Flamberge;
@@ -198,12 +204,14 @@ public class TextureRegistry {
                 .put(JadeStaff.class, texturePathResolver.resolve("items/weapons/JadeStaff.png"))
                 .put(LongBow.class, texturePathResolver.resolve("items/weapons/LongBow.png"))
                 .put(Flamberge.class, texturePathResolver.resolve("items/weapons/Flamberge.png"))
+                .put(GiantClub.class, texturePathResolver.resolve("items/weapons/Club.png"))
                 .put(Hammer.class, texturePathResolver.resolve("effects/Hammer.png"))
 
                 // armor
                 .put(LeatherArmor.class, texturePathResolver.resolve("items/armors/LeatherArmor.png"))
                 .put(ChainMailArmor.class, texturePathResolver.resolve("items/armors/ChainMailArmor.png"))
                 .put(PlateMailArmor.class, texturePathResolver.resolve("items/armors/PlateMailArmor.png"))
+                .put(TrollArmor.class, texturePathResolver.resolve("items/armors/PlateMailArmor.png"))
 
                 // components
                 .put(WolfPelt.class, texturePathResolver.resolve("items/components/WolfPelt.png"))

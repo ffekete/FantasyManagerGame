@@ -1,4 +1,4 @@
-package com.mygdx.game.actor.monster;
+package com.mygdx.game.actor.monster.greenskins;
 
 import com.mygdx.game.actor.AbstractActor;
 import com.mygdx.game.actor.BodyType;
@@ -6,9 +6,9 @@ import com.mygdx.game.actor.MeleeActor;
 
 import static com.mygdx.game.faction.Alignment.ENEMY;
 
-public class SkeletonWarrior extends AbstractActor implements MeleeActor {
+public class CaveTroll extends AbstractActor implements MeleeActor {
 
-    public SkeletonWarrior() {
+    public CaveTroll() {
         this.setAlignment(ENEMY);
     }
 
@@ -25,11 +25,6 @@ public class SkeletonWarrior extends AbstractActor implements MeleeActor {
     @Override
     public void decreaseHunger(int amount) {
 
-    }
-
-    @Override
-    public int getHungerLevel() {
-        return 0;
     }
 
     @Override
@@ -53,12 +48,17 @@ public class SkeletonWarrior extends AbstractActor implements MeleeActor {
     }
 
     @Override
+    public int getHungerLevel() {
+        return 0;
+    }
+
+    @Override
     public String getActorClass() {
-        return "Skeleton warrior";
+        return "Cave troll";
     }
 
     @Override
     public BodyType getBodyType() {
-        return BodyType.HumanoidSkeleton;
+        return BodyType.Troll;
     }
 }

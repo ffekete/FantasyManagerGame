@@ -1,14 +1,15 @@
-package com.mygdx.game.actor.monster;
+package com.mygdx.game.actor.monster.mithycal;
 
 import com.mygdx.game.actor.AbstractActor;
 import com.mygdx.game.actor.BodyType;
+import com.mygdx.game.actor.CasterActor;
 import com.mygdx.game.actor.MeleeActor;
 
 import static com.mygdx.game.faction.Alignment.ENEMY;
 
-public class Orc extends AbstractActor implements MeleeActor {
+public class Chimera extends AbstractActor implements CasterActor {
 
-    public Orc() {
+    public Chimera() {
         this.setAlignment(ENEMY);
     }
 
@@ -54,11 +55,11 @@ public class Orc extends AbstractActor implements MeleeActor {
 
     @Override
     public String getActorClass() {
-        return "Orc warrior";
+        return "Chimera";
     }
 
     @Override
     public BodyType getBodyType() {
-        return BodyType.Orc;
+        return BodyType.Chimera;
     }
 }

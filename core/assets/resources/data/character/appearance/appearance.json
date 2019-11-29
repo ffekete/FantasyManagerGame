@@ -5,7 +5,8 @@
       "male": {
         "armor": {
           "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
-          "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png"
+          "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png",
+          "plateMailArmor": "actors/bodyparts/humanoid/plateMailArmor.png"
         },
         "body": {
           "colors": [
@@ -29,7 +30,8 @@
         "beard": {
           "parts": [
             "actors/bodyparts/humanoid/humanoid_beard.png",
-            "actors/bodyparts/humanoid/humanoid_beard_02.png"
+            "actors/bodyparts/humanoid/humanoid_beard_02.png",
+            "actors/bodyparts/humanoid/humanoid_beard_03.png"
           ]
         },
         "hair": {
@@ -51,7 +53,8 @@
       "female": {
         "armor": {
           "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
-          "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png"
+          "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png",
+          "plateMailArmor": "actors/bodyparts/humanoid/plateMailArmor.png"
         },
         "body": {
           "colors": [
@@ -83,7 +86,9 @@
             "000000"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/female_hair_01.png"
+            "actors/bodyparts/humanoid/female_hair_01.png",
+            "actors/bodyparts/humanoid/female_hair_02.png",
+            "actors/bodyparts/humanoid/female_hair_03.png"
           ]
         }
       }
@@ -93,7 +98,8 @@
       "male": {
         "armor": {
           "leatherArmor": "actors/bodyparts/orc/leatherArmor.png",
-          "chainMailArmor": "actors/bodyparts/orc/chainMailArmor.png"
+          "chainMailArmor": "actors/bodyparts/orc/chainMailArmor.png",
+          "plateMailArmor": "actors/bodyparts/orc/plateMailArmor.png"
         },
         "body": {
           "colors": [
@@ -128,7 +134,8 @@
       "female": {
         "armor": {
           "leatherArmor": "actors/bodyparts/orc/leatherArmor.png",
-          "chainMailArmor": "actors/bodyparts/orc/chainMailArmor.png"
+          "chainMailArmor": "actors/bodyparts/orc/chainMailArmor.png",
+          "plateMailArmor": "actors/bodyparts/orc/plateMailArmor.png"
         },
         "body": {
           "colors": [
@@ -229,7 +236,8 @@
       "male": {
         "armor": {
           "leatherArmor": "actors/bodyparts/humanoidSkeleton/leatherArmor.png",
-          "chainMailArmor": "actors/bodyparts/humanoidSkeleton/chainMailArmor.png"
+          "chainMailArmor": "actors/bodyparts/humanoidSkeleton/chainMailArmor.png",
+          "plateMailArmor": "actors/bodyparts/humanoidSkeleton/plateMailArmor.png"
         },
         "body": {
           "colors": [
@@ -261,7 +269,8 @@
       "female": {
         "armor": {
           "leatherArmor": "actors/bodyparts/humanoidSkeleton/leatherArmor.png",
-          "chainMailArmor": "actors/bodyparts/humanoidSkeleton/chainMailArmor.png"
+          "chainMailArmor": "actors/bodyparts/humanoidSkeleton/chainMailArmor.png",
+          "plateMailArmor": "actors/bodyparts/humanoidSkeleton/plateMailArmor.png"
         },
         "body": {
           "colors": [
@@ -409,6 +418,73 @@
           ],
           "parts": [
             "actors/bodyparts/wolf/hair.png"
+          ]
+        }
+      }
+    },
+    {
+      "type": "troll",
+      "male": {
+        "armor": {
+          "trollArmor": "actors/bodyparts/troll/TrollArmor.png"
+        },
+        "body": {
+          "colors": [
+            "AEB404",
+            "0B4C5F"
+          ],
+          "parts": [
+            "actors/bodyparts/troll/body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "FF0040",
+            "FF0000"
+          ],
+          "parts": [
+            "actors/bodyparts/troll/eyes.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "000000",
+            "6E6E6E"
+          ],
+          "parts": [
+            "actors/bodyparts/troll/hair.png"
+          ]
+        }
+      },
+      "female": {
+        "armor": {
+          "trollArmor": "actors/bodyparts/troll/TrollArmor.png"
+        },
+        "body": {
+          "colors": [
+            "AEB404",
+            "0B4C5F"
+          ],
+          "parts": [
+            "actors/bodyparts/troll/body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "FF0040",
+            "FF0000"
+          ],
+          "parts": [
+            "actors/bodyparts/troll/eyes.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "000000",
+            "6E6E6E"
+          ],
+          "parts": [
+            "actors/bodyparts/troll/hair.png"
           ]
         }
       }

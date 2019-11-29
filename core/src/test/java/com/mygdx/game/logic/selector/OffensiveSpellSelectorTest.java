@@ -4,7 +4,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.component.trait.Trait;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
-import com.mygdx.game.actor.monster.SkeletonWarrior;
+import com.mygdx.game.actor.monster.undead.SkeletonWarrior;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.visibility.VisibilityMask;
 import com.mygdx.game.map.dungeon.DummyDungeonCreator;

@@ -1,14 +1,15 @@
-package com.mygdx.game.actor.monster;
+package com.mygdx.game.actor.monster.demons;
 
 import com.mygdx.game.actor.AbstractActor;
 import com.mygdx.game.actor.BodyType;
+import com.mygdx.game.actor.CasterActor;
 import com.mygdx.game.actor.MeleeActor;
 
 import static com.mygdx.game.faction.Alignment.ENEMY;
 
-public class CaveTroll extends AbstractActor implements MeleeActor {
+public class Devil extends AbstractActor implements CasterActor {
 
-    public CaveTroll() {
+    public Devil() {
         this.setAlignment(ENEMY);
     }
 
@@ -54,11 +55,11 @@ public class CaveTroll extends AbstractActor implements MeleeActor {
 
     @Override
     public String getActorClass() {
-        return "Cave troll";
+        return "Devil";
     }
 
     @Override
     public BodyType getBodyType() {
-        return BodyType.Troll;
+        return BodyType.Devil;
     }
 }

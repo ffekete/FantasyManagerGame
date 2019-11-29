@@ -2,7 +2,7 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.hero.Wizard;
-import com.mygdx.game.actor.monster.Goblin;
+import com.mygdx.game.actor.monster.greenskins.Goblin;
 import com.mygdx.game.effect.MovementSpeedReduction;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.activity.single.OffensiveSpellCastActivity;

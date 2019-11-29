@@ -251,6 +251,8 @@ public abstract class AbstractActor implements Actor {
 
     @Override
     public void equip(Equipable equipable) {
+        if(equipable == null)
+            return;
         // if it is shield
         if (Shield.class.isAssignableFrom(equipable.getClass())) {
             unequip(this.leftHand);

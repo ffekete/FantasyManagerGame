@@ -3,7 +3,7 @@ package com.mygdx.game.logic.activity.manager.decision;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Wizard;
-import com.mygdx.game.actor.monster.SkeletonWarrior;
+import com.mygdx.game.actor.monster.undead.SkeletonWarrior;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.sword.ShortSword;
 import com.mygdx.game.logic.Point;
