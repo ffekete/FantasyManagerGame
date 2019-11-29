@@ -228,8 +228,8 @@
       "type": "skeleton",
       "male": {
         "armor": {
-          "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
-          "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png"
+          "leatherArmor": "actors/bodyparts/humanoidSkeleton/leatherArmor.png",
+          "chainMailArmor": "actors/bodyparts/humanoidSkeleton/chainMailArmor.png"
         },
         "body": {
           "colors": [
@@ -237,16 +237,15 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_body.png"
+            "actors/bodyparts/humanoidSkeleton/body.png"
           ]
         },
         "eyes": {
           "colors": [
-            "FFFFBB",
-            "FFBBBB"
+            "FF0000"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+            "actors/bodyparts/humanoidSkeleton/eyes.png"
           ]
         },
         "hair": {
@@ -255,14 +254,14 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_hair_01.png"
+            "actors/bodyparts/humanoidSkeleton/hair.png"
           ]
         }
       },
       "female": {
         "armor": {
-          "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
-          "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png"
+          "leatherArmor": "actors/bodyparts/humanoidSkeleton/leatherArmor.png",
+          "chainMailArmor": "actors/bodyparts/humanoidSkeleton/chainMailArmor.png"
         },
         "body": {
           "colors": [
@@ -270,16 +269,15 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_body.png"
+            "actors/bodyparts/humanoidSkeleton/body.png"
           ]
         },
         "eyes": {
           "colors": [
-            "FFFFBB",
-            "FFBBBB"
+            "FF0000"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_eyes_01.png"
+            "actors/bodyparts/humanoidSkeleton/eyes.png"
           ]
         },
         "hair": {
@@ -288,7 +286,7 @@
             "FFBBBB"
           ],
           "parts": [
-            "actors/bodyparts/humanoid/humanoid_hair_01.png"
+            "actors/bodyparts/humanoidSkeleton/hair.png"
           ]
         }
       }
