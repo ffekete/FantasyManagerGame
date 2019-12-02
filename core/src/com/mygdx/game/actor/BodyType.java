@@ -12,7 +12,7 @@ public enum BodyType {
     Troll("troll"),
     Ogre("ogre"),
     HumanoidSkeleton("skeleton"),
-    Ethereal("skeleton"),
+    Ethereal("ethereal"),
     Ghoul("ghoul"),
     RatMan("ratman"),
     Rabbit("rabbit"),

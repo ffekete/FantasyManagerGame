@@ -4,11 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.BodyType;
-import com.mygdx.game.actor.hero.*;
-import com.mygdx.game.actor.monster.greenskins.Orc;
-import com.mygdx.game.actor.monster.undead.Lich;
-import com.mygdx.game.actor.monster.undead.Skeleton;
-import com.mygdx.game.actor.monster.undead.SkeletonWarrior;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier1;
@@ -24,7 +19,7 @@ public class Robe extends AbstractItem implements Armor, Tier1, Craftable {
 
     @Override
     public Set<Class<? extends Actor>> getAllowedClasses() {
-        return ImmutableSet.of(Wizard.class, Lich.class, Druid.class, Healer.class, Witch.class, Necromancer.class);
+        return ImmutableSet.of(Actor.class);
     }
 
     @Override

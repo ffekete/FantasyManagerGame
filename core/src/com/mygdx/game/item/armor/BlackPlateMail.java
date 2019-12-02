@@ -4,10 +4,19 @@ import com.google.common.collect.ImmutableSet;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.BodyType;
+import com.mygdx.game.actor.hero.Paladin;
+import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
-import com.mygdx.game.actor.monster.undead.Lich;
 import com.mygdx.game.actor.monster.greenskins.Orc;
+import com.mygdx.game.actor.monster.greenskins.OrcBoss;
+import com.mygdx.game.actor.monster.rats.RatBrute;
+import com.mygdx.game.actor.monster.rats.RatMan;
+import com.mygdx.game.actor.monster.undead.Lich;
+import com.mygdx.game.actor.monster.undead.PowerLich;
 import com.mygdx.game.actor.monster.undead.SkeletonWarrior;
+import com.mygdx.game.actor.monster.undead.UndeadKnight;
+import com.mygdx.game.actor.monster.vampires.Vampire;
+import com.mygdx.game.actor.monster.vampires.VampireMaster;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier3;
@@ -23,7 +32,7 @@ public class BlackPlateMail extends AbstractItem implements Armor, Tier3, Crafta
 
     @Override
     public int getDamageProtection() {
-        return 8;
+        return 12;
     }
 
     @Override
@@ -33,7 +42,19 @@ public class BlackPlateMail extends AbstractItem implements Armor, Tier3, Crafta
 
     @Override
     public Set<Class<? extends Actor>> getAllowedClasses() {
-        return ImmutableSet.of(Warrior.class, SkeletonWarrior.class, Lich.class, Orc.class);
+        return ImmutableSet.of(Warrior.class,
+                Ranger.class,
+                Paladin.class,
+                SkeletonWarrior.class,
+                Lich.class,
+                PowerLich.class,
+                UndeadKnight.class,
+                Orc.class,
+                OrcBoss.class,
+                RatBrute.class,
+                RatMan.class,
+                Vampire.class,
+                VampireMaster.class);
     }
 
     @Override

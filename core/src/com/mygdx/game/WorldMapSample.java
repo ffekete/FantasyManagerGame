@@ -36,9 +36,12 @@ import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.potion.SmallManaPotion;
+import com.mygdx.game.item.shield.LargeShield;
+import com.mygdx.game.item.shield.LionShield;
 import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
+import com.mygdx.game.item.weapon.sword.BastardSword;
 import com.mygdx.game.item.weapon.sword.ShortSwordPlusFour;
 import com.mygdx.game.item.weapon.twohandedsword.Flamberge;
 import com.mygdx.game.logic.GameState;
@@ -147,7 +150,7 @@ public class WorldMapSample extends SampleBase {
 
         warrior = ActorFactory.INSTANCE.create(Warrior.class, worldMap, Placement.FIXED.X(8).Y(11));
         warrior.equip(new Flamberge());
-        //warrior.equip(new MediumShield());
+        //warrior.equip(new LargeShield());
         warrior.setName("Boromir");
         warrior.addTrait(Trait.Friendly);
         warrior.getInventory().add(new SmallAntiVenomPotion());

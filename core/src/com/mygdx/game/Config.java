@@ -70,11 +70,11 @@ public class Config {
         public static final int HEALING_POTION_STRENGTH = 20;
         public static final int MANA_POTION_STRENGTH = 20;
 
-        // power lists
-        public static final int BLACK_PLATE_MAIL_POWER = 10;
-        public static final int PLATE_MAIL_POWER = 9;
-        public static final int CHAIN_MAIL_POWER = 8;
-        public static final int LEATHER_ARMOR_POWER = 7;
+        // power lists (damageProtection + enhancements * 2
+        public static final int BLACK_PLATE_MAIL_POWER = 12;
+        public static final int PLATE_MAIL_POWER = 8;
+        public static final int CHAIN_MAIL_POWER = 7;
+        public static final int LEATHER_ARMOR_POWER = 6;
 
         public static final int MEDIUM_SHIELD_POWER = 6;
         public static final int LARGE_SHIELD_POWER = 7;
