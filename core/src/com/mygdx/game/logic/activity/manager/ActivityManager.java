@@ -6,6 +6,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.hero.Ranger;
 import com.mygdx.game.actor.hero.Warrior;
 import com.mygdx.game.actor.hero.Wizard;
+import com.mygdx.game.actor.monster.greenskins.BlackTroll;
 import com.mygdx.game.actor.monster.greenskins.CaveTroll;
 import com.mygdx.game.actor.monster.greenskins.Goblin;
 import com.mygdx.game.actor.monster.greenskins.Orc;
@@ -144,6 +145,12 @@ public class ActivityManager {
                 )
 
                 .put(CaveTroll.class, ImmutableList.of(
+                        new ConsumeAntiVenomPotionDecision(),
+                        new MoveAndAttackDecision(),
+                        new WanderingDecision())
+                )
+
+                .put(BlackTroll.class, ImmutableList.of(
                         new ConsumeAntiVenomPotionDecision(),
                         new MoveAndAttackDecision(),
                         new WanderingDecision())

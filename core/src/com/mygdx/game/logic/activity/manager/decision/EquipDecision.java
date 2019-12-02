@@ -2,10 +2,9 @@ package com.mygdx.game.logic.activity.manager.decision;
 
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.Equipable;
-import com.mygdx.game.item.Item;
-import com.mygdx.game.item.OneHandedItem;
 import com.mygdx.game.item.armor.Armor;
 import com.mygdx.game.item.shield.Shield;
+import com.mygdx.game.item.weapon.OnehandedWeapon;
 import com.mygdx.game.item.weapon.TwohandedWeapon;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.activity.single.EquipActivity;
@@ -42,7 +41,7 @@ public class EquipDecision implements Decision {
                         actor.getActivityStack().add(equipActivity);
                         return true;
                     }
-                } else if (OneHandedItem.class.isAssignableFrom(equipable.getClass())) {
+                } else if (OnehandedWeapon.class.isAssignableFrom(equipable.getClass())) {
 
                     if (actor.getRightHandItem() == null ||
                             (weaponSkillSelector.findBestSkillFor(actor, (Weapon) equipable).equals(weaponSkillSelector.findBestSkillFor(actor, (Weapon) actor.getRightHandItem()))) && actor.getRightHandItem().getPower() < equipable.getPower() ||

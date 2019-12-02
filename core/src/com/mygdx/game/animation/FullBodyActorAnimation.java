@@ -5,16 +5,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
-import com.mygdx.game.actor.BodyType;
 import com.mygdx.game.actor.Direction;
-import com.mygdx.game.item.OneHandedItem;
+import com.mygdx.game.item.weapon.OnehandedWeapon;
 import com.mygdx.game.item.weapon.twohandedsword.TwoHandedSword;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.single.*;
-import com.mygdx.game.logic.attack.AttackController;
-import com.mygdx.game.registry.ActionRegistry;
-import com.mygdx.game.registry.AnimationRegistry;
-import com.mygdx.game.registry.RendererToolsRegistry;
 import com.mygdx.game.registry.TextureRegistry;
 import com.mygdx.game.renderer.direction.DirectionSelector;
 
@@ -37,7 +32,7 @@ public class FullBodyActorAnimation implements ActorAnimation {
         spriteBatch.setColor(Color.WHITE);
         // weapon
         if (actor.getRightHandItem() != null && !actor.isAttacking()) {
-            if(OneHandedItem.class.isAssignableFrom(actor.getRightHandItem().getClass())) {
+            if(OnehandedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass())) {
                 spriteBatch.draw(textureRegistry.getFor(actor.getRightHandItem().getClass()), x + offset + (!getFlip(direction) ? 0.0f : -0.3f), y + offset - 0.2f, 0.5f, 0.5f, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, getFlip(direction) ? 75f : 115f, 0, 0, textureRegistry.getFor(actor.getRightHandItem().getClass()).getHeight(), textureRegistry.getFor(actor.getRightHandItem().getClass()).getWidth(), true, !getFlip(direction));
             } else if (!TwoHandedSword.class.isAssignableFrom(actor.getRightHandItem().getClass())){
                     spriteBatch.draw(textureRegistry.getFor(actor.getRightHandItem().getClass()), x + offset - 0.15f, y + offset - 0.2f, 0.5f, 0.5f, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, getFlip(direction) ? 75f : 115f, 0, 0, textureRegistry.getFor(actor.getRightHandItem().getClass()).getHeight(), textureRegistry.getFor(actor.getRightHandItem().getClass()).getWidth(), true, !getFlip(direction));

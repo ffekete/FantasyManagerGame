@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class ArmorProvider {
+public class ArmorRandomiser {
 
-    public static final ArmorProvider INSTANCE = new ArmorProvider();
+    public static final ArmorRandomiser INSTANCE = new ArmorRandomiser();
 
     public Equipable getFor(Class<? extends Category> category, Class<? extends Actor> clazz) {
 
@@ -21,6 +21,9 @@ public class ArmorProvider {
                 .stream()
                 .filter(item -> Armor.class.isAssignableFrom(item))
                 .collect(Collectors.toList());
+
+        if(equippables.size() == 0)
+            return null;
 
         List<Item> equipables = equippables
                 .stream().map(e -> {
@@ -34,6 +37,9 @@ public class ArmorProvider {
                     return null;
                 })
                 .collect(Collectors.toList());
+
+        if(equipables.isEmpty())
+            return null;
 
         List<Armor> armors = equipables.stream()
                 .filter(e -> ((Armor) e).getAllowedClasses().contains(clazz))

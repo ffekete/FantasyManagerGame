@@ -1,4 +1,4 @@
 package com.mygdx.game.item.weapon;
 
-public interface TwohandedWeapon {
+public interface TwohandedWeapon extends Weapon {
 }

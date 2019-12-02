@@ -15,12 +15,12 @@ import com.mygdx.game.faction.Alignment;
 import com.mygdx.game.item.Equipable;
 import com.mygdx.game.item.Item;
 import com.mygdx.game.item.ItemFactory;
-import com.mygdx.game.item.OneHandedItem;
 import com.mygdx.game.item.armor.Armor;
 import com.mygdx.game.item.factory.Placement;
 import com.mygdx.game.item.money.MoneyBag;
 import com.mygdx.game.item.shield.Shield;
 import com.mygdx.game.item.spelltome.SpellTome;
+import com.mygdx.game.item.weapon.OnehandedWeapon;
 import com.mygdx.game.item.weapon.TwohandedWeapon;
 import com.mygdx.game.item.weapon.Weapon;
 import com.mygdx.game.logic.Point;
@@ -261,7 +261,7 @@ public abstract class AbstractActor implements Actor {
             equipable.onEquip(this);
             System.out.println(name + " equipped in left hand " + equipable);
 
-        } else if (OneHandedItem.class.isAssignableFrom(equipable.getClass())) {
+        } else if (OnehandedWeapon.class.isAssignableFrom(equipable.getClass())) {
             unequip(this.rightHand);
             rightHand = equipable;
             inventory.remove(equipable);
@@ -621,5 +621,10 @@ public abstract class AbstractActor implements Actor {
     @Override
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public int getRegenerateAmount() {
+        return 1;
     }
 }

@@ -490,6 +490,71 @@
           ]
         }
       }
+    },
+    {
+      "type": "blackTroll",
+      "male": {
+        "armor": {
+          "trollArmor": "actors/bodyparts/troll/TrollArmor.png"
+        },
+        "body": {
+          "colors": [
+            "BBBBBB"
+          ],
+          "parts": [
+            "actors/bodyparts/troll/body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "FF0040",
+            "FF0000"
+          ],
+          "parts": [
+            "actors/bodyparts/troll/eyes.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "000000",
+            "6E6E6E"
+          ],
+          "parts": [
+            "actors/bodyparts/troll/hair.png"
+          ]
+        }
+      },
+      "female": {
+        "armor": {
+          "trollArmor": "actors/bodyparts/troll/TrollArmor.png"
+        },
+        "body": {
+          "colors": [
+            "AAAAAA"
+          ],
+          "parts": [
+            "actors/bodyparts/troll/body.png"
+          ]
+        },
+        "eyes": {
+          "colors": [
+            "FF0040",
+            "FF0000"
+          ],
+          "parts": [
+            "actors/bodyparts/troll/eyes.png"
+          ]
+        },
+        "hair": {
+          "colors": [
+            "000000",
+            "6E6E6E"
+          ],
+          "parts": [
+            "actors/bodyparts/troll/hair.png"
+          ]
+        }
+      }
     }
   ]
 }

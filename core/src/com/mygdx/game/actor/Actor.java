@@ -121,4 +121,6 @@ public interface Actor {
 
     Gender getGender();
     void setGender(Gender gender);
+
+    int getRegenerateAmount();
 }

@@ -18,6 +18,7 @@ import com.mygdx.game.item.weapon.mace.GiantClub;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.*;
 import com.mygdx.game.item.weapon.twohandedsword.Flamberge;
+import com.mygdx.game.item.weapon.twohandedsword.FlambergePlusOne;
 import com.mygdx.game.map.Map2D;
 
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ public class ItemRegistry {
                     .add(LargeShield.class)
                     // Sword
                     .add(ShortSwordPlusOne.class)
+                    .add(FlambergePlusOne.class)
                     // Armor
                     .add(PlateMailArmor.class)
                     .build())

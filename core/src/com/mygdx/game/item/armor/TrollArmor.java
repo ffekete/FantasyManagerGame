@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableSet;
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.BodyType;
+import com.mygdx.game.actor.monster.greenskins.BlackTroll;
 import com.mygdx.game.actor.monster.greenskins.CaveTroll;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
@@ -15,7 +16,7 @@ public class TrollArmor extends AbstractItem implements Armor, Tier2, Craftable 
 
     @Override
     public Set<Class<? extends Actor>> getAllowedClasses() {
-        return ImmutableSet.of(CaveTroll.class);
+        return ImmutableSet.of(CaveTroll.class, BlackTroll.class);
     }
 
     @Override

@@ -49,66 +49,77 @@ public class DungeonFactory {
             itemPlacementHandler.place(dungeon);
         }
 
-        if(!dungeonTheme.getMonsters(MonsterTier.Tier1).isEmpty()) {
+        if (!dungeonTheme.getMonsters(MonsterTier.Tier1).isEmpty()) {
             for (int i = 0; i < 10; i++) {
-                Class<? extends Actor> actorClass = dungeonTheme.getMonsters(MonsterTier.Tier1).get(new Random().nextInt(dungeonTheme.getMonsters(MonsterTier.Tier1).size()));
+
+                Class<? extends Actor> actorClass = dungeonTheme
+                        .getMonsters(MonsterTier.Tier1)
+                        .get(new Random().nextInt(dungeonTheme.getMonsters(MonsterTier.Tier1).size()));
+
                 Actor actor = ActorFactory.INSTANCE.create(actorClass, dungeon, Placement.RANDOM);
                 actor.addMoney(new Random().nextInt(10));
                 actor.setHp(actor.getMaxHp());
                 actor.setMana(actor.getMaxMana());
-                actor.equip(WeaponProvider.INSTANCE.getFor(Tier1.class));
-                actor.equip(ArmorProvider.INSTANCE.getFor(Tier1.class, actorClass));
+
+                GearRandomiser.INSTANCE.selectGear(actorClass, actor, Tier1.class);
             }
         }
 
-        if(!dungeonTheme.getMonsters(MonsterTier.Tier2).isEmpty()) {
+        if (!dungeonTheme.getMonsters(MonsterTier.Tier2).isEmpty()) {
             for (int i = 0; i < 5; i++) {
                 Class<? extends Actor> actorClass = dungeonTheme.getMonsters(MonsterTier.Tier2).get(new Random().nextInt(dungeonTheme.getMonsters(MonsterTier.Tier2).size()));
                 Actor actor = ActorFactory.INSTANCE.create(actorClass, dungeon, Placement.RANDOM);
-                actor.equip(WeaponProvider.INSTANCE.getFor(Tier2.class));
+
                 actor.setHp(actor.getMaxHp());
                 actor.setMana(actor.getMaxMana());
                 actor.addMoney(new Random().nextInt(30));
-                actor.equip(ArmorProvider.INSTANCE.getFor(Tier2.class, actorClass));
+
+                GearRandomiser.INSTANCE.selectGear(actorClass, actor, Tier2.class);
             }
         }
 
-        if(!dungeonTheme.getMonsters(MonsterTier.Tier3).isEmpty()) {
+        if (!dungeonTheme.getMonsters(MonsterTier.Tier3).isEmpty()) {
             for (int i = 0; i < 3; i++) {
                 Class<? extends Actor> actorClass = dungeonTheme.getMonsters(MonsterTier.Tier3).get(new Random().nextInt(dungeonTheme.getMonsters(MonsterTier.Tier3).size()));
                 Actor actor = ActorFactory.INSTANCE.create(actorClass, dungeon, Placement.RANDOM);
-                actor.equip(WeaponProvider.INSTANCE.getFor(Tier3.class));
+
                 actor.setHp(actor.getMaxHp());
                 actor.setMana(actor.getMaxMana());
                 actor.addMoney(new Random().nextInt(30) + 30);
-                actor.equip(ArmorProvider.INSTANCE.getFor(Tier3.class, actorClass));
+
+                GearRandomiser.INSTANCE.selectGear(actorClass, actor, Tier3.class);
             }
         }
 
-        if(!dungeonTheme.getMonsters(MonsterTier.Tier4).isEmpty()) {
+        if (!dungeonTheme.getMonsters(MonsterTier.Tier4).isEmpty()) {
             for (int i = 0; i < 2; i++) {
                 Class<? extends Actor> actorClass = dungeonTheme.getMonsters(MonsterTier.Tier4).get(new Random().nextInt(dungeonTheme.getMonsters(MonsterTier.Tier4).size()));
                 Actor actor = ActorFactory.INSTANCE.create(actorClass, dungeon, Placement.RANDOM);
-                actor.equip(WeaponProvider.INSTANCE.getFor(Tier4.class));
+
                 actor.setHp(actor.getMaxHp());
                 actor.setMana(actor.getMaxMana());
                 actor.addMoney(new Random().nextInt(50) + 50);
-                actor.equip(ArmorProvider.INSTANCE.getFor(Tier4.class, actorClass));
+
+                GearRandomiser.INSTANCE.selectGear(actorClass, actor, Tier4.class);
             }
         }
 
-        if(!dungeonTheme.getMonsters(MonsterTier.Boss).isEmpty()) {
+        if (!dungeonTheme.getMonsters(MonsterTier.Boss).isEmpty()) {
             for (int i = 0; i < 1; i++) {
                 Class<? extends Actor> actorClass = dungeonTheme.getMonsters(MonsterTier.Boss).get(new Random().nextInt(dungeonTheme.getMonsters(MonsterTier.Boss).size()));
                 Actor actor = ActorFactory.INSTANCE.create(actorClass, dungeon, Placement.RANDOM);
-                actor.equip(WeaponProvider.INSTANCE.getFor(Legendary.class));
+
                 actor.setHp(actor.getMaxHp());
                 actor.setMana(actor.getMaxMana());
                 actor.addMoney(new Random().nextInt(100) + 50);
+
+                GearRandomiser.INSTANCE.selectGear(actorClass, actor, Legendary.class);
             }
         }
 
         return dungeon;
     }
+
+
 
 }

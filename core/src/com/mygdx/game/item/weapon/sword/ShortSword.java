@@ -4,13 +4,13 @@ import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
-import com.mygdx.game.item.OneHandedItem;
 import com.mygdx.game.item.category.Tier1;
+import com.mygdx.game.item.weapon.OnehandedWeapon;
 import com.mygdx.game.logic.Point;
 
 import java.util.Random;
 
-public class ShortSword extends AbstractItem implements OneHandedItem, Sword, Tier1, Craftable {
+public class ShortSword extends AbstractItem implements OnehandedWeapon, Sword, Tier1, Craftable {
 
     private Point coordinates = new Point(0,0);
 

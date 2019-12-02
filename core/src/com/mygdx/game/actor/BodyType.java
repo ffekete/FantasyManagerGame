@@ -10,6 +10,7 @@ public enum BodyType {
     Medusa("medusa"),
     Minotaurus("medusa"),
     Troll("troll"),
+    BlackTroll("blacTroll"),
     Ogre("ogre"),
     HumanoidSkeleton("skeleton"),
     Ethereal("ethereal"),

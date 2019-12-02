@@ -1,27 +1,25 @@
-package com.mygdx.game.item.weapon.sword;
+package com.mygdx.game.item.weapon.twohandedsword;
 
 import com.mygdx.game.Config;
 import com.mygdx.game.actor.Actor;
 import com.mygdx.game.item.AbstractItem;
 import com.mygdx.game.item.Craftable;
 import com.mygdx.game.item.category.Tier1;
-import com.mygdx.game.item.weapon.OnehandedWeapon;
-import com.mygdx.game.logic.Point;
+import com.mygdx.game.item.weapon.TwohandedWeapon;
+import com.mygdx.game.item.weapon.sword.Sword;
 
 import java.util.Random;
 
-public class BastardSword extends AbstractItem implements OnehandedWeapon, Sword, Tier1, Craftable {
-
-    private Point coordinates = new Point(0,0);
+public class FlambergePlusOne extends AbstractItem implements TwohandedWeapon, TwoHandedSword, Sword, Tier1, Craftable {
 
     @Override
     public int getDamage() {
-        return new Random().nextInt(5) + 2;
+        return new Random().nextInt(8) + 2 + 1;
     }
 
     @Override
     public int getPrice() {
-        return 120;
+        return 500;
     }
 
     @Override
@@ -46,16 +44,16 @@ public class BastardSword extends AbstractItem implements OnehandedWeapon, Sword
 
     @Override
     public int getPower() {
-        return Config.Item.BASTARD_SWORD_POWER;
+        return Config.Item.FLAMBERGE_POWER + 1;
     }
 
     @Override
     public String getDescription() {
-        return "Large sharp sword.";
+        return "Two handed deadly sword.";
     }
 
     @Override
     public String getName() {
-        return "Bastard sword";
+        return "Flamberge +1";
     }
 }

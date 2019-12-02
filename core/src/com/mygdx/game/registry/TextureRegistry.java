@@ -37,6 +37,7 @@ import com.mygdx.game.item.weapon.mace.GiantClub;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.*;
 import com.mygdx.game.item.weapon.twohandedsword.Flamberge;
+import com.mygdx.game.item.weapon.twohandedsword.FlambergePlusOne;
 import com.mygdx.game.logic.action.*;
 import com.mygdx.game.map.TileBase;
 import com.mygdx.game.map.dungeon.DungeonType;
@@ -202,6 +203,7 @@ public class TextureRegistry {
                 .put(JadeStaff.class, texturePathResolver.resolve("items/weapons/JadeStaff.png"))
                 .put(LongBow.class, texturePathResolver.resolve("items/weapons/LongBow.png"))
                 .put(Flamberge.class, texturePathResolver.resolve("items/weapons/Flamberge.png"))
+                .put(FlambergePlusOne.class, texturePathResolver.resolve("items/weapons/Flamberge.png"))
                 .put(GiantClub.class, texturePathResolver.resolve("items/weapons/Club.png"))
                 .put(Hammer.class, texturePathResolver.resolve("effects/Hammer.png"))
 

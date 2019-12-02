@@ -105,6 +105,18 @@ public interface AttributePopulator {
             }
         },
 
+        BlackTroll {
+            @Override
+            public void populateFor(Actor actor) {
+                actor.setAttribute(Attributes.Strength, new Random().nextInt(15) + 13);
+                actor.setAttribute(Attributes.Endurance, new Random().nextInt(15) + 13);
+                actor.setAttribute(Attributes.Dexterity, new Random().nextInt(5) + 5);
+                actor.setAttribute(Attributes.Reflexes, new Random().nextInt(5) + 5);
+                actor.setAttribute(Attributes.Intelligence, new Random().nextInt(2) + 2);
+                actor.setAttribute(Attributes.Wisdom, 1);
+            }
+        },
+
         CaveTroll {
             @Override
             public void populateFor(Actor actor) {
@@ -152,6 +164,7 @@ public interface AttributePopulator {
                 .put(com.mygdx.game.actor.wildlife.Wolf.class, Wolf)
                 .put(com.mygdx.game.actor.wildlife.Rabbit.class, Rabbit)
                 .put(com.mygdx.game.actor.monster.greenskins.CaveTroll.class, CaveTroll)
+                .put(com.mygdx.game.actor.monster.greenskins.BlackTroll.class, BlackTroll)
                 .build();
 
         public static void populate(Actor actor) {

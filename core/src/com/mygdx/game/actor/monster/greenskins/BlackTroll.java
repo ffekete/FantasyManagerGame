@@ -6,9 +6,9 @@ import com.mygdx.game.actor.MeleeActor;
 
 import static com.mygdx.game.faction.Alignment.ENEMY;
 
-public class CaveTroll extends AbstractActor implements MeleeActor {
+public class BlackTroll extends AbstractActor implements MeleeActor {
 
-    public CaveTroll() {
+    public BlackTroll() {
         this.setAlignment(ENEMY);
     }
 
@@ -54,7 +54,7 @@ public class CaveTroll extends AbstractActor implements MeleeActor {
 
     @Override
     public String getActorClass() {
-        return "Cave troll";
+        return "Black troll";
     }
 
     @Override
@@ -64,6 +64,6 @@ public class CaveTroll extends AbstractActor implements MeleeActor {
 
     @Override
     public int getRegenerateAmount() {
-        return 5;
+        return 8;
     }
 }

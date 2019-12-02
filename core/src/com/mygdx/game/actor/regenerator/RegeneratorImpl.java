@@ -46,7 +46,7 @@ public enum RegeneratorImpl implements Regenerator {
 
             for (Actor a : actorRegistry.getAllActors()) {
                 int hp = a.getHp();
-                a.setHp(Math.min(hp + 1, a.getMaxHp()));
+                a.setHp(Math.min(hp + a.getRegenerateAmount(), a.getMaxHp()));
             }
         }
     }
