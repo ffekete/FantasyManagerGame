@@ -8,6 +8,7 @@ import com.mygdx.game.actor.Actor;
 import com.mygdx.game.actor.BodyType;
 import com.mygdx.game.actor.Direction;
 import com.mygdx.game.item.OneHandedItem;
+import com.mygdx.game.item.weapon.twohandedsword.TwoHandedSword;
 import com.mygdx.game.logic.activity.Activity;
 import com.mygdx.game.logic.activity.single.*;
 import com.mygdx.game.logic.attack.AttackController;
@@ -38,8 +39,8 @@ public class FullBodyActorAnimation implements ActorAnimation {
         if (actor.getRightHandItem() != null && !actor.isAttacking()) {
             if(OneHandedItem.class.isAssignableFrom(actor.getRightHandItem().getClass())) {
                 spriteBatch.draw(textureRegistry.getFor(actor.getRightHandItem().getClass()), x + offset + (!getFlip(direction) ? 0.0f : -0.3f), y + offset - 0.2f, 0.5f, 0.5f, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, getFlip(direction) ? 75f : 115f, 0, 0, textureRegistry.getFor(actor.getRightHandItem().getClass()).getHeight(), textureRegistry.getFor(actor.getRightHandItem().getClass()).getWidth(), true, !getFlip(direction));
-            } else {
-                spriteBatch.draw(textureRegistry.getFor(actor.getRightHandItem().getClass()), x + offset - 0.15f, y + offset - 0.2f, 0.5f, 0.5f, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, getFlip(direction) ? 75f : 115f, 0, 0, textureRegistry.getFor(actor.getRightHandItem().getClass()).getHeight(), textureRegistry.getFor(actor.getRightHandItem().getClass()).getWidth(), true, !getFlip(direction));
+            } else if (!TwoHandedSword.class.isAssignableFrom(actor.getRightHandItem().getClass())){
+                    spriteBatch.draw(textureRegistry.getFor(actor.getRightHandItem().getClass()), x + offset - 0.15f, y + offset - 0.2f, 0.5f, 0.5f, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, getFlip(direction) ? 75f : 115f, 0, 0, textureRegistry.getFor(actor.getRightHandItem().getClass()).getHeight(), textureRegistry.getFor(actor.getRightHandItem().getClass()).getWidth(), true, !getFlip(direction));
             }
         }
 
@@ -55,6 +56,12 @@ public class FullBodyActorAnimation implements ActorAnimation {
         spriteBatch.setColor(Color.valueOf(actor.getAppearance().getHairColor()));
         spriteBatch.draw(getHairTexture(actor), x + offset, y + offset, 0, 0, 1, 1, scale, scale, 0, (int) phase * 32, 32 * row, 32, 32, getFlip(direction), false);
 
+        // armor
+        if (actor.getWornArmor() != null) {
+            spriteBatch.setColor(Color.WHITE);
+            spriteBatch.draw(textureRegistry.getArmor(actor.getBodyType().getArchetype(), actor.getWornArmor().getSimpleName(), actor.getGender()), x + offset, y + offset, 0, 0, 1, 1, scale, scale, 0f, (int) phase * 32, 32 * row, 32, 32, getFlip(direction), false);
+        }
+
         // beard
         if(actor.getAppearance().getBeardIndex() != null) {
             spriteBatch.setColor(Color.valueOf(actor.getAppearance().getHairColor()));
@@ -63,10 +70,12 @@ public class FullBodyActorAnimation implements ActorAnimation {
 
         spriteBatch.setColor(Color.WHITE);
 
-        // armor
-        if (actor.getWornArmor() != null) {
-            spriteBatch.draw(textureRegistry.getArmor(actor.getBodyType().getArchetype(), actor.getWornArmor().getSimpleName(), actor.getGender()), x + offset, y + offset, 0, 0, 1, 1, scale, scale, 0f, (int) phase * 32, 32 * row, 32, 32, getFlip(direction), false);
+        if (actor.getRightHandItem() != null && !actor.isAttacking()) {
+            if (TwoHandedSword.class.isAssignableFrom(actor.getRightHandItem().getClass())) {
+                spriteBatch.draw(textureRegistry.getFor(actor.getRightHandItem().getClass()), x + offset + (!getFlip(direction) ? 0.05f : -0.35f), y + offset - 0.175f, 0.5f, 0.5f, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, getFlip(direction) ? 75f : 115f, 0, 0, textureRegistry.getFor(actor.getRightHandItem().getClass()).getHeight(), textureRegistry.getFor(actor.getRightHandItem().getClass()).getWidth(), true, !getFlip(direction));
+            }
         }
+
         // shield
         if (actor.getLeftHandItem() != null) {
             spriteBatch.draw(textureRegistry.getFor(actor.getLeftHandItem().getClass()), actor.getX() + actor.getxOffset() + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, actor.getY() + actor.getyOffset() + (1f - Config.Engine.ACTOR_HEIGHT) / 2f, 0, 0, 1, 1, Config.Engine.ACTOR_HEIGHT, Config.Engine.ACTOR_HEIGHT, 0, 0, 0, textureRegistry.getFor(actor.getLeftHandItem().getClass()).getHeight(), textureRegistry.getFor(actor.getLeftHandItem().getClass()).getWidth(), directionSelector.getDirection(actor).equals(Direction.LEFT) || directionSelector.getDirection(actor).equals(Direction.UP), false);

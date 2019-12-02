@@ -102,4 +102,7 @@ public class EquipActivity implements Activity {
         return this.getClass();
     }
 
+    public Equipable getEquipable() {
+        return equipable;
+    }
 }

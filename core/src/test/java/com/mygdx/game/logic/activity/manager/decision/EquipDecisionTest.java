@@ -8,11 +8,14 @@ import com.mygdx.game.actor.monster.greenskins.CaveTroll;
 import com.mygdx.game.item.armor.BlackPlateMail;
 import com.mygdx.game.item.armor.ChainMailArmor;
 import com.mygdx.game.item.armor.LeatherArmor;
+import com.mygdx.game.item.armor.PlateMailArmor;
+import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.sword.FlameTongue;
 import com.mygdx.game.item.weapon.sword.ShortSword;
+import com.mygdx.game.logic.activity.single.EquipActivity;
 import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -45,6 +48,28 @@ public class EquipDecisionTest {
         Decision decision = new EquipDecision();
         boolean result = decision.decide(actor);
         assertThat(result, is(true));
+    }
+
+    @Test
+    public void testShouldPass_betterArmorInInventory_moreItems() {
+        Actor actor = new Warrior();
+        actor.equip(new ChainMailArmor());
+        actor.equip(new SmallShiled());
+        actor.equip(new ShortSword());
+
+        PlateMailArmor plateMailArmor = new PlateMailArmor();
+
+        actor.getInventory().add(new SmallHealingPotion());
+        actor.getInventory().add(new SmallShiled());
+        actor.getInventory().add(new ChainMailArmor());
+        actor.getInventory().add(new ShortSword());
+        actor.getInventory().add(plateMailArmor);
+        actor.getInventory().add(new PlateMailArmor());
+        actor.getInventory().add(new PlateMailArmor());
+        Decision decision = new EquipDecision();
+        boolean result = decision.decide(actor);
+        assertThat(result, is(true));
+        assertThat(((EquipActivity)actor.getActivityStack().getCurrent()).getEquipable().getName(), is(plateMailArmor.getName()));
     }
 
     @Test

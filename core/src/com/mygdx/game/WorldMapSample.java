@@ -30,6 +30,8 @@ import com.mygdx.game.input.keyboard.KeyboardInputControllerFacade;
 import com.mygdx.game.input.mouse.MouseInputControllerFacade;
 import com.mygdx.game.item.armor.ChainMailArmor;
 import com.mygdx.game.item.armor.LeatherArmor;
+import com.mygdx.game.item.armor.PlateMailArmor;
+import com.mygdx.game.item.armor.Robe;
 import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallHealingPotion;
@@ -38,6 +40,7 @@ import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.weapon.bow.LongBow;
 import com.mygdx.game.item.weapon.staff.JadeStaff;
 import com.mygdx.game.item.weapon.sword.ShortSwordPlusFour;
+import com.mygdx.game.item.weapon.twohandedsword.Flamberge;
 import com.mygdx.game.logic.GameState;
 import com.mygdx.game.logic.Point;
 import com.mygdx.game.logic.controller.GameFlowControllerFacade;
@@ -143,8 +146,8 @@ public class WorldMapSample extends SampleBase {
         shopkeeper = ActorFactory.INSTANCE.create(Shopkeeper.class, worldMap, Placement.FIXED.X(6).Y(5));
 
         warrior = ActorFactory.INSTANCE.create(Warrior.class, worldMap, Placement.FIXED.X(8).Y(11));
-        warrior.equip(new ShortSwordPlusFour());
-        warrior.equip(new MediumShield());
+        warrior.equip(new Flamberge());
+        //warrior.equip(new MediumShield());
         warrior.setName("Boromir");
         warrior.addTrait(Trait.Friendly);
         warrior.getInventory().add(new SmallAntiVenomPotion());
@@ -164,6 +167,7 @@ public class WorldMapSample extends SampleBase {
         ranger.getInventory().add(new SmallHealingPotion());
         ranger.getInventory().add(new SmallHealingPotion());
         ranger.getInventory().add(new SmallHealingPotion());
+        ranger.getInventory().add(new PlateMailArmor());
 
 //        ranger.getInventory().add(new Bread());
 //        ranger.getInventory().add(new Bread());
@@ -177,6 +181,7 @@ public class WorldMapSample extends SampleBase {
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
         hero.getInventory().add(new SmallHealingPotion());
+        hero.getInventory().add(new Robe());
 
         hero.getInventory().add(new SmallManaPotion());
         hero.getInventory().add(new SmallManaPotion());

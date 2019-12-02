@@ -30,11 +30,13 @@ public class EquipDecision implements Decision {
 
         if (actor.getInventory().has(Equipable.class)) {
 
-            for (Equipable equipable : actor.getInventory().getAll().stream().filter(o -> Equipable.class.isAssignableFrom(o.getClass())).map(o->(Equipable)o).collect(Collectors.toList())) {
+            for (Equipable equipable : actor.getInventory().getAll().stream()
+                    .filter(o -> Equipable.class.isAssignableFrom(o.getClass()))
+                    .map(o -> (Equipable) o).collect(Collectors.toList())) {
 
                 if (Shield.class.isAssignableFrom(equipable.getClass()) && (
                         actor.getRightHandItem() == null || !TwohandedWeapon.class.isAssignableFrom(actor.getRightHandItem().getClass()))
-                        ) {
+                ) {
                     if (actor.getLeftHandItem() == null || actor.getLeftHandItem().getPower() < equipable.getPower()) {
                         EquipActivity equipActivity = new EquipActivity(actor, equipable);
                         actor.getActivityStack().add(equipActivity);
@@ -74,9 +76,8 @@ public class EquipDecision implements Decision {
                         }
                     }
                 }
-                return false;
             }
-
+            return false;
         }
         return actor.getActivityStack().contains(EquipActivity.class);
     }

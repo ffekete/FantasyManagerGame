@@ -77,6 +77,7 @@ public class Config {
         public static final int LEATHER_ARMOR_POWER = 7;
 
         public static final int MEDIUM_SHIELD_POWER = 6;
+        public static final int LARGE_SHIELD_POWER = 7;
         public static final int SMALL_SHIELD_POWER = 5;
         public static final int FLAME_TONGUE_POWER = 10;
         public static final int POISON_FANG_POWER = 10;
@@ -86,6 +87,7 @@ public class Config {
         public static final int SHORT_SWORD_PLUS_FOUR_POWER = 9;
         public static final int JADE_STAFF_POWER = 4;
         public static final int LONGBOW_POWER = 6;
+        public static int BASTARD_SWORD_POWER = 6;
     }
 
     public static class Spell {

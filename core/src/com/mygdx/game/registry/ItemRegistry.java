@@ -9,6 +9,8 @@ import com.mygdx.game.item.food.Bread;
 import com.mygdx.game.item.potion.SmallAntiVenomPotion;
 import com.mygdx.game.item.potion.SmallHealingPotion;
 import com.mygdx.game.item.potion.SmallManaPotion;
+import com.mygdx.game.item.shield.LargeShield;
+import com.mygdx.game.item.shield.LionShield;
 import com.mygdx.game.item.shield.MediumShield;
 import com.mygdx.game.item.shield.SmallShiled;
 import com.mygdx.game.item.weapon.bow.LongBow;
@@ -50,12 +52,14 @@ public class ItemRegistry {
                     // Armor
                     .add(LeatherArmor.class)
                     .add(ChainMailArmor.class)
+                    .add(Robe.class)
                     .build())
 
             .put(Tier2.class, ImmutableList.<Class<? extends Item>>builder()
                     // Food
                     // Potion
                     // Shield
+                    .add(LargeShield.class)
                     // Sword
                     .add(ShortSwordPlusOne.class)
                     // Armor
@@ -66,6 +70,7 @@ public class ItemRegistry {
                     // Food
                     // Potion
                     // Shield
+                    .add(LionShield.class)
                     // Sword
                     .add(GiantClub.class)
                     // Armor

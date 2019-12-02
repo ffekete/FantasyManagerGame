@@ -6,7 +6,8 @@
         "armor": {
           "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
           "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png",
-          "plateMailArmor": "actors/bodyparts/humanoid/plateMailArmor.png"
+          "plateMailArmor": "actors/bodyparts/humanoid/plateMailArmor.png",
+          "robe": "actors/bodyparts/humanoid/robe.png"
         },
         "body": {
           "colors": [
@@ -54,7 +55,8 @@
         "armor": {
           "leatherArmor": "actors/bodyparts/humanoid/leatherArmor.png",
           "chainMailArmor": "actors/bodyparts/humanoid/chainMailArmor.png",
-          "plateMailArmor": "actors/bodyparts/humanoid/plateMailArmor.png"
+          "plateMailArmor": "actors/bodyparts/humanoid/plateMailArmor.png",
+          "robe": "actors/bodyparts/humanoid/robe.png"
         },
         "body": {
           "colors": [
